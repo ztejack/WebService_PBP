@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Return a model value array, containing any relation model.
+     *
+     * @return array
+     */
+    public function employee(){
+        return $this->hasOne(Employee::class, 'id_employee');
+    }
+    public function subsatker()
+    {
+        return $this->belongsTo(Subsatker::class, 'id_subsatker');
+    }
+    public function satker()
+    {
+        return $this->belongsTo(Satker::class);
+    }
 }

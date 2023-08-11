@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('satkers', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('satker');
+            $table->timestamps();
+        });
+        Schema::create('subsatkers', function (Blueprint $table) {
+            $table->id();
+            $table->string('subsatker');
+            $table->foreignId('id_satker')->default(false)->references('id')->on('satkers')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('satkers');
     }
 };
