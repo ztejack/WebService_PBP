@@ -3,26 +3,16 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
-        ]);
 
-        // if (!Auth()->attempt($data)) {
-        //     return response(['error_message' => 'Incorrect Details.
-        //     Please try again']);
-        // }
-
-        // $token = Auth()::user()->createToken('Laravel-9-Passport-Auth')->accessToken;
-        // return response()->json(['token' => $token], 200);
-        $token = Auth::attempt($credentials);
+        $token = Auth::attempt($request);
         if (!$token) {
             return response()->json([
                 'status' => 'fails',
@@ -30,15 +20,33 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = Auth::user();
-        $token = Auth::user()->createToken('Laravel-9-Passport-Auth')->accessToken;
+        $token = Auth::user()->createToken('Prima-Auth')->accessToken;
         return response()->json([
             'status' => 'success',
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
             ],
-            // 'api-key' => new ApiKeyResource($user->apikey)
+        ], 200);
+    }
+
+    /**
+     * Log out
+     *
+     * Log out the user and delete the token.
+     *
+     * @response 200 scenario="Ok"
+     * {
+     *  "status": "success",
+     *  "message": "Successfully logged out"
+     * }
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
         ], 200);
     }
 }
