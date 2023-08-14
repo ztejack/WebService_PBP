@@ -40,10 +40,10 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'remove-role-su']);
 
         //ROLE USERS
-        $superadminRole = Role::create(['name' => 'SuperAdmin']);
+        $superuserRole = Role::create(['name' => 'SuperUser']);
         $adminRole = Role::create(['name' => 'Admin']);
 
-        $superadminRole->givePermissionTo([
+        $superuserRole->givePermissionTo([
             'assign-role-su',
             'remove-role-su',
 
@@ -64,7 +64,7 @@ class RoleAndPermissionSeeder extends Seeder
             'search-employe',
             'show-employe',
         ]);
-        $adminRole->givePermissiionTo([
+        $adminRole->givePermissionTo([
             'assign-role',
             'remove-role',
 
