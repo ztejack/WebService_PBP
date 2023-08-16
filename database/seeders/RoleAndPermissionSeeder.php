@@ -42,6 +42,8 @@ class RoleAndPermissionSeeder extends Seeder
         //ROLE USERS
         $superuserRole = Role::create(['name' => 'SuperUser']);
         $adminRole = Role::create(['name' => 'Admin']);
+        $employeRole = Role::create(['name' => 'Employe']);
+        $guestRole = Role::create(['name' => 'Guest']);
 
         $superuserRole->givePermissionTo([
             'assign-role-su',
@@ -82,5 +84,7 @@ class RoleAndPermissionSeeder extends Seeder
             'search-employe',
             'show-employe',
         ]);
+
+        $adminRole->givePermissionTo([]);
     }
 }

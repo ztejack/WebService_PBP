@@ -42,6 +42,6 @@ class LoginRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'message' => 'The given data was invalid.',
             'errors' => $errors,
-        ], 422));
+        ], 401));
     }
 }

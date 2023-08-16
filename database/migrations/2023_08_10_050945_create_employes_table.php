@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('employes', function (Blueprint $table) {
-            $table->id();
-            $table->string('uuid')->unique();
+            $table->uuid('id')->primary();
+            // $table->string('uuid')->unique();
             $table->string('nip');
             $table->string('npwp');
             $table->string('ttl');
@@ -29,8 +29,9 @@ return new class extends Migration
             $table->date('date_start');
             $table->string('tenure');
             $table->string('contract_type');
-            $table->foreignId('subsatker_id')->default(false)->references('id')->on('subsatkers');
-            $table->foreignId('user_id')->default(false)->references('id')->on('users');
+            // $table->uuid('userId')->nullable(false);
+            $table->foreignId('subsatkerId')->default(false)->references('id')->on('subsatkers');
+            $table->foreignId('userId')->constrained('users');
             $table->timestamps();
         });
     }
