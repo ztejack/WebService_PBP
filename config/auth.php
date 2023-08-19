@@ -43,7 +43,7 @@ return [
         'api' => [
             'driver' => 'jwt', //update this line
             'provider' => 'users',
-            // 'hash' => false,
+            'hash' => false,
         ],
     ],
 

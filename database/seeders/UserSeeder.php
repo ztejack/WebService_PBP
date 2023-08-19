@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Events\UserCreating;
+use App\Models\Employe;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Event;
 use Ramsey\Uuid\Uuid;
 use Spatie\Permission\Models\Role;
 
@@ -27,6 +30,7 @@ class UserSeeder extends Seeder
         ]);
         $superAdminRole = Role::findByName('SuperUser');
         $user->assignRole($superAdminRole);
+
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),

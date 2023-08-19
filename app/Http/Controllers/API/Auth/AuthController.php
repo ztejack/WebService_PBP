@@ -27,7 +27,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'fails',
-                'message' => 'Wrong Password',
+                'message' => 'Wrong Credential',
             ], 422);
         }
         return response()->json([
@@ -59,20 +59,21 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function refresh(Request $request)
+    public function refresh()
     {
-        // try {
-        $user = Auth::user();
-        return response()->json([
-            'token' => Auth::refresh(),
-            'type' => 'bearer',
-        ], 200);
-        // } catch (\Throwable $th) {
-        //     // Handle the exception
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'An error occurred while creating the API key.'
-        //     ], 500);
-        // }
+        try {
+            // Refresh the token
+            return response()->json([
+                'token' => Auth::refresh(),
+                // 'token' => $newToken,
+                'type' => 'bearer',
+            ], 200);
+        } catch (\Throwable $th) {
+            // Handle the exception
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while creating the Token.'
+            ], 500);
+        }
     }
 }

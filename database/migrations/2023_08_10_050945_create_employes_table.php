@@ -14,24 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('employes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->uuid('uuid');
             // $table->string('uuid')->unique();
-            $table->string('nip');
-            $table->string('npwp');
-            $table->string('ttl');
-            $table->string('address');
-            $table->string('ktp_address');
-            $table->string('gender');
-            $table->string('religion');
-            $table->string('blood_type');
-            $table->string('golongan');
-            $table->boolean('status');
-            $table->date('date_start');
-            $table->string('tenure');
-            $table->string('contract_type');
-            // $table->uuid('userId')->nullable(false);
-            $table->foreignId('subsatkerId')->default(false)->references('id')->on('subsatkers');
-            $table->foreignId('userId')->constrained('users');
+            $table->string('nip')->nullable();
+            $table->string('npwp')->nullable();
+            $table->string('ttl')->nullable();
+            $table->string('address')->nullable();
+            $table->string('ktp_address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('blood_type')->nullable();
+            $table->string('golongan')->nullable();
+            $table->boolean('status')->nullable();
+            $table->dateTime('date_start')->nullable();
+            $table->string('tenure')->nullable();
+            $table->string('contract_type')->nullable();
+            $table->foreignId('subsatkerId')->default('1')->references('id')->on('subsatkers');
+            $table->foreignId('user_id')->constrained('users')->references('id')->on('users');
             $table->timestamps();
         });
     }
