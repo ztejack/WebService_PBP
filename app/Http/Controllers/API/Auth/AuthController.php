@@ -8,6 +8,8 @@ use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\Passport;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
@@ -74,6 +76,43 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => 'An error occurred while creating the Token.'
             ], 500);
+        }
+    }
+
+    public function ChangePassword(Request $request)
+    {
+        // dd($request->get('old_password'));
+
+        $validator = Validator::make($request->all(), [
+            'old_password'        => 'required',
+            'new_password'         => 'required|min:8|max:30',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+
+        if ($validator->fails()) {
+
+            return response()->json([
+                'message' => 'validations fails',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = $request->user();
+
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+
+            return response()->json([
+                'message' => ' password successfully updated',
+                'errors' => $validator->errors()
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'old password does not match',
+                'errors' => $validator->errors()
+            ], 422);
         }
     }
 }
