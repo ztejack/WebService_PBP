@@ -67,7 +67,6 @@ class AuthController extends Controller
             // Refresh the token
             return response()->json([
                 'token' => Auth::refresh(),
-                // 'token' => $newToken,
                 'type' => 'bearer',
             ], 200);
         } catch (\Throwable $th) {

@@ -2,18 +2,20 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+    // **
+    //  * Determine if the user is authorized to make this request.
+    //  *
+    //  * @return bool
+    //  *
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +25,33 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return $this->customrule();
+    }
+    public function customrule()
+    {
+        $rules = [
+            'name' => 'required|string',
+            'email' => 'required|unique:users,email|email',
+            'username' => 'required|unique:users,username|string',
+            'id_satker' => 'required',
+            'id_subsatker' => 'required',
         ];
+
+        // $rules = [];
+        // if (!is_null($this->input('id_role'))) {
+        //     $rules['id_role'] = 'not_in:1';
+        // } else {
+        //     $rules['id_role'] = '';
+        // }
+        return $rules;
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors()->messages();
+        throw new HttpResponseException(response()->json([
+            'message' => 'The given data was invalid.',
+            'errors' => $errors,
+        ], 422));
     }
 }
