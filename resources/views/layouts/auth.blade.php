@@ -14,8 +14,8 @@
 
 <body>
     <div class="container-xxl">
-        <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner ">
+        <div class="authentication-wrapper authentication-basic container-p-y ">
+            <div class="authentication-inner {{ Request::is('login') ? '' : 'width-50-auth' }}">
                 <!-- Register -->
                 <div class="log-hover {{ Request::is('login') ? 'd-none' : '' }}">
                     <a href="{{ route('login') }}" class="px-2 d-flex vertical py-2 ">

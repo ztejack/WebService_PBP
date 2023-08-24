@@ -24,14 +24,14 @@
                 <div class="layout-container">
                     <!-- Menu -->
 
-                    @include('components.menu')
+                    @include('components.global.menu')
                     <!-- / Menu -->
 
                     <!-- Layout container -->
                     <div class="layout-page">
                         <!-- Navbar -->
 
-                        @include('components.nav')
+                        @include('components.global.nav')
 
                         <!-- / Navbar -->
 

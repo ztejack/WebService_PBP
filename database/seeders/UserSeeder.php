@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Event;
+use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
 use Spatie\Permission\Models\Role;
 
@@ -21,7 +22,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'uuid' => Uuid::uuid4()->getHex(),
+            'uuid' => UuidV4::uuid4()->getHex(),
             'name' => 'SuperUser',
             'username' => 'superuser',
             'email' => 'superuser@example.com',
@@ -60,7 +61,7 @@ class UserSeeder extends Seeder
             'username' => 'guest',
             'email' => 'guest@example.com',
             'phone' => '085669920901',
-            'password' => bcrypt('123456789'),
+            'password' => '$2y$10$aVEprhNvnStc9fkeYyWptuZ.82TPtFuBymKxVVboZziDeBjjev3Xu',
         ]);
         $guestRole = Role::findByName('Guest');
         $user->assignRole($guestRole);

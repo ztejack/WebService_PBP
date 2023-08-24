@@ -29,6 +29,9 @@
   max-width: 400px;
   position: relative;
 }
+.width-50-auth{
+    max-width : 50% !important;
+}
 
 .authentication-wrapper.authentication-basic .authentication-inner:before {
   width: 148px;

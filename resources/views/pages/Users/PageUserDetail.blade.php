@@ -4,10 +4,6 @@
     <!-- Content wrapper -->
     <div class="content-wrapper ">
         <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
-            {{-- @include('components.global.comp1')
-            @include('components.global.comp2') --}}
-        </div>
 
         <div class="container-xxl flex-grow-1 container-p-y">
             @if (session()->has('success'))
@@ -16,10 +12,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @include('components.detailUser')
         </div>
         {{-- footer --}}
         @include('components.global.footer')
 
         <div class="content-backdrop fade"></div>
     </div>
+
+
+    <!-- Content wrapper -->
 @endsection
