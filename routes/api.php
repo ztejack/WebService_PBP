@@ -25,20 +25,16 @@ Route::prefix('v1/auth')->group(
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('changePassword', [AuthController::class, 'ChangePassword']);
-
-        Route::post('password/email',  ForgotPasswordController::class);
-        Route::post('password/code/check', CodeCheckController::class);
-        Route::post('password/reset', ResetPasswordController::class);
     }
 );
 
-Route::prefix('v1/user')->middleware(['auth:api'])->group(
-    function () {
-        Route::get('getall', [UserController::class, 'index'])->middleware('can:getall-users');
-        Route::get('search', [UserController::class, 'search'])->middleware('can:search-users');
-        Route::post('store', [UserController::class, 'store'])->middleware('can:store-users');
-        Route::get('show/{user}', [UserController::class, 'show'])->middleware('can:show-users');
-        Route::patch('update/{user}', [UserController::class, 'update'])->middleware('can:update-users');
-        Route::post('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:delete-users');
-    }
-);
+// Route::prefix('v1/user')->middleware(['auth:api'])->group(
+//     function () {
+//         Route::get('getall', [UserController::class, 'index'])->middleware('can:getall-users');
+//         Route::get('search', [UserController::class, 'search'])->middleware('can:search-users');
+//         Route::post('store', [UserController::class, 'store'])->middleware('can:store-users');
+//         Route::get('show/{user}', [UserController::class, 'show'])->middleware('can:show-users');
+//         Route::patch('update/{user}', [UserController::class, 'update'])->middleware('can:update-users');
+//         Route::post('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:delete-users');
+//     }
+// );
