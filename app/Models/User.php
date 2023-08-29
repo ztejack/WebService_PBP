@@ -10,11 +10,13 @@ use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasUuids;
-    use  HasFactory, Notifiable, HasRoles, HasApiTokens;
+    use  HasFactory, Notifiable, HasRoles, HasApiTokens, HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -72,6 +74,21 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')  // Field to generate slug from
+            ->saveSlugsTo('slug');       // Field to store the slug
+    }
+    public function getSubsatkerAttribute()
+    {
+        return $this->employee->subsatker;
+    }
+    public function getSatkerAttribute()
+    {
+        return $this->employee->subsatker->satker;
+    }
+
 
     /**
      * Return a model value array, containing any relation model.
@@ -80,15 +97,19 @@ class User extends Authenticatable implements JWTSubject
      */
     public function employee()
     {
-        return $this->hasOne(Employe::class);
+        return $this->hasone(Employe::class, 'user_id');
     }
     public function subsatker()
     {
-        return $this->belongsTo(Subsatker::class, 'id_subsatker');
+        return $this->belongsToMany(Subsatker::class);
     }
     public function satker()
     {
         return $this->belongsTo(Satker::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 
     public static function boot()

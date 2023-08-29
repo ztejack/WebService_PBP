@@ -6,7 +6,7 @@
         <a href="index.html" class="app-brand-link gap-2 img-fluid">
 
             <span class="app-brand-Logo demo">
-                <img class=" img-fluid" src="img/logo/LogoBukitPrima.jpeg" alt="">
+                <img class=" img-fluid" src="img/logo/LOGO-PAGE-2.png" alt="">
 
             </span>
         </a>

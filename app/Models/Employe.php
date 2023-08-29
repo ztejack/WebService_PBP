@@ -22,11 +22,11 @@ class Employe extends Model
         'ktp_address',
         'gender',
         'religion',
-        'blood_type',
         'golongan',
         'status',
         'date_start',
         'tenure',
+        'user_id',
         'contract_type',
         'subsatker_id'
     ];
@@ -42,7 +42,19 @@ class Employe extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function subsatker()
+    {
+        return $this->belongsTo(Subsatker::class);
+    }
+    public function satker()
+    {
+        return $this->belongsTo(Satker::class);
+    }
+    public function position()
+    {
+        return $this->belongsto(Position::class);
     }
 
     public static function boot()

@@ -36,7 +36,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
 <!-- Page CSS -->
 <!-- Page -->
-
+<link rel="stylesheet" href="/vendor/css/pages/page-auth.css" />
 <!-- Helpers -->
 <script src="/vendor/js/helpers.js"></script>
 

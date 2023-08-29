@@ -6,15 +6,15 @@
             <div data-i18n="Analytics">Dashboard</div>
         </a>
     </li>
-    <li class="menu-item {{ Request::is('account') ? 'active open' : '' }} ">
+    <li class="menu-item {{ Request::is('auth/profile') ? 'active open' : '' }} ">
         <a href="javascript:void(0);" class="menu-link menu-toggle ">
             <i class="menu-icon tf-icons bx bx-user"></i>
             <div data-i18n="Account Settings">Account Settings</div>
         </a>
         <ul class="menu-sub ">
-            <li class="menu-item {{ Request::is('account*') ? 'active' : '' }}">
-                <a href="account" class="menu-link ">
-                    <div data-i18n="Account">Account</div>
+            <li class="menu-item {{ Request::is('auth/profile*') ? 'active' : '' }}">
+                <a href="auth/profile" class="menu-link ">
+                    <div data-i18n="Account">Profile</div>
                 </a>
             </li>
         </ul>
@@ -53,6 +53,86 @@
         </ul>
     </li>
 
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
+                <a href="/Gaji" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
+                <a href="/Gaji" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
+                <a href="/Gaji" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
+                <a href="/Gaji" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
+                <a href="/Gaji" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li class="menu-header small text-uppercase ">
         <span class="menu-header-text">Gaji</span>
     </li>

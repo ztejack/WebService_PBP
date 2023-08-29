@@ -28,6 +28,10 @@ class Satker extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
+    }
+    public function employee()
+    {
+        return $this->hasMany(Employe::class);
     }
 }

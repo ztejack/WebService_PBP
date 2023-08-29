@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>{{ config('app.name', 'PBP') }}</title>
-    @include('config.configCss')
+    @include('config.configCss-auth')
 
 
 </head>

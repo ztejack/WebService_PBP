@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="/" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="/img/logo/LogoBukitPrima.jpeg" alt="">
+                <img src="/img/logo/LOGO-PAGE-2-W.png" alt="">
             </span>
         </a>
 
@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <div class="menu-inner-shadow"></div>
+    <div class="menu-inner-shadow py-1 ps ps--active-y"></div>
 
     {{-- @can('admin') --}}
     {{-- Admin --}}

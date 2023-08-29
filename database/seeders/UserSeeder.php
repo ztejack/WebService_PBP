@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'username' => 'superuser',
             'email' => 'superuser@example.com',
             'phone' => '085669920357',
-            'password' => bcrypt('123456789'),
+            'password' => '$2y$10$wl5dyPDgUcZNNs9sqLVP2.NXe6q//rJqvbeuYlvacgrt7ahNXK8ma', //default PBP2023@SU
         ]);
         $superAdminRole = Role::findByName('SuperUser');
         $user->assignRole($superAdminRole);
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             'username' => 'adminuser',
             'email' => 'adminuser@example.com',
             'phone' => '085669920000',
-            'password' => bcrypt('123456789'),
+            'password' => '$2y$10$f/cQPkLWDFE1U472RSFN0.hr.WEU2aP5kJrFD6vujDgEHWDNV/mU6', //default PBP2023@ADM
         ]);
         $adminRole = Role::findByName('Admin');
         $user->assignRole($adminRole);
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'username' => 'employe',
             'email' => 'employe@example.com',
             'phone' => '085669920909',
-            'password' => bcrypt('123456789'),
+            'password' => '$2y$10$C3/KCSiV5eIMaNHCv/2zFuF2OTofdVGMhkeljSWY7ygSFzCszGVAq', //PBP2023@Us
         ]);
         $employeRole = Role::findByName('Employe');
         $user->assignRole($employeRole);
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'username' => 'guest',
             'email' => 'guest@example.com',
             'phone' => '085669920901',
-            'password' => '$2y$10$aVEprhNvnStc9fkeYyWptuZ.82TPtFuBymKxVVboZziDeBjjev3Xu',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
         ]);
         $guestRole = Role::findByName('Guest');
         $user->assignRole($guestRole);

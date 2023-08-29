@@ -24,14 +24,14 @@ return new class extends Migration
             $table->string('ktp_address')->nullable();
             $table->string('gender')->nullable();
             $table->string('religion')->nullable();
-            $table->string('blood_type')->nullable();
             $table->string('golongan')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(true);
             $table->dateTime('date_start')->nullable();
             $table->string('tenure')->nullable();
             $table->string('contract_type')->nullable();
-            $table->foreignId('subsatkerId')->default('1')->references('id')->on('subsatkers');
+            $table->foreignId('subsatker_id')->default('1')->constrained('subsatkers')->references('id')->on('subsatkers');
             $table->foreignId('user_id')->constrained('users')->references('id')->on('users');
+            $table->foreignId('position_id')->nullable()->constrained('positions')->references('id')->on('positions');
             $table->timestamps();
         });
     }
