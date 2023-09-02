@@ -32,7 +32,9 @@ Route::prefix('auth')->middleware(['auth'])->group(
 Route::prefix('users')->middleware(['auth'])->group(
     function () {
         Route::get('/', [UserController::class, 'index'])->name('page_user');
-        Route::get('/show', [UserController::class, 'show'])->name('show_user');
-        Route::get('/store', [UserController::class, 'stor_user'])->name('store_user');
+        Route::get('{user}/detail', [UserController::class, 'show'])->name('detail_view_user');
+        Route::get('/store', [UserController::class, 'store_user'])->name('store_user');3
+        Route::get('{user}/update', [UserController::class, 'update_view_user'])->name('update_view_user');
+        Route::get('update/{user}', [UserController::class, 'update'])->name('update_user');
     }
 );
