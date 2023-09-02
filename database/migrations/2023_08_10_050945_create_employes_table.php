@@ -29,7 +29,7 @@ return new class extends Migration
             $table->dateTime('date_start')->nullable();
             $table->string('tenure')->nullable();
             $table->string('contract_type')->nullable();
-            $table->foreignId('subsatker_id')->default('1')->constrained('subsatkers')->references('id')->on('subsatkers');
+            $table->foreignId('satker_id')->default('1')->constrained('satkers')->references('id')->on('satkers');
             $table->foreignId('user_id')->constrained('users')->references('id')->on('users');
             $table->foreignId('position_id')->nullable()->constrained('positions')->references('id')->on('positions');
             $table->timestamps();

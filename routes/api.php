@@ -28,13 +28,13 @@ Route::prefix('v1/auth')->group(
     }
 );
 
-// Route::prefix('v1/user')->middleware(['auth:api'])->group(
-//     function () {
-//         Route::get('getall', [UserController::class, 'index'])->middleware('can:getall-users');
-//         Route::get('search', [UserController::class, 'search'])->middleware('can:search-users');
-//         Route::post('store', [UserController::class, 'store'])->middleware('can:store-users');
-//         Route::get('show/{user}', [UserController::class, 'show'])->middleware('can:show-users');
-//         Route::patch('update/{user}', [UserController::class, 'update'])->middleware('can:update-users');
-//         Route::post('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:delete-users');
-//     }
-// );
+Route::prefix('v1/user')->middleware(['auth:api'])->group(
+    function () {
+        Route::get('getall', [UserController::class, 'index'])->middleware('can:getall-users');
+        Route::get('search', [UserController::class, 'search'])->middleware('can:search-users');
+        Route::post('store', [UserController::class, 'store'])->middleware('can:store-users');
+        Route::get('show/{user}', [UserController::class, 'show'])->middleware('can:show-users');
+        Route::patch('update/{user}', [UserController::class, 'update'])->middleware('can:update-users');
+        Route::post('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:delete-users');
+    }
+);

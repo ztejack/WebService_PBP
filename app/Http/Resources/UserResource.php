@@ -20,7 +20,8 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'username' => $this->username,
             'role_name' => $this->getRoleNames()->first(),
-            'nip' => $this->employee->nip,
+            // 'nip' => $this->employee->nip,
+            'nip' => "123",
             'npwp' => $this->employee->npwp,
             'ttl' => $this->employee->ttl,
             'address' => $this->employee->address,
@@ -32,12 +33,8 @@ class UserResource extends JsonResource
             'status' => $this->employee->status,
             'date_start' => $this->employee->date_start,
             'tenure' => $this->employee->tenure,
-            'contact_type' => $this->employee->contact_type,
-            // 'contact_type' => $this->employee->tenure,
-            'subsatker' => $this->subsatker->subsatker,
+            'contract_type' => $this->employee->contact_type,
             'satker' => $this->satker->satker,
-            // 'subsatker' => $this->subsatker->subsatker,
-            // 'satker' => $this->subsatker->satker->satker,
         ];
     }
 }

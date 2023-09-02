@@ -6,22 +6,13 @@
         </div>
         <div class="dt-action-buttons text-end pt-3 pt-md-0">
             <div class="dt-buttons">
-                <button class="dt-button buttons-collection btn btn-label-primary dropdown-toggle me-2" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        <i class="bx bx-export me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Export</span>
-                    </span>
-                </button>
-
                 <a href="users/create" class="dt-button create-new btn btn-primary" tabindex="0" type="button">
                     <span>
                         <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add New Record</span>
+                        <span class="d-none d-sm-inline-block">Add New User</span>
                     </span>
                 </a>
-                {{-- @include('components.addusermodal') --}}
-
+                @include('pages.Users.components.AddUserModal')
             </div>
         </div>
     </div>
@@ -35,10 +26,8 @@
                             <th>Nama User</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Nomor Telepon</th>
-                            <th>Level User</th>
-                            <th>Perusahaan</th>
-                            <th>Satuan Kerja</th>
+                            <th>Status</th>
+                            <th>Role User</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,23 +38,26 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->phonenumber }}</td>
                                 <td>
-                                    {{-- @if ($user->level->id == 1)
-                                        <span class="badge bg-label-danger">ADMIN</span>
-                                    @elseif($user->level->id == 2)
-                                        <span class="badge bg-label-info">KASIR</span>
-                                    @elseif($user->level->id == 3)
-                                        <span class="badge bg-label-success">USER</span>
-                                    @endif --}}
+                                    <span
+                                        class="badge {{ $user->employee->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->employee->status == true ? 'Active' : 'Innactive' }}</span>
                                 </td>
-                                <td>X</td>
-                                <td>X</td>
+                                <td>
+                                    @if ($user->getRoleNames()->first() == 'SuperUser')
+                                        <span class="badge bg-label-danger">Super User</span>
+                                    @elseif($user->getRoleNames()->first() == 'Admin')
+                                        <span class="badge bg-label-info">Admin</span>
+                                    @elseif($user->getRoleNames()->first() == 'Guest')
+                                        <span class="badge bg-label-success">Guest</span>
+                                    @elseif($user->getRoleNames()->first() == 'Employe')
+                                        <span class="badge bg-label-warning">{{ $user->getRoleNames()->first() }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex align-items-center">
 
                                         <!-- Button trigger modal -->
-                                        <a href="users/{{ $user->id }}/show" class="btn btn-sm btn-primary">
+                                        <a href="users/{{ $user->slug }}/detail" class="btn btn-sm btn-primary">
                                             Detail User
                                         </a>
                                         <div class="dropdown">
@@ -75,13 +67,13 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"target="_blank"
-                                                    href="/users/{{ $user->id }}/edit">
+                                                    href="/users/{{ $user->slug }}/edit">
                                                     <i class='bx bx-edit'></i>
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <form id="userDelete-form"
-                                                    action="/transaksi/{{ $user->id }}/destroy" method="post">
+                                                <form id="userDelete-form" action="/user/{{ $user->slug }}/archive"
+                                                    method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="dropdown-item text-danger"
@@ -104,9 +96,7 @@
                             <th>Nama User</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Nomor Telepon</th>
-                            <th>Level User</th>
-                            <th>Perusahaan</th>
+                            <th>Status</th>
                             <th>Satuan Kerja</th>
                             <th>Action</th>
                         </tr>

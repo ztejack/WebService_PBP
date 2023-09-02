@@ -13,8 +13,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    @if (Request::is('auth/profile'))
+    @if (Request::is('auth/profile') || Request::is('users/*/detail'))
         @include('config.configCss-profile')
+        {{-- @elseif (Request::is('users/*/detail'))
+        @include('config.configCss-profile') --}}
     @else
         @include('config.configCss')
     @endif

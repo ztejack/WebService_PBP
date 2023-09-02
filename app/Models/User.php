@@ -74,11 +74,27 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Get the options for generating the slug.
+     */
     public function getSlugOptions(): SlugOptions
     {
+        // return SlugOptions::create()
+        //     ->generateSlugsFrom('name')
+        //     ->saveSlugsTo('slug');
         return SlugOptions::create()
-            ->generateSlugsFrom('title')  // Field to generate slug from
-            ->saveSlugsTo('slug');       // Field to store the slug
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->allowDuplicateSlugs();
+    }
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
     public function getSubsatkerAttribute()
     {
@@ -86,7 +102,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function getSatkerAttribute()
     {
-        return $this->employee->subsatker->satker;
+        return $this->employee->satker;
     }
 
 

@@ -1,322 +1,170 @@
-<div class="card accordion-item mb-3">
-    <h2 class="accordion-header d-flex align-items-center">
-        <button type="button" class="accordion-button" data-bs-toggle="collapse"
-            data-bs-target="#accordionuser{{ $user->id }}" aria-expanded="false">
-            <i class="bx bxs-user-detail me-2"></i>
-            {{ $user->name }}
-        </button>
-    </h2>
+    <!-- Content -->
 
-    <div id="accordionuser{{ $user->id }}" class="accordion-collapse collapse show" style="">
-        <div class="accordion-body">
-            <div class="row">
-                <div class="col-md-12 col-xl-4">
-                    <p class="mb-xl-3 mb-0">Nama User : {{ $user->name }}</p>
-                    <p class="mb-xl-3 mb-0">Username : {{ $user->username }}</p>
-                    <p class="mb-xl-3 mb-0">Perusahaan : {{ $perusahaan }}
+    <h4 class="py-3 mb-4">
+        <span class="text-muted fw-light">User Detail /</span> Detail
+    </h4>
 
-                    </p>
+    {{-- @dd($user); --}}
+
+    <!-- Header -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="user-profile-header-banner">
+                    <img src="/img/backgrounds/profile-banner.png" alt="Banner image" class="rounded-top">
                 </div>
-                <div class="col-md-12 col-xl-4">
-                    <p class="mb-xl-3 mb-0">Level User :
-                        {{-- {{ $user->level->level }} --}}
-                        @if ($user->level->id == 1)
-                            <span class="badge bg-label-danger">ADMIN</span>
-                        @elseif($user->level->id == 2)
-                            <span class="badge bg-label-info">KASIR</span>
-                        @elseif($user->level->id == 3)
-                            <span class="badge bg-label-success">USER</span>
-                        @endif
-                    </p>
-                    <p class="mb-xl-3 mb-0">Email : {{ $user->email }}</p>
-                    <p class="mb-xl-3 mb-0">Nomor Telepon : {{ $user->phonenumber }}</p>
-                </div>
-                <div class="col-md-12 col-xl-4">
-                    <div class="d-flex justify-content-end  pt-xl-0 pt-3">
-                        <a href="" type="button" class="align-self-md-end btn btn-primary buttons-collection">
-                            <i class="tf-icons bx bx-edit"></i>
-                            <span>
-                                &nbsp; Edit
-                            </span>
-                        </a>
+                <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                    <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <img src="/img/temp/user-temp.png" alt="user image"
+                            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
                     </div>
-
-                    {{-- <p class="mb-xl-3 mb-0">Email : {{ $user->email }}</p>
-                    <p class="mb-xl-3 mb-0">Nomor Telepon : {{ $user->phonenumber }}</p> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card mb-3">
-    <div class="card-header d-flex justify-content-between flex-md-row  pb-0 row">
-        <div class="head-label text-center col-xl-2 col-5 p-0">
-            <h5 class="card-title mb-0">Data Tagihan</h5>
-
-        </div>
-        <div class="dt-action-buttons text-end p-0 pt-xl-3  col-xl-8 col-7">
-            <div class="dt-buttons">
-                <button class="dt-button buttons-collection btn btn-label-primary dropdown-toggle me-2" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        <i class="bx bx-export me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Export</span>
-                    </span>
-                </button>
-                <button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0"
-                    type="button">
-                    <span>
-                        <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add New Record</span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="card-datatable mt-2">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="table-responsive text-nowrap">
-                <table id="tableTagihan" class="table table-hover display" style="width:100%">
-                    <thead>
-                        <tr class="text-nowrap">
-                            <th>NO</th>
-                            <th>ID Tagihan</th>
-                            <th>Tanggal</th>
-                            <th>Nama User</th>
-                            <th>Status</th>
-                            <th>Total Tagihan</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tagihans->where('user_id', $user->id)->where('id', '!=', 1) as $tagihan)
-                            @foreach ($transaksis->where('id_pelanggan', $user->id) as $transaksi)
-                                @php
-                                    $totalByr = 0;
-                                @endphp
-                                @foreach ($details->where('id_Transaksi', '=', $transaksi->id) as $detail)
-                                    @foreach ($detail->produk as $produk)
-                                        @php
-                                            $total = $detail->qty * $produk->price;
-                                            $totalByr += $total;
-                                        @endphp
-                                    @endforeach
-                                @endforeach
-                            @endforeach
-                            <tr>
-                                <td></td>
-                                <td>{{ $tagihan->id }}</td>
-                                <td>{{ date('d-m-y', strtotime($tagihan->created_at)) }}</td>
-                                <td>{{ $tagihan->user->name }}</td>
-                                @if ($tagihan->status = 0)
-                                    <td>
-                                        <span class="badge rounded-pill bg-label-warning">
-                                            Belum Lunas
-                                        </span>
-                                    </td>
-                                @else
-                                    <td>
-                                        <span class="badge rounded-pill bg-label-info">
-                                            Lunas
-                                        </span>
-                                    </td>
-                                @endif
-                                <td>@currency($tagihan->total) </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary">Detail</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>NO</th>
-                            <th>ID Tagihan</th>
-                            <th>Tanggal</th>
-                            <th>Nama User</th>
-                            <th>Status</th>
-                            <th>Total Tagihan</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header d-flex justify-content-between flex-md-row pb-0 row">
-
-        <div class="head-label text-center col-xl-2 col-5 p-0">
-            <h5 class="card-title mb-0">Data Transaksi</h5>
-        </div>
-        <div class="dt-action-buttons text-end p-0 pt-xl-3  col-xl-8 col-7">
-            <div class="dt-buttons">
-                <button class="dt-button buttons-collection btn btn-label-primary dropdown-toggle me-2" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        <i class="bx bx-export me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Export</span>
-                    </span>
-                </button>
-                <button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0"
-                    type="button">
-                    <span>
-                        <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add New Record</span>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="card-datatable mt-2">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="table-responsive text-nowrap">
-                {{-- <table id="tableTransaksi" class="table table-hover display" style="width:100%">
-                    <thead>
-                        <tr class="text-nowrap">
-                            <th>NO</th>
-                            <th>ID Transaksi</th>
-                            <th>ID Tagihan</th>
-                            <th>Nama User</th>
-                            <th>Tanggal Transaksi</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transaksis->where('id_pelanggan', $user->id) as $transaksi)
-                            @php
-                                $totalByr = 0;
-                            @endphp
-                            @foreach ($details->where('id_Transaksi', '=', $transaksi->id) as $detail)
-                                @foreach ($detail->produk as $produk)
-                                    @php
-                                        $total = $detail->qty * $produk->price;
-                                        $totalByr += $total;
-                                    @endphp
-                                @endforeach
-                            @endforeach
-                            <tr>
-                                <td></td>
-                                <td>{{ $transaksi->id }}</td>
-                                <td>{{ $transaksi->tagihan->id }}</td>
-                                <td>{{ $transaksi->user->name }}</td>
-                                <td>{{ $transaksi->created_at }}</td>
-                                @if ($transaksi->tagihan->status = 0)
-                                    <td>
-                                        <span class="badge rounded-pill bg-label-warning">
-                                            Belum Lunas
-                                        </span>
-                                    </td>
-                                @else
-                                    <td>
-                                        <span class="badge rounded-pill bg-label-info">
-                                            Lunas
-                                        </span>
-                                    </td>
-                                @endif
-                                {{-- <th>{{ }}</th> --}}
-                <th>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#modalTR{{ $transaksi->id }}">
-                        Detail
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="modalTR{{ $transaksi->id }}" tabindex="-1" style="display: none;"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCenterTitle">Detail Transaksi
-                                        <strong> {{ $transaksi->id }}</strong>
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h6 class="modal-title">Tanggal Transaksi :
-                                        {{ date('d M Y', strtotime($transaksi->created_at)) }}
-                                    </h6>
-                                    <hr>
-                                    <div class="card-datatable">
-                                        <div id="DataTables_Table_0_wrapper"
-                                            class="dataTables_wrapper dt-bootstrap5 no-footer">
-                                            <div class="table-responsive text-nowrap">
-                                                <table id="tableDetail" class="display table table-hover w-100">
-                                                    <thead>
-                                                        <tr class="text-nowrap">
-                                                            <th>NO</th>
-                                                            <th>Kode Produk</th>
-                                                            <th>Nama Produk</th>
-                                                            <th>Harga</th>
-                                                            <th>Jumlah</th>
-                                                            <th>Total</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        @foreach ($details->where('id_Transaksi', '=', $transaksi->id) as $detail)
-                                                            <tr class="ctn">
-                                                                <td></td>
-                                                                @foreach ($detail->produk as $produk)
-                                                                    <td>{{ $produk->kodePrd }}</td>
-                                                                    <td>{{ $produk->namaPrd }}</td>
-                                                                    <td>@currency($produk->price)</td>
-                                                                @endforeach
-                                                                <td>{{ $detail->qty }}</td>
-                                                                <td>@currency($total)
-                                                                </td>
-                                                                {{-- <td>{{ $detail->subtotal }}</td> --}}
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-                                            <hr>
-                                            <div class="d-flex justify-content-end">
-                                                <h4>Total : @currency($totalByr) </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary">Print</button>
-                                </div>
+                    <div class="flex-grow-1 mt-3 mt-sm-5">
+                        <div
+                            class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                            <div class="user-profile-info">
+                                <h4>{{ $user->username }}</h4>
+                                <ul
+                                    class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                                    <li class="list-inline-item fw-medium">
+                                        <i class="bx bx-shield-quarter"></i> {{ $user->role_name ?: '-' }}
+                                    </li>
+                                    <li class="list-inline-item fw-medium">
+                                        <i class="bx bx-group"></i> {{ $user->position ?: '-' ?: '-' }}
+                                    </li>
+                                    <li class="list-inline-item fw-medium">
+                                        <i class="bx bxs-buildings"></i> {{ $user->satker ?: '-' }}
+                                    </li>
+                                </ul>
                             </div>
+                            <a href="/user/{{ $user->slug }}/update_user" class="btn btn-primary text-nowrap">
+                                <i class="bx bx-edit me-1"></i>Edit
+                            </a>
                         </div>
                     </div>
-                </th>
-                </tr>
-                {{-- @foreach ($details->where('id_Transaksi', '=', $transaksi->id) as $detail)
-                                <tr class="ctn">
-                                    <td>{{ $detail->id_Produk }}</td>
-                                </tr>
-                            @endforeach --}}
-                {{-- @endforeach --}}
-
-                {{-- </tbody>
-                <tfoot>
-                    <tr>
-                        <th>NO</th>
-                        <th>ID Transaksi</th>
-                        <th>ID Tagihan</th>
-                        <th>Nama User</th>
-                        <th>Tanggal Transaksi</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                </table> --}} --}}
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!--/ Header -->
+
+    <!-- Navbar pills -->
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i
+                            class="bx bx-user me-1"></i> Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
+                            class="bx bx-group me-1"></i> Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
+                            class="bx bx-grid-alt me-1"></i> Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
+                            class="bx bx-link-alt me-1"></i> Connections</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--/ Navbar pills -->
+
+    <!-- User Profile Content -->
+    <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-5">
+            <!-- About User -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <small class="text-muted text-uppercase">About</small>
+                    <ul class="list-unstyled mb-4 mt-3">
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
+                                class="fw-medium mx-2">Status:</span>
+                            <span
+                                class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
+                                class="fw-medium mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>
+                        </li>
+
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
+                                class="fw-medium mx-2">Role:</span> <span>{{ $user->role_name ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
+                                class="fw-medium mx-2">NIP:</span> <span>{{ $user->nip ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-id-card"></i><span
+                                class="fw-medium mx-2">NPWP:</span> <span>{{ $user->npwp ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bxs-id-card"></i><span
+                                class="fw-medium mx-2">Position:</span>
+                            <span>{{ $user->position ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-objects-vertical-bottom"></i><span
+                                class="fw-medium mx-2">Golongan:</span>
+                            <span>{{ $user->golongan ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
+                                class="fw-medium mx-2">Contract:</span>
+                            <span>{{ $user->contract_type ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
+                                class="fw-medium mx-2">Start Work:</span>
+                            <span>{{ $user->date_start ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
+                                class="fw-medium mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
+                                class="fw-medium mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i
+                                class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
+                                class="fw-medium mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
+                                class="fw-medium mx-2">Religion:</span>
+                            <span>{{ $user->religion ?: '-' }}</span>
+                        </li>
+
+
+                    </ul>
+                    <small class="text-muted text-uppercase">Contacts</small>
+                    <ul class="list-unstyled mb-4 mt-3">
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
+                                class="fw-medium mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
+                                class="fw-medium mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!--/ About User -->
+
+        </div>
+        <div class="col-xl-8 col-lg-7 col-md-7">
+            <!-- Activity Timeline -->
+            <div class="card card-action mb-4">
+                <div class="card-header align-items-center">
+                    <h5 class="card-action-title mb-0"><i class="bx bx-list-ul me-2"></i>Work Experience</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="timeline ms-2">
+                        @foreach ($user->experiences as $experience)
+                            <li class="timeline-item timeline-item-transparent">
+                                <span class="timeline-point-wrapper"><span
+                                        class="timeline-point timeline-point-warning"></span></span>
+                                <div class="timeline-event">
+                                    <div class="timeline-header mb-1">
+                                        <h6 class="mb-0">{{ $experience->position }}</h6>
+                                        <small class="text-muted">{{ $experience->date }}</small>
+                                    </div>
+                                    <p class="mb-2">{{ $experience->location }}</p>
+
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <!--/ Activity Timeline -->
+
+        </div>
+    </div>
+    <!--/ User Profile Content -->
+
+    <div class="content-backdrop fade"></div>

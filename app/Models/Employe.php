@@ -28,7 +28,7 @@ class Employe extends Model
         'tenure',
         'user_id',
         'contract_type',
-        'subsatker_id'
+        'satker_id'
     ];
 
     // /**
@@ -55,6 +55,10 @@ class Employe extends Model
     public function position()
     {
         return $this->belongsto(Position::class);
+    }
+    public function experience()
+    {
+        return $this->hasMany(Experience::class);
     }
 
     public static function boot()

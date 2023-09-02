@@ -19,6 +19,21 @@ class SatkerSeeder extends Seeder
         Satker::create([
             'satker' => 'Guest'
         ]);
+        Satker::create([
+            'satker' => 'Operasi'
+        ]);
+        Satker::create([
+            'satker' => 'Keuangan'
+        ]);
+        Satker::create([
+            'satker' => 'SDM & Umum'
+        ]);
+        Satker::create([
+            'satker' => 'Crew'
+        ]);
+        Satker::create([
+            'satker' => 'Kuala Tanjung'
+        ]);
         Subsatker::create([
             'subsatker' => 'Guest',
             'id_satker' => 1,

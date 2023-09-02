@@ -12,6 +12,7 @@ use App\Models\Subsatker;
 use App\Models\User;
 use App\Services\UserDataFormatter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Ui\Presets\React;
 use Ramsey\Uuid\Rfc4122\UuidV4;
@@ -20,14 +21,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::latest()->get();
-        // $perusahaans = Perusahaan::get();
-        // $satkers = Satker::latest()->get();
+        $users = User::get()->all();
 
         return view(
             'pages.Users.PageUser',
             [
-                'users' => $users,
+                'users' => (object)$users,
                 // 'perusahaans' => $perusahaans,
                 // 'satkers' => $satkers,
             ]
@@ -60,14 +59,70 @@ class UserController extends Controller
     public function update(Request $request)
     {
     }
-    public function update_view_user(Request $request)
+    public function update_view_user(User $user)
     {
+        return view('pages.Users.PageUserUpdate', [
+            'user' => $user
+        ]);
     }
     public function profile()
     {
         $user = Auth::user();
+        // $role_name = $user->getRoleNames()->first();
+        // $data = [
+        //     'name' => $user->name,
+        //     'email' => $user->email,
+        //     'phone' => $user->phone,
+        //     'username' => $user->username,
+        //     'role_name' => $role_name,
+        //     'nip' => $user->employee->nip,
+        //     'npwp' => $user->employee->npwp,
+        //     'ttl' => $user->employee->ttl,
+        //     'address' => $user->employee->address,
+        //     'ktp_address' => $user->employee->ktp_address,
+        //     'gender' => $user->employee->gender,
+        //     'religion' => $user->employee->religion,
+        //     'position' => $user->employee->position,
+        //     'golongan' => $user->employee->golongan,
+        //     'status' => $user->employee->status,
+        //     'date_start' => $user->employee->date_start,
+        //     'tenure' => $user->employee->tenure,
+        //     // 'contact_type' => $user->employee->contact_type,
+        //     'contract_type' => $user->employee->contract_type,
+        //     // 'subsatker' => $user->subsatker->subsatker,
+        //     'satker' => $user->satker->satker,
+        //     'experiences' => $user->employee->experience,
+        // ];
+        // $datax = (object)$data;
+        $user = $this->user_resource($user);
+        // $users = new UserDataFormatter::format($user);
+        // $employe = Employe::get()->first();
+        // dd($datax->name);
+        // return response()->json($users, 200);
+        return view('pages.Users.PageUserProfile', [
+            'user' => $user,
+            'auth' => $user
+        ]);
+    }
+    public function show(User $user)
+    {
+        $user = $this->user_resource($user);
+        return view("pages.Users.PageUserDetail", [
+            'user' => $user
+        ]);
+    }
+    public function archive(Request $request)
+    {
+    }
+    public function attemp_role_user(Request $request)
+    {
+    }
+    public function user_resource($user)
+    {
+        // $user = Auth::user();
         $role_name = $user->getRoleNames()->first();
         $data = [
+            'slug' => $user->slug,
             'name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone,
@@ -87,23 +142,11 @@ class UserController extends Controller
             'tenure' => $user->employee->tenure,
             // 'contact_type' => $user->employee->contact_type,
             'contract_type' => $user->employee->contract_type,
-            'subsatker' => $user->subsatker->subsatker,
+            // 'subsatker' => $user->subsatker->subsatker,
             'satker' => $user->satker->satker,
+            'experiences' => $user->employee->experience,
         ];
-        $datax = (object)$data;
-        // $users = new UserDataFormatter::format($user);
-        $employe = Employe::get()->first();
-        // dd($datax->name);
-        // return response()->json($users, 200);
-        return view('pages.Users.PageUserProfile', [
-            'user_profile' => $datax,
-            'auth' => $user
-        ]);
-    }
-    public function archive(Request $request)
-    {
-    }
-    public function attemp_role_user(Request $request)
-    {
+        // $datax = (object)$data;
+        return (object)$data;
     }
 };
