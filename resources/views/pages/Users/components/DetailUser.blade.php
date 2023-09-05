@@ -29,14 +29,14 @@
                                         <i class="bx bx-shield-quarter"></i> {{ $user->role_name ?: '-' }}
                                     </li>
                                     <li class="list-inline-item fw-medium">
-                                        <i class="bx bx-group"></i> {{ $user->position ?: '-' ?: '-' }}
+                                        <i class="bx bx-group"></i> {{ $user->position ?: '-' }}
                                     </li>
                                     <li class="list-inline-item fw-medium">
                                         <i class="bx bxs-buildings"></i> {{ $user->satker ?: '-' }}
                                     </li>
                                 </ul>
                             </div>
-                            <a href="/user/{{ $user->slug }}/update_user" class="btn btn-primary text-nowrap">
+                            <a href="/users/{{ $user->slug }}/update" class="btn btn-primary text-nowrap">
                                 <i class="bx bx-edit me-1"></i>Edit
                             </a>
                         </div>

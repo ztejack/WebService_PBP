@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('uuid');
             // $table->string('uuid')->unique();
             $table->string('nip')->nullable();
+            $table->string('nik')->nullable();
             $table->string('npwp')->nullable();
             $table->string('ttl')->nullable();
             $table->string('address')->nullable();

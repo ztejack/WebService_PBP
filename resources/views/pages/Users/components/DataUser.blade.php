@@ -67,7 +67,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"target="_blank"
-                                                    href="/users/{{ $user->slug }}/edit">
+                                                    href="/users/{{ $user->slug }}/update">
                                                     <i class='bx bx-edit'></i>
                                                     Edit
                                                 </a>

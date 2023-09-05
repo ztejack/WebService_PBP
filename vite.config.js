@@ -11,4 +11,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+    alias: {
+      // Add an alias for 'imask' pointing to the installed library
+      imask: 'imask',
+    },
+  },
 });

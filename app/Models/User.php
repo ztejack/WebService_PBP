@@ -83,9 +83,8 @@ class User extends Authenticatable implements JWTSubject
         //     ->generateSlugsFrom('name')
         //     ->saveSlugsTo('slug');
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug')
-            ->allowDuplicateSlugs();
+            ->generateSlugsFrom('username')
+            ->saveSlugsTo('slug');
     }
     /**
      * Get the route key for the model.

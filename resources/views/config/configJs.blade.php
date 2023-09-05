@@ -34,8 +34,15 @@
 <!-- Main JS -->
 <script src="/js/main-dashboard.js"></script>
 
-<!-- Page JS -->
+<!-- Page JS    -->
+@if (Request::is('users/*/update'))
+    <script type="module" src="{{ asset('js/Form/Resetpassword.js') }}"></script>
+    <script type="module" src="{{ asset('/js/input-mask.js') }}"></script>
+    <script type="module" src="{{ asset('/js/formlistener.js') }}"></script>
+@endif
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}
+
+
 
 <!-- Place this tag in your head or just before your close body tag. -->
 {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}

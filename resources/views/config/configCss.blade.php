@@ -16,9 +16,10 @@
 
 
 
+
 <link rel="stylesheet" href="/vendor/css/datatables-bootsrap5.css">
 <link rel="stylesheet" href="/vendor/css/tweetbootstrap.css">
-<link rel="stylesheet" href="/vendor/css/animate.css">
+{{-- <link rel="stylesheet" href="/vendor/css/animate.css"> --}}
 <link rel="stylesheet" href="/vendor/fonts/boxicons.css">
 {{-- <link rel="stylesheet" href="/vendor/css/boxicon.css"> --}}
 
@@ -33,7 +34,7 @@
 <link rel="stylesheet" href="/vendor/libs/apex-charts/apex-charts.css" />
 
 
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></> --}}
 <!-- Page CSS -->
 <!-- Page -->
 

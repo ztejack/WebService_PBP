@@ -13,7 +13,7 @@
         </a>
         <ul class="menu-sub ">
             <li class="menu-item {{ Request::is('auth/profile*') ? 'active' : '' }}">
-                <a href="auth/profile" class="menu-link ">
+                <a href="{{ route('profile_user') }}" class="menu-link ">
                     <div data-i18n="Account">Profile</div>
                 </a>
             </li>
