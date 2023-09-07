@@ -6,17 +6,12 @@
         </div>
         <div class="dt-action-buttons text-end pt-3 pt-md-0">
             <div class="dt-buttons">
-                {{-- <a href="users/create" class="dt-button create-new btn btn-primary" tabindex="0" type="button"> --}}
-                <button class="dt-button create-new btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"tabindex="0" type="button">
+                <a href="users/create" class="dt-button create-new btn btn-primary" tabindex="0" type="button">
                     <span>
                         <i class="bx bx-plus me-sm-2"></i>
                         <span class="d-none d-sm-inline-block">Add New User</span>
                     </span>
-                </button>
-                {{-- <button type="button" class="btn btn-primary" ">
-            Launch modal
-          </button> --}}
+                </a>
                 @include('pages.Users.components.AddUserModal')
             </div>
         </div>
@@ -72,7 +67,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"target="_blank"
-                                                    href="/users/{{ $user->slug }}/update">
+                                                    href="/users/{{ $user->slug }}/edit">
                                                     <i class='bx bx-edit'></i>
                                                     Edit
                                                 </a>
@@ -98,11 +93,7 @@
                     <tfoot>
                         <tr>
                             <th>NO</th>
-                            <th>Nama User</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Satuan Kerja</th>
+                            <th>Nama Role</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>

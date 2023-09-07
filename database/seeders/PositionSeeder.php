@@ -16,25 +16,25 @@ class PositionSeeder extends Seeder
     public function run()
     {
         Position::create([
-            'name' => 'Direktur'
+            'position' => 'Direktur'
         ]);
         Position::create([
-            'name' => 'Direktur Utama'
+            'position' => 'Direktur Utama'
         ]);
         Position::create([
-            'name' => 'Manager'
+            'position' => 'Manager'
         ]);
         Position::create([
-            'name' => 'General Manager'
+            'position' => 'General Manager'
         ]);
         Position::create([
-            'name' => 'Assiten Manager'
+            'position' => 'Assiten Manager'
         ]);
         Position::create([
-            'name' => 'Staff'
+            'position' => 'Staff'
         ]);
         Position::create([
-            'name' => 'Staff'
+            'position' => 'Staff'
         ]);
     }
 }

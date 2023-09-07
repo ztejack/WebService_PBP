@@ -24,7 +24,19 @@ window.addEventListener('load', function () {
     function removeLeadingZeros() {
         let phoneNumber = phoneInput.value;
         // phoneNumber = phoneNumber.replace(/^0+/, '');
-        phoneInput.value = phoneNumber;
+        // phoneInput.value = phoneNumber;
+        // Hilangkan semua karakter selain angka
+    phoneNumber = phoneNumber.replace(/\D/g, '');
+
+    // Periksa apakah dua karakter pertama adalah nol setelah +62
+    if (phoneNumber.startsWith('62')) {
+        phoneNumber = '62' + phoneNumber.substring(2).replace(/^0+/, '');
+    }
+
+    // Terapkan format pola masking
+    const formattedPhoneNumber = phoneNumber.replace(/(\d{2})(\d{3})(\d{4})(\d{4})(\d{2})/, '{+$1} $2 $3-$4-$5');
+
+    phoneInput.value = formattedPhoneNumber;
     }
 
     // Apply the function to remove leading zeros when the window loads
@@ -32,7 +44,7 @@ window.addEventListener('load', function () {
 
     // Apply the IMask after removing leading zeros (if needed)
     const phoneMask = IMask(phoneInput, {
-        mask: '000 0000-0000-00',
+        mask: '{+62} 000 0000-0000-00',
         // lazy: false,
     });
 });

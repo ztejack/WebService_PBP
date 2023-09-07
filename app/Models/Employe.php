@@ -29,7 +29,8 @@ class Employe extends Model
         'tenure',
         'user_id',
         'contract_type',
-        'satker_id'
+        'satker_id',
+        'position_id'
     ];
 
     // /**

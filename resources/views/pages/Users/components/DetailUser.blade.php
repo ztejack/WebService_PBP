@@ -66,56 +66,58 @@
 
     <!-- User Profile Content -->
     <div class="row">
-        <div class="col-xl-4 col-lg-5 col-md-5">
+        <div class="col-xl-5 col-lg-6 col-md-6">
             <!-- About User -->
             <div class="card mb-4">
                 <div class="card-body">
                     <small class="text-muted text-uppercase">About</small>
                     <ul class="list-unstyled mb-4 mt-3">
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
-                                class="fw-medium mx-2">Status:</span>
+                                class="fw-bold  mx-2">Status:</span>
                             <span
                                 class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
-                                class="fw-medium mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>
+                                class="fw-bold mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>
                         </li>
 
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
-                                class="fw-medium mx-2">Role:</span> <span>{{ $user->role_name ?: '-' }}</span>
+                                class="fw-bold mx-2">Role:</span> <span>{{ $user->role_name ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
-                                class="fw-medium mx-2">NIP:</span> <span>{{ $user->nip ?: '-' }}</span></li>
+                                class="fw-bold mx-2">NIP:</span> <span>{{ $user->nip ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
+                                class="fw-bold mx-2">NIK:</span> <span>{{ $user->nik ?: '-' }}</span></li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-id-card"></i><span
-                                class="fw-medium mx-2">NPWP:</span> <span>{{ $user->npwp ?: '-' }}</span></li>
+                                class="fw-bold mx-2">NPWP:</span> <span>{{ $user->npwp ?: '-' }}</span></li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bxs-id-card"></i><span
-                                class="fw-medium mx-2">Position:</span>
+                                class="fw-bold mx-2">Position:</span>
                             <span>{{ $user->position ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-objects-vertical-bottom"></i><span
-                                class="fw-medium mx-2">Golongan:</span>
+                                class="fw-bold mx-2">Golongan:</span>
                             <span>{{ $user->golongan ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
-                                class="fw-medium mx-2">Contract:</span>
+                                class="fw-bold mx-2">Contract:</span>
                             <span>{{ $user->contract_type ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
-                                class="fw-medium mx-2">Start Work:</span>
+                                class="fw-bold mx-2">Start Work:</span>
                             <span>{{ $user->date_start ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
-                                class="fw-medium mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
+                                class="fw-bold mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
-                                class="fw-medium mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
+                                class="fw-bold mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i
                                 class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
-                                class="fw-medium mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
+                                class="fw-bold mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
-                                class="fw-medium mx-2">Religion:</span>
+                                class="fw-bold mx-2">Religion:</span>
                             <span>{{ $user->religion ?: '-' }}</span>
                         </li>
 
@@ -124,10 +126,10 @@
                     <small class="text-muted text-uppercase">Contacts</small>
                     <ul class="list-unstyled mb-4 mt-3">
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
-                                class="fw-medium mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
+                                class="fw-bold mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
-                                class="fw-medium mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
+                                class="fw-bold mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
                         </li>
                     </ul>
 
@@ -136,7 +138,7 @@
             <!--/ About User -->
 
         </div>
-        <div class="col-xl-8 col-lg-7 col-md-7">
+        <div class="col-xl-7 col-lg-6 col-md-6">
             <!-- Activity Timeline -->
             <div class="card card-action mb-4">
                 <div class="card-header align-items-center">

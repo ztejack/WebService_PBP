@@ -1,25 +1,18 @@
 <div class="row">
     <div class="col-md-12">
 
-        @if (session()->has('succes'))
+        @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 Data Berhasil diperbarui
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>
-            {{-- @elseif (session()->has('error')) --}}
-        @elseif ($errors->any())
+        @elseif (session()->has('errors'))
             <div class="alert alert-danger alert-dismissible" role="alert">
                 Gagal memperbarui data
-                {{--  --}}
-                {{-- {{-- @foreach ($errors->all() as $error) --}}
-                {{ $errors }}
-                {{-- @endforeach  --}}
-
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>
-        @else
         @endif
 
         <div class="card mb-4">
@@ -27,7 +20,6 @@
             <!-- Account -->
             <hr class="my-0">
             <div class="card-body">
-                {{-- <form id="formAccountSettings" method="put" action="/users/update/{{ $user->slug }}" --}}
                 <form id="formAccountSettings" method="put" action="{{ Route('update_user', $user->slug) }}"
                     enctype="multipart/form-data">
                     @method('put')
@@ -36,52 +28,47 @@
                         <div class="mb-3 col-md-6">
                             <label for="name" class="form-label">Nama</label>
                             <input class="form-control" type="text" id="name" name="name"
-                                placeholder="Nama User" autofocus="" value="{{ $user->name }}">
-                            @if ($errors->has('name'))
-                                <div class="invalid-feedback">
+                                placeholder="Nama User" autofocus="" value="{{ old('name', $user->name) }}">
+                            @error('name')
+                                <div class="invalid-feedback d-block">
                                     {{ $errors->first('name') }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="username" class="form-label">Username</label>
                             <input class="form-control" type="text" id="username" name="username"
-                                placeholder="Nama User" autofocus="" value="{{ $user->username }}">
-                            @if ($errors->has('username'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('username') }}
+                                placeholder="Username" autofocus="" value="{{ old('username', $user->username) }}">
+                            @error('username')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-envelope"></i> </span>
                                 <input class="form-control" type="text" name="email" id="email"
-                                    placeholder="mail@example.com" value="{{ $user->email }}">
+                                    placeholder="mail@example.com" value="{{ old('email', $user->email) }}">
                             </div>
-                            @if ($errors->has('email'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('email') }}
+                            @error('email')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="phonenumber">Phone Number</label>
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-phone"></i> </span>
                                 <input type="text" id="phonenumber" name="phonenumber" class="form-control"
-                                    placeholder="" value="{{ $user->phone }}">
-                                @if ($errors->has('phonenumber'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('phonenumber') }}
-                                    </div>
-                                @endif
-                                {{-- @if ($errors->has('phone'))
-                                    <div class="invalid-feedback">
+                                    placeholder="" value="{{ old('phonenumber', $user->phone) }}">
+                                @error('phonenumber')
+                                    <div class="invalid-feedback d-block">
                                         {{ $message }}
                                     </div>
-                                @endif --}}
+                                @enderror
                             </div>
                         </div>
                         {{-- Line --}}
@@ -94,117 +81,136 @@
                                 <span class="input-group-text"><i class="bx bxs-buildings"></i></span>
                                 <select class="form-select" id="satker" name="satker"
                                     aria-label="Default select example">
+                                    @if (old('satker', $user->satker))
+                                        <option value="{{ $user->satker }}" selected>
+                                            {{ $user->satker }}
+                                        </option>
+                                    @else
+                                        <option value="" selected>
+                                            Select One
+                                        </option>
+                                    @endif
                                     @foreach ($satkers as $satker)
-                                        @if (old('satker', $user->satker) == $satker->satker)
-                                            <option value="{{ $user->satker }}" selected>
-                                                {{ $satker->satker }}
-                                            </option>
-                                        @else
+                                        @if (old('satker', $user->satker) != $satker->satker)
                                             <option value="{{ $satker->satker }}">
                                                 {{ $satker->satker }}
                                             </option>
                                         @endif
                                     @endforeach
-
                                 </select>
-                                @if ($errors->has('satker'))
-                                    <div class="invalid-feedback">
-                                        {{ $errors->first('satker') }}
+                                @error('satker')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
                                     </div>
-                                @endif
+                                @enderror
                             </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="position" class="form-label">Position</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bx bxs-id-card"></i></span>
-                                <select id="position" class="form-select">
+                                <select id="position" name='position' class="form-select">
                                     @if (old('position', $user->position))
-                                        <option value="{{ $user->position }}">{{ $user->position }}</option>
+                                        <option value="{{ $user->position }}" selected>
+                                            {{ $user->position }}
+                                        </option>
                                     @else
-                                        <option>Select One</option>
+                                        <option value="" selected>
+                                            Select One
+                                        </option>
                                     @endif
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen">Kristen</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha">Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                    <option value="Other">Other</option>
+                                    @foreach ($positions as $position)
+                                        @if (old('satker', $user->position) != $position->position)
+                                            <option value="{{ $position->position }}">
+                                                {{ $position->position }}
+                                            </option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
-                            @if ($errors->has('position'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('position') }}
+                            @error('position')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="golongan" class="form-label">Golongan</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bx bx-objects-vertical-bottom"></i></span>
-                                <select id="golongan" class="form-select">
+                                <select id="golongan" name='golongan' class="form-select">
+
+                                    {{-- @foreach ($optiongolongans as $option)
+                                        @if (old('golongan', $user->golongan) == $option->val)
+                                            <option value="{{ $user->golongan }}" selected>{{ $user->golongan }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $option->val }}">{{ $option->name }}
+                                        @endif
+                                    @endforeach --}}
+
                                     @if (old('golongan', $user->golongan))
-                                        <option value="{{ $user->golongan }}">{{ $user->golongan }}</option>
+                                        <option value="{{ $user->golongan }}" selected>
+                                            {{ $user->golongan }}
+                                        </option>
                                     @else
-                                        <option>Select One</option>
+                                        <option value="" selected>
+                                            Select One
+                                        </option>
                                     @endif
-                                    <option value="I">I</option>
-                                    <option value="II">II</option>
-                                    <option value="III">III</option>
-                                    <option value="IV">IV</option>
-                                    <option value="V">V</option>
-                                    <option value="VI">VI</option>
-                                    <option value="VII">VII</option>
-                                    <option value="VIII">VIII</option>
-                                    <option value="IX">IX</option>
-                                    <option value="X">X</option>
-                                    <option value="XI">XI</option>
+                                    @foreach ($optiongolongans as $option)
+                                        @if (old('satker', $user->golongan) != $option->val)
+                                            <option value="{{ $option->val }}">
+                                                {{ $option->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+
                                 </select>
                             </div>
-                            @if ($errors->has('golongan'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('golongan') }}
+                            @error('golongan')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="contract" class="form-label">Contract Type</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bx bx-file"></i></span>
-                                <select id="contract" class="form-select">
-                                    @if (old('contract', $user->contract_type))
-                                        <option value="{{ $user->contract_type }}">
-                                            {{ $user->contract_type ?? 'not Set' }}
-                                        </option>
+                                <select id="contract" name='contract' class="form-select">
+                                    @if (old('contract', $user->contract_type) == 'Type-two')
+                                        <option value="{{ $user->contract_type }}" selected>Type-two</option>
+                                        <option value="Type_one">Type-one</option>
                                     @else
-                                        <option>Select One</option>
+                                        <option value="{{ $user->contract_type }}" selected>Type-one</option>
+                                        <option value="Type-two">Type-two</option>
                                     @endif
-                                    <option value="Type_one">Type_one</option>
-                                    <option value="Type-two">Type-two</option>
                                 </select>
                             </div>
-                            @if ($errors->has('contract'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('contract') }}
+                            @error('contract')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="date_start" class="form-label">Date Start</label>
                             <input class="form-control" type="date" name="date_start" id="date_start"
-                                value="{{ $user->date_start }}">
-                            @if ($errors->has('date_start'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('date_start') }}
+                                value="{{ old('date_start', date('Y-m-d', strtotime($user->date_start))) }}">
+                            @error('date_start')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="tenure" class="form-label">Tenure</label>
-                            <input class="form-control" type="text" name="tenure" id="tenure" readonly>
+                            <input class="form-control" type="text" name="tenure" id="tenure"
+                                value='{{ old('tenure', $user->tenure) }}' readonly>
                             <input type="text" name="val_tenure" id="val_tenure" readonly hidden>
                             @error('tenure')
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -215,108 +221,114 @@
                         <div class="mb-3 col-md-6">
                             <label for="nip" class="form-label">NIP</label>
                             <input class="form-control" type="text" name="nip" id="nip"
-                                placeholder="00000000-000000-0-000" value="{{ $user->nip }}">
-                            @if ($errors->has('nip'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('nip') }}
+                                placeholder="00000000-000000-0-000" value="{{ old('nip', $user->nip) }}">
+                            @error('nip')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="npwp" class="form-label">NPWP</label>
                             <input class="form-control" type="text" name="npwp" id="npwp"
-                                placeholder="00.000.000.0-000.0000" value="{{ $user->npwp }}">
-                            @if ($errors->has('npwp'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('npwp') }}
+                                placeholder="00.000.000.0-000.0000" value="{{ old('npwp', $user->npwp) }}">
+                            @error('npwp')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="nik" class="form-label">Nik</label>
                             <input class="form-control" type="text" name="nik" id="nik"
-                                placeholder="00.000.000.0-000.0000" value="">
-                            @if ($errors->has('nik'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('nik') }}
+                                placeholder="00.000.000.0-000.0000" value="{{ old('nik', $user->nik) }}">
+                            @error('nik')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="tempat" class="form-label">Tempat Tanggal Lahir</label>
                             <div class="input-group">
-                                <input class="form-control" type="text" name="tempat" id="tempat">
-                                <input class="form-control" type="date" value="{{ $user->ttl }}"
-                                    name="tanggal" id="tanggal">
+                                <input class="form-control" type="text" name="tempat" id="tempat"
+                                    value="{{ old('tempat', $user->tempat) }}">
+                                <input class="form-control" type="date"
+                                    value="{{ old('tanggal', $user->tanggal) }}" name="tanggal" id="tanggal">
                             </div>
 
-                            @if ($errors->has('tempat'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('tempat') }}
+                            @error('tempat')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
-                            @if ($errors->has('tanggal'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('tanggal') }}
+                            @enderror
+                            @error('tanggal')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
 
                         <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
                             <div class="input-group">
-                                <input class="form-control" type="text" name="address" id="address">
+                                <input class="form-control" type="text" name="address" id="address"
+                                    value="{{ old('address', $user->address) }}">
                             </div>
 
-                            @if ($errors->has('address'))
+                            @error('address')
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('address') }}
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="addressid" class="form-label">Address ID Card</label>
-                            <input class="form-control" type="text" name="addressid" id="addressid">
-                            @if ($errors->has('addressid'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('addressid') }}
+                            <input class="form-control" type="text" name="addressid" id="addressid"
+                                value="{{ old('addressid', $user->ktp_address) }}">
+                            @error('addressid')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="gender" class="form-label">Gender</label>
-                            <select id="gender" class="form-select">
-                                <option>Select One</option>
-                                <option value="1">Male</option>
-                                <option value="0">Female</option>
+                            <select id="gender" name='gender' class="form-select">
+                                @if (old('gender', $user->gender) == 'Male')
+                                    <option value="{{ $user->gender }}">Male</option>
+                                    <option value="0">Female</option>
+                                @else
+                                    <option value="{{ $user->gender }}">Female</option>
+                                    <option value="1">Male</option>
+                                @endif
                             </select>
-                            @if ($errors->has('gender'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('gender') }}
+                            @error('gender')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="religion" class="form-label">Religion</label>
 
-                            <select id="religion" class="form-select">
+                            <select id="religion" name='religion' class="form-select">
                                 @if (old('religion', $user->religion))
-                                    <option value="{{ $user->religion }}">{{ $user->religion }}</option>
+                                    <option value="{{ $user->religion }}"selected>{{ $user->religion }}</option>
                                 @else
-                                    <option>Select One</option>
+                                    <option value="" selected>Select One</option>
                                 @endif
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
-                                <option value="Other">Other</option>
+                                @foreach ($optionreligions as $option)
+                                    @if (old('religion', $user->religion) != $option->val)
+                                        <option value="{{ $option->val }}">{{ $option->val }}</option>
+                                    @endif
+                                @endforeach
                             </select>
-                            @if ($errors->has('religion'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('religion') }}
+                            @error('religion')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
                                 </div>
-                            @endif
+                            @enderror
                         </div>
 
                         {{-- Line --}}
@@ -347,27 +359,31 @@
             <!-- /Account -->
         </div>
         <div class="card">
-            <h5 class="card-header">Hapus Akun</h5>
+            <h5 class="card-header">Nonaktifkan Akun</h5>
             <div class="card-body">
                 <div class="mb-3 col-12 mb-0">
                     <div class="alert alert-warning">
-                        <h6 class="alert-heading fw-bold mb-1">Apakah Anda Yakin Ingin Menghapus Akun Anda?
+                        <h6 class="alert-heading fw-bold mb-1">Apakah Anda Yakin Ingin Menonaktifkan Akun?
                         </h6>
-                        <p class="mb-0">Saat akun sudah terhapus, maka semua data akan hilang. Tolong pastikan
+                        <p class="mb-0">Saat akun sudah tidak aktif, maka akun tidak dapat di akses atau digunakan.
+                            Tolong pastikan
                             kembali </p>
                     </div>
                 </div>
-                {{-- <form id="formAccountDeactivation" onsubmit="return false" action="{{ route('destroy') }}">
-                    @method('delete')
+                {{-- <form id="formAccountDeactivation" onsubmit="return false" action="{{ route('archive_user') }}"> --}}
+                <form id="formAccountDeactivation" method="POST" action="{{ route('archive_user') }}">
+                    @method('post')
                     @csrf
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation">
-                        <label class="form-check-label" for="accountActivation">Saya mengonfirmasi Penghapusan
-                            akun saya</label>
+                        <input class="form-check-input" type="checkbox" name="accountArchive" id="accountArchive"
+                            required>
+                        <input class="d-none" name="slug" hide value="{{ $user->slug }}">
+                        <label class="form-check-label" for="accountArchive">Saya mengonfirmasi penonaktifan
+                            akun </label>
                     </div>
-                    <button type="submit" onclick="return confirm('Apa anda yakin?')"
-                        class="btn btn-danger deactivate-account">Hapus Akun</button>
-                </form> --}}
+                    <button id="btnarchive" type="submit" onclick="return confirm('Apa anda yakin?')"
+                        class="btn btn-danger deactivate-account">Nonaktifkan</button>
+                </form>
             </div>
         </div>
     </div>

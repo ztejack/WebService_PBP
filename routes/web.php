@@ -30,14 +30,16 @@ Route::prefix('auth')->middleware(['auth'])->group(
     function () {
         Route::get('/profile', [AuthController::class, 'profile'])->name('profile_user');
         Route::post('/change-password', [AuthController::class, 'reset_password'])->name('reset_password');
+        Route::post('/archive', [UserController::class, 'archive'])->name('archive_user');
     }
 );
 Route::prefix('users')->middleware(['auth'])->group(
     function () {
         Route::get('/', [UserController::class, 'index'])->name('page_user');
         Route::get('{user}/detail', [UserController::class, 'show'])->name('detail_view_user');
-        Route::get('/store', [UserController::class, 'store_user'])->name('store_user');
+        Route::get('/store', [UserController::class, 'store_view_user'])->name('store_view_user');
+        Route::post('/store', [UserController::class, 'store'])->name('store_user');
         Route::get('{user}/update', [UserController::class, 'update_view_user'])->name('update_view_user');
-        Route::get('update/{user}', [UserController::class, 'update'])->name('update_user');
+        Route::post('update/{user}', [UserController::class, 'update'])->name('update_user');
     }
 );
