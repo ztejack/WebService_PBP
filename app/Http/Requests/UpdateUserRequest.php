@@ -34,11 +34,14 @@ class UpdateUserRequest extends FormRequest
     public function customrule()
     {
         $user = $this->route('user');
+
         $userId = User::where('slug', $user)->first();
+        // dd($userId);
         $employe = $userId->employee;
         // dd($userId);
         $rule = [
             'name' => 'required|string',
+            'slug' => '',
             'email' => [
                 'required',
                 'email',
@@ -84,23 +87,23 @@ class UpdateUserRequest extends FormRequest
         ];
         return $rule;
     }
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     $errors = $validator->errors(); // Ambil pesan error
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors(); // Ambil pesan error
 
-    //     // Konversi pesan error ke objek
-    //     $errorsObject = (object)$errors;
+        // Konversi pesan error ke objek
+        $errorsObject = (object)$errors;
 
-    //     // Flash input data ke session agar tersedia saat Anda redirect kembali
-    //     $this->flash();
+        // Flash input data ke session agar tersedia saat Anda redirect kembali
+        $this->flash();
 
-    //     // Buat instance ViewErrorBag dan set sebagai variabel "errors" di view
-    //     // $errorBag = new ViewErrorBag();
-    //     // $errorBag->put('default', $errorsObject);
+        // Buat instance ViewErrorBag dan set sebagai variabel "errors" di view
+        // $errorBag = new ViewErrorBag();
+        // $errorBag->put('default', $errorsObject);
 
-    //     // Buang HttpResponseException dengan errorBag
-    //     throw new HttpResponseException(
-    //         redirect()->back()->withErrors($errorsObject)->withInput()
-    //     );
-    // }
+        // Buang HttpResponseException dengan errorBag
+        throw new HttpResponseException(
+            redirect()->back()->withErrors($errorsObject)->withInput()
+        );
+    }
 }

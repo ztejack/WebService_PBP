@@ -1,21 +1,3 @@
-// const phoneInput = document.getElementById('phonenumber');
-
-// phoneInput.addEventListener('input', () => {
-//     maskingnumber();
-// });
-
-// function maskingnumber() {
-//     let phoneNumber = phoneInput.value;
-//     phoneNumber = phoneNumber.replace(/^0+/, '');
-//     phoneInput.value = phoneNumber;
-// }
-// // Apply the initial IMask
-// const phoneMask = IMask(phoneInput, {
-//     mask: '+{62} (000) 0000-0000-00',
-// });
-// Function to remove leading zeros
-
-
 // Function to initialize the phone input and mask
 window.addEventListener('load', function () {
     const phoneInput = document.getElementById('phonenumber');

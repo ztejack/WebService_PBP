@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('position');
             $table->timestamps();
         });
+        Schema::create('contracts', function (Blueprint $table) {
+            $table->id();
+            $table->string('contract');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -28,5 +33,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('positions');
+        Schema::dropIfExists('contracts');
     }
 };

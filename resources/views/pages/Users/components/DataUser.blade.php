@@ -1,4 +1,19 @@
 {{-- @include('components.dataPerusahaan') --}}
+
+@if (session()->has('success'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        Data Berhasil ditambahkan
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+@elseif (session()->has('errors'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        Gagal menambahkan data
+        {{-- @dd(session()) --}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+@endif
 <div class="card">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
@@ -7,8 +22,8 @@
         <div class="dt-action-buttons text-end pt-3 pt-md-0">
             <div class="dt-buttons">
                 {{-- <a href="users/create" class="dt-button create-new btn btn-primary" tabindex="0" type="button"> --}}
-                <button class="dt-button create-new btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"tabindex="0" type="button">
+                <button id="addbutton" class="dt-button create-new btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addUserModal"tabindex="0" type="button">
                     <span>
                         <i class="bx bx-plus me-sm-2"></i>
                         <span class="d-none d-sm-inline-block">Add New User</span>
@@ -77,15 +92,38 @@
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <form id="userDelete-form" action="/user/{{ $user->slug }}/archive"
-                                                    method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="dropdown-item text-danger"
-                                                        onclick="return confirm('Apa anda yakin?')">
-                                                        <i class="bx bx-x-circle"></i> Delete
-                                                    </button>
-                                                </form>
+                                                @if ($user->status == true)
+                                                    <form id="userArchive-form" action="{{ route('archive_user') }}"
+                                                        method="POST">
+                                                        <input class="d-none" name="slug" hidden
+                                                            value="{{ $user->slug }}">
+                                                        <input type="checkbox" name="accountArchive" id="accountArchive"
+                                                            checked hidden>
+                                                        @method('post')
+                                                        @csrf
+                                                        <button class="dropdown-item text-danger"
+                                                            onclick="return confirm('Apa anda yakin?')">
+                                                            <i class="bx bx-x-circle"></i> Nonaktifkan
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form id="userActive-form" action="{{ route('unarchive_user') }}"
+                                                        method="POST">
+                                                        <input class="d-none" name="slug" hidden
+                                                            value="{{ $user->slug }}">
+                                                        <input type="checkbox" name="accountArchive" id="accountArchive"
+                                                            checked hidden>
+                                                        @method('post')
+                                                        @csrf
+                                                        <button class="dropdown-item text-info"
+                                                            onclick="return confirm('Apa anda yakin?')">
+                                                            <i class="bx bx-check-square"></i> Aktifkan
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+
+
 
                                             </div>
                                         </div>
@@ -102,7 +140,7 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Status</th>
-                            <th>Satuan Kerja</th>
+                            <th>Role User</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>

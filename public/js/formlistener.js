@@ -35,3 +35,4 @@ function calculateTenure() {
     val_tenure.value = [yearsDifference, monthsDifference, weeksDifference, daysDifference];
     console.log(val_tenure.value)
 }
+

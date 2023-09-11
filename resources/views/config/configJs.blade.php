@@ -40,6 +40,17 @@
     <script type="module" src="{{ asset('/js/input-mask.js') }}"></script>
     <script type="module" src="{{ asset('/js/formlistener.js') }}"></script>
 @endif
+@if (Request::is('users'))
+    <script type="module" src="{{ asset('js/Form/AddUser.js') }}"></script>
+    @if (session()->has('errors'))
+        <script>
+            $(document).ready(function() {
+                // Trigger a click event on the button when the document is ready
+                $("#addbutton").click();
+            });
+        </script>
+    @endif
+@endif
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}
 
 

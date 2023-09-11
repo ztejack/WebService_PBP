@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contract;
 use App\Models\Position;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -35,6 +36,13 @@ class PositionSeeder extends Seeder
         ]);
         Position::create([
             'position' => 'Staff'
+        ]);
+
+        Contract::create([
+            'contract' => "Tetap"
+        ]);
+        Contract::create([
+            'contract' => "Sementara"
         ]);
     }
 }

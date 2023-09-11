@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -30,11 +31,21 @@ class StoreUserRequest extends FormRequest
     public function customrule()
     {
         $rules = [
-            'name' => 'required|string',
-            'email' => 'required|unique:users,email|email',
-            'username' => 'required|unique:users,username|string',
-            'id_satker' => 'required',
-            'id_subsatker' => 'required',
+            'name' => 'required',
+            'email' =>
+            [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+                'string',
+            ],
+            'username' => [
+                'required',
+                Rule::unique('users', 'username'),
+                'string',
+            ],
+            'phonenumber' => 'required',
+            // 'id_subsatker' => 'required',
         ];
 
         // $rules = [];
@@ -48,10 +59,21 @@ class StoreUserRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $errors = $validator->errors()->messages();
-        throw new HttpResponseException(response()->json([
-            'message' => 'The given data was invalid.',
-            'errors' => $errors,
-        ], 422));
+        $errors = $validator->errors(); // Ambil pesan error
+
+        // Konversi pesan error ke objek
+        $errorsObject = (object)$errors;
+
+        // Flash input data ke session agar tersedia saat Anda redirect kembali
+        $this->flash();
+
+        // Buat instance ViewErrorBag dan set sebagai variabel "errors" di view
+        // $errorBag = new ViewErrorBag();
+        // $errorBag->put('default', $errorsObject);
+
+        // Buang HttpResponseException dengan errorBag
+        throw new HttpResponseException(
+            redirect()->back()->withErrors($errorsObject)->withInput()
+        );
     }
 }

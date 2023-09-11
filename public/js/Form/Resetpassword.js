@@ -1,3 +1,5 @@
+const { castArray } = require("lodash");
+
 const resetPasswordButton = document.getElementById('resetPasswordButton');
 var jsVariable = document.getElementById('resetPasswordButton').getAttribute('data-php-value');
 const alertarea = document.getElementById('alertarea');

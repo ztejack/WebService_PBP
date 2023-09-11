@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid',
         'username',
         'name',
         'phone',
@@ -83,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
         //     ->generateSlugsFrom('name')
         //     ->saveSlugsTo('slug');
         return SlugOptions::create()
-            ->generateSlugsFrom('username')
+            ->generateSlugsFrom('uuid')
             ->saveSlugsTo('slug');
     }
     /**
