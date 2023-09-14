@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\WEB;
 
+use App\Http\Controllers\Controller;
 use App\Models\Experience;
 use App\Http\Requests\StoreExperienceRequest;
 use App\Http\Requests\UpdateExperienceRequest;
+use App\Models\Employe;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ExperienceController extends Controller
 {
@@ -25,7 +29,6 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -34,9 +37,19 @@ class ExperienceController extends Controller
      * @param  \App\Http\Requests\StoreExperienceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreExperienceRequest $request)
+    public function store(Request $request)
     {
-        //
+        $employee = Employe::where('uuid', $request->uuid)->first();
+        // dd($employee->id);
+        $experience = Experience::create([
+            'position' => $request['position'],
+            'location' => $request['location'],
+            'datestart' => $request['datestart'],
+            'dateend' => $request['dateend'],
+            'employe_id' => $employee->id,
+        ]);
+        $experience->save();
+        return Redirect::back()->with("success", '')->withInput();
     }
 
     /**
@@ -81,6 +94,7 @@ class ExperienceController extends Controller
      */
     public function destroy(Experience $experience)
     {
-        //
+        $experience->delete();
+        return redirect()->back()->with('success', '')->withInput();
     }
 }

@@ -139,7 +139,9 @@ class UserController extends Controller
             (object)['val' => 'Konghucu'],
             (object)['val' => 'Other'],
         ];
-
+        $userpermission = $user->getAllPermissions();
+        // dd($userpermission = $user->getPermissionNames());
+        // dd($userpermission);
         $user = $this->user_resource($user);
         // dd($optionGolongan);
 
@@ -157,7 +159,10 @@ class UserController extends Controller
             'positions' => $positions,
             'contracts' => $contracts,
             'optiongolongans' => $optionGolongan,
-            'optionreligions' => $optionReligion
+            'optionreligions' => $optionReligion,
+            'userPermisions' => $userpermission->pluck('name')->toArray(),
+            // 'permissions' => $user->getAllPermissions(),
+
         ]);
     }
     public function show(User $user)
@@ -185,11 +190,23 @@ class UserController extends Controller
     }
     public function attemp_role_user(Request $request)
     {
+        // dd($request);
+        $user = User::findBySlug($request->slug);
+        $roleremove = $user->getRolenames();
+        $user->removeRole($roleremove->first());
+        $role = Role::findByName($request->role);
+        $user->assignRole($role);
+        return redirect()->back()->with('success', '')->withInput();
+    }
+    public function attemp_permission_user(Request $request) // Error need fix later
+    {
+        $user = User::findBySlug($request->slug);
+        $user->givePermissionTo($request->permission);
+        return redirect()->back()->with('success', '')->withInput();
     }
     public function user_resource($user)
     {
         // dd($user);
-        dd(Auth::user()->roles->permissions->get());
 
         if ($user->employee->tenure != null) {
             $inputString = $user->employee->tenure;
@@ -220,16 +237,17 @@ class UserController extends Controller
             'address' => $user->employee->address,
             'ktp_address' => $user->employee->ktp_address,
             'gender' => $gender,
+            'status' => $user->employee->status,
             'religion' => $user->employee->religion,
             'position' => $user->employee->position != null ? $user->employee->position->position : null,
             'golongan' => $user->employee->golongan,
             'status' => $user->employee->status,
             'date_start' => $formattedDate,
             'tenure' => $user->employee->tenure != null ? $formattedString : $user->employee->tenure,
+            'employe_uuid' => $user->employee->uuid,
             'satker' => $user->satker->satker,
             'experiences' => $user->employee->experience,
             'contract' => $user->employee->contract,
-            'permision' => $user->permission
         ];
         // $datax = (object)$data;
         return (object)$data;

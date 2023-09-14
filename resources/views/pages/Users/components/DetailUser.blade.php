@@ -1,5 +1,17 @@
     <!-- Content -->
-
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            Data Berhasil diperbarui
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    @elseif (session()->has('errors'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            Gagal memperbarui data
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    @endif
     <h4 class="py-3 mb-4">
         <span class="text-muted fw-light">User Detail /</span> Detail
     </h4>
@@ -40,18 +52,65 @@
                                 <a href="/users/{{ $user->slug }}/update" class="btn btn-primary text-nowrap me-2">
                                     <i class="bx bx-edit me-1"></i>Edit
                                 </a>
-                                <a href="javascript:void(0)" class="btn btn-primary text-nowrap ms-2">
+                                <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
+                                    data-bs-target="#modalexperience">
                                     <i class="bx bx-plus-circle me-1"></i>Add Experience
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
     <!--/ Header -->
+    <div class="modal fade" id="modalexperience" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalexperienceTitle">Add Experience</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('store_experience_user') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="position" class="form-label">Position</label>
+                                <input type="text" id="position" name="position"class="form-control"
+                                    placeholder="Enter Position">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" id="location" name="location" class="form-control"
+                                    placeholder="Enter Location">
+                            </div>
+                        </div>
+                        <div class="row g-2">
 
+                            <div class="col mb-0">
+                                <label for="datestart" class="form-label">Date Start</label>
+                                <input type="date" id="datestart" name="datestart"class="form-control">
+                            </div>
+                            <div class="col mb-0">
+                                <label for="dateend" class="form-label">Date End</label>
+                                <input type="date" id="dateend" name="dateend"class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input hidden type="text" name="uuid" value="{{ $user->employe_uuid }}">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Navbar pills -->
     <div class="row">
         <div class="col-md-12">
@@ -156,13 +215,35 @@
                                 <li class="timeline-item timeline-item-transparent">
                                     <span class="timeline-point-wrapper"><span
                                             class="timeline-point timeline-point-warning"></span></span>
-                                    <div class="timeline-event">
-                                        <div class="timeline-header mb-1">
-                                            <h6 class="mb-0">{{ $experience->position }}</h6>
-                                            <small class="text-muted">{{ $experience->date }}</small>
-                                        </div>
-                                        <p class="mb-2">{{ $experience->location }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="timeline-event col-md-10">
+                                            <div class="timeline-header mb-1">
+                                                <h6 class="mb-0">{{ $experience->position }}</h6>
+                                                <small class="text-muted">{{ $experience->datestart }} <span
+                                                        class="bx bx-minus"></span>
+                                                    {{ $experience->dateend }}</small>
+                                            </div>
+                                            <p class="mb-2">{{ $experience->location }}</p>
 
+                                        </div>
+                                        <div class="btn-group col-md-1">
+                                            <button type="button"
+                                                class="btn btn-icon btn-label-primary rounded-pill dropdown-toggle hide-arrow m-auto"
+                                                data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                    class="bx bx-dots-vertical-rounded"></i></button>
+                                            <ul class="dropdown-menu dropdown-menu-end " style="">
+                                                <li>
+                                                    <form
+                                                        action="{{ route('destroy_experience_user', $experience->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('post')
+                                                        <button class="dropdown-item" type="submit">Hapus</button>
+                                                    </form>
+                                                </li>
+                                                {{-- <li><a class="dropdown-item">Edit</a></li> --}}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </li>
                             @endforeach

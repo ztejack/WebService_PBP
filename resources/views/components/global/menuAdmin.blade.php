@@ -19,6 +19,34 @@
             </li>
         </ul>
     </li>
+
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Admin</span>
+    </li>
+    <li class="menu-item  {{ Request::is('role-permission*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-cog"></i>
+            <div data-i18n="Account Settings">Admin Param</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('role-permission*') ? 'active' : '' }}">
+                <a href="{{ route('role.permission') }}" class="menu-link">
+                    <div data-i18n="Without menu">Role & Permission</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('satker*') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                    <div data-i18n="Without menu">Satuan Kerja</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('contract*') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                    <div data-i18n="Without menu">Conract</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="menu-header small text-uppercase ">
         <span class="menu-header-text">Users</span>
     </li>
@@ -69,93 +97,8 @@
             </li>
         </ul>
     </li>
-    <li class="menu-header small text-uppercase ">
-        <span class="menu-header-text">Gaji</span>
-    </li>
-    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-            <div data-i18n="Account Settings">Gaji</div>
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
-                <a href="/Gaji" class="menu-link">
-                    <div data-i18n="Without menu">Data Gaji</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="menu-header small text-uppercase ">
-        <span class="menu-header-text">Gaji</span>
-    </li>
-    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-            <div data-i18n="Account Settings">Gaji</div>
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
-                <a href="/Gaji" class="menu-link">
-                    <div data-i18n="Without menu">Data Gaji</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="menu-header small text-uppercase ">
-        <span class="menu-header-text">Gaji</span>
-    </li>
-    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-            <div data-i18n="Account Settings">Gaji</div>
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
-                <a href="/Gaji" class="menu-link">
-                    <div data-i18n="Without menu">Data Gaji</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="menu-header small text-uppercase ">
-        <span class="menu-header-text">Gaji</span>
-    </li>
-    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-            <div data-i18n="Account Settings">Gaji</div>
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
-                <a href="/Gaji" class="menu-link">
-                    <div data-i18n="Without menu">Data Gaji</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="menu-header small text-uppercase ">
-        <span class="menu-header-text">Gaji</span>
-    </li>
-    <li class="menu-item  {{ Request::is('Gaji*') ? 'active open' : '' }} ">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-            <div data-i18n="Account Settings">Gaji</div>
-        </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('Gaji*') ? 'active' : '' }}">
-                <a href="/Gaji" class="menu-link">
-                    <div data-i18n="Without menu">Data Gaji</div>
-                </a>
-            </li>
-        </ul>
-    </li>
 
-
-
-
-
-
-    @can('adminlevel')
+    @can('SuperUser')
         <li class="menu-header small text-uppercase ">
             <span class="menu-header-text">User</span>
         </li>
@@ -163,53 +106,13 @@
             class="menu-item  {{ Request::is('users*') ? 'active open' : '' }} {{ Request::is('perusahaan*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user-circle"></i>
-                <div data-i18n="Account Settings">Users</div>
+                <div data-i18n="Account Settings">Usersx</div>
             </a>
             <ul class="menu-sub">
                 <li
                     class="menu-item {{ Request::is('users*') ? 'active' : '' }} {{ Request::is('perusahaan*') ? 'active' : '' }}">
                     <a href="/users" class="menu-link">
                         <div data-i18n="Without menu">Data User</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    @endcan
-
-    @can('kasiradminlevel')
-        {{-- Barang --}}
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Barang</span>
-        </li>
-
-        <li class="menu-item {{ Request::is('produk*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Account Settings">Barang</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('produk*') ? 'active' : '' }}">
-                    <a href="/produk" class="menu-link">
-                        <div data-i18n="Without menu">Data Barang</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        {{-- Tagihan --}}
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Tagihan</span>
-        </li>
-
-        <li class="menu-item {{ Request::is('produk*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Account Settings">Tagihan</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('produk*') ? 'active' : '' }}">
-                    <a href="/tagihan" class="menu-link">
-                        <div data-i18n="Without menu">Data Tagihan</div>
                     </a>
                 </li>
             </ul>

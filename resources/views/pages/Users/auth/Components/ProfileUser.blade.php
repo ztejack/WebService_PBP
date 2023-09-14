@@ -98,7 +98,7 @@
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
                                 class="fw-medium mx-2">Contract:</span>
-                            <span>{{ $user_profile->contract_type ?: '-' }}</span>
+                            <span>{{ $user_profile->contract ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
                                 class="fw-medium mx-2">Start Work:</span>
@@ -151,10 +151,11 @@
                                 <div class="timeline-event">
                                     <div class="timeline-header mb-1">
                                         <h6 class="mb-0">{{ $experience->position }}</h6>
-                                        <small class="text-muted">{{ $experience->date }}</small>
+                                        <small class="text-muted">{{ $experience->datestart }} <span
+                                                class="bx bx-minus"></span>
+                                            {{ $experience->dateend }}</small>
                                     </div>
                                     <p class="mb-2">{{ $experience->location }}</p>
-
                                 </div>
                             </li>
                         @endforeach

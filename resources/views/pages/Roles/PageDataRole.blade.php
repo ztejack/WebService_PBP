@@ -6,13 +6,10 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @include('pages.Roles.components.DataRole')
+            <div class="row">
+                @include('pages.Roles.components.DataRole')
+                @include('pages.Roles.components.DataPermission')
+            </div>
         </div>
         {{-- footer --}}
         @include('components.global.footer')

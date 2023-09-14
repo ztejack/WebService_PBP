@@ -18,7 +18,8 @@ class ExperienceFactory extends Factory
     {
         return [
             'position' => fake()->sentence(mt_rand(1, 2)),
-            'date' => fake()->date('Y-m-d', 'now'),
+            'datestart' => fake()->date('Y-m-d', 'now'),
+            'dateend' => fake()->date('Y-m-d', 'toorrow'),
             'location' => fake()->sentence(1),
             'employe_id' => mt_rand(1, 4),
         ];

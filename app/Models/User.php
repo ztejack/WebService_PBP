@@ -105,6 +105,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->employee->satker;
     }
 
+    public function hasRole($roleName)
+    {
+        return $this->role == $roleName; // sample implementation only
+    }
+
 
     /**
      * Return a model value array, containing any relation model.

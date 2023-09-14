@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('position');
             $table->string('location');
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes');
-            $table->date('date');
+            $table->string('datestart');
+            $table->string('dateend');
             $table->timestamps();
         });
     }

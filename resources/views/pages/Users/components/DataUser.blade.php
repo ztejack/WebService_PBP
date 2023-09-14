@@ -92,7 +92,7 @@
                                                     Edit
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                @if ($user->status == true)
+                                                @if ($user->employee->status == true)
                                                     <form id="userArchive-form" action="{{ route('archive_user') }}"
                                                         method="POST">
                                                         <input class="d-none" name="slug" hidden
@@ -121,10 +121,6 @@
                                                         </button>
                                                     </form>
                                                 @endif
-
-
-
-
                                             </div>
                                         </div>
                                     </div>

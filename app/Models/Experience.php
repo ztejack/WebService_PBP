@@ -17,7 +17,9 @@ class Experience extends Model
     protected $fillable = [
         'position',
         'location',
-        'date',
+        'datestart',
+        'dateend',
+        'employe_id'
     ];
     public function employee()
     {

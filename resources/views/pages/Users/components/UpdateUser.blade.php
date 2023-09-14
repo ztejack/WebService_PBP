@@ -440,9 +440,9 @@
                 <!-- Role -->
                 <hr class="my-0">
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" action="{{ Route('update_user', $user->slug) }}"
+                    <form id="formAccountSettings" method="POST" action="{{ Route('attemp_role') }}"
                         enctype="multipart/form-data">
-                        @method('PUT')
+                        @method('POST')
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-12">
@@ -450,8 +450,8 @@
 
                                 <div class="input-group input-group-merge mb-2">
                                     <span class="input-group-text"><i class="bx bx-shield-quarter"></i> </span>
-                                    <select class="form-select" type="text" name="email" id="email"
-                                        placeholder="Celect Role" value="{{ old('email', $user->email) }}">
+                                    <select class="form-select" type="text" name="role" id="role"
+                                        placeholder="Celect Role" value="{{ old('role', $user->role_name) }}">
                                         {{-- @if (old('role', $user->role_name))
                                             <option value="{{ $user->role_name }}" selected>{{ $user->role_name }}
                                             </option>
@@ -467,9 +467,10 @@
                                         @endforeach
                                         {{-- @endif --}}
                                     </select>
+                                    <input type="text" name="slug" hidden value="{{ $user->slug }}">
 
                                 </div>
-                                <button class="btn btn-outline-primary" type="button">
+                                <button class="btn btn-outline-primary" type="submit">
                                     Submit
                                 </button>
                                 @error('role')
@@ -486,41 +487,54 @@
                 <!-- Permision -->
                 <hr class="my-0">
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" action="{{ Route('update_user', $user->slug) }}"
+
+                    {{-- <form id="formAccountSettings" method="POST" action="{{ route('attemp_permission') }}"
                         enctype="multipart/form-data">
-                        @method('PUT')
+                        @method('POST')
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="email" class="form-label">Role</label>
                                 <div class="input-group input-group-merge mb-2">
                                     <span class="input-group-text"><i class="bx bx-shield-quarter"></i> </span>
-                                    <select class="form-select" type="text" name="email" id="email"
-                                        placeholder="Celect Role" value="{{ old('email', $user->email) }}">
-                                        {{-- @if (old('role', $user->role_name))
+                                    <input type="text" name="slug" hidden value="{{ $user->slug }}">
+                                    <select class="form-select" type="text" name="permission" id="permission"
+                                        placeholder="Celect Role" value="{{ old('permission') }}">
+                                        @if (old('role', $user->role_name))
                                             <option value="{{ $user->role_name }}" selected>{{ $user->role_name }}
                                             </option>
-                                        @else --}}
-                                        @foreach ($permisions as $permision)
-                                            <option value="{{ $permision->name }}">{{ $permision->name }}</option>
-                                        @endforeach
-                                        {{-- @endif --}}
+                                        @else
+                                            @foreach ($permisions as $permision)
+                                                @if (in_array($permision->name, $userPermisions))
+                                                    <!-- This permission is in the user's permissions -->
+                                                @else
+                                                    <!-- This permission is not in the user's permissions -->
+                                                    <option value="{{ $permision->name }}">{{ $permision->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
                                     </select>
-                                    <h4>{{ $user->permision }}1</h4>
-
-
                                 </div>
-                                <button class="btn btn-outline-primary" type="button">
+
+                                <button class="btn btn-outline-primary" type="submit">
                                     Submit
                                 </button>
-                                @error('role')
+                                @error('permission')
                                     <div class="invalid-feedback d-block">
                                         {{ $errors->first('role') }}
                                     </div>
                                 @enderror
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
+                    <ul class="list-group">
+
+                        @foreach ($userPermisions as $permission)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ $permission }}
+                                <span class="bx bx-check-circle"></span>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

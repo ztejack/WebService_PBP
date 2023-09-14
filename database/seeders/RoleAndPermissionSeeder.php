@@ -85,6 +85,6 @@ class RoleAndPermissionSeeder extends Seeder
             'show-employe',
         ]);
 
-        $adminRole->givePermissionTo([]);
+        // $adminRole->givePermissionTo([]);
     }
 }
