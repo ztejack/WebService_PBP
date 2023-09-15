@@ -1,7 +1,9 @@
-<div class="col-xl-6 mb-4 order-1 order-xl-0">
+<div class="col-xl-4 mb-4 order-1 order-xl-0">
     <div class="card h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="card-title m-0 me-2">Permission</h5>
+            <h5 class="card-title m-0 me-2">PERMISSION <span
+                    class="badge bg-label-primary rounded-pill text-uppercase"><span class="bx bx-key"></span>
+                    {{ $permissions->count() }}</span></h5>
 
         </div>
         <div class="table-responsive">

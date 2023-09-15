@@ -5,7 +5,6 @@
     });
 </script> --}}
 <!-- build:js assets/vendor/js/core.js -->
-<script src="/vendor/libs/jquery/jquery.js"></script>
 <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
 {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
@@ -39,6 +38,9 @@
     <script type="module" src="{{ asset('js/Form/Resetpassword.js') }}"></script>
     <script type="module" src="{{ asset('/js/input-mask.js') }}"></script>
     <script type="module" src="{{ asset('/js/formlistener.js') }}"></script>
+@endif
+@if (Request::is('admin/role-permission'))
+    <script type="module" src="{{ asset('js/ui-popover.js') }}"></script>
 @endif
 @if (Request::is('users'))
     <script type="module" src="{{ asset('js/Form/AddUser.js') }}"></script>

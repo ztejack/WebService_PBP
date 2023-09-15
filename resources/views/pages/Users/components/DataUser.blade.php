@@ -9,7 +9,6 @@
 @elseif (session()->has('errors'))
     <div class="alert alert-danger alert-dismissible" role="alert">
         Gagal menambahkan data
-        {{-- @dd(session()) --}}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>

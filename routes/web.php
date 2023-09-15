@@ -41,6 +41,8 @@ Route::prefix('auth')->middleware(['auth'])->group(
 Route::prefix('admin')->middleware(['auth'])->group(
     function () {
         route::get('/role-permission', [RoleController::class, 'index'])->name('role.permission');
+        route::post('/role-permission/store', [RoleController::class, 'store'])->name('role.store');
+        route::post('/role-permission/update/{role}', [RoleController::class, 'update'])->name('role.update');
     }
 );
 Route::prefix('users')->middleware(['auth'])->group(

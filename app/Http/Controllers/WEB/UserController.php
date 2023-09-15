@@ -34,8 +34,6 @@ class UserController extends Controller
             'pages.Users.PageUser',
             [
                 'users' => (object)$users,
-                // 'perusahaans' => $perusahaans,
-                // 'satkers' => $satkers,
             ]
         );
     }

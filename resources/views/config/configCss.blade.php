@@ -32,6 +32,7 @@
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet" href="/vendor/libs/apex-charts/apex-charts.css" />
+<script src="/vendor/libs/jquery/jquery.js"></script>
 
 
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></> --}}
