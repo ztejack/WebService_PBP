@@ -62,7 +62,6 @@ class RoleController extends Controller
         $rule = [
             'name' => [
                 'required',
-                'email',
                 Rule::unique('roles', 'name')->ignore($role->id),
                 'string',
             ]
@@ -75,6 +74,10 @@ class RoleController extends Controller
             // return Redirect::back()->with('errors', 0)->withInput();
             return Redirect::back()->withErrors($validatedData)->withInput();
         }
+
+        $role->name = $request->name;
+        $role->update();
+        return redirect()->back()->with('success', '')->withInput();
     }
     public function attempt_permission()
     {

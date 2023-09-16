@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WEB\AuthController;
 use App\Http\Controllers\WEB\ExperienceController;
+use App\Http\Controllers\WEB\ParamController;
 use App\Http\Controllers\WEB\RoleController;
 use App\Http\Controllers\WEB\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,11 @@ Route::prefix('auth')->middleware(['auth'])->group(
 );
 Route::prefix('admin')->middleware(['auth'])->group(
     function () {
+        Route::prefix('satker')->middleware(['auth'])->group(
+            function () {
+                Route::get('/', [ParamController::class, 'satker_view'])->name('page_satker');
+            }
+        );
         route::get('/role-permission', [RoleController::class, 'index'])->name('role.permission');
         route::post('/role-permission/store', [RoleController::class, 'store'])->name('role.store');
         route::post('/role-permission/update/{role}', [RoleController::class, 'update'])->name('role.update');
