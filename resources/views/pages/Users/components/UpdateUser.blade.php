@@ -14,26 +14,26 @@
 <div class="nav-align-top">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <button type="button" class="nav-link  fw-semibold" role="tab" data-bs-toggle="tab"
-                data-bs-target="#navs-pills-top-data" aria-controls="navs-pills-top-data" aria-selected="true">User
+            <button type="button" class="nav-link fw-semibold active" role="tab" data-bs-toggle="tab"
+                data-bs-target="#navs-pills-top-data" aria-controls="navs-pills-top-data">User
                 Update</button>
         </li>
         <li class="nav-item">
-            <button type="button" class="nav-link fw-semibold active" role="tab" data-bs-toggle="tab"
-                data-bs-target="#navs-pills-top-role" aria-controls="navs-pills-top-role">Role &
+            <button type="button" class="nav-link fw-semibold " role="tab" data-bs-toggle="tab"
+                data-bs-target="#navs-pills-top-role" aria-controls="navs-pills-top-role" aria-selected="true">Role &
                 Permision</button>
         </li>
     </ul>
 
-    <div class="tab-content p-0">
+    <div class="tab-content">
         {{-- TAB USER DATA --}}
-        <div class="col-md-12 tab-pane fade " id="navs-pills-top-data" role="tabpanel">
+        <div class="col-md-12 tab-pane fade active show" id="navs-pills-top-data" role="tabpanel">
 
 
             <div class=" mb-4">
                 <h5 class="card-header">Update Data</h5>
                 <!-- Account -->
-                <hr class="my-0">
+                <hr class="my-2">
                 <div class="card-body">
                     <form id="formAccountSettings" method="POST" action="{{ Route('update_user', $user->slug) }}"
                         enctype="multipart/form-data">
@@ -179,9 +179,9 @@
                                             </option>
                                         @endif
                                         @foreach ($optiongolongans as $option)
-                                            @if (old('satker', $user->golongan) != $option->val)
-                                                <option value="{{ $option->val }}">
-                                                    {{ $option->name }}
+                                            @if (old('golongan', $user->golongan) != $option->golongan)
+                                                <option value="{{ $option->golongan }}">
+                                                    {{ $option->golongan }}
                                                 </option>
                                             @endif
                                         @endforeach
@@ -434,11 +434,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 tab-pane fade active show" id="navs-pills-top-role" role="tabpanel">
+        <div class="col-md-12 tab-pane fade" id="navs-pills-top-role" role="tabpanel">
             <div class="mb-4">
                 <h5 class="card-header">Role User</h5>
                 <!-- Role -->
-                <hr class="my-0">
+                <hr class="my-2">
                 <div class="card-body">
                     <form id="formAccountSettings" method="POST" action="{{ Route('attemp_role') }}"
                         enctype="multipart/form-data">
@@ -485,48 +485,8 @@
                 <hr class="my-2">
                 <h5 class="card-header">Permision User</h5>
                 <!-- Permision -->
-                <hr class="my-0">
+                <hr class="my-2">
                 <div class="card-body">
-
-                    {{-- <form id="formAccountSettings" method="POST" action="{{ route('attemp_permission') }}"
-                        enctype="multipart/form-data">
-                        @method('POST')
-                        @csrf
-                        <div class="row">
-                            <div class="mb-3 col-md-12">
-                                <label for="email" class="form-label">Role</label>
-                                <div class="input-group input-group-merge mb-2">
-                                    <span class="input-group-text"><i class="bx bx-shield-quarter"></i> </span>
-                                    <input type="text" name="slug" hidden value="{{ $user->slug }}">
-                                    <select class="form-select" type="text" name="permission" id="permission"
-                                        placeholder="Celect Role" value="{{ old('permission') }}">
-                                        @if (old('role', $user->role_name))
-                                            <option value="{{ $user->role_name }}" selected>{{ $user->role_name }}
-                                            </option>
-                                        @else
-                                            @foreach ($permisions as $permision)
-                                                @if (in_array($permision->name, $userPermisions))
-                                                    <!-- This permission is in the user's permissions -->
-                                                @else
-                                                    <!-- This permission is not in the user's permissions -->
-                                                    <option value="{{ $permision->name }}">{{ $permision->name }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                    </select>
-                                </div>
-
-                                <button class="btn btn-outline-primary" type="submit">
-                                    Submit
-                                </button>
-                                @error('permission')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $errors->first('role') }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </form> --}}
                     <ul class="list-group">
 
                         @foreach ($userPermisions as $permission)

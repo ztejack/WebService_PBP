@@ -8,11 +8,11 @@ window.addEventListener('load', function () {
         // phoneNumber = phoneNumber.replace(/^0+/, '');
         // phoneInput.value = phoneNumber;
         // Hilangkan semua karakter selain angka
-    phoneNumber = phoneNumber.replace(/\D/g, '');
+    phoneNumber = phoneNumber.replace(/^0+/, '');
 
     // Periksa apakah dua karakter pertama adalah nol setelah +62
     if (phoneNumber.startsWith('62')) {
-        phoneNumber = '62' + phoneNumber.substring(2).replace(/^0+/, '');
+        phoneNumber = '62' + phoneNumber.substring(0).replace(/^0+/, '');
     }
 
     // Terapkan format pola masking
@@ -54,6 +54,7 @@ phoneInput.addEventListener('input', () => {
         mask: '{+62} 000 0000-0000-00',
     });
 });
+
 const nipInput = document.getElementById('nip');
 
 const nipMask = IMask(nipInput, {
@@ -65,3 +66,11 @@ const npwpInput = document.getElementById('npwp');
 const npwpMask = IMask(npwpInput, {
     mask:'00.000.000.0-000.0000'
 })
+
+
+// const inpt = document.getElementsByClassName('currenc');
+//     const currencMask =  IMask(
+//         inpt, {
+//             mask: Number,
+//             thousandsSeparator: ' '
+//         })

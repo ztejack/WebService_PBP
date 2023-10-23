@@ -45,3 +45,12 @@
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="/js/config.js"></script>
+
+{{-- Terbilang --}}
+@if (Request::is('gaji/slip/detail') || Request::is('gaji/slip/print') || Request::is('gaji/*/view'))
+    <script type="module" src="{{ asset('js/numbertolisterner.js') }}"></script>
+    {{-- @include('') --}}
+@endif
+@if (Request::is('gaji/*/view'))
+    <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
+@endif

@@ -20,12 +20,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         </button>
                     </div>
-                    <script>
-                        setTimeout(function() {
-                            $('.alert').alert('close');
-                        }, 5000);
-                    </script>
+                @elseif(session()->has('err'))
+                    <div class="alert alert-danger alert-dismissible" role="alert" aria-live="assertive"
+                        aria-atomic="true" data-bs-delay="2000">
+                        {{ session('err') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
                 @endif
+                <script>
+                    setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 5000);
+                </script>
                 <h4 class="py-3 mb-4">
                     <span class="text-muted fw-light">Admin /</span> Role & Permission
                 </h4>

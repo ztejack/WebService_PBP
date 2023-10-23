@@ -9,8 +9,9 @@
 {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
 </script> --}}
-<script src="/vendor/libs/jquery/jquery.masknumber.js"></script>
 <script src="/vendor/libs/popper/popper.js"></script>
+
+<script src="/vendor/libs/jquery/jquery.masknumber.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/vendor/js/bootstrap.js"></script>
 <script src="/vendor/js/jquery.PrintArea.js"></script>
@@ -25,16 +26,18 @@
 {{-- <script src="/vendor/libs/datatables/jquery.dataTables.js"></script> --}}
 
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-
+{{-- @if (Request::is(!'auth')) --}}
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
-
-<!-- Main JS -->
 <script src="/js/main-dashboard.js"></script>
 
+
+{{-- @endif --}}
+
+<!-- Main JS -->
+
 <!-- Page JS    -->
-@if (Request::is('users/*/update'))
+@if (Request::is('users/*/update') || Request::is('gaji/gaji-param'))
     <script type="module" src="{{ asset('js/Form/Resetpassword.js') }}"></script>
     <script type="module" src="{{ asset('/js/input-mask.js') }}"></script>
     <script type="module" src="{{ asset('/js/formlistener.js') }}"></script>
@@ -52,6 +55,10 @@
             });
         </script>
     @endif
+@endif
+@if (Request::is('gaji/*/view'))
+    <script type="module" src="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+    <script type="module" src="{{ asset('js/forms-pickers.js') }}"></script>
 @endif
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}
 

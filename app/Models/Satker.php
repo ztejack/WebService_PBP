@@ -34,14 +34,14 @@ class Satker extends Model
     {
         return $this->hasMany(Employe::class);
     }
-    public static function boot()
-    {
-        parent::boot();
-        self::created(function ($model) {
-            // $user = static::create($model->attributes);
-            // dd($user);
-            // dd($model->Id());
-            $model->subsatker()->create(['subsatker' => 'Guest']);
-        });
-    }
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     self::created(function ($model) {
+    //         // $user = static::create($model->attributes);
+    //         // dd($user);
+    //         // dd($model->Id());
+    //         $model->subsatker()->create(['subsatker' => 'Guest']);
+    //     });
+    // }
 }

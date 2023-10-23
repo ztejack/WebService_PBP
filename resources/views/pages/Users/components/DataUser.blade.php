@@ -35,10 +35,11 @@
             </div>
         </div>
     </div>
-    <div class="card-datatable">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="table-responsive text-nowrap">
-                <table id="tableUser" class="table table-hover" style="width:100%">
+    <div class="card-datatable text-nowrap">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5">
+            <div class="dataTables_scroll">
+                <table class="datatables-basic table border-top dataTable dtr-column coillapse"
+                    aria-describedby="DataTables_Table_0_info" id="example">
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
@@ -85,8 +86,7 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item"target="_blank"
-                                                    href="/users/{{ $user->slug }}/update">
+                                                <a class="dropdown-item" href="/users/{{ $user->slug }}/update">
                                                     <i class='bx bx-edit'></i>
                                                     Edit
                                                 </a>

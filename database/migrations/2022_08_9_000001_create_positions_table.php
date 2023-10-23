@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('contract');
             $table->timestamps();
         });
+        Schema::create('golongans', function (Blueprint $table) {
+            $table->id();
+            $table->string('golongan');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -33,6 +38,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('positions');
+        Schema::dropIfExists('golongans');
         Schema::dropIfExists('contracts');
     }
 };

@@ -26,7 +26,7 @@ passwordElement.appendChild(passwordSpan);
 resetPasswordButton.addEventListener('click', async function () {
     try {
         // Lakukan permintaan ke server untuk mengatur ulang kata sandi
-        const response = await axios.post('/auth/change-password',jsVariable); // Sesuaikan dengan rute yang sesuai
+        const response = await axios.post('/auth/reset-password',jsVariable); // Sesuaikan dengan rute yang sesuai
 
         // Tampilkan pesan sukses jika permintaan berhasil
         if (response.status === 200) {

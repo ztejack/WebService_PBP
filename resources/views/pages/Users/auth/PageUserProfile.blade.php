@@ -6,9 +6,9 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            @if (session()->has('success'))
+            @if (session()->has('succ'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
+                    {{ session('succ') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif

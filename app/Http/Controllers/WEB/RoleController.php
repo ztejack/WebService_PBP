@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WEB;
 use App\Http\Controllers\Controller;
 // use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -16,9 +17,22 @@ class RoleController extends Controller
 {
     public function index()
     {
+        // Retrieve all permissions
+        $permissions = Permission::all();
+
+        // Check if the authenticated user is a super user
+        // $isSuperUser = Auth::user()->isSuperUser(); // Adjust this based on your user model and logic
+        // $array = 'SuperUserManagement';
+        // // Exclude the "delete" permission if the user is not a super user
+        // if (!$isSuperUser) {
+        //     $permissions = $permissions->reject(function ($permission)
+        //     use ($array) {
+        //         return $permission->name === $array;
+        //     });
+        // }
         return view('pages.Roles.PageDataRole', [
             'roles' => Role::all(),
-            'permissions' => Permission::all(),
+            'permissions' => $permissions,
         ]);
     }
     public function store(Request $request)
@@ -40,25 +54,23 @@ class RoleController extends Controller
             return redirect()->back()->with('error', 'Role creation failed')->withInput();
         }
     }
-    public function destroy(Request $request)
+    public function destroy(Request $request, Role $role)
     {
-        // dd($request);
-        $validatedData = Validator::make($request->all(), [
-            'name' => 'required|unique:roles|max:255',
-        ]);
+        if (in_array($role->name, ['SuperUser', 'Admin', 'Guest', 'Employe'])) {
+            return Redirect::back()->with('err', 'Role ini tidak dapat di hapus')->withInput();
+        };
         try {
-            $validatedData->delete();
+            $role->delete();
+            return redirect()->back()->with('success', '')->withInput();
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'Failed to delete resource',
-            ], 500);
+            return Redirect::back()->with('err', 'Gagal Menghapus Role')->withInput();
         }
-        return response()->json([
-            'status' => 'Success delete resource',
-        ], 200);
     }
     public function update(Request $request, Role $role)
     {
+        if (!Auth::user()->isSuperUser() && $role->name != "SuperUser") {
+            return Redirect::back()->with('err', 'Anda tidak memiliki hak untuk mengelola Resource')->withInput();
+        }
         $rule = [
             'name' => [
                 'required',
@@ -79,10 +91,25 @@ class RoleController extends Controller
         $role->update();
         return redirect()->back()->with('success', '')->withInput();
     }
-    public function attempt_permission()
+    public function attempt_permission(Request $request, Role $role)
     {
+        $selectedPermissionIds = $request->input('permissions', []);
+        if (!auth()->user()->can('SuperUserManagement') && in_array('1', $selectedPermissionIds)) {
+            return Redirect::back()->with('err', 'Anda tidak memiliki hak untuk mengelola Resource')->withInput();
+        } else if ($role->name == "SuperUser") {
+            return Redirect::back()->with('err', 'Anda tidak memiliki hak untuk mengelola Resource')->withInput();
+        } else {
+            $this->sync_permission($selectedPermissionIds, $role);
+            return redirect()->back()->with('success', '')->withInput();
+        }
     }
-    public function destroy_permission()
+
+    function sync_permission($array, $role)
     {
+        try {
+            $role->permissions()->sync($array);
+        } catch (\Exception $e) {
+            return Redirect::back()->with('err', 'Gagal menerapkan permission')->withInput();
+        }
     }
 }

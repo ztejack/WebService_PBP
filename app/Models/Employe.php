@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Gaji\Gaji;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -23,14 +24,15 @@ class Employe extends Model
         'ktp_address',
         'gender',
         'religion',
-        'golongan',
+        // 'golongan',
         'status',
         'date_start',
         'tenure',
         'user_id',
         'contract_id',
         'satker_id',
-        'position_id'
+        'position_id',
+        'golongan_id'
     ];
 
     // /**
@@ -64,7 +66,15 @@ class Employe extends Model
     }
     public function contract()
     {
-        return $this->belongsTo(Contract::class, 'contract_id');
+        return $this->belongsTo(Contract::class);
+    }
+    public function golongan()
+    {
+        return $this->belongsTo(Golongan::class);
+    }
+    public function gaji()
+    {
+        return $this->hasOne(Gaji::class, 'employe_id');
     }
 
     public static function boot()
@@ -73,6 +83,9 @@ class Employe extends Model
         self::creating(function ($model) {
             $model->uuid = (string) Uuid::uuid4()->getHex();
             // $model->date_start = $model->date_start ?? now();
+        });
+        self::created(function ($model) {
+            $model->gaji()->create();
         });
     }
 }

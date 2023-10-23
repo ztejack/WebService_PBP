@@ -81,36 +81,7 @@
                                         data-bs-target="#RoleModal{{ $role->id }}">
                                         Detail
                                     </button>
-                                    {{-- <button type="button" class="btn btn-sm btn-primary dropdown-toggle mx-2"
-                                        id="BtnDropdownFormRole" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <i class='bx bx-edit'></i>
-                                        Edit
-                                    </button> --}}
-                                    {{-- <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal"
-                                        type="button" class="btn btn-sm btn-primary dropdown-toggle mx-2"><small><i
-                                                class='bx bx-edit'></i> Edit Role</small></a> --}}
-                                    {{-- Form Add Role --}}
-                                    {{-- <div class="dropdown-menu dropdown-menu-end w-px-300" style="">
-                                        <form class="p-4" method="post"
-                                            action="{{ route('role.update', $role->id) }}">
-                                            @method('POST')
-                                            @csrf
-                                            <div class="mb-3">
-                                                <label for="DropdownFormRole" class="form-label">Role
-                                                    Name</label>
-                                                <input type="name" name="name" class="form-control"
-                                                    id="DropdownFormRole" placeholder="Enter Role Name"
-                                                    value="{{ $role->name }}">
-                                                @error('name')
-                                                    <div class="invalid-feedback d-block">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <button type="Submit" class="btn btn-sm btn-primary">Submit</button>
-                                        </form>
-                                    </div> --}}
+
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                             data-bs-toggle="dropdown">
@@ -118,15 +89,18 @@
                                         </button>
 
                                         <div class="dropdown-menu">
-                                            {{-- <form id="userArchive-form" action="{{ route('archive_user') }}" method="POST"> --}}
-                                            <input class="d-none" name="slug" hidden value="">
-                                            <input type="checkbox" name="accountArchive" id="accountArchive" checked
-                                                hidden>
-                                            <button class="dropdown-item text-danger"
-                                                onclick="return confirm('Apa anda yakin?')">
-                                                <i class="bx bx-trash"></i> Delete
-                                            </button>
-                                            {{-- </form> --}}
+                                            <form id="userArchive-form" action="{{ route('role.destroy', $role->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('post')
+                                                <input class="d-none" name="slug" hidden value="">
+                                                <button
+                                                    class="dropdown-item {{ in_array($role->name, ['SuperUser', 'Admin', 'Guest', 'Employe']) ? 'text-secondaey' : 'text-danger' }}"
+                                                    onclick="return confirm('Apa anda yakin?')"
+                                                    {{ in_array($role->name, ['SuperUser', 'Admin', 'Guest', 'Employe']) ? 'disabled' : '' }}>
+                                                    <i class="bx bx-trash"></i> Delete
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +138,6 @@
                                                 <tr>
                                                     <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <span
                                                             class="fw-medium">{{ $permission->name }}</span></td>
-
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -214,8 +187,10 @@
                             <p>Set role permissions</p>
                         </div>
                         <!-- Add role form -->
-                        <form id="RoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                            onsubmit="return false" novalidate="novalidate">
+                        <form id="RoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" method="post"
+                            action="{{ route('role.attempt_permission', $role->id) }}">
+                            @method('POST')
+                            @csrf
                             <div class="col-12 mb-4 fv-plugins-icon-container">
                                 <label class="form-label" for="modalRoleName">Role Name</label>
                                 <input type="text" id="modalRoleName" name="modalRoleName"
@@ -233,56 +208,25 @@
                                     <table class="table table-flush-spacing">
                                         <tbody>
                                             @foreach ($permissions as $permission)
-                                                @if ($role->permissions->contains('name', $permission->name))
-                                                    <tr>
-                                                        <td class="text-nowrap fw-medium">{{ $permission->name }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="permission{{ $permission->name }}" checked>
-                                                                <label class="form-check-label"
-                                                                    for="permission{{ $permission->name }}">
-                                                                    Read
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @else
-                                                    <tr>
-                                                        <td class="text-nowrap fw-medium">{{ $permission->name }}
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-check me-3 me-lg-5">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="permission{{ $permission->name }}">
-                                                                <label class="form-check-label"
-                                                                    for="permission{{ $permission->name }}">
-                                                                    Read
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                                <tr>
+                                                    <td class="text-nowrap fw-medium">{{ $permission->name }}
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-check me-3 me-lg-5">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="permission{{ $permission->name }}"
+                                                                name="permissions[]" value="{{ $permission->id }}"
+                                                                {{ $role->permissions->contains('name', $permission->name) ? 'checked' : '' }}
+                                                                {{ $role->name == 'SuperUser' ? 'disabled' : '' }}
+                                                                {{ $permission->name == 'SuperUserManagement' ? 'disabled' : '' }}>
+                                                            <label class="form-check-label"
+                                                                for="permission{{ $permission->name }}">
+                                                                Give Permission
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             @endforeach
-                                            <tr>
-                                                <td class="text-nowrap fw-medium">Administrator Access <i
-                                                        class="bx bx-info-circle bx-xs" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        aria-label="Allows a full access to the system"
-                                                        data-bs-original-title="Allows a full access to the system"></i>
-                                                </td>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            id="selectAll">
-                                                        <label class="form-check-label" for="selectAll">
-                                                            Select All
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
                                         </tbody>
                                     </table>
                                 </div>

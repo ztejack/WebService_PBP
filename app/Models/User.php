@@ -96,18 +96,27 @@ class User extends Authenticatable implements JWTSubject
     {
         return 'slug';
     }
-    public function getSubsatkerAttribute()
-    {
-        return $this->employee->subsatker;
-    }
     public function getSatkerAttribute()
     {
         return $this->employee->satker;
+    }
+    public function getGolonganAttribute()
+    {
+        return $this->employee->golongan;
+    }
+    public function getPositionAttribute()
+    {
+        return $this->employee->position;
     }
 
     public function hasRole($roleName)
     {
         return $this->role == $roleName; // sample implementation only
+    }
+
+    public function isSuperUser()
+    {
+        return $this->hasRole('SuperUser');
     }
 
 
@@ -140,7 +149,12 @@ class User extends Authenticatable implements JWTSubject
             // $user = static::create($model->attributes);
             // dd($user);
             // dd($model->Id());
-            $model->employee()->create();
+            $model->employee()->create([
+                'contract_id' => mt_rand(1, 2),
+                'satker_id' => mt_rand(1, 3),
+                'position_id' => mt_rand(1, 4),
+                'golongan_id' => mt_rand(1, 12)
+            ]);
         });
     }
 }

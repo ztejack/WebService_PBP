@@ -40,6 +40,10 @@ class Position extends Model
     }
     public function employee()
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Employe::class);
+    }
+    public function gajiparamTnjb()
+    {
+        return $this->belongsTo(GajiParamTunJab::class);
     }
 }

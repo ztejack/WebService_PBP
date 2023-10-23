@@ -166,7 +166,15 @@ $(document).ready(function () {
         paging: true,
         ordering: true,
         info: true,
-        scrollY: 200,
+        scrollY: true,
+        scrollX: true,
+    });
+    $("#examples").DataTable({
+        stateSave: true,
+        paging: true,
+        ordering: true,
+        info: true,
+        scrollY: true,
         scrollX: true,
     });
     $("table.display").DataTable({

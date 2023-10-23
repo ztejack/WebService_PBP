@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Contract;
 use App\Models\Employe;
 use App\Models\Experience;
+use App\Models\Golongan;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\Satker;
@@ -71,6 +72,8 @@ class UserController extends Controller
         $user = User::where('slug', $input['slug'])->first();
         $positions = Position::all();
         $satkers = Satker::all();
+        $golongans = Golongan::all();
+        $contracts = Contract::all();
         $user->name = $input['name'];
         $user->username = $input['username'];
         $user->phone = $input['phonenumber'];
@@ -85,10 +88,20 @@ class UserController extends Controller
         $employee->ktp_address = $input['addressid'];
         $employee->date_start = $input['date_start'];
         $employee->tenure = $input['val_tenure'];
-        $employee->contract_type = $input['contract'];
+        // $employee->contract_type = $input['contract'];s
         $employee->religion = $input['religion'];
-        $employee->golongan = $input['golongan'];
+        // $employee->golongan = $input['golongan'];
         $employee->gender = $input['gender'];
+        foreach ($contracts as $contract) {
+            if ($contract->contract == $input['contract']) {
+                $employee->contract_id = $contract->id;
+            }
+        }
+        foreach ($golongans as $golongan) {
+            if ($golongan->golongan == $input['golongan']) {
+                $employee->golongan_id = $golongan->id;
+            }
+        }
         foreach ($positions as $position) {
             if ($position->position == $input['position']) {
                 $employee->position_id = $position->id;
@@ -106,29 +119,6 @@ class UserController extends Controller
     }
     public function update_view_user(User $user)
     {
-        $optionGolongan = (object)[
-            (object)['name' => 'IA', 'val' => 'IA'],
-            (object)['name' => 'IB', 'val' => 'IB'],
-            (object)['name' => 'IC', 'val' => 'IC'],
-            (object)['name' => 'IIA', 'val' => 'IIA'],
-            (object)['name' => 'IIB', 'val' => 'IIB'],
-            (object)['name' => 'IIC', 'val' => 'IIC'],
-            (object)['name' => 'IIIA', 'val' => 'IIIA'],
-            (object)['name' => 'IIIB', 'val' => 'IIIB'],
-            (object)['name' => 'IIIC', 'val' => 'IIIC'],
-            (object)['name' => 'IVA', 'val' => 'IVA'],
-            (object)['name' => 'IVB', 'val' => 'IVB'],
-            (object)['name' => 'IVC', 'val' => 'IVC'],
-            (object)['name' => 'VA', 'val' => 'VA'],
-            (object)['name' => 'VB', 'val' => 'VB'],
-            (object)['name' => 'VC', 'val' => 'VC'],
-            (object)['name' => 'VIA', 'val' => 'VIA'],
-            (object)['name' => 'VIB', 'val' => 'VIB'],
-            (object)['name' => 'VIC', 'val' => 'VIC'],
-            (object)['name' => 'VIIA', 'val' => 'VIIA'],
-            (object)['name' => 'VIIB', 'val' => 'VIIB'],
-            (object)['name' => 'VIIC', 'val' => 'VIIC'],
-        ];
         $optionReligion = (object)[
             (object)['val' => 'Islam'],
             (object)['val' => 'Kristem'],
@@ -149,6 +139,7 @@ class UserController extends Controller
         $contracts = Contract::all();
         $roles = ModelsRole::all();
         $permisions = Permission::all();
+        $golongans = Golongan::all();
         return view('pages.Users.PageUserUpdate', [
             'user' => $user,
             'roles' => $roles,
@@ -156,7 +147,7 @@ class UserController extends Controller
             'satkers' => $satkers,
             'positions' => $positions,
             'contracts' => $contracts,
-            'optiongolongans' => $optionGolongan,
+            'optiongolongans' => $golongans,
             'optionreligions' => $optionReligion,
             'userPermisions' => $userpermission->pluck('name')->toArray(),
             // 'permissions' => $user->getAllPermissions(),
@@ -188,20 +179,29 @@ class UserController extends Controller
     }
     public function attemp_role_user(Request $request)
     {
-        // dd($request);
-        $user = User::findBySlug($request->slug);
-        $roleremove = $user->getRolenames();
-        $user->removeRole($roleremove->first());
-        $role = Role::findByName($request->role);
-        $user->assignRole($role);
+        if (Auth::user()->can('SuperUserManagement') && $request->role == "SuperUser") {
+            $user = User::findBySlug($request->slug);
+            $role = Role::findByName($request->role);
+            $user->syncRoles([$role]);
+        } else if (Auth::user()->can('RoleManagement') && $request->role != "SuperUser") {
+            $user = User::findBySlug($request->slug);
+            $role = Role::findByName($request->role);
+            $user->syncRoles([$role]);
+        } else if (!Auth::user()->can('SuperUserManagement') && $request->role == "SuperUser") {
+            return redirect()->back()->with('err', 'THIS ACTION IS UNAUTHORIZED')->withInput();
+        } else {
+            return redirect()->back()->with('err', 'THIS ACTION IS UNAUTHORIZED')->withInput();
+        }
         return redirect()->back()->with('success', '')->withInput();
     }
+
     public function attemp_permission_user(Request $request) // Error need fix later
     {
         $user = User::findBySlug($request->slug);
         $user->givePermissionTo($request->permission);
         return redirect()->back()->with('success', '')->withInput();
     }
+    
     public function user_resource($user)
     {
         // dd($user);
@@ -238,14 +238,14 @@ class UserController extends Controller
             'status' => $user->employee->status,
             'religion' => $user->employee->religion,
             'position' => $user->employee->position != null ? $user->employee->position->position : null,
-            'golongan' => $user->employee->golongan,
+            'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
             'status' => $user->employee->status,
             'date_start' => $formattedDate,
             'tenure' => $user->employee->tenure != null ? $formattedString : $user->employee->tenure,
             'employe_uuid' => $user->employee->uuid,
             'satker' => $user->satker->satker,
             'experiences' => $user->employee->experience,
-            'contract' => $user->employee->contract,
+            'contract' => $user->employee->contract != null ? $user->employee->contract->contract : null,
         ];
         // $datax = (object)$data;
         return (object)$data;

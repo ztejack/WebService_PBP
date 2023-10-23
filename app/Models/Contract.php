@@ -18,6 +18,6 @@ class Contract extends Model
     ];
     public function employee()
     {
-        return $this->belongsTo(Employe::class);
+        return $this->hasMany(Employe::class);
     }
 }

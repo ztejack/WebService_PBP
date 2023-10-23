@@ -36,9 +36,16 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="javascript:void(0)" class="btn btn-primary text-nowrap">
-                                <i class="bx bx-user-check me-1"></i>Connected
-                            </a>
+                            <div>
+                                <a href="{{ route('update_view_profile', $user_profile->slug) }}"
+                                    class="btn btn-primary text-nowrap me-2">
+                                    <i class="bx bx-edit me-1"></i>Edit
+                                </a>
+                                <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
+                                    data-bs-target="#modalexperience">
+                                    <i class="bx bx-plus-circle me-1"></i>Add Experience
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,19 +53,64 @@
         </div>
     </div>
     <!--/ Header -->
+    <div class="modal fade" id="modalexperience" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalexperienceTitle">Add Experience</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('store_experience_user') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="position" class="form-label">Position</label>
+                                <input type="text" id="position" name="position"class="form-control"
+                                    placeholder="Enter Position">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" id="location" name="location" class="form-control"
+                                    placeholder="Enter Location">
+                            </div>
+                        </div>
+                        <div class="row g-2">
 
+                            <div class="col mb-0">
+                                <label for="datestart" class="form-label">Date Start</label>
+                                <input type="date" id="datestart" name="datestart"class="form-control">
+                            </div>
+                            <div class="col mb-0">
+                                <label for="dateend" class="form-label">Date End</label>
+                                <input type="date" id="dateend" name="dateend"class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input hidden type="text" name="uuid" value="{{ $user_profile->employe_uuid }}">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Navbar pills -->
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
                 <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i
                             class="bx bx-user me-1"></i> Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
+                {{-- <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
                             class="bx bx-group me-1"></i> Teams</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
                             class="bx bx-grid-alt me-1"></i> Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
-                            class="bx bx-link-alt me-1"></i> Connections</a></li>
+                            class="bx bx-link-alt me-1"></i> Connections</a></li> --}}
             </ul>
         </div>
     </div>
@@ -108,7 +160,8 @@
                                 class="fw-medium mx-2">Tenure:</span> <span>{{ $user_profile->tenure ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
-                                class="fw-medium mx-2">Address:</span> <span>{{ $user_profile->address ?: '-' }}</span>
+                                class="fw-medium mx-2">Address:</span>
+                            <span>{{ $user_profile->address ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i
                                 class="bx {{ $user_profile->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span

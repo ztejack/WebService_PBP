@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light-style layout-navbar-fixed layout-menu-fixed">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    class="light-style layout-navbar-fixed layout-compact layout-menu-fixed layout-menu-collapsed">
+{{-- class="light-style layout-navbar-fixed layout-menu-fixed"> --}}
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
     <!-- CSRF Token -->

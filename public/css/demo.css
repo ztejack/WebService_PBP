@@ -1,4 +1,4 @@
-/* 
+/*
 * demo.css
 * File include item demo only specific css only
 ******************************************************************************/
@@ -6,11 +6,68 @@
 .menu .app-brand.demo {
   height: 64px;
   margin-top: 12px;
+transition-duration: 1s;
 }
 
 .app-brand-logo.demo img {
-  width: 100%;
-  height: 8vh;
+  width: inherit;
+max-width: 9rem;
+}
+.app-brand-logo.demo {
+    width: -webkit-fill-available;
+}
+.app-brand-link{
+    width: inherit;
+}
+.menu-vertical .app-brand {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+html:not(.layout-menu-collapsed) .menu-vertical .app-brand {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    height: inherit;
+}
+html:not(.layout-menu-collapsed) .menu-vertical .app-brand > .app-brand-link{
+    height: inherit;
+}
+html:not(.layout-menu-collapsed) .menu-vertical .app-brand > .app-brand-link img{
+    height: inherit;
+}
+.layout-menu-collapsed.layout-menu-hover .app-brand{
+    padding-right: 2rem;
+    padding-left: 2rem;
+    height: inherit;
+}
+.layout-menu-hover .app-brand >.app-brand-link {
+    height: inherit;
+}
+.layout-menu-hover .app-brand >.app-brand-link img{
+    height: inherit;
+}
+.layout-menu-collapsed .app-brand {
+    padding-right: 1vh;
+    padding-left: 1vh;
+}
+/* .layout-menu-collapsed .menu-vertical .app-brand {
+    padding-right: 1vh;
+    padding-left: 1vh;
+} */
+/* .layout-menu-hover .menu-vertical .app-brand {
+    padding-right: 2rem;
+    padding-left: 2rem;
+} */
+/* .layout-menu-hover .menu-vertical .app-brand img,
+.layout-menu-fixed .menu-vertical .app-brand img {
+    height: inherit;
+} */
+
+.layout-menu-hover:not(.app-brand-logo) .app-brand-logo {
+    width: inherit;
+}
+
+.layout-menu-hover:not(.app-brand-logo):not(img) {
+    width: inherit;
 }
 
 .app-brand-logo.demo svg {
@@ -155,7 +212,7 @@ Temp
 }
 
 
-/* img container 
+/* img container
 *****************************************************************************
 */
 
@@ -210,7 +267,7 @@ Temp
   }
 }
 
-/* Table 
+/* Table
 *****************************************************************************
 */
 .table-responsive {
@@ -234,9 +291,9 @@ td .text-truncate {
   max-width: 80vh !important;
 }
 
-/* 
-DataTable 
-**************************************************************** 
+/*
+DataTable
+****************************************************************
 */
 
 .dataTables_scrollBody {

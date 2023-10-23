@@ -33,6 +33,6 @@ function calculateTenure() {
     // Update the tenure input with the calculated values
     tenureInput.value = `Years: ${yearsDifference}, Months: ${monthsDifference}, Weeks: ${weeksDifference}, Days: ${daysDifference}`;
     val_tenure.value = [yearsDifference, monthsDifference, weeksDifference, daysDifference];
-    console.log(val_tenure.value)
+    // console.log(val_tenure.value)
 }
 

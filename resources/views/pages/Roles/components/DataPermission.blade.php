@@ -49,69 +49,13 @@
                                     <div class="modal-body">
                                         <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
                                             facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue
-                                            laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl
-                                            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor
-                                            fringilla.</p>
+                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus sequi rem cumque sunt beatae, ipsa suscipit impedit nulla blanditiis, nobis distinctio corporis eveniet fugiat excepturi culpa quas, natus accusantium magnam.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-label-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                                     </div>
                                 </div>
                             </div>
