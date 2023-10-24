@@ -30,6 +30,7 @@
                             <th>Jabatan</th>
                             <th>Golongan</th>
                             <th>Gaji</th>
+                            <th>Kehadiran</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -40,14 +41,19 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->position }}</td>
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
-                                <td>{{ $user->gaji }}</td>
+                                {{-- <td>{{ $user->gaji }}</td> --}}
+                                <td></td>
+                                <td><span class="badge badge-pill bg-success fw-bold">24</span></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-
                                         <!-- Button trigger modal -->
                                         <a href="{{ route('page_gaji_employe', $user->slug) }}"
                                             class="btn btn-sm btn-primary">
-                                            Detail Gaji
+                                            Detail
+                                        </a>
+                                        <a href="{{ route('page_gaji_employe', $user->slug) }}"
+                                            class="btn btn-sm btn-primary">
+                                            Detail
                                         </a>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -60,8 +66,6 @@
                                                     <i class='bx bx-edit'></i>
                                                     Edit
                                                 </a>
-                                                <div class="dropdown-divider"></div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -71,12 +75,13 @@
 
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr class="text-nowrap">
                             <th>NO</th>
                             <th>Nama User</th>
                             <th>Jabatan</th>
                             <th>Golongan</th>
-                            <th>Gaji Pokok</th>
+                            <th>Gaji</th>
+                            <th>Kehadiran</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>

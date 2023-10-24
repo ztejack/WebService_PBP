@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
             <h5 class="card-title mb-0">Parameter Tunjangan Kesejahteraan </h5>

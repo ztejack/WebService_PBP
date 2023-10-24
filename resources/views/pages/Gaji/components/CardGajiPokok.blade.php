@@ -15,6 +15,12 @@
                 <input type="number" class="form-control" id="input-gaji-pokok" placeholder="Input Gaji Pokok...">
             </div>
             <div class="mb-3">
+                <label class="form-label" for="input-tunjangan-ahli">
+                    Tunjangan Ahli
+                </label>
+                <input type="number" class="form-control" id="input-tunjangan-ahli" placeholder="Input Gaji Pokok...">
+            </div>
+            <div class="mb-3">
 
                 <label class="form-label" for="input-tunjangan-jabatan">
                     Tunjangan Jabatan

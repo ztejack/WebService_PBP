@@ -51,20 +51,9 @@
                                 placeholder="Enter Amount">
                         </div>
                     </div>
-                    <div class="row g-2">
-                        <div class="col mb-0">
-                            <label class="form-label" for="perjalanan">Perjalanan</label>
-                            <div class="input-append date" id="datepicker" data-date="02-2012"
-                                data-date-format="mm-yyyy">
-                                <input type="text" readonly="readonly" name="date">
-                                <span class="add-on"><i class="icon-th"></i></span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-6 col-12 mb-md-0 mb-4">
                         <label for="bs-datepicker-autoclose" class="form-label">Auto Close</label>
-                        <input type="text" id="bs-datepicker-autoclose" placeholder="MM/DD/YYYY"
-                            class="form-control">
+                        <input type="text" id="bs-datepicker-autoclose" placeholder="MM/YYYY" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer">

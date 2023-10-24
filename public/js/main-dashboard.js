@@ -166,10 +166,18 @@ $(document).ready(function () {
         paging: true,
         ordering: true,
         info: true,
-        scrollY: true,
+        scrollY: 200,
         scrollX: true,
     });
     $("#examples").DataTable({
+        stateSave: true,
+        paging: true,
+        ordering: true,
+        info: true,
+        scrollY: true,
+        scrollX: true,
+    });
+    $("#example-x").DataTable({
         stateSave: true,
         paging: true,
         ordering: true,
@@ -182,6 +190,8 @@ $(document).ready(function () {
         ordering: false,
         info: false,
         searching: false,
+        scrollY: true,
+        scrollX: true,
     });
     // });
 
