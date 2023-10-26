@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gaji;
+use App\Models\Gaji\Gaji;
 use App\Http\Requests\StoreGajiRequest;
 use App\Http\Requests\UpdateGajiRequest;
 use App\Http\Resources\UserResource;
@@ -48,6 +48,8 @@ class GajiController extends Controller
                 'gaji_fungsional' => null
             ]);
         }
+        // dd($user->position);
+
         $param_tnj = GajiParamTnjng::where('position_id', $user->position->id)->where('golongan_id', $user->golongan->id)->first();
         $param_tnj_jabatan = GajiParamTunJab::where('position_id', $user->position->id)->where('golongan_id', $user->golongan->id)->first();
         // if (is_null($param_tnj_jabatan)) {

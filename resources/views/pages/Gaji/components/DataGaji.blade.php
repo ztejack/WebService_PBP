@@ -45,29 +45,18 @@
                                 <td></td>
                                 <td><span class="badge badge-pill bg-success fw-bold">24</span></td>
                                 <td>
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-baseline justify-between">
                                         <!-- Button trigger modal -->
                                         <a href="{{ route('page_gaji_employe', $user->slug) }}"
-                                            class="btn btn-sm btn-primary">
+                                            class="btn btn-sm btn-primary me-2">
                                             Detail
                                         </a>
-                                        <a href="{{ route('page_gaji_employe', $user->slug) }}"
-                                            class="btn btn-sm btn-primary">
-                                            Detail
-                                        </a>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('page_gaji_employe', $user->slug) }}">
-                                                    <i class='bx bx-edit'></i>
-                                                    Edit
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
+                                            data-bs-target="#addkehadiranModal">
+                                            Absensi
+                                        </button>
+                                        @include('pages.Gaji.components.ModalAddAbsensi')
+
                                     </div>
                                 </td>
                             </tr>

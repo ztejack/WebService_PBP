@@ -14,10 +14,11 @@ class Absensi extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nama',
+        'sakit',
+        'terlambat',
+        'kosong',
+        'perjalanan',
         'date',
-        'jumlah',
-        'type',
         'employe_id'
     ];
 }

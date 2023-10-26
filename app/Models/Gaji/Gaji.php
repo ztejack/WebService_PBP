@@ -16,6 +16,7 @@ class Gaji extends Model
      */
     protected $fillable = [
         'gapok',
+        'tnj_ahli',
         'total_gaji',
         'tnj_jabatan',
         'type_tunjab',

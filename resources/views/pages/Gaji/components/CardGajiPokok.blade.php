@@ -18,7 +18,8 @@
                 <label class="form-label" for="input-tunjangan-ahli">
                     Tunjangan Ahli
                 </label>
-                <input type="number" class="form-control" id="input-tunjangan-ahli" placeholder="Input Gaji Pokok...">
+                <input type="number" class="form-control" id="input-tunjangan-ahli"
+                    placeholder="Input Tunjangan Ahli...">
             </div>
             <div class="mb-3">
 
@@ -60,15 +61,21 @@
                     function setTotal() {
                         var gapok = document.getElementById('input-gaji-pokok')
                         var tunjab = document.getElementById('input-tunjangan-jabatan')
+                        var tunjah = document.getElementById('input-tunjangan-ahli')
                         var total = document.getElementById('total-gaji1')
-                        total = gapok.value + tunjab.value
+                        total.value = parseInt(gapok.value) + parseInt(tunjab.value) +  parseInt(tunjah.value)
                     }
                     var gapok = document.getElementById('input-gaji-pokok')
                     var tunjab = document.getElementById('input-tunjangan-jabatan')
+                    var tunjah = document.getElementById('input-tunjangan-ahli')
+                    var tunjab_fungsional = document.getElementById('collapsible-tunjab-type-Fungsional')
+                    var tunjab_struktural = document.getElementById('collapsible-tunjab-type-struktural')
 
                     gapok.addEventListener('change', setTotal)
                     tunjab.addEventListener('change', setTotal)
                     window.addEventListener('load', setInputValue);
+                    tunjab_fungsional.addEventListener('change', setTotal)
+                    tunjab_struktural.addEventListener('change', setTotal)
 
                     function updateInput(radio) {
                         // Get the selected radio button's value
@@ -79,9 +86,10 @@
                     }
                 </script>
             </div>
-            <button type="submit" class="btn btn-primary"><i class="bx bx-save"></i> Save</button>
-            <button type="button" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#addNewAddress"><i
-                    class="bx bx-plus"></i> Tambah Tunjangan Lain</button>
+            <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i> Save</button>
+            {{-- <button type="button" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#addNewAddress"><i
+                    class="bx bx-plus"></i> Tambah Tunjangan Lain</button> --}}
+
         </form>
     </div>
 </div>

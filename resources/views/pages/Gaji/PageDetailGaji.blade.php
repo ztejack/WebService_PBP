@@ -33,7 +33,7 @@
                     </div> --}}
                 </div>
                 <div class="col-md-4">
-                    @include('pages.Gaji.components.CardCoba')
+                    @include('pages.Gaji.components.CardAbsensi')
                     @include('pages.Gaji.components.CardSlipGaji')
                 </div>
             </div>

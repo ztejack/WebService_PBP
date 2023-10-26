@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_tnj');
             $table->string('jumlah_tnj');
-            $table->foreignId('gaji_id')->constrained('gajis')->references('id')->on('gajis');
+            $table->foreignId('gaji_param_id')->constrained('gaji_param_tnjngs')->references('id')->on('gaji_param_tnjngs');
+            $table->foreignId('position_id')->nullable()->constrained('positions')->references('id')->on('positions');
             $table->timestamps();
         });
     }

@@ -1,94 +1,78 @@
-<div class="card">
+<div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
-            <h5 class="card-title mb-0">Parameter BPJS </h5>
+            <h5 class="card-title mb-0">Parameter BPJS</h5>
         </div>
-        <div class="dt-action-buttons text-end pt-3 pt-md-0 mb-md-2">
-
+        <div class="dt-action-buttons text-end pt-3 pt-md-0">
+            <div class="dt-buttons">
+                <button id="addbutton" class="dt-button create-new btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#modaladdBPJS" tabindex="0" type="button">
+                    <span>
+                        <i class="bx bx-plus me-sm-2"></i>
+                        <span class="d-none d-sm-inline-block">Add Parameter BPJS</span>
+                    </span>
+                </button>
+            </div>
+            @include('pages.Gaji.GajiParam.components.ModalAddBPJS')
         </div>
     </div>
-    <form class="card-body">
-        <h6>1. Parameter BPJS Tenaga Kerja</h6>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Pensiun">Jaminan Pensiun <span
-                        class="text-info">(Karyawan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Pensiun" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Hari-Tua-P">Jaminan Hari Tua <span
-                        class="text-info">(Karyawan)</span> </label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Hari-Tua-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Kecelakaan-Kerja-P">Jaminan Kecelakaan Kerja
-                    <span class="text-primary">(Perusahaan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Kecelakaan-Kerja-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Pensiun-P">Jaminan Pensiun <span
-                        class="text-primary">(Perusahaan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Pensiun-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Hari-Tua-P">Jaminan Hari Tua <span
-                        class="text-primary">(Perusahaan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Hari-Tua-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Kematian-P">Jaminan Kematian <span
-                        class="text-primary">(Perusahaan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Kematian-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-        </div>
-        <hr class="my-4 mx-n4">
-        <h6>2. Parameter BPJS Kesehatan</h6>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Kesehatan">Jaminan Kesehatan <span
-                        class="text-info">(Karyawan)</span> </label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Kesehatan" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-Kesehatan-P">Jaminan Kesehatan <span
-                        class="text-primary">(Perusahaan)</span></label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-Kesehatan-P" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label" for="multicol-Jaminan-gajimax">Parameter Gaji Maksimal</label>
-                <div class="input-group input-group-merge">
-                    <input type="number" id="multicol-Jaminan-gajimax" class="form-control" value="0">
-                    <span class="input-group-text cursor-pointer">%</span>
-                </div>
+    <div class="card-datatable">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+            <div class="table-sm dataTables_scroll">
+                <table id="example-x" {{-- onsubmit="convertToNumber()" --}}
+                    class="dt-scrollableTable dataTable datatables-basic table table-bordered border-top">
+                    <thead>
+                        <tr class="text-nowrap">
+                            <th>NO</th>
+                            <th>BPJS Tenaga Kerja</th>
+                            <th>BPJS Kesehatan</th>
+                            <th>Create</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($gajiparam_tunjab as $gajiparam)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="fw-bold">{{ $gajiparam->position->position }} </td>
+                                <td>
+                                    <span
+                                        class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
+                                </td>
+                                <td class="currency">{{ $gajiparam->gaji_struktural }} </td>
+                                <td class="currency">{{ $gajiparam->gaji_fungsional }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-label-info mx-2"
+                                        data-bs-toggle="modal" data-bs-target="#modalupdate{{ $gajiparam->id }}">
+                                        <span class="tf-icons bx bx-edit-alt"></span>
+                                    </button>
+                                    @include('pages.Gaji.GajiParam.components.ModalUpdateTunjab')
+                                    <form class="d-inline-block"
+                                        action="{{ route('gaji_param.delete', $gajiparam->id) }}" method="post">
+                                        @csrf
+                                        @method('POST')
+                                        <button type="submit" class="btn btn-sm rounded-pill btn-icon btn-label-danger"
+                                            onclick="return confirm('Are you sure you want to delete this Param?')">
+                                            <span class="tf-icons bx bx-trash-alt"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>NO</th>
+                            <th>BPJS Tenaga Kerja</th>
+                            <th>BPJS Kesehatan</th>
+                            <th>Create</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-        <div class="pt-4">
-            <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
-            <button type="reset" class="btn btn-label-secondary">Cancel</button>
-        </div>
-    </form>
+    </div>
 </div>

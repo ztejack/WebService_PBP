@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('sakit');
+            $table->string('telat');
+            $table->string('kosong');
+            $table->string('perjalanan');
             $table->string('date');
-            $table->string('jumlah');
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
             $table->timestamps();
         });

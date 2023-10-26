@@ -22,11 +22,15 @@ return new class extends Migration
             $table->string('jkm_P');
             $table->string('jht_P');
             $table->string('jp_P');
+            $table->string('gaji_max_jp');
 
             $table->string('kes_E');
             $table->string('kes_P');
 
             $table->string('kes_max');
+            $table->string('kes_min');
+
+            $table->boolean('status');
             $table->timestamps();
         });
     }
