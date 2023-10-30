@@ -26,11 +26,11 @@
                         </tr>
                         <tr>
                             <td class="pe-3">Tunjangan BPJS Tenaga Kerja:</td>
-                            <td class="numbers">{{ 121155 }}</td>
+                            <td class="numbers">{{ $tunjangan_BPJS_tk }}</td>
                         </tr>
                         <tr>
                             <td class="pe-3">Tunjangan BPJS Kesehatan:</td>
-                            <td class="numbers">{{ 1211055 }}</td>
+                            <td class="numbers">{{ $tunjangan_BPJS_kes }}</td>
                         </tr>
                         <tr>
                             <td>
@@ -61,11 +61,11 @@
                     <tbody class="text-end">
                         <tr>
                             <td class="pe-3">Iuran BPJS Tenaga Kerja:</td>
-                            <td>12,110.55</td>
+                            <td class="numbers">{{ $potongan_BPJS_tk }}</td>
                         </tr>
                         <tr>
-                            <td class="pe-3">Iuran BPJS esehatan:</td>
-                            <td>12,110.55</td>
+                            <td class="pe-3">Iuran BPJS Kesehatan:</td>
+                            <td class="numbers">{{ $potongan_BPJS_kes }}</td>
                         </tr>
                         <tr>
                             <td class="pe-3">Potongan Lain:</td>

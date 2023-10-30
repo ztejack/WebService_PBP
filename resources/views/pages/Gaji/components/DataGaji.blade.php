@@ -36,13 +36,15 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
+                            {{-- @dd($user); --}}
+
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->position }}</td>
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
                                 {{-- <td>{{ $user->gaji }}</td> --}}
-                                <td></td>
+                                <td>Rp <span class="numberin">{{ $user->gaji }}</span></td>
                                 <td><span class="badge badge-pill bg-success fw-bold">24</span></td>
                                 <td>
                                     <div class="d-flex align-items-baseline justify-between">

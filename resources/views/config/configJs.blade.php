@@ -38,7 +38,9 @@
 
 <!-- Page JS    -->
 @if (Request::is('users/*/update') || Request::is('gaji/gaji-param'))
-    <script type="module" src="{{ asset('js/Form/Resetpassword.js') }}"></script>
+    @if (Request::is('users/*/update'))
+        <script type="module" src="{{ asset('js/Form/Resetpassword.js') }}"></script>
+    @endif
     <script type="module" src="{{ asset('/js/input-mask.js') }}"></script>
     <script type="module" src="{{ asset('/js/formlistener.js') }}"></script>
 @endif
@@ -59,6 +61,10 @@
 @if (Request::is('gaji/*/view'))
     <script type="module" src="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script type="module" src="{{ asset('js/forms-pickers.js') }}"></script>
+    <script type="module" src="{{ asset('js/gajiviewlistener.js') }}"></script>
+@endif
+@if (Request::is('gaji'))
+    <script type="module" src="{{ asset('js/comacurency.js') }}"></script>
 @endif
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}
 

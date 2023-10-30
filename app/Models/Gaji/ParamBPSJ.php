@@ -18,6 +18,9 @@ class ParamBPSJ extends Model
         'jkk_P',
         'jkm_P',
 
+        'tk_E',
+        'tk_P',
+        
         'kes_E',
         'kes_P',
         'kes_max',

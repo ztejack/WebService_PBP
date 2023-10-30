@@ -24,36 +24,60 @@
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
-                            <th>BPJS Tenaga Kerja</th>
-                            <th>BPJS Kesehatan</th>
+                            <th>BPJS Tenaga Kerja <span class="text-info">(Karyawan)</span></th>
+                            <th>BPJS Tenaga Kerja <span class="text-primary">(Perusahaan)</span></th>
+                            <th>BPJS Kesehatan <span class="text-info">(Karyawan)</span></th>
+                            <th>BPJS Kesehatan <span class="text-primary">(Perusahaan)</span></th>
                             <th>Create</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($gajiparam_tunjab as $gajiparam)
-                            <tr>
+                    <tbody class="text-small text-nowrap">
+                        @foreach ($gajiparam_bpjs as $gajiparam)
+                            <tr class="text-sm">
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="fw-bold">{{ $gajiparam->position->position }} </td>
-                                <td>
-                                    <span
-                                        class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
+                                <td class="fw-bold">{{ $gajiparam->tk_E }} %</td>
+                                <td class="fw-bold"> {{ $gajiparam->tk_P }} %</td>
+                                <td class="fw-bold">{{ $gajiparam->kes_E }} %</td>
+                                <td class="fw-bold">{{ $gajiparam->kes_P }} %</td>
+                                <td class="fw-bold">{{ $gajiparam->created_at->format('d M Y') }}</td>
+                                <td class="fw-bold">
+                                    @if ($gajiparam->status == true)
+                                        <span class="badge bg-success">Active</span>
+                                    @elseif($gajiparam->status == false)
+                                        <span class="badge bg-danger">Innactive</span>
+                                    @endif
                                 </td>
-                                <td class="currency">{{ $gajiparam->gaji_struktural }} </td>
-                                <td class="currency">{{ $gajiparam->gaji_fungsional }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-label-info mx-2"
-                                        data-bs-toggle="modal" data-bs-target="#modalupdate{{ $gajiparam->id }}">
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-label-info"
+                                        data-bs-toggle="modal" data-bs-target="#modalupdateBPJS{{ $gajiparam->id }}"
+                                        title="Edit">
                                         <span class="tf-icons bx bx-edit-alt"></span>
                                     </button>
-                                    @include('pages.Gaji.GajiParam.components.ModalUpdateTunjab')
+                                    @include('pages.Gaji.GajiParam.components.ModalUpdateBPJS')
                                     <form class="d-inline-block"
-                                        action="{{ route('gaji_param.delete', $gajiparam->id) }}" method="post">
+                                        action="{{ route('param.bpjs.update.status', $gajiparam->id) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit"
+                                            class="btn btn-sm rounded-pill btn-icon {{ $gajiparam->status == true ? 'btn-label-danger' : 'btn-label-success' }}"
+                                            onclick="return confirm('Are you sure you want to update status this Parameter?')"
+                                            title="Update Status">
+                                            @if ($gajiparam->status == true)
+                                                <span class="tf-icons bx bx-x-circle"></span>
+                                            @elseif($gajiparam->status == false)
+                                                <span class="tf-icons bx bx-check-circle"></span>
+                                            @endif
+                                        </button>
+                                    </form>
+                                    <form class="d-inline-block"
+                                        action="{{ route('param.bpjs.delete', $gajiparam->id) }}" method="post">
                                         @csrf
                                         @method('POST')
                                         <button type="submit" class="btn btn-sm rounded-pill btn-icon btn-label-danger"
-                                            onclick="return confirm('Are you sure you want to delete this Param?')">
+                                            onclick="return confirm('Are you sure you want to delete this Parameter?')"
+                                            title="Delete">
                                             <span class="tf-icons bx bx-trash-alt"></span>
                                         </button>
                                     </form>
@@ -64,8 +88,10 @@
                     <tfoot>
                         <tr>
                             <th>NO</th>
-                            <th>BPJS Tenaga Kerja</th>
-                            <th>BPJS Kesehatan</th>
+                            <th>BPJS Tenaga Kerja <span class="text-info">(Karyawan)</span></th>
+                            <th>BPJS Tenaga Kerja <span class="text-primary">(Perusahaan)</span></th>
+                            <th>BPJS Kesehatan <span class="text-info">(Karyawan)</span></th>
+                            <th>BPJS Kesehatan <span class="text-primary">(Perusahaan)</span></th>
                             <th>Create</th>
                             <th>Status</th>
                             <th>Action</th>

@@ -15,22 +15,25 @@ return new class extends Migration
     {
         Schema::create('param_b_p_s_j_s', function (Blueprint $table) {
             $table->id();
-            $table->string('jht_E');
-            $table->string('jp_E');
+            $table->string('jht_E')->default(0);
+            $table->string('jp_E')->default(0);
 
-            $table->string('jkk_P');
-            $table->string('jkm_P');
-            $table->string('jht_P');
-            $table->string('jp_P');
-            $table->string('gaji_max_jp');
+            $table->string('jkk_P')->default(0);
+            $table->string('jkm_P')->default(0);
+            $table->string('jht_P')->default(0);
+            $table->string('jp_P')->default(0);
+            $table->string('gaji_max_jp')->default(0);
 
-            $table->string('kes_E');
-            $table->string('kes_P');
+            $table->string('tk_E')->default(0);
+            $table->string('tk_P')->default(0);
 
-            $table->string('kes_max');
-            $table->string('kes_min');
+            $table->string('kes_E')->default(0);
+            $table->string('kes_P')->default(0);
 
-            $table->boolean('status');
+            $table->string('kes_max')->default(0);
+            $table->string('kes_min')->default(0);
+
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

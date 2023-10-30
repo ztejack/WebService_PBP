@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('gajis', function (Blueprint $table) {
             $table->id();
-            $table->string('gapok')->nullable();
-            $table->string('tnj_ahli')->nullable();
-            $table->string('total_gaji')->nullable();
-            $table->string('tnj_jabatan')->nullable();
+            $table->string('gapok')->default(0);
+            $table->string('tnj_ahli')->default(0);
+            $table->string('total_gaji')->default(0);
+            $table->string('tnj_jabatan')->default(0);
             $table->string('type_tunjab')->nullable();
             // $table->string('tnj_mkn')->nullable();
             // $table->string('tnj_perumahan')->nullable();

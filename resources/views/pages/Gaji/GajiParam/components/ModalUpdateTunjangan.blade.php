@@ -47,8 +47,7 @@
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
                                 <input type="number" class="form-control" name="tnj_makan" id="tnj_makan"
-                                    placeholder="" required
-                                    value="{{ old('tnj_makan', $gajiparam->gaji_struktural) }}">
+                                    placeholder="" required value="{{ old('tnj_makan', $gajiparam->tnj_makan) }}">
                             </div>
                             @error('tnj_makan')
                                 <div class="invalid-feedback d-block">

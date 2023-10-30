@@ -131,7 +131,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
         Route::get('{user}/view/', [GajiController::class, 'view_gaji_employe'])->name('page_gaji_employe');
 
         // need ref
-        Route::post('/store/gaji_employee', [GajiController::class, 'store_gaji_employee'])->name('store_gaji_employee');
+        Route::post('/store/gaji_employee/{gaji}', [GajiController::class, 'update_gaji_employe'])->name('update_gaji_employe');
 
 
         Route::get('/slip/detail/', [GajiController::class, 'detail_slip_gaji'])->name('page_detail_slip_gaji');
@@ -148,6 +148,14 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                     Route::post('/store', [GajiParamController::class, 'param_tunjangan_store'])->name('param.tunjangan.store');
                     Route::put('/update/{tunjangan}', [GajiParamController::class, 'param_tunjangan_update'])->name('param.tunjangan.update');
                     Route::post('/delete/{tunjangan}', [GajiParamController::class, 'param_tunjangan_destroy'])->name('param.tunjangan.delete');
+                }
+            );
+            Route::prefix('bpjs')->middleware(['auth'])->group(
+                function () {
+                    Route::post('/store', [GajiParamController::class, 'param_bpjs_store'])->name('param.bpjs.store');
+                    Route::put('/update/{bpjs}', [GajiParamController::class, 'param_bpjs_update'])->name('param.bpjs.update');
+                    Route::post('/delete/{bpjs}', [GajiParamController::class, 'param_bpjs_destroy'])->name('param.bpjs.delete');
+                    Route::put('/update/status/{bpjs}', [GajiParamController::class, 'param_bpjs_update_status'])->name('param.bpjs.update.status');
                 }
             );
         });

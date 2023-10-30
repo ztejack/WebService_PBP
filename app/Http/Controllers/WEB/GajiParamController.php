@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateGajiParamRequest;
 use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
+use App\Models\Gaji\ParamBPSJ;
 use App\Models\Golongan;
 use App\Models\Position;
 use Illuminate\Auth\Events\Validated;
@@ -26,10 +27,11 @@ class GajiParamController extends Controller
     public function index()
     {
         return view('pages.Gaji.GajiParam.PageDataGajiParam', [
-            'gajiparams' => GajiParamTnjng::all(),
-            'gajiparam_tunjab' => GajiParamTunJab::all(),
+            'gajiparams' => GajiParamTnjng::orderBy('created_at', 'desc')->get(),
+            'gajiparam_tunjab' => GajiParamTunJab::orderBy('created_at', 'desc')->get(),
             'golongans' => Golongan::all(),
             'positions' => Position::all(),
+            'gajiparam_bpjs' => ParamBPSJ::orderBy('created_at', 'desc')->get(),
         ]);
     }
 
@@ -162,6 +164,99 @@ class GajiParamController extends Controller
             return redirect()->back()->with('succ', 'Success Deleting Parameter')->withInput();
         } catch (\Exception $e) {
             return Redirect::back()->with('err', 'Deleting Parameter Failed')->withInput();
+        }
+    }
+    public function param_bpjs_store(Request $request)
+    {
+        try {
+            $tk_e = array_sum([$request['jaminan-pensiun_karyawan'], $request['jaminan-hari-tua_karyawan']]);
+            $tk_p = array_sum([
+                $request['jaminan-pensiun_perusahaan'],
+                $request['jaminan-hari-tua_perusahaan'],
+                $request['jaminan-kecelakaan-kerja_perusahaan'],
+                $request['jaminan-kematian_perusahaan']
+            ]);
+            $bpjs = ParamBPSJ::create([
+                'jp_E' => $request['jaminan-pensiun_karyawan'],
+                'jp_P' => $request['jaminan-pensiun_perusahaan'],
+                'gaji_max_jp' => $request['gaji-max_jp'],
+
+                'jht_E' => $request['jaminan-hari-tua_karyawan'],
+                'jht_P' => $request['jaminan-hari-tua_perusahaan'],
+                'jkk_P' => $request['jaminan-kecelakaan-kerja_perusahaan'],
+                'jkm_P' => $request['jaminan-kematian_perusahaan'],
+
+                'tk_E' => $tk_e,
+                'tk_P' => $tk_p,
+
+                'kes_E' => $request['jaminan-kesehatan_karyawan'],
+                'kes_P' => $request['jaminan-kesehatan_perusahaan'],
+                'kes_max' => $request['gaji-max_kesehatan'],
+                'kes_min' => $request['gaji-min_kesehatan'],
+
+                'status' => true,
+
+            ]);
+            ParamBPSJ::where('id', '!=', $bpjs->id)->update(['status' => false]);
+            return redirect()->back()->with('succ', 'Success creation Parameter')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter creation failed')->withInput();
+        }
+    }
+    public function param_bpjs_update(Request $request, ParamBPSJ $bpjs)
+    {
+        try {
+            $tk_e = array_sum([$request['jaminan-pensiun_karyawan'], $request['jaminan-hari-tua_karyawan']]);
+            $tk_p = array_sum([
+                $request['jaminan-pensiun_perusahaan'],
+                $request['jaminan-hari-tua_perusahaan'],
+                $request['jaminan-kecelakaan-kerja_perusahaan'],
+                $request['jaminan-kematian_perusahaan']
+            ]);
+            $bpjs->update([
+                'jp_E' => $request['jaminan-pensiun_karyawan'],
+                'jp_P' => $request['jaminan-pensiun_perusahaan'],
+                'gaji_max_jp' => $request['gaji-max_jp'],
+
+                'jht_E' => $request['jaminan-hari-tua_karyawan'],
+                'jht_P' => $request['jaminan-hari-tua_perusahaan'],
+                'jkk_P' => $request['jaminan-kecelakaan-kerja_perusahaan'],
+                'jkm_P' => $request['jaminan-kematian_perusahaan'],
+
+                'tk_E' => $tk_e,
+                'tk_P' => $tk_p,
+
+                'kes_E' => $request['jaminan-kesehatan_karyawan'],
+                'kes_P' => $request['jaminan-kesehatan_perusahaan'],
+                'kes_max' => $request['gaji-max_kesehatan'],
+                'kes_min' => $request['gaji-min_kesehatan'],
+
+                'status' => true,
+
+            ]);
+            // ParamBPSJ::where('id', '!=', $bpjs->id)->update(['status' => false]);
+            return redirect()->back()->with('succ', 'Success update Parameter')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter update failed')->withInput();
+        }
+    }
+    public function param_bpjs_update_status(ParamBPSJ $bpjs)
+    {
+        try {
+            if ($bpjs->status == true) {
+                // $bpjs->update(['status' => 0]);
+                $hasTrueStatus = ParamBPSJ::where('status', true)->count() > 0;
+                // dd($hasTrueStatus);
+                if ($hasTrueStatus) {
+                    return redirect()->back()->with('err', 'Parameter update status failed, Nothing any Parameter status Active')->withInput();
+                }
+            } elseif ($bpjs->status == false) {
+                $bpjs->update(['status' => 1]);
+                ParamBPSJ::where('id', '!=', $bpjs->id)->update(['status' => false]);
+            }
+            return redirect()->back()->with('succ', 'Success update status Parameter')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter update status failed')->withInput();
         }
     }
 }

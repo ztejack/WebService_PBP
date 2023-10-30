@@ -108,6 +108,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->employee->position;
     }
+    public function getGajiAttribute()
+    {
+        return $this->employee->gaji;
+    }
 
     public function hasRole($roleName)
     {
