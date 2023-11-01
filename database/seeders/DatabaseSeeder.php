@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             SatkerSeeder::class,
             PositionSeeder::class,
             UserSeeder::class,
+            ParamBPJSSeeder::class
         ]);
         Experience::factory(12)->create();
 

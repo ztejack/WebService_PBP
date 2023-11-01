@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Gaji\Absensi;
 use App\Models\Gaji\Gaji;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -75,6 +76,10 @@ class Employe extends Model
     public function gaji()
     {
         return $this->hasOne(Gaji::class, 'employe_id');
+    }
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class);
     }
 
     public static function boot()

@@ -19,7 +19,7 @@
                                     2023</span></h6>
                             <small class="text-danger fw-normal d-block">
                                 <i class="bx bx-minus "></i>
-                                25.800.000
+                                {{ $total_potongan_lainnya }}
                             </small>
                         </div>
                         <a class="btn btn-warning btn-sm" target="_blank" href="{{ route('page_detail_slip_gaji') }}"><i

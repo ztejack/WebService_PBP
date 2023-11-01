@@ -21,4 +21,8 @@ class Absensi extends Model
         'date',
         'employe_id'
     ];
+    public function employee()
+    {
+        return $this->belongsTo(Employe::class);
+    }
 }

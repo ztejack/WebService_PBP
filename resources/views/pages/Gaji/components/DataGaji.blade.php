@@ -58,12 +58,10 @@
                                             Absensi
                                         </button>
                                         @include('pages.Gaji.components.ModalAddAbsensi')
-
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                     <tfoot>
                         <tr class="text-nowrap">

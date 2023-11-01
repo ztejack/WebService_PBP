@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WEB\AbsensiController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\WEB\GajiParamController;
 use App\Http\Controllers\HomeController;
@@ -81,10 +82,8 @@ Route::prefix('admin')->middleware(['auth'])->group(
                 );
             }
         );
-        Route::prefix('gaji_param')->middleware(['auth'])->group(
-            function () {
-            }
-        );
+        // Route::prefRoute::prefix('gaji')->middleware(['auth'])->group(
+        // function () {
         // Route::prefix('position')->middleware(['auth'])->group(
         //     function () {
         //         Route::get('/', [ParamController::class, 'position_view'])->name('page_position');
@@ -164,5 +163,13 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                 Route::post('/store/{gaji}', [TunjanganController::class, 'store'])->name('tunjangan.store');
             }
         );
+    }
+);
+
+Route::prefix('absensi')->middleware(['auth'])->group(
+    function () {
+        Route::post('/store/{employe}', [AbsensiController::class, 'store'])->name('absensi.store');
+        Route::put('/update/{absensi}', [AbsensiController::class, 'update'])->name('absensi.update');
+        Route::post('/delete/{absensi}', [AbsensiController::class, 'destroy'])->name('absensi.delete');
     }
 );

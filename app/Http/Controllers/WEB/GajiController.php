@@ -8,12 +8,14 @@ use App\Http\Requests\StoreGajiRequest;
 use App\Http\Requests\UpdateGajiRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Employe;
+use App\Models\Gaji\Absensi;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
 use App\Models\Gaji\ParamBPSJ;
 use App\Models\GajiSlip;
 use App\Models\Golongan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -44,8 +46,8 @@ class GajiController extends Controller
         $param_BPJS = ParamBPSJ::where('status', true)->get()->first();
         $tnj_bpjs_jp_P = ($total1 * $param_BPJS->jp_P) / 100;
         $pot_bpjs_jp_E = ($total1 * $param_BPJS->jp_E) / 100;
-        if ($gajipokok > $param_BPJS->gaji_max_jp) {
-            $total = ($total1 - $gajipokok) + $param_BPJS->gaji_max_jp;
+        if ($total1 > $param_BPJS->gaji_max_jp) {
+            $total = $param_BPJS->gaji_max_jp;
             $tnj_bpjs_jp_P = ($total * $param_BPJS->jp_P) / 100;
             $pot_bpjs_jp_E = ($total * $param_BPJS->jp_E) / 100;
         }
@@ -63,12 +65,11 @@ class GajiController extends Controller
         $pot_bpjs_TK = $pot_bpjs_jp_E + $pot_bpjs_no_jp;
 
         // Kes_P
-        $total_tnj =  ($param_tnj->tnj_makan * 24) + ($param_tnj->tnj_transport * 24) + ($param_tnj->tnj_perumahan * 24);
-        $total2 = $total_tnj + $gajipokok;
-        if ($gajipokok > $param_BPJS->kes_max) {
-            $total2 = $total2 - $gajipokok + $param_BPJS->kes_max;
-        } elseif ($gajipokok < $param_BPJS->kes_min) {
-            $total2 = $total2 - $gajipokok + $param_BPJS->kes_min;
+        $total2 = $total1;
+        if ($total1 > $param_BPJS->kes_max) {
+            $total2 = $param_BPJS->kes_max;
+        } elseif ($total1 < $param_BPJS->kes_min) {
+            $total2 = $param_BPJS->kes_min;
         }
         $tnj_bpjs_kes_P = ($total2 * $param_BPJS->kes_P) / 100;
         $tnj_bpjs_kes_E = ($total2 * $param_BPJS->kes_E) / 100;
@@ -80,6 +81,53 @@ class GajiController extends Controller
         ];
         return $bpjs_count;
         // $tnj_bpjs_jp =
+    }
+    function absensi_count($absensis, $tnj_makan, $tnj_transport)
+    {
+        $currentMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $sumSakit = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
+            ->sum('sakit');
+        $sumTerlambat = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
+            ->sum('terlambat');
+        $sumKosong = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
+            ->sum('kosong');
+        $sumPerjalanan = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
+            ->sum('perjalanan');
+        // $sum_tnj_for_tnj_makan = array_sum([$sumSakit, $sumKosong, $sumTerlambat]);
+        $pot_sakit = $tnj_makan * $sumSakit;
+        $pot_terlambat = $tnj_makan * $sumTerlambat;
+        $pot_kosong = $tnj_makan * $sumKosong;
+        $pot_perjalanan = ($tnj_makan + $tnj_transport) * $sumPerjalanan;
+        // dd($pot_perjalanan);
+        $potongan = (object)[
+            'pot_sakit' => $pot_sakit,
+            'pot_terlambat' => $pot_terlambat,
+            'pot_kosong' => $pot_kosong,
+            'pot_perjalanan' => $pot_perjalanan,
+        ];
+        return $potongan;
+    }
+    function absensi_grouping()
+    {
+        $absensis = Absensi::groupBy('date')->selectRaw('*, sum(sakit) as sum')
+            ->get();
+        dd($absensis);
+        $mergedAbsensis = $absensis->groupBy(function ($item) {
+            return Carbon::parse($item->date)->format('Y m');
+        })->map(function ($groupedItems) {
+            return $groupedItems->reduce(function ($carry, $item) {
+                $carry->sakit += $item->sakit;
+                $carry->terlambat += $item->terlambat;
+                $carry->kosong += $item->kosong;
+                $carry->perjalanan += $item->perjalanan;
+                // Add other attributes as needed
+                return $carry;
+            }, clone $groupedItems[0]);
+        })->values()->toArray();
+
+        dd($mergedAbsensis);
     }
     public function view_gaji_employe(User $user)
     {
@@ -103,25 +151,53 @@ class GajiController extends Controller
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
         $type_tunjangan_jabatan = $gaji->type_tunjab;
-
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
-        $tnj_makan = $param_tnj == null ? 0 : $param_tnj->tnj_makan;
+
+        $tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
         $tnj_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
-        $tnj_transport = $param_tnj == null ? 0 : $param_tnj->tnj_transport;
+        $tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
         $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
 
         $bpjs_count = $this->bpjs_cout($gaji_pokok, $total1, $param_tnj);
-        // $percent_bpjs_tk = array_sum([
-        //     $param_BPJS->jp_P,
-        //     $param_BPJS->jkm_P,
-        //     $param_BPJS->jkk_P,
-        //     $param_BPJS->jht_P,
-        // ]);
-        // $tnj_bpjs_tk = ($total1 * $param_BPJS->tk_P) / 100;
-        // dd([$total1, $percent_bpjs_tk, $param_BPJS->tk_P,$tnj_bpjs_tk]);
+
         $total2 = array_sum([$tnj_makan, $tnj_perumahan, $tnj_shift, $tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P]);
 
-        $total = $total1 + $total2;
+        $absensis = $user->absensi->where('date', '>=', now()->format('m Y'));
+        $absensis = $this->absensi_grouping();
+        $potongan_lainnya = $this->absensi_count($absensis, $param_tnj->tnj_makan, $param_tnj->tnj_transport);
+        // dd($absensis);
+        $total_potongan_lainnya = array_sum([
+            $potongan_lainnya->pot_sakit,
+            $potongan_lainnya->pot_kosong,
+            $potongan_lainnya->pot_terlambat,
+            $potongan_lainnya->pot_perjalanan
+        ]);
+        $total3 = array_sum([
+            $bpjs_count->pot_bpjs_tk_E,
+            $bpjs_count->pot_bpjs_kes_E,
+            $potongan_lainnya->pot_sakit,
+            $potongan_lainnya->pot_kosong,
+            $potongan_lainnya->pot_terlambat,
+            $potongan_lainnya->pot_perjalanan
+        ]);
+
+        // Assuming $absensis is your collection of ABSENSIS objects
+        // $absensi = Absensi::all(); // Retrieve all records from the database
+        // $mergedAbsensis = $absensi->groupBy(function ($item) {
+        //     return Carbon::parse($item->date)->format('Y-m');
+        // })->map(function ($groupedItems) {
+        //     return $groupedItems->reduce(function ($carry, $item) {
+        //         $carry->sakit += $item->sakit;
+        //         $carry->terlambat += $item->terlambat;
+        //         $carry->kosong += $item->kosong;
+        //         $carry->perjalanan += $item->perjalanan;
+        //         // Add other attributes as needed
+        //         return $carry;
+        //     }, clone $groupedItems[0]);
+        // })->values()->toArray();
+        // dd($mergedAbsensis);
+
+        $total = $total1 + $total2 - $total3;
 
         return view('pages.Gaji.PageDetailGaji', [
             'user' => $user,
@@ -135,17 +211,25 @@ class GajiController extends Controller
             'param_tnj' => $param_tnj = null ? 0 : $param_tnj,
             'gaji_struktural' => $gaji_struktural,
             'gaji_fungsional' => $gaji_fungsiional,
-            'tunjangan_makan' => $param_tnj == null ? 0 : $param_tnj->tnj_makan,
-            'tunjangan_perumahan' => $param_tnj == null ? 0 : $param_tnj->tnj_perumahan,
-            'tunjangan_transport' => $param_tnj == null ? 0 : $param_tnj->tnj_transport,
-            'tunjangan_shift' => $param_tnj == null ? 0 : $param_tnj->tnj_shift,
+            'total1' => $total1,
+
+            'tunjangan_makan' => $tnj_makan,
+            'tunjangan_perumahan' => $tnj_perumahan,
+            'tunjangan_transport' => $tnj_transport,
+            'tunjangan_shift' => $tnj_shift,
             'tunjangan_BPJS_tk' => $bpjs_count->tnj_bpjs_tk_P,
             'tunjangan_BPJS_kes' => $bpjs_count->tnj_bpjs_kes_P,
+
+            'potongan_lainnya' => $potongan_lainnya,
+            'total_potongan_lainnya' => $total_potongan_lainnya,
+            // 'potongan_lainnya' =>
             'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
             'potongan_BPJS_kes' => $bpjs_count->pot_bpjs_kes_E,
+
             'total' => $total,
-            'total1' => $total1,
-            'total2' => $total2
+
+            'total2' => $total2,
+            'total3' => $total3
         ]);
     }
     public function update_gaji_employe(Request $request, Gaji $gaji)
