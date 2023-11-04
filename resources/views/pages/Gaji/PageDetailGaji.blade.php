@@ -9,6 +9,19 @@
             {{-- @include('pages.Gaji.components.DataGaji') --}}
             <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gaji /</span> {{ $user->name }}
             </h4>
+            @if (session()->has('succ'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{ session('succ') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+            @elseif (session()->has('err'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{ session('err') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-8">
                     {{-- Card Gaji Pokok & Jabatan --}}

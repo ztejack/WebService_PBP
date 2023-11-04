@@ -17,26 +17,49 @@ class PositionSeeder extends Seeder
      */
     public function run()
     {
-        Position::create([
-            'position' => 'Direktur'
-        ]);
-        Position::create([
-            'position' => 'Direktur Utama'
-        ]);
-        Position::create([
-            'position' => 'Manager'
-        ]);
+        // 1
         Position::create([
             'position' => 'General Manager'
         ]);
+        // 2
+        Position::create([
+            'position' => 'Senior Manager'
+        ]);
+        // 3
+        Position::create([
+            'position' => 'Manager'
+        ]);
+        // 4
+        Position::create([
+            'position' => 'Fungsional Utama'
+        ]);
+        // 5
+        Position::create([
+            'position' => 'Fungsional Madya'
+        ]);
+        // 6
+        Position::create([
+            'position' => 'Fungsional Muda'
+        ]);
+        // 7
+        Position::create([
+            'position' => 'Fungsional Pratama'
+        ]);
+        // 8
         Position::create([
             'position' => 'Assiten Manager'
         ]);
+        // 9
         Position::create([
-            'position' => 'Staff'
+            'position' => 'Penyedia'
         ]);
+        // 10
         Position::create([
-            'position' => 'Staff'
+            'position' => 'Pelaksana Terampil'
+        ]);
+        // 11
+        Position::create([
+            'position' => 'Pelaksana'
         ]);
 
         // Contract
@@ -63,9 +86,11 @@ class PositionSeeder extends Seeder
         Golongan::create([
             'golongan' => "IIB"
         ]);
+
         Golongan::create([
             'golongan' => "IIC"
         ]);
+        // ^6
         Golongan::create([
             'golongan' => "IIIA"
         ]);
@@ -84,5 +109,25 @@ class PositionSeeder extends Seeder
         Golongan::create([
             'golongan' => "IVC"
         ]);
+        // ^12
+        Golongan::create([
+            'golongan' => "VA"
+        ]);
+        Golongan::create([
+            'golongan' => "VB"
+        ]);
+        Golongan::create([
+            'golongan' => "VC"
+        ]);
+        Golongan::create([
+            'golongan' => "VIA"
+        ]);
+        Golongan::create([
+            'golongan' => "VIB"
+        ]);
+        Golongan::create([
+            'golongan' => "VIC"
+        ]);
+        // ^18
     }
 }

@@ -6,27 +6,35 @@
         </button>
     </div>
     <div class="card-body pt-2" style="overflow-y: overlay;
-    MAX-HEIGHT: 50VH;">
+    MAX-HEIGHT: 60VH;">
         <ul class="m-0 p-0 h-100">
-            @for ($i = 1; $i <= 20; $i++)
+            {{-- @for ($i = 1; $i <= 20; $i++) --}}
+            @foreach ($data_absensi as $item)
                 <li class="d-flex mb-4 pb-1">
                     <div class="avatar flex-shrink-0 me-3">
                         <span class="avatar-initial rounded bg-label-warning"><i class="bx bx-user-x"></i></span>
                     </div>
                     <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                         <div class="me-2">
-                            <h6 class="mb-1 fw-normal">Priode <span class="text-warning fw-semibold">Juli
-                                    2023</span></h6>
+                            <h6 class="mb-1 fw-normal">Priode
+                                <span class="text-warning fw-semibold">
+                                    {{ $item->date->format('M Y') }}
+                                </span>
+                            </h6>
                             <small class="text-danger fw-normal d-block">
-                                <i class="bx bx-minus "></i>
-                                {{ $total_potongan_lainnya }}
+                                <i class="bx bx-minus "></i>Rp
+                                <span class="numbers">
+                                    {{ $item->total_sum }}
+                                </span>
                             </small>
                         </div>
-                        <a class="btn btn-warning btn-sm" target="_blank" href="{{ route('page_detail_slip_gaji') }}"><i
-                                class="bx bx-detail"></i></a>
+                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#ModalAbsensi{{ $item->id }}"><i class="bx bx-detail"></i></button>
+                        @include('pages.Gaji.components.ModalDetailAbsensi')
                     </div>
                 </li>
-            @endfor
+            @endforeach
+            {{-- @endfor --}}
         </ul>
     </div>
     @include('pages.Gaji.components.ModalAddAbsensi')

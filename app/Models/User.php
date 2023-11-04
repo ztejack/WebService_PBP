@@ -160,8 +160,8 @@ class User extends Authenticatable implements JWTSubject
             $model->employee()->create([
                 'contract_id' => mt_rand(1, 2),
                 'satker_id' => mt_rand(1, 3),
-                'position_id' => mt_rand(1, 4),
-                'golongan_id' => mt_rand(1, 12)
+                'position_id' => mt_rand(1, 3),
+                'golongan_id' => mt_rand(1, 3)
             ]);
         });
     }

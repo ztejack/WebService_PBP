@@ -4,7 +4,7 @@
         <small class="text-muted float-end">Slip Gaji</small>
     </div>
     <div class="card-body pt-2" style="overflow-y: overlay;
-    MAX-HEIGHT: 50VH;">
+    MAX-HEIGHT: 60VH;">
         <ul class="m-0 p-0 h-100">
             @for ($i = 1; $i <= 20; $i++)
                 <li class="d-flex mb-4 pb-1">

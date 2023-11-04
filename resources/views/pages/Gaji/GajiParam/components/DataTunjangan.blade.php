@@ -42,8 +42,8 @@
                                     <span
                                         class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
                                 </td>
-                                <td class="currency">{{ $gajiparam->tnj_transport }} </td>
                                 <td class="currency">{{ $gajiparam->tnj_makan }}</td>
+                                <td class="currency">{{ $gajiparam->tnj_transport }} </td>
                                 <td class="currency">{{ $gajiparam->tnj_perumahan }}</td>
                                 <td class="currency">{{ $gajiparam->tnj_shift }}</td>
                                 <td class="d-inline-flex g-2" style="display: inline-flex">

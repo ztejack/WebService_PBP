@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RoleAndPermissionSeeder::class,
             SatkerSeeder::class,
             PositionSeeder::class,
+            GajiParamSeeder::class,
             UserSeeder::class,
             ParamBPJSSeeder::class
         ]);

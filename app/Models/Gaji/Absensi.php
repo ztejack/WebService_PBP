@@ -21,6 +21,9 @@ class Absensi extends Model
         'date',
         'employe_id'
     ];
+    protected $casts = [
+        'date' => 'date:Y-m-d',
+    ];
     public function employee()
     {
         return $this->belongsTo(Employe::class);

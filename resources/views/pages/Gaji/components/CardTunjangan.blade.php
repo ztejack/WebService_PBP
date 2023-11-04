@@ -68,39 +68,41 @@
                             <td class="pe-3">Iuran BPJS Kesehatan:</td>
                             <td>Rp <span class="numbers">{{ $potongan_BPJS_kes }}</span></td>
                         </tr>
-                        <tr>
-                            <td class="pe-5">Potongan Lain</td>
-                            {{-- <td>
-                                <ul>
-                                    <li><span>sakit : </span>{{ $potongan_lainnya->pot_sakit }}</li>
-                                </ul>
-                            </td> --}}
-                        </tr>
+                        @if (
+                            $potongan_lainnya->pot_sakit > 0 ||
+                                $potongan_lainnya->pot_terlambat > 0 ||
+                                $potongan_lainnya->pot_kosong > 0 ||
+                                $potongan_lainnya->pot_perjalanan > 0)
+                            <tr>
+                                <td class="pe-3 fw-bold">Potongan Lain</td>
+                            </tr>
+                        @endif
+
                         @if ($potongan_lainnya->pot_sakit > 0)
                             <tr>
                                 <td class="pe-3">Sakit :</td>
-                                <td><span class="numbers">{{ $potongan_lainnya->pot_sakit }} </span>
+                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_sakit }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_terlambat > 0)
                             <tr>
                                 <td class="pe-3">Terlambat :</td>
-                                <td><span class="numbers">{{ $potongan_lainnya->pot_terlambat }} </span>
+                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_terlambat }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_kosong > 0)
                             <tr>
                                 <td class="pe-3">Kosong :</td>
-                                <td><span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
+                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_perjalanan > 0)
                             <tr>
                                 <td class="pe-3">Perjalanan :</td>
-                                <td><span class="numbers">{{ $potongan_lainnya->pot_perjalanan }} </span>
+                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_perjalanan }} </span>
                                 </td>
                             </tr>
                         @endif
@@ -123,7 +125,7 @@
             </div>
         </div>
     </div>
-    <div class="col mb-sm-4">
+    <div class="col mb-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
                 <h5 class="">Total Gaji</h5>
