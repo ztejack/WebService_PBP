@@ -153,6 +153,7 @@ class GajiController extends Controller
         // dd($absensis);
         return $absensis;
     }
+    const nanan = 123;
     public function view_gaji_employe(User $user)
     {
         $gaji = $user->employee->gaji;
@@ -195,16 +196,16 @@ class GajiController extends Controller
         $absensis = $user->absensi->sortByDesc('created_at');
         // $absensiscount = $this->absensi_grouping($absensis);
         $absensiscount = $this->total_absensi($user->employee->absensi, $tnj_makan, $tnj_transport);
-        // dd($absensiscount);
+
         $potongan_lainnya = $this->absensi_count($absens, $tnj_makan, $tnj_transport);
-        // dd($potongan_lainnya);
+
         $total_potongan_lainnya = array_sum([
             $potongan_lainnya->pot_sakit,
             $potongan_lainnya->pot_kosong,
             $potongan_lainnya->pot_terlambat,
             $potongan_lainnya->pot_perjalanan
         ]);
-        // dd($total_potongan_lainnya);
+
         $total3 = array_sum([
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
@@ -282,8 +283,13 @@ class GajiController extends Controller
         }
     }
 
+    function sum_absensi($absensi)
+    {
+    }
     public function user_resource($user)
     {
+        $absensi = $user->employee->absensiForCurrentMonth();
+
         $data = [
             'slug' => $user->slug,
             'name' => $user->name,
@@ -291,6 +297,7 @@ class GajiController extends Controller
             'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
             'employe_uuid' => $user->employee->uuid,
             'gaji' => $user->employee->gaji->total_gaji,
+            'absensi' => $absensi,
         ];
         return (object)$data;
     }

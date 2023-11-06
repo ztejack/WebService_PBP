@@ -32,7 +32,7 @@ class GajiParamSeeder extends Seeder
         GajiParamTunJab::create([
             'gaji_fungsional' => 7500000,
             'gaji_struktural' => 8750000,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 1,
         ]);
         // 1B
@@ -51,7 +51,7 @@ class GajiParamSeeder extends Seeder
         GajiParamTunJab::create([
             'gaji_fungsional' => 7100000,
             'gaji_struktural' => 8500000,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 2,
         ]);
         // 1C
@@ -70,14 +70,14 @@ class GajiParamSeeder extends Seeder
         GajiParamTunJab::create([
             'gaji_fungsional' => 6600000,
             'gaji_struktural' => 8000000,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 3,
         ]);
         // 2A
         GajiParamTunJab::create([
             'gaji_fungsional' => 5350000,
             'gaji_struktural' => 7500000,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 4,
         ]);
         GajiParamTunJab::create([
@@ -90,7 +90,7 @@ class GajiParamSeeder extends Seeder
         GajiParamTunJab::create([
             'gaji_fungsional' => 4850000,
             'gaji_struktural' => 6000000,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 5,
         ]);
         GajiParamTunJab::create([
@@ -103,7 +103,7 @@ class GajiParamSeeder extends Seeder
         GajiParamTunJab::create([
             'gaji_fungsional' => 4500000,
             'gaji_struktural' => 5400000,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 6,
         ]);
         GajiParamTunJab::create([

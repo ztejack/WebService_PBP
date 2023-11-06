@@ -51,6 +51,6 @@
     <script type="module" src="{{ asset('js/numbertolisterner.js') }}"></script>
     {{-- @include('') --}}
 @endif
-@if (Request::is('gaji/*/view'))
+@if (Request::is('gaji/*/view') || Request::is('gaji/submission/store'))
     <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
 @endif

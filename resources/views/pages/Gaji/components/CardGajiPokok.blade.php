@@ -1,4 +1,3 @@
-
 {{-- Card Form --}}
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
@@ -76,43 +75,7 @@
                 </script>
             </div>
             <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i> Save</button>
-            {{-- <button type="button" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#addNewAddress"><i
-                    class="bx bx-plus"></i> Tambah Tunjangan Lain</button> --}}
 
         </form>
-    </div>
-</div>
-<div class="modal fade" id="addNewAddress" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
-        <div class="modal-content p-3 p-md-5">
-            <div class="modal-body">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="text-center mb-4">
-                    <h3 class="address-title">Tambahkan Tunjangan Baru</h3>
-                </div>
-                <form id="addNewAddressForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" method="POST"
-                    action="{{ route('tunjangan.store', $gaji->id) }}">
-                    @csrf
-
-                    <div class="col-12 ">
-                        <label class="form-label" for="namatunjangan">Nama Tunjangan</label>
-                        <input type="text" id="namatunjangan" name="namatunjangan" class="form-control"
-                            placeholder="..Tunjangan Ahli">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label" for="jumlahtunjangan">Jumlah Tunjangan</label>
-                        <input type="number" id="jumlahtunjangan" name="jumlahtunjangan" class="form-control"
-                            placeholder="Enter Amount">
-                    </div>
-
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
-                            aria-label="Close">Cancel</button>
-                    </div>
-                    <input type="hidden">
-                </form>
-            </div>
-        </div>
     </div>
 </div>

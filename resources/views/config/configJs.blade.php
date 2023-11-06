@@ -58,12 +58,15 @@
         </script>
     @endif
 @endif
-@if (Request::is('gaji/*/view'))
+{{-- @dd(Request::is(route('submission.view_store'))); --}}
+@if (Request::is('gaji/*/view') || Request::is('gaji/submission/store'))
     <script type="module" src="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script type="module" src="{{ asset('js/forms-pickers.js') }}"></script>
-    <script type="module" src="{{ asset('js/gajiviewlistener.js') }}"></script>
+    {{-- @if (Request::is('gaji/*/view')) --}}
+        <script type="module" src="{{ asset('js/gajiviewlistener.js') }}"></script>
+    {{-- @endif --}}
 @endif
-@if (Request::is('gaji'))
+@if (Request::is('gaji') || Request::is('gaji/submission/store'))
     <script type="module" src="{{ asset('js/comacurency.js') }}"></script>
 @endif
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}

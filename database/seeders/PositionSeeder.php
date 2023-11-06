@@ -27,11 +27,12 @@ class PositionSeeder extends Seeder
         ]);
         // 3
         Position::create([
-            'position' => 'Manager'
+            'position' => 'Fungsional Utama'
         ]);
+
         // 4
         Position::create([
-            'position' => 'Fungsional Utama'
+            'position' => 'Manager'
         ]);
         // 5
         Position::create([

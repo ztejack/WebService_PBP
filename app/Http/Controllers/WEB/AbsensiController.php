@@ -13,11 +13,15 @@ class AbsensiController extends Controller
 {
     public function store(Request $request, $slug)
     {
-        try {
+        // try {
 
-            $user = User::where('slug', $slug)->first();
-            // dd($request);
-            $absen = Absensi::first();
+        $user = User::where('slug', $slug)->first();
+        // dd($request);
+        // $absen = Absensi::first();
+        $absen = $user->employee->absensi->first();
+        // dd($absen);
+        if ($absen != null) {
+            $absen = $user->employee->absensi->first();
             if ($absen->date->format('M Y') == now()->format('M Y')) {
                 // $absen->sakit += ;
                 $absen->update([
@@ -28,17 +32,18 @@ class AbsensiController extends Controller
                 ]);
                 return Redirect::back()->with('succ', 'Success Add Absen')->withInput();
             }
-            Absensi::create([
-                'sakit' => $request['sakit'],
-                'terlambat' => $request['terlambat'],
-                'kosong' => $request['kosong'],
-                'perjalanan' => $request['perjalanan'],
-                'employe_id' => $user->employee->id
-            ]);
-            return Redirect::back()->with('succ', 'Success Add Absen')->withInput();
-        } catch (\Exception $e) {
-            return Redirect::back()->with('err', 'Failed Add Absen')->withInput();
         }
+        Absensi::create([
+            'sakit' => $request['sakit'],
+            'terlambat' => $request['terlambat'],
+            'kosong' => $request['kosong'],
+            'perjalanan' => $request['perjalanan'],
+            'employe_id' => $user->employee->id
+        ]);
+        return Redirect::back()->with('succ', 'Success Add Absen')->withInput();
+        // } catch (\Exception $e) {
+        //     return Redirect::back()->with('err', 'Failed Add Absen')->withInput();
+        // }
     }
     public function update(Request $request, Absensi $absensi)
     {

@@ -17,17 +17,22 @@ class GajiSlip extends Model
         'date',
         'gapok',
         'tnj_jabatan',
+        'tnj_ahli',
         'total_tnj_makan',
         'tnj_perumahan',
         'total_tnj_shift',
         'total_tnj_transport',
         'aprv_1',
         'aprv_2',
-        'aprv_3',
-        'employe_id'
+        'employe_id',
+        'aprove_id'
     ];
     public function employee()
     {
         return $this->belongsTo(Employe::class);
+    }
+    public function aprove()
+    {
+        return $this->hasOne(Aprove::class);
     }
 }

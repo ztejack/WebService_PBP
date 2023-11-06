@@ -37,7 +37,7 @@
                     data-bs-target="#modaladdTunjab" tabindex="0" type="button">
                     <span>
                         <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add Parameter Tunjangan Gaji</span>
+                        <span class="d-none d-sm-inline-block">Add Parameter Tunjangan Jabatan</span>
                     </span>
                 </button>
             </div>
@@ -48,7 +48,7 @@
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
             <div class="table-sm dataTables_scroll">
                 <table id="example" {{-- onsubmit="convertToNumber()" --}}
-                    class="dt-scrollableTable dataTable datatables-basic table table-bordered border-top">
+                    class="dt-scrollableTable dataTable datatables-basic table border-top table-borderless table-sm">
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
@@ -61,7 +61,7 @@
                     </thead>
                     <tbody>
                         @foreach ($gajiparam_tunjab as $gajiparam)
-                            <tr>
+                            <tr class="border-bottom">
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="fw-bold">{{ $gajiparam->position->position }} </td>
                                 <td>
@@ -90,7 +90,7 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr class="border-bottom">
                             <th>NO</th>
                             <th>Jabatan</th>
                             <th>Golongan</th>

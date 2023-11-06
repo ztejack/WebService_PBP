@@ -65,5 +65,38 @@ class UserSeeder extends Seeder
         ]);
         $guestRole = Role::findByName('Guest');
         $user->assignRole($guestRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'AdminKeuanganUser',
+            'username' => 'adminkeuangan',
+            'email' => 'adminkeuangan@example.com',
+            'phone' => '085669920808',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $adminkeuanganRole = Role::findByName('AdminKeuangan');
+        $user->assignRole($adminkeuanganRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'ManagerUser',
+            'username' => 'manager',
+            'email' => 'manager@example.com',
+            'phone' => '085669920908',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $managerRole = Role::findByName('Manager');
+        $user->assignRole($managerRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'AdminSDMUser',
+            'username' => 'adminsdm',
+            'email' => 'adminsdm@example.com',
+            'phone' => '085669920907',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $adminsdmRole = Role::findByName('AdminSDM');
+        $user->assignRole($adminsdmRole);
     }
 }

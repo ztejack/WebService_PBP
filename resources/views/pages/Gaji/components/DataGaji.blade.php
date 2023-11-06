@@ -19,10 +19,11 @@
             <h5 class="card-title mb-0">Data Gaji Kariawan</h5>
         </div>
     </div>
-    <div class="card-datatable">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="table-sm dataTables_scroll">
-                <table id="tableUser" class="table table-hover" style="width:100%">
+    <div class="card-datatable text-nowrap">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5">
+            <div class="dataTables_scroll">
+                <table id="tableUser"
+                    class="table-sm dataTables_scroll datatables-basic table table-borderless border-top ">
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
@@ -38,14 +39,15 @@
                         @foreach ($users as $user)
                             {{-- @dd($user); --}}
 
-                            <tr>
+                            <tr class="border-bottom">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->position }}</td>
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
                                 {{-- <td>{{ $user->gaji }}</td> --}}
                                 <td>Rp <span class="numberin">{{ $user->gaji }}</span></td>
-                                <td><span class="badge badge-pill bg-success fw-bold">24</span></td>
+                                <td><span class="badge badge-pill bg-success fw-bold">{{ 24 - $user->absensi }}</span>
+                                </td>
                                 <td>
                                     <div class="d-flex align-items-baseline justify-between">
                                         <!-- Button trigger modal -->
@@ -63,7 +65,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
+                    <tfoot class="border-bottom">
                         <tr class="text-nowrap">
                             <th>NO</th>
                             <th>Nama User</th>

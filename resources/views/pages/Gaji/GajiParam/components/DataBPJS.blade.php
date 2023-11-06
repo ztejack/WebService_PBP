@@ -20,7 +20,7 @@
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
             <div class="table-sm dataTables_scroll">
                 <table id="example-x" {{-- onsubmit="convertToNumber()" --}}
-                    class="dt-scrollableTable dataTable datatables-basic table table-bordered border-top">
+                    class="dt-scrollableTable dataTable datatables-basic table table-bordered table-sm">
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
@@ -33,7 +33,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody class="text-small text-nowrap">
+                    <tbody class="text-small text-nowrap border-none ">
                         @foreach ($gajiparam_bpjs as $gajiparam)
                             <tr class="text-sm">
                                 <td>{{ $loop->iteration }}</td>
@@ -85,7 +85,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
+                    <tfoot class="border-none">
                         <tr>
                             <th>NO</th>
                             <th>BPJS Tenaga Kerja <span class="text-info">(Karyawan)</span></th>

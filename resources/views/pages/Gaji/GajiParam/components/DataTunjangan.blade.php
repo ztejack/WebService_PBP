@@ -1,5 +1,5 @@
 <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
+    <div class="card-header d-flex justify-content-between pb-0">
         <div class="head-label text-center">
             <h5 class="card-title mb-0">Parameter Tunjangan Kesejahteraan </h5>
         </div>
@@ -9,7 +9,7 @@
                     data-bs-target="#modaladdTunjangan" tabindex="0" type="button">
                     <span>
                         <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-none d-sm-inline-block">Add Parameter Tunjangan Gaji</span>
+                        <span class="d-none d-sm-inline-block">Add Parameter Tunjangan Kesejahteraan</span>
                     </span>
                 </button>
             </div>
@@ -18,9 +18,9 @@
     </div>
     <div class="card-datatable dataTables_scroll">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            <div class="table-sm">
+            <div class="dataTables_scroll">
                 <table id="examples" {{-- onsubmit="convertToNumber()" --}}
-                    class="dt-scrollableTable table table-bordered dataTable no-footer">
+                    class="dt-scrollableTable table  dataTable border-top no-footer table-borderless table-sm">
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
@@ -35,9 +35,9 @@
                     </thead>
                     <tbody>
                         @foreach ($gajiparams as $gajiparam)
-                            <tr>
+                            <tr class="border-bottom">
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="fw-bold">{{ $gajiparam->position->position }} </td>
+                                <td class="fw-bold text-nowrap">{{ $gajiparam->position->position }} </td>
                                 <td>
                                     <span
                                         class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
@@ -46,8 +46,8 @@
                                 <td class="currency">{{ $gajiparam->tnj_transport }} </td>
                                 <td class="currency">{{ $gajiparam->tnj_perumahan }}</td>
                                 <td class="currency">{{ $gajiparam->tnj_shift }}</td>
-                                <td class="d-inline-flex g-2" style="display: inline-flex">
-                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-label-info mx-2"
+                                <td class="dt-nowrap">
+                                    <button type="button" class="btn btn-sm rounded-pill btn-icon btn-label-info me-2"
                                         data-bs-toggle="modal" data-bs-target="#modalupdatetnj{{ $gajiparam->id }}">
                                         <span class="tf-icons bx bx-edit-alt"></span>
                                     </button>
@@ -67,7 +67,7 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr class=" border-bottom ">
                             <th>NO</th>
                             <th>Jabatan</th>
                             <th>Golongan</th>

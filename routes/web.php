@@ -8,6 +8,7 @@ use App\Http\Controllers\WEB\TunjanganController;
 use App\Http\Controllers\WEB\AuthController;
 use App\Http\Controllers\WEB\ExperienceController;
 use App\Http\Controllers\WEB\GajiController;
+use App\Http\Controllers\WEB\GajiSubmissionController;
 use App\Http\Controllers\WEB\ParamController;
 use App\Http\Controllers\WEB\RoleController;
 use App\Http\Controllers\WEB\UserController;
@@ -158,9 +159,17 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                 }
             );
         });
-        Route::prefix('tunjangan')->middleware(['auth'])->group(
+        // Route::prefix('tunjangan')->middleware(['auth'])->group(
+        //     function () {
+        //         Route::post('/store/{gaji}', [TunjanganController::class, 'store'])->name('tunjangan.store');
+        //     }
+        // );
+        Route::prefix('submission')->middleware(['auth'])->group(
             function () {
-                Route::post('/store/{gaji}', [TunjanganController::class, 'store'])->name('tunjangan.store');
+                Route::get('/store', [GajiSubmissionController::class, 'view_store'])->name('submission.view_store');
+                Route::post('/store', [GajiSubmissionController::class, 'store'])->name('submission.store');
+                Route::put('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
+                Route::post('/delete/{submission}', [GajiSubmissionController::class, 'delete'])->name('submission.delete');
             }
         );
     }
