@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Gaji;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,10 +22,9 @@ class GajiSlip extends Model
         'tnj_perumahan',
         'total_tnj_shift',
         'total_tnj_transport',
-        'aprv_1',
-        'aprv_2',
+        'status',
         'employe_id',
-        'aprove_id'
+        'submit_id'
     ];
     public function employee()
     {

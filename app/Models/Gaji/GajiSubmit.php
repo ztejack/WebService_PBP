@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Gaji;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +19,9 @@ class GajiSubmit extends Model
         'jumlah',
         'total',
         'status',
+        'aprv_1',
+        'aprv_2',
+        'aprv_3',
     ];
     public function gajisubmit()
     {

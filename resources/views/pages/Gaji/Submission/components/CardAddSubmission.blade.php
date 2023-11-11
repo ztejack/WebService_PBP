@@ -62,14 +62,14 @@
                                     <td class="dt-checkboxes-cell">
                                         <input type="checkbox" name="submisiions[]"
                                             class="dt-checkboxes form-check-input row-checkbox"
-                                            value="{{ $user->employee->gaji->id }}" required>
+                                            value="{{ $user->employee->id }}" required>
                                     </td>
                                     <td class="sorting_1"><span class="fw-medium">{{ $user->name }}</span></td>
                                     <td class=""><span class="text-nowrap">{{ now()->format('M Y') }}</span></td>
 
                                     <td>
                                         <h6 class="mb-0 w-px-100">Rp <span
-                                                class="numberin">{{ $user->employee->totalgaji() }}</span>
+                                                class="numberin">{{ $user->employee->gajicount()->total }}</span>
                                         </h6>
                                     </td>
                                     <td><span class="badge px-2 bg-label-info" text-capitalized="">Ready to

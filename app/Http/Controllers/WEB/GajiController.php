@@ -11,6 +11,7 @@ use App\Models\Employe;
 use App\Models\Gaji\Absensi;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
+use App\Models\Gaji\GajiSubmit;
 use App\Models\Gaji\ParamBPSJ;
 use App\Models\GajiSlip;
 use App\Models\Golongan;
@@ -37,6 +38,7 @@ class GajiController extends Controller
         return view(
             'pages.Gaji.PageDataGaji',
             [
+                'payrolls' => GajiSubmit::orderBy('created_at', 'desc')->get(),
                 'users' => $collectionuser,
             ]
         );

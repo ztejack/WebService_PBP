@@ -111,7 +111,7 @@ class Employe extends Model
 
         return $total;
     }
-    public function totalgaji()
+    public function gajicount()
     {
         $gaji = $this->gaji()->get()->first();
         $gaji_pokok = $gaji->gapok;
@@ -139,7 +139,6 @@ class Employe extends Model
         $absens = $this->absensi->where('date', '>=', now()->format('m Y'));
         $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
 
-
         $total3 = array_sum([
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
@@ -148,11 +147,33 @@ class Employe extends Model
             $potongan_lainnya->pot_terlambat,
             $potongan_lainnya->pot_perjalanan
         ]);
-        if ($total1 != 0) {
-            return $total = array_sum([$total1, $total2]) - $total3;
-        }
         $total = 0;
-        return $total;
+        if ($total1 != 0) {
+            $total = array_sum([$total1, $total2]) - $total3;
+            $return = (object)[
+                'total' => $total,
+                'tnj_makan' => $sum_tnj_makan,
+                'tnj_perumahan' => $sum_tnj_perumahan,
+                'tnj_transport' => $sum_tnj_transport,
+                'tnj_shift' => $sum_tnj_shift,
+                'bpjs_var' => $bpjs_count,
+                'potongan_lainnya' => $potongan_lainnya,
+            ];
+            return $return;
+            // dd($return);
+        }
+        $return = (object)[
+            'total' => 0,
+            'tnj_makan' => 0,
+            'tnj_perumahan' => 0,
+            'tnj_transport' => 0,
+            'tnj_shift' => 0,
+            'bpjs_var' => $bpjs_count,
+            'potongan_lainnya' => $potongan_lainnya,
+        ];
+        // dd($return);
+
+        return $return;
     }
 
     public static function boot()
