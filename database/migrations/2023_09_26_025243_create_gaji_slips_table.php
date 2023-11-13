@@ -28,16 +28,25 @@ return new class extends Migration
         Schema::create('gaji_slips', function (Blueprint $table) {
             $table->id();
             $table->string('date')->nullable();
-            $table->string('gapok')->nullable();
-            $table->string('tnj_jabatan')->nullable();
-            $table->string('tnj_ahli')->nullable();
-            $table->string('total_tnj_makan')->nullable();
-            $table->string('tnj_perumahan')->nullable();
-            $table->string('total_tnj_shift')->nullable();
-            $table->string('total_tnj_transport')->nullable();
+            $table->string('gapok')->nullable()->default(0);
+            $table->string('tnj_jabatan')->nullable()->default(0);
+            $table->string('tnj_ahli')->nullable()->default(0);
+            $table->string('total_tnj_makan')->nullable()->default(0);
+            $table->string('tnj_perumahan')->nullable()->default(0);
+            $table->string('total_tnj_shift')->nullable()->default(0);
+            $table->string('total_tnj_transport')->nullable()->default(0);
+            $table->string('tnj_bpjs_tk')->nullable()->default(0);
+            $table->string('tnj_bpjs_kes')->nullable()->default(0);
+            $table->string('pot_bpjs_tk')->nullable()->default(0);
+            $table->string('pot_bpjs_kes')->nullable()->default(0);
+            $table->string('pot_sakit')->nullable()->default(0);
+            $table->string('pot_kosong')->nullable()->default(0);
+            $table->string('pot_terlambat')->nullable()->default(0);
+            $table->string('pot_perjalanan')->nullable()->default(0);
+            $table->string('total')->nullable()->default(0);
             $table->string('status')->nullable();
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes');
-            $table->foreignId('submit_id')->constrained('gaji_submits')->references('id')->on('gaji_submits');
+            $table->foreignId('gaji_submit_id')->constrained('gaji_submits')->references('id')->on('gaji_submits')->onDelete('cascade');
             $table->timestamps();
         });
     }

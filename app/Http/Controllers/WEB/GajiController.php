@@ -245,6 +245,7 @@ class GajiController extends Controller
             'potongan_lainnya' => $potongan_lainnya,
             'total_potongan_lainnya' => $total_potongan_lainnya,
             'data_absensi' => $absensiscount,
+            'slips' => $user->employee->slip,
 
             // 'potongan_lainnya'
             'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
@@ -368,15 +369,5 @@ class GajiController extends Controller
     public function destroy(Gaji $gaji)
     {
         //
-    }
-
-    public function detail_slip_gaji()
-    {
-        return view('pages.Gaji.Slip.PageDetailSlip', []);
-    }
-
-    public function print_slip_gaji()
-    {
-        return view('pages.Gaji.Slip.PagePrintDetailslip', []);
     }
 }

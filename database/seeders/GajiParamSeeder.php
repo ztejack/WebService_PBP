@@ -255,7 +255,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 3000000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 1,
         ]);
         // 1B
@@ -280,7 +280,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 2950000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 2,
         ]);
         // 1C
@@ -305,7 +305,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 2900000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 4,
+            'position_id' => 3,
             'golongan_id' => 3,
         ]);
         // 2A
@@ -314,7 +314,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 2875000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 4,
         ]);
         GajiParamTnjng::create([
@@ -331,7 +331,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 2850000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 5,
         ]);
         GajiParamTnjng::create([
@@ -348,7 +348,7 @@ class GajiParamSeeder extends Seeder
             'tnj_perumahan' => 2825000,
             'tnj_makan' => 40000,
             'tnj_shift' => 0,
-            'position_id' => 3,
+            'position_id' => 4,
             'golongan_id' => 6,
         ]);
         GajiParamTnjng::create([

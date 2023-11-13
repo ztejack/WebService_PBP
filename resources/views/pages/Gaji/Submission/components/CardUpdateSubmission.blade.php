@@ -1,24 +1,19 @@
 <div class="card mb-4">
     <h5 class="card-header">Payroll</h5>
     <div class="card-body demo-vertical-spacing demo-only-element">
-        <form action="{{ route('submission.store') }}" method="POST">
-            @method('POST')
+        <form action="{{ route('submission.update', $data->id) }}" method="POST">
+            @method('PUT')
             @csrf
             <div class="col mb-4">
                 <label class="form-label" for="bs-datepicker-autoclose">Date</label>
                 <div class="input-group">
                     <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose"
                         data-date-format="mm-yyyy" aria-describedby="bs-datepicker-autoclose"
-                        value="{{ now()->format('d-m-Y') }}" name="date">
+                        value="{{ $data->payroll }}" name="date">
                     <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                 </div>
             </div>
 
-            {{-- <div class="col mb-4">
-            <label class="form-label" for="bs-datepicker-autoclose">Some</label>
-            <input type="text" class="form-control form-control-sm" placeholder="Recipient's username"
-                aria-label="Recipient's username" aria-describedby="basic-addon13">
-        </div> --}}
             <div class="divider divider-info">
                 <div class="divider-text">
                     Gaji Karyawan
@@ -62,18 +57,22 @@
                                     <td class="dt-checkboxes-cell">
                                         <input type="checkbox" name="submisiions[]"
                                             class="dt-checkboxes form-check-input row-checkbox {{ $user->employee->payrolcheck() ? 'enable' : 'disabled' }}"
-                                            value="{{ $user->employee->id }}"{{ $user->employee->payrolcheck() ? 'enable' : 'disabled' }}>
+                                            value="{{ $user->employee->id }}"
+                                            {{ $user->employee->gajisubmitcheck($data->id) ? 'checked' : '' }}
+                                            {{ $user->employee->payrolcheck() ? 'enable' : 'disabled' }}>
                                     </td>
                                     <td class="sorting_1"><span class="fw-medium">{{ $user->name }}</span></td>
                                     <td class=""><span class="text-nowrap">{{ now()->format('M Y') }}</span></td>
 
                                     <td class="text-nowrap">
-                                        <h6 class="mb-0 w-px-100">Rp <span
-                                                class="numberin">{{ $user->employee->gajicount()->total }}</span>
+                                        <h6 class="mb-0 w-px-100">Rp
+                                            <span class="numberin">{{ $user->employee->gajicount()->total }}</span>
                                         </h6>
                                     </td>
-                                    <td><span
-                                            class="badge px-2 {{ $user->employee->payrolcheck() ? 'bg-label-info' : 'bg-label-danger' }}"
+                                    <td>
+                                        <span
+                                            class="badge
+                                        {{ $user->employee->payrolcheck() ? 'bg-label-info' : 'bg-label-danger' }}"
                                             text-capitalized="">{{ $user->employee->payrolcheck() ? 'Ready' : 'Not ready' }}
                                             to
                                             Payroll</span>
@@ -91,7 +90,7 @@
 
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
 
     </div>

@@ -44,52 +44,50 @@
         </ul>
     </li>
 @endcan
-
-
-{{-- <li class="menu-header small text-uppercase ">
-    <span class="menu-header-text">Kepegawaian</span>
-</li>
-<li class="menu-item  {{ Request::is('Users*') ? 'active open' : '' }} ">
-    <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-user-pin"></i>
-        <div data-i18n="Account Settings">Users</div>
-    </a>
-    <ul class="menu-sub">
-        <li class="menu-item {{ Request::is('Users*') ? 'active' : '' }}">
-            <a href="/Users" class="menu-link">
-                <div data-i18n="Without menu">Data Users</div>
-            </a>
-        </li>
-    </ul>
-</li> --}}
-
-<li class="menu-header small text-uppercase ">
-    <span class="menu-header-text">Gaji</span>
-</li>
-<li class="menu-item  {{ Request::is('gaji*') ? 'active open' : '' }} ">
-    <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
-        <div data-i18n="Account Settings">Gaji</div>
-    </a>
-    <ul class="menu-sub">
-        <li class="menu-item {{ Request::is('gaji/gaji-param') ? 'active' : '' }}">
-            <a href="{{ route('page_gaji.param') }}" class="menu-link">
-                <div data-i18n="Without menu">Gaji Param</div>
-            </a>
-        </li>
-    </ul>
-    <ul class="menu-sub">
-        <li class="menu-item {{ Request::is('gaji') ? 'active' : '' }}">
-            <a href="{{ route('page_gaji') }}" class="menu-link">
-                <div data-i18n="Without menu">Data Gaji</div>
-            </a>
-        </li>
-    </ul>
-    <ul class="menu-sub">
-        <li class="menu-item {{ Request::is('/gaji-param') ? 'active' : '' }}">
-            <a href="{{ route('page_gaji') }}" class="menu-link">
-                <div data-i18n="Without menu">Gaji Employee</div>
-            </a>
-        </li>
-    </ul>
-</li>
+@can('GajiManagement')
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Gaji</span>
+    </li>
+    <li class="menu-item  {{ Request::is('gaji*') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dollar-circle"></i>
+            <div data-i18n="Account Settings">Gaji</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('gaji/gaji-param') ? 'active' : '' }}">
+                <a href="{{ route('page_gaji.param') }}" class="menu-link">
+                    <div data-i18n="Without menu">Gaji Param</div>
+                </a>
+            </li>
+        </ul>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('gaji/*') ? (Request::is('gaji/gaji-param') ? '' : 'active') : '' }}">
+                <a href="{{ route('page_gaji') }}" class="menu-link">
+                    <div data-i18n="Without menu">Data Gaji</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
+@can(['AprovalGajiLv1', 'AprovalGajiLv2'])
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Task</span>
+    </li>
+    <li class="menu-item  {{ Request::is('task') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-task"></i>
+            <div data-i18n="Account Settings">Task</div>
+            {{-- badge notification --}}
+            {{-- @if (1 > 0)
+            <span class="badge badge-center rounded-pill bg-label-info ms-auto">6</span>
+        @endif --}}
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('task/') ? 'active' : '' }}">
+                <a href="{{ route('page_task') }}" class="menu-link">
+                    <div data-i18n="Without menu">Pengajuan</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan

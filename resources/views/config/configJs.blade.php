@@ -59,16 +59,25 @@
     @endif
 @endif
 {{-- @dd(Request::is(route('submission.view_store'))); --}}
-@if (Request::is('gaji/*/view') || Request::is('gaji/submission/store'))
+@if (Request::is('gaji/*/view') || Request::is('gaji/submission/store') || Request::is('gaji/submission/*/update'))
     <script type="module" src="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
     <script type="module" src="{{ asset('js/forms-pickers.js') }}"></script>
     {{-- @if (Request::is('gaji/*/view')) --}}
-        <script type="module" src="{{ asset('js/gajiviewlistener.js') }}"></script>
+    <script type="module" src="{{ asset('js/gajiviewlistener.js') }}"></script>
     {{-- @endif --}}
 @endif
-@if (Request::is('gaji') || Request::is('gaji/submission/store'))
+@if (Request::is('gaji') ||
+        Request::is('gaji/submission/store') ||
+        Request::is('gaji/submission/*/update') ||
+        Request::is('gaji/submission/detail/*') ||
+        Request::is('gaji/slip/*'))
+    @if (Request::is('gaji/slip/*'))
+        <script type="module" src="{{ asset('js/numbertolisterner.js') }}"></script>
+    @endif
+
     <script type="module" src="{{ asset('js/comacurency.js') }}"></script>
 @endif
+
 {{-- <script src="/js/dashboards-analytics.js"></script> --}}
 
 

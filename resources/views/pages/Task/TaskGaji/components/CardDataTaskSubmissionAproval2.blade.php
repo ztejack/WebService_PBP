@@ -1,24 +1,13 @@
-<div class="card">
+<div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
-            <h5 class="card-title mb-0">Data Pengajuan Gaji</h5>
-        </div>
-        <div class="dt-action-buttons text-end pt-3 pt-md-0">
-            <div class="dt-buttons">
-                {{-- <a href="users/create" class="dt-button create-new btn btn-primary" tabindex="0" type="button"> --}}
-                <a id="addbutton" href="{{ route('submission.view_store') }}" class="dt-button create-new btn btn-primary">
-                    <span>
-                        <i class="bx bx-plus me-sm-2"></i>
-                        <span class="d-sm-inline-block">Ajukan Gaji</span>
-                    </span>
-                </a>
-            </div>
+            <h5 class="card-title mb-0">Data Permintaan Pengajuan Gaji</h5>
         </div>
     </div>
     <div class="card-datatable text-nowrap">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5">
             <div class="dataTables_scroll">
-                <table class="datatables-basic table border-top border-bottom table-borderless table-sm" id="examples">
+                <table class="datatables-basic table border-top border-bottom table-borderless table-sm" id="example-x">
                     <thead>
                         <tr class="text-nowrap border-bottom">
                             <th>NO</th>
@@ -27,11 +16,12 @@
                             <th>Jumlah</th>
                             <th>Total</th>
                             <th>Status</th>
+                            <th>Aproval</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($payrolls as $payrol)
+                        @foreach ($payrolls_aprv_1 as $payrol)
                             <tr class="text-nowrap border-bottom">
                                 <td class="">{{ $loop->iteration }}</td>
                                 <td class="">{{ $payrol->payroll }}</td>
@@ -62,28 +52,38 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <div class="form-check-success">
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_1 ? 'checked' : '' }} disabled>
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_2 ? 'checked' : '' }} disabled>
+                                    </div>
+                                </td>
+                                <td>
                                     <div class="d-flex align-items-center">
                                         <!-- Button trigger modal -->
                                         <a class="btn btn-sm btn-primary me-2"
-                                            href="{{ route('submission.show', $payrol->id) }}">
+                                            href="{{ route('submission.show', $payrol->id) }}" target="_blank">
                                             Detail
                                         </a>
-                                        <a class="btn
-                                            btn-info btn-sm me-2"
-                                            href="{{ route('submission.view_update', $payrol->id) }}">
-                                            <i class='bx bx-edit'></i>
-                                        </a>
-                                        <form action="{{ route('submission.delete', $payrol->id) }}" method="post">
+                                        <form action="{{ route('task.aprov', $payrol->id) }}" method="POST">
                                             @csrf
-                                            <button class="btn btn-danger btn-sm" type="submit">
-                                                <i class='bx bx-trash'></i>
-                                            </button>
+                                            <input type="hidden" name="aprove" value="true">
+                                            <button type="submit" class="btn btn-success btn-sm me-2"><i
+                                                    class="bx bx-check-circle"></i>
+                                                Aprove</button>
                                         </form>
+                                        <form action="{{ route('task.aprov', $payrol->id) }}" method="POST">
+                                            <input type="hidden" name="rejected" value="true">
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="bx bx-x-circle"></i>
+                                                Rejected</button>
+                                        </form>
+
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                     <tfoot>
                         <tr>
@@ -93,6 +93,7 @@
                             <th>Jumlah</th>
                             <th>Total</th>
                             <th>Status</th>
+                            <th>Aproval</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>

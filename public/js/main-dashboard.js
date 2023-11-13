@@ -185,6 +185,14 @@ $(document).ready(function () {
         scrollY: true,
         scrollX: true,
     });
+    $("#example-y").DataTable({
+        stateSave: true,
+        paging: true,
+        ordering: true,
+        info: true,
+        scrollY: true,
+        scrollX: true,
+    });
 
     $("table.display").DataTable({
         paging: false,
@@ -263,10 +271,11 @@ let example_form = $("#example-form").DataTable({
         selector: "td:first-child", // Corrected selector for the first cell in each row
     },
 });
+
 let cbx_select_all = $("#select-all");
 cbx_select_all.change(function () {
     const $selectAllCheckbox = cbx_select_all;
-    const $rowCheckboxes = $("tbody input.row-checkbox");
+    const $rowCheckboxes = $("tbody input.row-checkbox.enable");
 
     if ($selectAllCheckbox.prop("checked")) {
         $rowCheckboxes.prop("checked", true);
@@ -274,9 +283,9 @@ cbx_select_all.change(function () {
         $rowCheckboxes.prop("checked", false);
     }
 });
-example_form.on("change", "tbody input.row-checkbox", function () {
+example_form.on("change", "tbody input.row-checkbox.enable", function () {
     const $selectAllCheckbox = cbx_select_all;
-    const $rowCheckboxes = $("tbody input.row-checkbox");
+    const $rowCheckboxes = $("tbody input.row-checkbox.enable");
 
     const allChecked =
         $rowCheckboxes.length === $rowCheckboxes.filter(":checked").length;

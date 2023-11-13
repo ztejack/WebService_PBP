@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\WEB;
 
-use App\Models\GajiSlip;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGajiSlipRequest;
 use App\Http\Requests\UpdateGajiSlipRequest;
+use App\Models\Gaji\GajiSlip;
 
 class GajiSlipController extends Controller
 {
@@ -39,48 +40,21 @@ class GajiSlipController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\GajiSlip  $gajiSlip
-     * @return \Illuminate\Http\Response
-     */
-    public function show(GajiSlip $gajiSlip)
+    public function detail_slip_gaji(GajiSlip $slip)
     {
-        //
+        $employe = $slip->employee;
+        return view('pages.Gaji.Slip.PageDetailSlip', [
+            'slip' => $slip,
+            'employe' => $employe
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\GajiSlip  $gajiSlip
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(GajiSlip $gajiSlip)
+    public function print_slip_gaji(GajiSlip $slip)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateGajiSlipRequest  $request
-     * @param  \App\Models\GajiSlip  $gajiSlip
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateGajiSlipRequest $request, GajiSlip $gajiSlip)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\GajiSlip  $gajiSlip
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(GajiSlip $gajiSlip)
-    {
-        //
+        $employe = $slip->employee;
+        return view('pages.Gaji.Slip.PagePrintDetailslip', [
+            'slip' => $slip,
+            'employe' => $employe
+        ]);
     }
 }

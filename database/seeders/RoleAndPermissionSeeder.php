@@ -40,6 +40,13 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'SalaryManagement']);
         Permission::create(['name' => 'PositionManagement']);
         Permission::create(['name' => 'GolonganManagement']);
+        Permission::create(['name' => 'GajiManagement']);
+        Permission::create(['name' => 'GajiManagement.create']);
+        Permission::create(['name' => 'GajiManagement.view']);
+        Permission::create(['name' => 'GajiManagement.update']);
+
+        Permission::create(['name' => 'AprovalGajiLv1']);
+        Permission::create(['name' => 'AprovalGajiLv2']);
 
 
 
@@ -64,9 +71,9 @@ class RoleAndPermissionSeeder extends Seeder
         $adminRole = Role::create(['name' => 'Admin']);
         $employeRole = Role::create(['name' => 'Employe']);
         $guestRole = Role::create(['name' => 'Guest']);
-        $guestRole = Role::create(['name' => 'AdminKeuangan']);
-        $guestRole = Role::create(['name' => 'Manager']);
-        $guestRole = Role::create(['name' => 'AdminSDM']);
+        $AdminKeuanganRole = Role::create(['name' => 'AdminKeuangan']);
+        $ManagerRole = Role::create(['name' => 'Manager']);
+        $AdminSDMRole = Role::create(['name' => 'AdminSDM']);
 
         $superuserRole->givePermissionTo([
             'UserManagement',
@@ -76,7 +83,10 @@ class RoleAndPermissionSeeder extends Seeder
             'ContractManagement',
             'SalaryManagement',
             'PositionManagement',
-            'GolonganManagement'
+            'GolonganManagement',
+            'GajiManagement',
+            'AprovalGajiLv1',
+            'AprovalGajiLv2',
             // 'assign-role-su',
             // 'remove-role-su',
 
@@ -103,24 +113,28 @@ class RoleAndPermissionSeeder extends Seeder
             'SatkerManagement',
             'ContractManagement',
             'SalaryManagement',
-            'PositionManagement'
-            // 'assign-role',
-            // 'remove-role',
-
-            // 'store-users',
-            // 'update-users',
-            // 'delete-users',
-            // 'getall-users',
-            // 'search-users',
-            // 'show-users',
-
-            // 'store-employe',
-            // 'update-employe',
-            // 'delete-employe',
-            // 'getall-employe',
-            // 'search-employe',
-            // 'show-employe',
+            'PositionManagement',
+            'GolonganManagement',
+            'GajiManagement',
+            'AprovalGajiLv1',
+            'AprovalGajiLv2',
         ]);
+        $AdminSDMRole->givePermissionTo([
+            'UserManagement',
+            'RoleManagement.create',
+            'SatkerManagement',
+            'ContractManagement',
+            'SalaryManagement',
+            'PositionManagement',
+            'GolonganManagement',
+            'GajiManagement',
+        ]);
+        $ManagerRole->givePermissionTo([
+            'UserManagement.view',
+            'AprovalGajiLv1',
+            'AprovalGajiLv2',
+        ]);
+
 
         // $adminRole->givePermissionTo([]);
     }

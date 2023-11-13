@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\WEB\EmployeController;
 use App\Http\Controllers\WEB\GajiController;
 use App\Models\Gaji\Absensi;
 use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiParamTnjng;
+use App\Models\Gaji\GajiSlip;
+use App\Models\Gaji\GajiSubmit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -51,6 +54,10 @@ class Employe extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function getUserNameAttribute()
+    {
+        return $this->user->name;
+    }
     public function subsatker()
     {
         return $this->belongsTo(Subsatker::class);
@@ -85,8 +92,40 @@ class Employe extends Model
     }
     public function slip()
     {
-        return $this->hasMany(GajiSlip::class);
+        return $this->hasMany(GajiSlip::class, 'employe_id');
     }
+
+
+    public function gajisubmit()
+    {
+        return $this->hasMany(GajiSubmit::class, 'gaji_slips');
+    }
+
+
+    public function gajisubmitcheck($gajiSubmitid)
+    {
+        if ($this->gajisubmit()->exists()) {
+            if ($this->gajisubmit()->where('gaji_submits.id', $gajiSubmitid)->exists()) {
+                return true;
+            };
+            return false;
+        };
+        return false;
+    }
+    public function payrolcheck()
+    {
+        $gaji = $this->gaji()->get()->first();
+        $gaji_pokok = $gaji->gapok;
+        $tunjangan_jabatan = $gaji->tnj_jabatan;
+        if ($gaji_pokok > 0) {
+            if ($tunjangan_jabatan > 0) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
 
     public function absensiForCurrentMonth()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employe;
+use App\Models\Gaji\GajiSlip;
 use Illuminate\Http\Request;
 
 class EmployeController extends Controller

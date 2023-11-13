@@ -70,6 +70,8 @@
                                         <span class="badge bg-label-success">Guest</span>
                                     @elseif($user->getRoleNames()->first() == 'Employe')
                                         <span class="badge bg-label-warning">{{ $user->getRoleNames()->first() }}</span>
+                                    @else
+                                        <span class="badge bg-label-warning">{{ $user->getRoleNames()->first() }}</span>
                                     @endif
                                 </td>
                                 <td>

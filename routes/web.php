@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\WEB\AbsensiController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\WEB\GajiSlipController;
 use App\Http\Controllers\WEB\GajiParamController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WEB\TunjanganController;
 use App\Http\Controllers\WEB\AuthController;
 use App\Http\Controllers\WEB\ExperienceController;
@@ -132,10 +134,14 @@ Route::prefix('gaji')->middleware(['auth'])->group(
 
         // need ref
         Route::post('/store/gaji_employee/{gaji}', [GajiController::class, 'update_gaji_employe'])->name('update_gaji_employe');
+        Route::prefix('slip')->middleware(['auth'])->group(
+            function () {
+                Route::get('detail/{slip}', [GajiSlipController::class, 'detail_slip_gaji'])->name('page_detail_slip_gaji');
+                Route::get('print/{slip}', [GajiSlipController::class, 'print_slip_gaji'])->name('page_print_slip_gaji');
+            }
+        );
 
 
-        Route::get('/slip/detail/', [GajiController::class, 'detail_slip_gaji'])->name('page_detail_slip_gaji');
-        Route::get('/slip/print/', [GajiController::class, 'print_slip_gaji'])->name('page_print_slip_gaji');
         // need ref
 
         Route::prefix('gaji-param')->middleware(['auth'])->group(function () {
@@ -168,8 +174,10 @@ Route::prefix('gaji')->middleware(['auth'])->group(
             function () {
                 Route::get('/store', [GajiSubmissionController::class, 'view_store'])->name('submission.view_store');
                 Route::post('/store', [GajiSubmissionController::class, 'store'])->name('submission.store');
+                Route::get('/{submission}/update', [GajiSubmissionController::class, 'view_update'])->name('submission.view_update');
                 Route::put('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
-                Route::post('/delete/{submission}', [GajiSubmissionController::class, 'delete'])->name('submission.delete');
+                Route::post('/delete/{submission}', [GajiSubmissionController::class, 'destroy'])->name('submission.delete');
+                Route::get('/detail/{submission}', [GajiSubmissionController::class, 'show'])->name('submission.show');
             }
         );
     }
@@ -180,5 +188,13 @@ Route::prefix('absensi')->middleware(['auth'])->group(
         Route::post('/store/{employe}', [AbsensiController::class, 'store'])->name('absensi.store');
         Route::put('/update/{absensi}', [AbsensiController::class, 'update'])->name('absensi.update');
         Route::post('/delete/{absensi}', [AbsensiController::class, 'destroy'])->name('absensi.delete');
+    }
+);
+Route::prefix('task')->middleware(['auth'])->group(
+    function () {
+        Route::get('/', [TaskController::class, 'index'])->name('page_task');
+        Route::put('/update/{task}', [TaskController::class, 'update'])->name('task.update');
+        Route::post('/delete/{task}', [TaskController::class, 'destroy'])->name('task.delete');
+        Route::post('/aprove/{task}', [TaskController::class, 'aproval'])->name('task.aprov');
     }
 );
