@@ -21,6 +21,7 @@ class ParamController extends Controller
         $positions = Position::all();
         $contracs = Contract::all();
         $golongans = Golongan::all();
+        $golongans = Golongan::all();
 
         return view('pages.EmployeParam.PageDataEmployeParam', [
             'satkers' => $satkers,

@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
         ]);
         $superAdminRole = Role::findByName('SuperUser');
         $user->assignRole($superAdminRole);
+        $user->employee->update(['status' => true]);
 
 
         $user = User::create([

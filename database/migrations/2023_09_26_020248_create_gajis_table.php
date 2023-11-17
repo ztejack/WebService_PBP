@@ -28,6 +28,28 @@ return new class extends Migration
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create(
+            'tunjangans',
+            function (Blueprint $table) {
+                $table->id();
+                $table->string('nama_tnj');
+                $table->string('jenis_tnj');
+                $table->string('jumlah_tnj');
+                $table->timestamps();
+            }
+        );
+        Schema::create(
+            'pivot_tnj_gaji',
+            function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('tunjangans_id');
+                $table->unsignedBigInteger('gaji_id');
+                $table->foreign('tunjangans_id')->references('id')->on('tunjangans')->onDelete('cascade');
+                $table->foreign('gaji_id')->references('id')->on('gajis')->onDelete('cascade');
+                $table->timestamps();
+            }
+        );
     }
 
     /**
@@ -37,6 +59,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('pivot_tnj_gaji');
+        Schema::dropIfExists('tunjangans');
         Schema::dropIfExists('gajis');
     }
 };

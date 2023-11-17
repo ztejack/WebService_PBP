@@ -8,6 +8,7 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             @include('pages.Gaji.GajiParam.components.DataTunjab')
             @include('pages.Gaji.GajiParam.components.DataTunjangan')
+            @include('pages.Gaji.GajiParam.components.DataTunjanganLain')
             @include('pages.Gaji.GajiParam.components.DataBPJS')
         </div>
         {{-- footer --}}

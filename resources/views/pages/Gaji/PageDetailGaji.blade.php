@@ -26,6 +26,13 @@
                 <div class="col-md-8">
                     {{-- Card Gaji Pokok & Jabatan --}}
                     @include('pages.Gaji.components.CardGajiPokok')
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <label class="form-label" for="tunjangn_lain">Tunjangan Lain</label>
+                            <input type="text" class="form-control" name="tunjangan">
+                        </div>
+                    </div>
                     {{-- Card Tunjangan --}}
                     @include('pages.Gaji.components.CardTunjangan')
                     {{-- Card BPJS --}}

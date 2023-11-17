@@ -85,18 +85,6 @@ Route::prefix('admin')->middleware(['auth'])->group(
                 );
             }
         );
-        // Route::prefRoute::prefix('gaji')->middleware(['auth'])->group(
-        // function () {
-        // Route::prefix('position')->middleware(['auth'])->group(
-        //     function () {
-        //         Route::get('/', [ParamController::class, 'position_view'])->name('page_position');
-        //     }
-        // );
-        // Route::prefix('contract')->middleware(['auth'])->group(
-        //     function () {
-        //         Route::get('/', [ParamController::class, 'contract_view'])->name('page_contract');
-        //     }
-        // );
         Route::prefix('role-permission')->middleware(['auth', 'can:RoleManagement'])->group(
             function () {
                 Route::get('/', [RoleController::class, 'index'])->name('role.permission');
@@ -156,6 +144,9 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                     Route::post('/delete/{tunjangan}', [GajiParamController::class, 'param_tunjangan_destroy'])->name('param.tunjangan.delete');
                 }
             );
+            Route::prefix('tunjangan_lain')->middleware(['auth'])->group(function(){
+                Route::post('/store',[TunjanganController::class,'store'])->name('param_tunjangan_lain_store');
+            });
             Route::prefix('bpjs')->middleware(['auth'])->group(
                 function () {
                     Route::post('/store', [GajiParamController::class, 'param_bpjs_store'])->name('param.bpjs.store');

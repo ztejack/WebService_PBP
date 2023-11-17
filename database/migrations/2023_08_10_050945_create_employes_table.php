@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('religion')->nullable();
             // $table->string('golongan')->nullable();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
+            $table->boolean('status_keluarga')->default(false);
             $table->dateTime('date_start')->nullable();
             $table->string('tenure')->nullable();
             // $table->string('contract_type')->nullable();

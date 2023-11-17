@@ -61,7 +61,7 @@
             </li>
         </ul>
         <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('gaji/*') ? (Request::is('gaji/gaji-param') ? '' : 'active') : '' }}">
+            <li class="menu-item {{ Request::is('gaji*') ? (Request::is('gaji/gaji-param') ? '' : 'active') : '' }}">
                 <a href="{{ route('page_gaji') }}" class="menu-link">
                     <div data-i18n="Without menu">Data Gaji</div>
                 </a>
@@ -83,7 +83,7 @@
         @endif --}}
         </a>
         <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('task/') ? 'active' : '' }}">
+            <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">
                 <a href="{{ route('page_task') }}" class="menu-link">
                     <div data-i18n="Without menu">Pengajuan</div>
                 </a>

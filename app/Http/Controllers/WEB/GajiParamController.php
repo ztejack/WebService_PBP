@@ -9,6 +9,7 @@ use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
 use App\Models\Gaji\ParamBPSJ;
+use App\Models\Gaji\Tunjangan_lain;
 use App\Models\Golongan;
 use App\Models\Position;
 use Illuminate\Auth\Events\Validated;
@@ -32,6 +33,7 @@ class GajiParamController extends Controller
             'golongans' => Golongan::all(),
             'positions' => Position::all(),
             'gajiparam_bpjs' => ParamBPSJ::orderBy('created_at', 'desc')->get(),
+            'tunjangan_lain' => Tunjangan_lain::orderBy('created_at', 'desc')->get(),
         ]);
     }
 

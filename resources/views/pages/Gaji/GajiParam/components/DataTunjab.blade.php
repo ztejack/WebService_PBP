@@ -29,7 +29,7 @@
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
-            <h5 class="card-title mb-0">Parameter Gaji Tunjangan Jabatan</h5>
+            <h5 class="card-title mb-0">Tunjangan Jabatan</h5>
         </div>
         <div class="dt-action-buttons text-end pt-3 pt-md-0">
             <div class="dt-buttons">

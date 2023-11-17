@@ -32,6 +32,7 @@ class Employe extends Model
         'religion',
         // 'golongan',
         'status',
+        'status_keluarga',
         'date_start',
         'tenure',
         'user_id',
@@ -94,13 +95,10 @@ class Employe extends Model
     {
         return $this->hasMany(GajiSlip::class, 'employe_id');
     }
-
-
     public function gajisubmit()
     {
         return $this->hasMany(GajiSubmit::class, 'gaji_slips');
     }
-
 
     public function gajisubmitcheck($gajiSubmitid)
     {

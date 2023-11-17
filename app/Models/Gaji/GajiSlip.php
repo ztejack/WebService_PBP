@@ -23,6 +23,7 @@ class GajiSlip extends Model
         'tnj_perumahan',
         'total_tnj_shift',
         'total_tnj_transport',
+        'tnj_lapangan',
 
         'tnj_bpjs_tk',
         'tnj_bpjs_kes',

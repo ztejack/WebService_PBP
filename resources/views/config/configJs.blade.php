@@ -70,7 +70,7 @@
         Request::is('gaji/submission/store') ||
         Request::is('gaji/submission/*/update') ||
         Request::is('gaji/submission/detail/*') ||
-        Request::is('gaji/slip/*'))
+        Request::is('gaji/slip/*' || Request::is('task*')))
     @if (Request::is('gaji/slip/*'))
         <script type="module" src="{{ asset('js/numbertolisterner.js') }}"></script>
     @endif

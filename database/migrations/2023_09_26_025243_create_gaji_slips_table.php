@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("payroll")->nullable();
             $table->string("name")->nullable();
-            $table->string("jumlah")->default(false);
+            $table->string("jumlah")->default(false); 
             $table->string("total")->default(false);
             $table->string("status")->nullable();
             $table->string("aprv_1")->default(false);
@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('tnj_perumahan')->nullable()->default(0);
             $table->string('total_tnj_shift')->nullable()->default(0);
             $table->string('total_tnj_transport')->nullable()->default(0);
+            $table->string('tnj_lapangan')->nullable()->default(0);
             $table->string('tnj_bpjs_tk')->nullable()->default(0);
             $table->string('tnj_bpjs_kes')->nullable()->default(0);
             $table->string('pot_bpjs_tk')->nullable()->default(0);
