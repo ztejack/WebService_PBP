@@ -1,9 +1,13 @@
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0 mb-4">
         <h5 class="mb-0">Kehadiran</h5>
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addkehadiranModal">
-            <i class="bx bx-plus"></i> Tambah Absen Kehadiran
-        </button>
+        @if (!Request::is('gaji/self*'))
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                data-bs-target="#addkehadiranModal">
+                <i class="bx bx-plus"></i> Tambah Absen Kehadiran
+            </button>
+        @endif
+
     </div>
     <div class="card-body pt-2" style="overflow-y: overlay;
     MAX-HEIGHT: 60VH;">
@@ -37,6 +41,8 @@
             {{-- @endfor --}}
         </ul>
     </div>
-    @include('pages.Gaji.components.ModalAddAbsensi')
+    @if (!Request::is('gaji/self*'))
+        @include('pages.Gaji.components.ModalAddAbsensi')
+    @endif
 
 </div>

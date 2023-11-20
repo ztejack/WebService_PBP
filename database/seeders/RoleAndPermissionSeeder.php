@@ -127,11 +127,11 @@ class RoleAndPermissionSeeder extends Seeder
             'SalaryManagement',
             'PositionManagement',
             'GolonganManagement',
-            'GajiManagement',
+            'AprovalGajiLv1',
+
         ]);
         $ManagerRole->givePermissionTo([
             'UserManagement.view',
-            'AprovalGajiLv1',
             'AprovalGajiLv2',
         ]);
 

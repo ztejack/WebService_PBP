@@ -4,7 +4,6 @@
         <span class="text-muted fw-light">User Profile /</span> Profile
     </h4>
 
-    {{-- @dd($user_profile); --}}
 
     <!-- Header -->
     <div class="row">
@@ -41,61 +40,14 @@
                                     class="btn btn-primary text-nowrap me-2">
                                     <i class="bx bx-edit me-1"></i>Edit
                                 </a>
-                                <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
                                     data-bs-target="#modalexperience">
                                     <i class="bx bx-plus-circle me-1"></i>Add Experience
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!--/ Header -->
-    <div class="modal fade" id="modalexperience" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalexperienceTitle">Add Experience</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('store_experience_user') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label for="position" class="form-label">Position</label>
-                                <input type="text" id="position" name="position"class="form-control"
-                                    placeholder="Enter Position">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" id="location" name="location" class="form-control"
-                                    placeholder="Enter Location">
-                            </div>
-                        </div>
-                        <div class="row g-2">
-
-                            <div class="col mb-0">
-                                <label for="datestart" class="form-label">Date Start</label>
-                                <input type="date" id="datestart" name="datestart"class="form-control">
-                            </div>
-                            <div class="col mb-0">
-                                <label for="dateend" class="form-label">Date End</label>
-                                <input type="date" id="dateend" name="dateend"class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input hidden type="text" name="uuid" value="{{ $user_profile->employe_uuid }}">
-                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -105,12 +57,7 @@
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
                 <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i
                             class="bx bx-user me-1"></i> Profile</a></li>
-                {{-- <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
-                            class="bx bx-group me-1"></i> Teams</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
-                            class="bx bx-grid-alt me-1"></i> Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
-                            class="bx bx-link-alt me-1"></i> Connections</a></li> --}}
+
             </ul>
         </div>
     </div>
@@ -125,50 +72,54 @@
                     <small class="text-muted text-uppercase">About</small>
                     <ul class="list-unstyled mb-4 mt-3">
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
-                                class="fw-medium mx-2">Status:</span>
+                                class="fw-bold mx-2">Status:</span>
                             <span
                                 class="badge {{ $user_profile->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user_profile->status == true ? 'Active' : 'Innactive' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
-                                class="fw-medium mx-2">Full Name:</span> <span>{{ $user_profile->name ?: '-' }}</span>
+                                class="fw-bold mx-2">Full Name:</span> <span>{{ $user_profile->name ?: '-' }}</span>
                         </li>
 
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
-                                class="fw-medium mx-2">Role:</span> <span>{{ $user_profile->role_name ?: '-' }}</span>
+                                class="fw-bold mx-2">Role:</span> <span>{{ $user_profile->role_name ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
-                                class="fw-medium mx-2">NIP:</span> <span>{{ $user_profile->nip ?: '-' }}</span></li>
+                                class="fw-bold mx-2">NIP:</span> <span>{{ $user_profile->nip ?: '-' }}</span></li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-id-card"></i><span
-                                class="fw-medium mx-2">NPWP:</span> <span>{{ $user_profile->npwp ?: '-' }}</span></li>
+                                class="fw-bold mx-2">NPWP:</span> <span>{{ $user_profile->npwp ?: '-' }}</span></li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bxs-id-card"></i><span
-                                class="fw-medium mx-2">Position:</span>
+                                class="fw-bold mx-2">Position:</span>
                             <span>{{ $user_profile->position ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-objects-vertical-bottom"></i><span
-                                class="fw-medium mx-2">Golongan:</span>
+                                class="fw-bold mx-2">Golongan:</span>
                             <span>{{ $user_profile->golongan ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
-                                class="fw-medium mx-2">Contract:</span>
+                                class="fw-bold mx-2">Contract:</span>
                             <span>{{ $user_profile->contract ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
-                                class="fw-medium mx-2">Start Work:</span>
+                                class="fw-bold mx-2">Start Work:</span>
                             <span>{{ $user_profile->date_start ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
-                                class="fw-medium mx-2">Tenure:</span> <span>{{ $user_profile->tenure ?: '-' }}</span>
+                                class="fw-bold mx-2">Tenure:</span> <span>{{ $user_profile->tenure ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
+                                class="fw-bold mx-2">Status Keluarga:</span>
+                            <span>K/{{ $user_profile->status_keluarga }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
-                                class="fw-medium mx-2">Address:</span>
+                                class="fw-bold mx-2">Address:</span>
                             <span>{{ $user_profile->address ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i
                                 class="bx {{ $user_profile->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
-                                class="fw-medium mx-2">Gender:</span> <span>{{ $user_profile->gender ?: '-' }}</span>
+                                class="fw-bold mx-2">Gender:</span> <span>{{ $user_profile->gender ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
-                                class="fw-medium mx-2">Religion:</span>
+                                class="fw-bold mx-2">Religion:</span>
                             <span>{{ $user_profile->religion ?: '-' }}</span>
                         </li>
 
@@ -177,10 +128,10 @@
                     <small class="text-muted text-uppercase">Contacts</small>
                     <ul class="list-unstyled mb-4 mt-3">
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
-                                class="fw-medium mx-2">Contact:</span> <span>{{ $user_profile->phone ?: '-' }}</span>
+                                class="fw-bold mx-2">Contact:</span> <span>{{ $user_profile->phone ?: '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
-                                class="fw-medium mx-2">Email:</span> <span>{{ $user_profile->email ?: '-' }}</span>
+                                class="fw-bold mx-2">Email:</span> <span>{{ $user_profile->email ?: '-' }}</span>
                         </li>
                     </ul>
 
@@ -221,9 +172,6 @@
     </div>
     <!--/ User Profile Content -->
     <!-- / Content -->
-
-
-
 
 
     <!-- / Footer -->

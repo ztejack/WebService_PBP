@@ -51,6 +51,9 @@
     <script type="module" src="{{ asset('js/numbertolisterner.js') }}"></script>
     {{-- @include('') --}}
 @endif
-@if (Request::is('gaji/*/view') || Request::is('gaji/submission/store') || Request::is('gaji/submission/*/update'))
+@if (Request::is('gaji/*/view') ||
+        Request::is('gaji/submission/store') ||
+        Request::is('gaji/submission/*/update') ||
+        Request::is('gaji'))
     <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css') }}" />
 @endif

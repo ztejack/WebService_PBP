@@ -28,7 +28,7 @@
                                     <i class="bx bx-plus "></i>Rp
                                     <span class="numbers me-2">{{ $slip->total }}</span>
                                     <span class="badge bg-label-success d-flex ">
-                                        <span class="bx bx-x text-success"></span>
+                                        <span class="bx bx-check-double text-success"></span>
                                         <span class="ms-2 my-auto">{{ $slip->status }}</span>
                                     </span>
                                 @else

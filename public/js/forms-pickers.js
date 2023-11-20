@@ -71,3 +71,13 @@ $("#bs-datepicker-autoclose").datepicker({
     //                 }),
     //             $("#bs-rangepicker-basic"));
 });
+$("#bs-datepicker-autoclose-mont").datepicker({
+    format: "mm-yyyy",
+    startView: "months",
+    minViewMode: "months",
+    opens: "right",
+    orientation: "auto bottom",
+    autoclose: !0,
+    todayHighlight: !0,
+    immediateUpdates: !0,
+});

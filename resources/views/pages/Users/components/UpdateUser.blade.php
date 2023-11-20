@@ -195,13 +195,14 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="contract" class="form-label">Contract Type</label>
+                                <label for="contract" class="form-label">Contract Type {{ $user->contract }}</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bx bx-file"></i></span>
                                     <select id="contract" name='contract' class="form-select">
-                                        @if (old('contract', $user->contract) == 'Type-two')
-                                            <option value="{{ $user->contract }}" selected>Type-two</option>
-                                            <option value="Type_one">Type-one</option>
+                                        @if (old('contract', $user->contract) == 'Tetap')
+                                            <option value="{{ $user->contract }}" selected>{{ $user->contract }}
+                                            </option>
+                                            {{-- <option value="Type_one">Type-one</option> --}}
                                         @else
                                             <option value="" selected>
                                                 Select One
@@ -359,6 +360,19 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="status_keluarga" class="form-label">Status Keluarga</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">K /</span>
+                                    <input type="number" id="status_keluarga" name='status_keluarga'
+                                        class="form-control" value="{{ $user->status_keluarga }}" min="0">
+                                </div>
+                                @error('status_keluarga')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             {{-- Line --}}
                             <hr class="my-0 mb-2">
@@ -385,7 +399,7 @@
                 <!-- /Account -->
             </div>
             <div class="">
-                <h5 class="card-header">Nonaktifkan Akun</h5>
+                <h5 class="card-header mb-2">Nonaktifkan Akun</h5>
                 <div class="card-body">
                     @if ($user->status == true)
                         <div class="mb-3 col-12 mb-0">

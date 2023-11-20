@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body style="background: white">
     @yield('content')
     @include('config.configJs')
 </body>

@@ -10,6 +10,7 @@ use App\Http\Controllers\WEB\TunjanganController;
 use App\Http\Controllers\WEB\AuthController;
 use App\Http\Controllers\WEB\ExperienceController;
 use App\Http\Controllers\WEB\GajiController;
+use App\Http\Controllers\WEB\GajiLemburController;
 use App\Http\Controllers\WEB\GajiSubmissionController;
 use App\Http\Controllers\WEB\ParamController;
 use App\Http\Controllers\WEB\RoleController;
@@ -117,6 +118,7 @@ Route::prefix('users')->middleware(['auth', 'can:UserManagement'])->group(
 
 Route::prefix('gaji')->middleware(['auth'])->group(
     function () {
+        Route::get('/self/{employe}', [GajiController::class, 'salary'])->name('salary');
         Route::get('/', [GajiController::class, 'index'])->name('page_gaji');
         Route::get('{user}/view/', [GajiController::class, 'view_gaji_employe'])->name('page_gaji_employe');
 
@@ -144,8 +146,8 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                     Route::post('/delete/{tunjangan}', [GajiParamController::class, 'param_tunjangan_destroy'])->name('param.tunjangan.delete');
                 }
             );
-            Route::prefix('tunjangan_lain')->middleware(['auth'])->group(function(){
-                Route::post('/store',[TunjanganController::class,'store'])->name('param_tunjangan_lain_store');
+            Route::prefix('tunjangan_lain')->middleware(['auth'])->group(function () {
+                Route::post('/store', [TunjanganController::class, 'store'])->name('param_tunjangan_lain_store');
             });
             Route::prefix('bpjs')->middleware(['auth'])->group(
                 function () {
@@ -179,6 +181,13 @@ Route::prefix('absensi')->middleware(['auth'])->group(
         Route::post('/store/{employe}', [AbsensiController::class, 'store'])->name('absensi.store');
         Route::put('/update/{absensi}', [AbsensiController::class, 'update'])->name('absensi.update');
         Route::post('/delete/{absensi}', [AbsensiController::class, 'destroy'])->name('absensi.delete');
+    }
+);
+Route::prefix('lembur')->middleware(['auth'])->group(
+    function () {
+        Route::post('/store/{employe}', [GajiLemburController::class, 'store'])->name('lembur.store');
+        Route::put('/update/{lembur}', [GajiLemburController::class, 'update'])->name('lembur.update');
+        Route::post('/delete/{lembur}', [GajiLemburController::class, 'destroy'])->name('lembur.delete');
     }
 );
 Route::prefix('task')->middleware(['auth'])->group(

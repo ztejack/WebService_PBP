@@ -57,6 +57,7 @@ class GajiSubmissionController extends Controller
                     'tnj_perumahan' => $gajicount->tnj_perumahan,
                     'total_tnj_shift' => $gajicount->tnj_shift,
                     'total_tnj_transport' => $gajicount->tnj_transport,
+                    'tnj_lapangan' => $gajicount->tnj_lapangan,
 
                     'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
                     'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,
@@ -129,7 +130,8 @@ class GajiSubmissionController extends Controller
                     'tnj_perumahan' => $gajicount->tnj_perumahan,
                     'tnj_shift' => $gajicount->tnj_shift,
                     'total_tnj_transport' => $gajicount->tnj_transport,
-
+                    'tnj_lapangan' => $gajicount->tnj_lapangan,
+                    'lembur' => $gajicount->lembur,
                     'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
                     'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,
                     'pot_bpjs_tk' => $gajicount->bpjs_var->pot_bpjs_tk_E,
@@ -140,7 +142,6 @@ class GajiSubmissionController extends Controller
                     'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
 
                     'total' => $gajicount->total,
-
 
                     'status' => 'Pending',
                     'employe_id' => $employe->id,

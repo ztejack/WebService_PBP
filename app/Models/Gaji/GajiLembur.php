@@ -5,7 +5,7 @@ namespace App\Models\Gaji;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gaji extends Model
+class GajiLembur extends Model
 {
     use HasFactory;
 
@@ -15,21 +15,15 @@ class Gaji extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'gapok',
-        'tnj_ahli',
-        'total_gaji',
-        'tnj_jabatan',
-        'tnj_lapangan',
-        'type_tunjab',
+        'date',
+        'jumlah',
         'employe_id'
     ];
-
+    protected $casts = [
+        'date' => 'date:Y-m-d',
+    ];
     public function employee()
     {
         return $this->belongsTo(Employe::class, 'employe_id');
-    }
-    public function tunjangan()
-    {
-        return $this->belongsTo(Tunjangan::class);
     }
 }

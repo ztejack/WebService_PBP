@@ -13,7 +13,7 @@ class AbsensiController extends Controller
 {
     public function store(Request $request, $slug)
     {
-        // try {
+        try {
 
         $user = User::where('slug', $slug)->first();
         // dd($request);
@@ -30,7 +30,7 @@ class AbsensiController extends Controller
                     'kosong' => $absen->kosong + $request['kosong'],
                     'perjalanan' => $absen->perjalanan + $request['perjalanan'],
                 ]);
-                return Redirect::back()->with('succ', 'Success Add Absen')->withInput();
+                return Redirect::back()->with('succ', 'Success Update Absen')->withInput();
             }
         }
         Absensi::create([
@@ -41,9 +41,9 @@ class AbsensiController extends Controller
             'employe_id' => $user->employee->id
         ]);
         return Redirect::back()->with('succ', 'Success Add Absen')->withInput();
-        // } catch (\Exception $e) {
-        //     return Redirect::back()->with('err', 'Failed Add Absen')->withInput();
-        // }
+        } catch (\Exception $e) {
+            return Redirect::back()->with('err', 'Failed Add Absen')->withInput();
+        }
     }
     public function update(Request $request, Absensi $absensi)
     {

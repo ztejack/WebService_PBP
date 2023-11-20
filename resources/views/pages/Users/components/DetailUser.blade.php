@@ -117,143 +117,144 @@
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
                 <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i
                             class="bx bx-user me-1"></i> Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
+                {{-- <li class="nav-item"><a class="nav-link" href="javascript:void(0);" alt="comming-soon"><i
                             class="bx bx-group me-1"></i> Teams</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
                             class="bx bx-grid-alt me-1"></i> Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0);"alt="comming-soon"><i
-                            class="bx bx-link-alt me-1"></i> Connections</a></li>
+                            class="bx bx-link-alt me-1"></i> Connections</a></li> --}}
             </ul>
+        </div>
+    </div>
+    <!--/ Navbar pills -->
+
+    <!-- User Profile Content -->
+    <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-5">
+            <!-- About User -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <small class="text-muted text-uppercase">About</small>
+                    <ul class="list-unstyled mb-4 mt-3">
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
+                                class="fw-bold  mx-2">Status:</span>
+                            <span
+                                class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
+                                class="fw-bold mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>
+                        </li>
+
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
+                                class="fw-bold mx-2">Role:</span> <span>{{ $user->role_name ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
+                                class="fw-bold mx-2">NIP:</span> <span>{{ $user->nip ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
+                                class="fw-bold mx-2">NIK:</span> <span>{{ $user->nik ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-id-card"></i><span
+                                class="fw-bold mx-2">NPWP:</span> <span>{{ $user->npwp ?: '-' }}</span></li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bxs-id-card"></i><span
+                                class="fw-bold mx-2">Position:</span>
+                            <span>{{ $user->position ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-objects-vertical-bottom"></i><span
+                                class="fw-bold mx-2">Golongan:</span>
+                            <span>{{ $user->golongan ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
+                                class="fw-bold mx-2">Contract:</span>
+                            <span>{{ $user->contract ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
+                                class="fw-bold mx-2">Start Work:</span>
+                            <span>{{ $user->date_start ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
+                                class="fw-bold mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
+                                class="fw-bold mx-2">Status Keluarga:</span>
+                            <span>K/{{ $user->status_keluarga }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
+                                class="fw-bold mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i
+                                class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
+                                class="fw-bold mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
+                                class="fw-bold mx-2">Religion:</span>
+                            <span>{{ $user->religion ?: '-' }}</span>
+                        </li>
+
+
+                    </ul>
+                    <small class="text-muted text-uppercase">Contacts</small>
+                    <ul class="list-unstyled mb-4 mt-3">
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
+                                class="fw-bold mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
+                                class="fw-bold mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!--/ About User -->
 
         </div>
-        <!--/ Navbar pills -->
-
-        <!-- User Profile Content -->
-        <div class="row">
-            <div class="col-xl-5 col-lg-6 col-md-6">
-                <!-- About User -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <small class="text-muted text-uppercase">About</small>
-                        <ul class="list-unstyled mb-4 mt-3">
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
-                                    class="fw-bold  mx-2">Status:</span>
-                                <span
-                                    class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
-                                    class="fw-bold mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>
-                            </li>
-
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-star"></i><span
-                                    class="fw-bold mx-2">Role:</span> <span>{{ $user->role_name ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
-                                    class="fw-bold mx-2">NIP:</span> <span>{{ $user->nip ?: '-' }}</span></li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-flag"></i><span
-                                    class="fw-bold mx-2">NIK:</span> <span>{{ $user->nik ?: '-' }}</span></li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-id-card"></i><span
-                                    class="fw-bold mx-2">NPWP:</span> <span>{{ $user->npwp ?: '-' }}</span></li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bxs-id-card"></i><span
-                                    class="fw-bold mx-2">Position:</span>
-                                <span>{{ $user->position ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i
-                                    class="bx bx-objects-vertical-bottom"></i><span
-                                    class="fw-bold mx-2">Golongan:</span>
-                                <span>{{ $user->golongan ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-file"></i><span
-                                    class="fw-bold mx-2">Contract:</span>
-                                <span>{{ $user->contract ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
-                                    class="fw-bold mx-2">Start Work:</span>
-                                <span>{{ $user->date_start ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
-                                    class="fw-bold mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
-                                    class="fw-bold mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i
-                                    class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
-                                    class="fw-bold mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
-                                    class="fw-bold mx-2">Religion:</span>
-                                <span>{{ $user->religion ?: '-' }}</span>
-                            </li>
-
-
-                        </ul>
-                        <small class="text-muted text-uppercase">Contacts</small>
-                        <ul class="list-unstyled mb-4 mt-3">
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
-                                    class="fw-bold mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
-                            </li>
-                            <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
-                                    class="fw-bold mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
-                            </li>
-                        </ul>
-
-                    </div>
+        <div class="col-xl-8 col-lg-7 col-md-7">
+            <!-- Activity Timeline -->
+            <div class="card card-action mb-4">
+                <div class="card-header align-items-center">
+                    <h5 class="card-action-title mb-0"><i class="bx bx-list-ul me-2"></i>Work Experience</h5>
                 </div>
-                <!--/ About User -->
-
-            </div>
-            <div class="col-xl-7 col-lg-6 col-md-6">
-                <!-- Activity Timeline -->
-                <div class="card card-action mb-4">
-                    <div class="card-header align-items-center">
-                        <h5 class="card-action-title mb-0"><i class="bx bx-list-ul me-2"></i>Work Experience</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="timeline ms-2">
-                            @foreach ($user->experiences as $experience)
-                                <li class="timeline-item timeline-item-transparent">
-                                    <span class="timeline-point-wrapper"><span
-                                            class="timeline-point timeline-point-warning"></span></span>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="timeline-event col-md-10">
-                                            <div class="timeline-header mb-1">
-                                                <h6 class="mb-0">{{ $experience->position }}</h6>
-                                                <small class="text-muted">{{ $experience->datestart }} <span
-                                                        class="bx bx-minus"></span>
-                                                    {{ $experience->dateend }}</small>
-                                            </div>
-                                            <p class="mb-2">{{ $experience->location }}</p>
-
+                <div class="card-body">
+                    <ul class="timeline ms-2">
+                        @foreach ($user->experiences as $experience)
+                            <li class="timeline-item timeline-item-transparent">
+                                <span class="timeline-point-wrapper"><span
+                                        class="timeline-point timeline-point-warning"></span></span>
+                                <div class="d-flex justify-content-between">
+                                    <div class="timeline-event col-md-10">
+                                        <div class="timeline-header mb-1">
+                                            <h6 class="mb-0">{{ $experience->position }}</h6>
+                                            <small class="text-muted">{{ $experience->datestart }} <span
+                                                    class="bx bx-minus"></span>
+                                                {{ $experience->dateend }}</small>
                                         </div>
-                                        <div class="btn-group col-md-1">
-                                            <button type="button"
-                                                class="btn btn-icon btn-label-primary rounded-pill dropdown-toggle hide-arrow m-auto"
-                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                    class="bx bx-dots-vertical-rounded"></i></button>
-                                            <ul class="dropdown-menu dropdown-menu-end " style="">
-                                                <li>
-                                                    <form
-                                                        action="{{ route('destroy_experience_user', $experience->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('post')
-                                                        <button class="dropdown-item" type="submit">Hapus</button>
-                                                    </form>
-                                                </li>
-                                                {{-- <li><a class="dropdown-item">Edit</a></li> --}}
-                                            </ul>
-                                        </div>
+                                        <p class="mb-2">{{ $experience->location }}</p>
+
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button"
+                                            class="btn btn-icon btn-label-primary rounded-pill dropdown-toggle hide-arrow m-auto"
+                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                class="bx bx-dots-vertical-rounded"></i></button>
+                                        <ul class="dropdown-menu dropdown-menu-end " style="">
+                                            <li>
+                                                <form action="{{ route('destroy_experience_user', $experience->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('post')
+                                                    <button class="dropdown-item" type="submit">Hapus</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-                <!--/ Activity Timeline -->
             </div>
+            <!--/ Activity Timeline -->
         </div>
-        <!--/ User Profile Content -->
+    </div>
+    <!--/ User Profile Content -->
 
 
-        <div class="content-backdrop fade"></div>
+    <div class="content-backdrop fade"></div>

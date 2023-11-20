@@ -1,4 +1,4 @@
-<div class="modal fade" id="addkehadiranModal" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="addkehadiranModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">

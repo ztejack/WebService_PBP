@@ -13,6 +13,19 @@
         </button>
     </div>
 @endif
+@if (session()->has('succ'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('succ') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+@elseif (session()->has('err'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        {{ session('err') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+@endif
 <div class="card">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
         <div class="head-label text-center">
@@ -55,8 +68,13 @@
                                             class="btn btn-sm btn-primary me-2">
                                             Detail
                                         </a>
+                                        <button class="btn btn-sm btn-dribbble me-2" data-bs-toggle="modal"
+                                            data-bs-target="#addLemburModal{{ $user->employe->uuid }}">
+                                            Lembur
+                                        </button>
+                                        @include('pages.Gaji.components.ModalAddLembur')
                                         <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
-                                            data-bs-target="#addkehadiranModal">
+                                            data-bs-target="#addkehadiranModal{{ $user->slug }}">
                                             Absensi
                                         </button>
                                         @include('pages.Gaji.components.ModalAddAbsensi')

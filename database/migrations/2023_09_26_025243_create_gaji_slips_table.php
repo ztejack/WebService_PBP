@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("payroll")->nullable();
             $table->string("name")->nullable();
-            $table->string("jumlah")->default(false); 
+            $table->string("jumlah")->default(false);
             $table->string("total")->default(false);
             $table->string("status")->nullable();
             $table->string("aprv_1")->default(false);
@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('pot_kosong')->nullable()->default(0);
             $table->string('pot_terlambat')->nullable()->default(0);
             $table->string('pot_perjalanan')->nullable()->default(0);
+            $table->string('lembur')->nullable()->default(0);
             $table->string('total')->nullable()->default(0);
             $table->string('status')->nullable();
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes');

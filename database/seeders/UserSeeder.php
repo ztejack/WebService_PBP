@@ -33,7 +33,6 @@ class UserSeeder extends Seeder
         $user->assignRole($superAdminRole);
         $user->employee->update(['status' => true]);
 
-
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
             'name' => 'AdminUser',
@@ -44,6 +43,7 @@ class UserSeeder extends Seeder
         ]);
         $adminRole = Role::findByName('Admin');
         $user->assignRole($adminRole);
+        $user->employee->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
@@ -55,6 +55,7 @@ class UserSeeder extends Seeder
         ]);
         $employeRole = Role::findByName('Employe');
         $user->assignRole($employeRole);
+        $user->employee->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
@@ -77,6 +78,7 @@ class UserSeeder extends Seeder
         ]);
         $adminkeuanganRole = Role::findByName('AdminKeuangan');
         $user->assignRole($adminkeuanganRole);
+        $user->employee->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
@@ -88,6 +90,7 @@ class UserSeeder extends Seeder
         ]);
         $managerRole = Role::findByName('Manager');
         $user->assignRole($managerRole);
+        $user->employee->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
@@ -98,6 +101,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
         ]);
         $adminsdmRole = Role::findByName('AdminSDM');
+        $user->employee->update(['status' => true]);
         $user->assignRole($adminsdmRole);
     }
 }

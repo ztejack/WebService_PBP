@@ -6,6 +6,7 @@ use App\Http\Controllers\WEB\EmployeController;
 use App\Http\Controllers\WEB\GajiController;
 use App\Models\Gaji\Absensi;
 use App\Models\Gaji\Gaji;
+use App\Models\Gaji\GajiLembur;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiSlip;
 use App\Models\Gaji\GajiSubmit;
@@ -91,6 +92,10 @@ class Employe extends Model
     {
         return $this->hasMany(Absensi::class);
     }
+    public function lembur()
+    {
+        return $this->hasMany(GajiLembur::class);
+    }
     public function slip()
     {
         return $this->hasMany(GajiSlip::class, 'employe_id');
@@ -154,6 +159,7 @@ class Employe extends Model
         $gaji_pokok = $gaji->gapok;
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
+        $tunjangan_lapangan = $gaji->tnj_lapangan;
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
 
 
@@ -171,7 +177,10 @@ class Employe extends Model
         $GajiController = new GajiController();
         $bpjs_count = $GajiController->bpjs_cout($gaji_pokok, $total1, $param_tnj);
 
-        $total2 = array_sum([$sum_tnj_makan, $sum_tnj_perumahan, $sum_tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P]);
+        $lemburs = $this->lembur->where('date', '>=', now()->format('m Y'))->first();
+        // dd($user->employee->lembur);
+        $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
+        $total2 = array_sum([$sum_tnj_makan, $sum_tnj_perumahan, $sum_tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tunjangan_lapangan, $lembur]);
 
         $absens = $this->absensi->where('date', '>=', now()->format('m Y'));
         $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
@@ -192,6 +201,8 @@ class Employe extends Model
                 'tnj_makan' => $sum_tnj_makan,
                 'tnj_perumahan' => $sum_tnj_perumahan,
                 'tnj_transport' => $sum_tnj_transport,
+                'tnj_lapangan' => $tunjangan_lapangan,
+                'lembur' => $lembur,
                 'tnj_shift' => $sum_tnj_shift,
                 'bpjs_var' => $bpjs_count,
                 'potongan_lainnya' => $potongan_lainnya,
@@ -204,7 +215,9 @@ class Employe extends Model
             'tnj_makan' => 0,
             'tnj_perumahan' => 0,
             'tnj_transport' => 0,
+            'tnj_lapangan' => 0,
             'tnj_shift' => 0,
+            'lembur' => 0,
             'bpjs_var' => $bpjs_count,
             'potongan_lainnya' => $potongan_lainnya,
         ];

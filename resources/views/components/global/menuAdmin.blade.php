@@ -54,6 +54,13 @@
             <div data-i18n="Account Settings">Gaji</div>
         </a>
         <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('gaji/self*') ? 'active' : '' }}">
+                <a href="{{ route('salary', auth()->user()->employee->uuid) }}" class="menu-link">
+                    <div data-i18n="Without menu">Gaji</div>
+                </a>
+            </li>
+        </ul>
+        <ul class="menu-sub">
             <li class="menu-item {{ Request::is('gaji/gaji-param') ? 'active' : '' }}">
                 <a href="{{ route('page_gaji.param') }}" class="menu-link">
                     <div data-i18n="Without menu">Gaji Param</div>

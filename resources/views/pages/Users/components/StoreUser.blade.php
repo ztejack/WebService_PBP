@@ -8,10 +8,10 @@
                 <h5 class="mb-0">Form Tambah User</h5>
             </div>
             <div class="card-body">
-                <form action="/users/store" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('store_user') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
+                        <input type="hidden" name="slug" value="{{ old('slug') }}">
                         <div class="col-md-6 mb-3 text-start">
                             <label for="name" class="form-label">Nama User</label>
                             <input id="name" type="name" name="name" value="{{ old('name') }}"
@@ -103,7 +103,6 @@
                                 </span>
                             @enderror
                         </div>
-
                     </div>
 
                     <div class="row">

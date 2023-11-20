@@ -10,27 +10,40 @@
                     <tbody class="text-end">
                         <tr>
                             <td class="pe-3">Uang Transport:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_transport }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_transport }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Uang Bantuan Perumahan:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_perumahan }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_perumahan }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Uang Makan:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_makan }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_makan }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Uang Shift:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_shift }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_shift }}</span></td>
                         </tr>
+                        @if ($tunjangan_lapangan != false)
+                            <tr>
+                                <td class="pe-3">Uang Lapangan:</td>
+                                <td><span class="numbers">{{ $tunjangan_lapangan }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($lembur != false)
+                            <tr>
+                                <td class="pe-3">Uang Lembur:</td>
+                                <td><span class="numbers">{{ $lembur }}</span></td>
+                            </tr>
+                        @endif
+
                         <tr>
                             <td class="pe-3">BPJS Tenaga Kerja:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_BPJS_tk }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_BPJS_tk }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">BPJS Kesehatan:</td>
-                            <td>Rp <span class="numbers">{{ $tunjangan_BPJS_kes }}</span></td>
+                            <td><span class="numbers">{{ $tunjangan_BPJS_kes }}</span></td>
                         </tr>
                         <tr>
                             <td>
@@ -62,11 +75,11 @@
                     <tbody class="text-end">
                         <tr>
                             <td class="pe-3">Iuran BPJS Tenaga Kerja:</td>
-                            <td>Rp <span class="numbers">{{ $potongan_BPJS_tk }}</span></td>
+                            <td><span class="numbers">{{ $potongan_BPJS_tk }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Iuran BPJS Kesehatan:</td>
-                            <td>Rp <span class="numbers">{{ $potongan_BPJS_kes }}</span></td>
+                            <td><span class="numbers">{{ $potongan_BPJS_kes }}</span></td>
                         </tr>
                         @if (
                             $potongan_lainnya->pot_sakit > 0 ||
@@ -81,28 +94,28 @@
                         @if ($potongan_lainnya->pot_sakit > 0)
                             <tr>
                                 <td class="pe-3">Sakit :</td>
-                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_sakit }} </span>
+                                <td><span class="numbers">{{ $potongan_lainnya->pot_sakit }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_terlambat > 0)
                             <tr>
                                 <td class="pe-3">Terlambat :</td>
-                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_terlambat }} </span>
+                                <td><span class="numbers">{{ $potongan_lainnya->pot_terlambat }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_kosong > 0)
                             <tr>
                                 <td class="pe-3">Kosong :</td>
-                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
+                                <td><span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
                                 </td>
                             </tr>
                         @endif
                         @if ($potongan_lainnya->pot_perjalanan > 0)
                             <tr>
                                 <td class="pe-3">Perjalanan :</td>
-                                <td>Rp <span class="numbers">{{ $potongan_lainnya->pot_perjalanan }} </span>
+                                <td><span class="numbers">{{ $potongan_lainnya->pot_perjalanan }} </span>
                                 </td>
                             </tr>
                         @endif

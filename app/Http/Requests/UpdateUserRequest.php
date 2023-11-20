@@ -34,10 +34,10 @@ class UpdateUserRequest extends FormRequest
     public function customrule()
     {
         $user = $this->route('user');
-
-        $userId = User::where('slug', $user)->first();
+        // dd($user);
+        // $userId = User::where('slug', $user)->first();
         // dd($userId);
-        $employe = $userId->employee;
+        $employe = $user->employee;
         // dd($userId);
         $rule = [
             'name' => 'required|string',
@@ -45,12 +45,12 @@ class UpdateUserRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($userId),
+                Rule::unique('users', 'email')->ignore($user->id),
                 'string',
             ],
             'username' => [
                 'required',
-                Rule::unique('users', 'username')->ignore($userId),
+                Rule::unique('users', 'username')->ignore($user->id),
                 'string',
             ],
             'phonenumber' => 'required',
@@ -76,6 +76,7 @@ class UpdateUserRequest extends FormRequest
             'tanggal' => '',
             'address' => '',
             'addressid' => '',
+            'status_keluarga' => '',
             'gender' => '',
             'religion' => '',
             'position' => '',

@@ -30,7 +30,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get()->all();
-
+        // dd($users);
         return view(
             'pages.Users.PageUser',
             [
@@ -66,14 +66,16 @@ class UserController extends Controller
             'roles' => $roles
         ]);
     }
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $input = $request->validated();
-        $user = User::where('slug', $input['slug'])->first();
+        // $user = User::where('slug', $input['slug'])->first();
         $positions = Position::all();
         $satkers = Satker::all();
         $golongans = Golongan::all();
         $contracts = Contract::all();
+        // dd($user);
+
         $user->name = $input['name'];
         $user->username = $input['username'];
         $user->phone = $input['phonenumber'];
@@ -87,6 +89,7 @@ class UserController extends Controller
         $employee->address = $input['address'];
         $employee->ktp_address = $input['addressid'];
         $employee->date_start = $input['date_start'];
+        $employee->status_keluarga = $input['status_keluarga'];
         $employee->tenure = $input['val_tenure'];
         // $employee->contract_type = $input['contract'];s
         $employee->religion = $input['religion'];
@@ -115,7 +118,7 @@ class UserController extends Controller
 
         $employee->update();
         // return redirect()->back()->with('success', '')->withInput();
-        return redirect()->route('page_user')->with('success', '');
+        return redirect()->route('detail_view_user', $user->slug)->with('success', '');
     }
     public function update_view_user(User $user)
     {
@@ -157,6 +160,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = $this->user_resource($user);
+        // dd($user);
         return view("pages.Users.PageUserDetail", [
             'user' => $user,
         ]);
@@ -201,7 +205,7 @@ class UserController extends Controller
         $user->givePermissionTo($request->permission);
         return redirect()->back()->with('success', '')->withInput();
     }
-    
+
     public function user_resource($user)
     {
         // dd($user);
@@ -235,6 +239,7 @@ class UserController extends Controller
             'address' => $user->employee->address,
             'ktp_address' => $user->employee->ktp_address,
             'gender' => $gender,
+            'status_keluarga' => $user->employee->status_keluarga,
             'status' => $user->employee->status,
             'religion' => $user->employee->religion,
             'position' => $user->employee->position != null ? $user->employee->position->position : null,

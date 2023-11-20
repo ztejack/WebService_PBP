@@ -78,7 +78,8 @@
                                     <div class="d-flex align-items-center">
 
                                         <!-- Button trigger modal -->
-                                        <a href="users/{{ $user->slug }}/detail" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('detail_view_user', $user->slug) }}"
+                                            class="btn btn-sm btn-primary">
                                             Detail User
                                         </a>
                                         <div class="dropdown">
