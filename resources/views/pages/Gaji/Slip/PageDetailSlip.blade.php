@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <hr class="m-2">
-                        <div class="card-body">
+                        <div class="card-body pb-2">
                             <div class="row">
                                 <div class="col-lg-6 border-end">
                                     <span class="fw-semibold ">GAJI I</span>
@@ -71,6 +71,12 @@
                                                         class="numberin">{{ $slip->gapok }}</span></span>
                                             </div>
                                         </li>
+                                        <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                            <div class="d-flex justify-content-between">
+                                                <span>Tunjangan Jabatan</span> <span><span
+                                                        class="numberin">{{ $slip->tnj_jabatan }}</span></span>
+                                            </div>
+                                        </li>
                                         @if ($slip->tnj_ahli)
                                             <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                                 <div class="d-flex justify-content-between">
@@ -79,14 +85,6 @@
                                                 </div>
                                             </li>
                                         @endif
-
-                                        <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                            <div class="d-flex justify-content-between">
-                                                <span>Tunjangan Jabatan</span> <span><span
-                                                        class="numberin">{{ $slip->tnj_jabatan }}</span></span>
-                                            </div>
-                                        </li>
-
                                     </ul>
                                     <hr class="my-1">
                                     <li class="list-group-item list-group-timeline-primary py-0 my-0 mb-2">
@@ -100,14 +98,6 @@
 
                                     <span class="fw-semibold ">GAJI II</span>
                                     <ul class="list-group list-group-timeline ">
-                                        @if ($slip->total_tnj_makan)
-                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Tunjangan Makan</span> <span><span
-                                                            class="numberin">{{ $slip->total_tnj_makan }}</span></span>
-                                                </div>
-                                            </li>
-                                        @endif
                                         @if ($slip->tnj_perumahan)
                                             <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                                 <div class="d-flex justify-content-between">
@@ -116,11 +106,11 @@
                                                 </div>
                                             </li>
                                         @endif
-                                        @if ($slip->total_tnj_shift)
+                                        @if ($slip->total_tnj_makan)
                                             <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                                 <div class="d-flex justify-content-between">
-                                                    <span>Tunjangan shift</span> <span><span
-                                                            class="numberin">{{ $slip->total_tnj_shift }}</span></span>
+                                                    <span>Tunjangan Makan</span> <span><span
+                                                            class="numberin">{{ $slip->total_tnj_makan }}</span></span>
                                                 </div>
                                             </li>
                                         @endif
@@ -129,6 +119,14 @@
                                                 <div class="d-flex justify-content-between">
                                                     <span>Tunjangan Transportasi</span> <span><span
                                                             class="numberin">{{ $slip->total_tnj_transport }}</span></span>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if ($slip->total_tnj_shift)
+                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Tunjangan shift</span> <span><span
+                                                            class="numberin">{{ $slip->total_tnj_shift }}</span></span>
                                                 </div>
                                             </li>
                                         @endif
@@ -179,7 +177,6 @@
                                     </li>
                                 </div>
 
-
                                 <div class="col-lg-6 ">
                                     <span class="fw-semibold ">POTONGAN</span>
                                     <ul class="list-group list-group-timeline">
@@ -195,40 +192,46 @@
                                                         class="numberin">{{ $slip->pot_bpjs_kes }}</span></span>
                                             </div>
                                         </li>
-                                        @if ($slip->pot_sakit)
-                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Sakit</span> <span><span
-                                                            class="numberin">{{ $slip->pot_sakit }}</span></span>
-                                                </div>
-                                            </li>
-                                        @endif
-                                        @if ($slip->pot_kosong)
-                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Kosong</span> <span><span
-                                                            class="numberin">{{ $slip->pot_kosong }}</span></span>
-                                                </div>
-                                            </li>
-                                        @endif
-                                        @if ($slip->pot_terlambat)
-                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Terlambat</span> <span><span
-                                                            class="numberin">{{ $slip->pot_terlambat }}</span></span>
-                                                </div>
-                                            </li>
-                                        @endif
-                                        @if ($slip->pot_perjalanan)
-                                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Perjalanan</span> <span><span
-                                                            class="numberin">{{ $slip->pot_perjalanan }}</span></span>
-                                                </div>
-                                            </li>
-                                        @endif
-
                                     </ul>
+                                    @if ($slip->pot_sakit || $slip->pot_kosong || $slip->pot_terlambat || $slip->pot_perjalanan)
+                                        <span class="fw-semibold ">LAIN-LAIN</span>
+                                        <ul class="list-group list-group-timeline">
+                                            @if ($slip->pot_sakit)
+                                                <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span>Sakit</span> <span><span
+                                                                class="numberin">{{ $slip->pot_sakit }}</span></span>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                            @if ($slip->pot_kosong)
+                                                <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span>Absen</span> <span><span
+                                                                class="numberin">{{ $slip->pot_kosong }}</span></span>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                            @if ($slip->pot_terlambat)
+                                                <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span>Terlambat</span> <span><span
+                                                                class="numberin">{{ $slip->pot_terlambat }}</span></span>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                            @if ($slip->pot_perjalanan)
+                                                <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span>Dinas</span> <span><span
+                                                                class="numberin">{{ $slip->pot_perjalanan }}</span></span>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    @endif
+
+
                                     <hr class="my-1">
                                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                         <div class="d-flex justify-content-between">

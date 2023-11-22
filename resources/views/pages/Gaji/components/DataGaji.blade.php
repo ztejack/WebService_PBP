@@ -40,7 +40,7 @@
                     <thead>
                         <tr class="text-nowrap">
                             <th>NO</th>
-                            <th>Nama User</th>
+                            <th>Nama</th>
                             <th>Jabatan</th>
                             <th>Golongan</th>
                             <th>Gaji</th>
@@ -86,7 +86,7 @@
                     <tfoot class="border-bottom">
                         <tr class="text-nowrap">
                             <th>NO</th>
-                            <th>Nama User</th>
+                            <th>Nama</th>
                             <th>Jabatan</th>
                             <th>Golongan</th>
                             <th>Gaji</th>

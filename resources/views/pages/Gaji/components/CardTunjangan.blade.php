@@ -9,16 +9,16 @@
                 <table class="w-100">
                     <tbody class="text-end">
                         <tr>
-                            <td class="pe-3">Uang Transport:</td>
-                            <td><span class="numbers">{{ $tunjangan_transport }}</span></td>
-                        </tr>
-                        <tr>
                             <td class="pe-3">Uang Bantuan Perumahan:</td>
                             <td><span class="numbers">{{ $tunjangan_perumahan }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Uang Makan:</td>
                             <td><span class="numbers">{{ $tunjangan_makan }}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="pe-3">Uang Transport:</td>
+                            <td><span class="numbers">{{ $tunjangan_transport }}</span></td>
                         </tr>
                         <tr>
                             <td class="pe-3">Uang Shift:</td>

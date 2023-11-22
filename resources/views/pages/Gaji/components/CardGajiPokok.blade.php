@@ -91,7 +91,11 @@
                     }
                 </script>
             </div>
-            <hr class="divider">
+            <div class="divider">
+                <div class="divider-text">
+                    Tunjangan
+                </div>
+            </div>
             <div class="mb-4">
                 <label class="form-label" for="tnj_lapangan">Tunjangan Lapangan</label>
                 <input type="number" class="form-control " id="tnj_lapangan" name="tnj_lapangan" min="0"

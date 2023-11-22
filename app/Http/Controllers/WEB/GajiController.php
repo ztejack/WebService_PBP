@@ -98,9 +98,9 @@ class GajiController extends Controller
         $sumPerjalanan = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
             ->sum('perjalanan');
         // $sum_tnj_for_tnj_makan = array_sum([$sumSakit, $sumKosong, $sumTerlambat]);
-        $pot_sakit = $tnj_makan * $sumSakit;
+        $pot_sakit = ($tnj_makan + $tnj_transport) * $sumSakit;
         $pot_terlambat = $tnj_makan * $sumTerlambat;
-        $pot_kosong = $tnj_makan * $sumKosong;
+        $pot_kosong = ($tnj_makan + $tnj_transport) * $sumKosong;
         $pot_perjalanan = ($tnj_makan + $tnj_transport) * $sumPerjalanan;
         // dd($pot_perjalanan);
         $potongan = (object)[

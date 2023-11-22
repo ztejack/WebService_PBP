@@ -22,12 +22,12 @@
                                 value="0" placeholder="Enter Amount">
                         </div>
                         <div class="col mb-3">
-                            <label for="kosong" class="form-label">Kosong</label>
+                            <label for="kosong" class="form-label">Absen</label>
                             <input type="number" id="kosong"name="kosong" class="form-control form-control-sm"
                                 value="0" placeholder="Enter Amount">
                         </div>
                         <div class="col mb-3">
-                            <label class="form-label" for="perjalanan">Perjalanan</label>
+                            <label class="form-label" for="perjalanan">Dinas</label>
                             <input type="number" class="form-control form-control-sm" id="perjalanan" name="perjalanan"
                                 value="0" placeholder="Enter Amount">
                         </div>
