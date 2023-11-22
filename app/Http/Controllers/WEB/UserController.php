@@ -165,21 +165,18 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
-    public function archive(Request $request)
-    {
-        if ($request->accountArchive = 'on') {
-            $user = User::findBySlug($request->slug);
-            $user->employee->status = 0;
-            $user->employee->update();
-        };
-        return Redirect::back();
-    }
-    public function unarchive(Request $request)
+    public function activate(Request $request)
     {
         $user = User::findBySlug($request->slug);
-        $user->employee->status = 1;
-        $user->employee->update();
-        return Redirect::back();
+        if ($user->status) {
+            $user->status = false;
+            $user->update();
+            return Redirect::back();
+        } else if (!$user->status) {
+            $user->status = true;
+            $user->update();
+            return Redirect::back();
+        };
     }
     public function attemp_role_user(Request $request)
     {

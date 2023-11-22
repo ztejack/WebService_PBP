@@ -106,8 +106,7 @@ Route::prefix('users')->middleware(['auth', 'can:UserManagement'])->group(
         Route::get('{user}/update', [UserController::class, 'update_view_user'])->name('update_view_user');
         Route::put('update/{user}', [UserController::class, 'update'])->name('update_user');
 
-        Route::post('/archive', [UserController::class, 'archive'])->name('archive_user');
-        Route::post('/unarchive', [UserController::class, 'unarchive'])->name('unarchive_user');
+        Route::post('/activate', [UserController::class, 'activate'])->name('activate_user');
         Route::post('/attemp-role', [UserController::class, 'attemp_role_user'])->name('attemp_role');
         Route::post('/attemp-permission', [UserController::class, 'attemp_permission_user'])->name('attemp_permission');
 
@@ -118,7 +117,7 @@ Route::prefix('users')->middleware(['auth', 'can:UserManagement'])->group(
 
 Route::prefix('gaji')->middleware(['auth'])->group(
     function () {
-        Route::get('/self/{employe}', [GajiController::class, 'salary'])->name('salary');
+        // Route::get('/self/{employe}', [GajiController::class, 'salary'])->name('salary');
         Route::get('/', [GajiController::class, 'index'])->name('page_gaji');
         Route::get('{user}/view/', [GajiController::class, 'view_gaji_employe'])->name('page_gaji_employe');
 

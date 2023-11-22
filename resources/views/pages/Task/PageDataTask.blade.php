@@ -21,17 +21,29 @@
                     </button>
                 </div>
             @endif
-            @can('AprovalGajiLv1')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval1')
-                {{-- @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv1') --}}
-                <div class="divider">
-                    <hr>
-                </div>
-            @endcan
-            @can('AprovalGajiLv1')
+            {{-- @can('AprovalGajiSU') --}}
+            @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval')
+            <div class="divider">
+                <hr>
+            </div>
+            @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv')
+            {{-- @endcan --}}
+            {{-- @can('AprovalGajiAsmen')
                 @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
                 @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
             @endcan
+            @can('AprovalGajiGm')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
+            @endcan
+            @can('AprovalGajiDirut')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
+            @endcan
+            @can('AprovalGajiSpv')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
+                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
+            @endcan --}}
 
 
 

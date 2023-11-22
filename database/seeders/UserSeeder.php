@@ -32,10 +32,11 @@ class UserSeeder extends Seeder
         $superAdminRole = Role::findByName('SuperUser');
         $user->assignRole($superAdminRole);
         $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
-            'name' => 'AdminUser',
+            'name' => 'Tomi ADM',
             'username' => 'adminuser',
             'email' => 'adminuser@example.com',
             'phone' => '085669920000',
@@ -44,10 +45,11 @@ class UserSeeder extends Seeder
         $adminRole = Role::findByName('Admin');
         $user->assignRole($adminRole);
         $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
-            'name' => 'EmployeUser',
+            'name' => 'Tomi Karyawan',
             'username' => 'employe',
             'email' => 'employe@example.com',
             'phone' => '085669920909',
@@ -56,6 +58,7 @@ class UserSeeder extends Seeder
         $employeRole = Role::findByName('Employe');
         $user->assignRole($employeRole);
         $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
@@ -65,24 +68,13 @@ class UserSeeder extends Seeder
             'phone' => '085669920901',
             'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
         ]);
-        $guestRole = Role::findByName('Guest');
-        $user->assignRole($guestRole);
-
-        $user = User::create([
-            'uuid' => Uuid::uuid4()->getHex(),
-            'name' => 'AdminKeuanganUser',
-            'username' => 'adminkeuangan',
-            'email' => 'adminkeuangan@example.com',
-            'phone' => '085669920808',
-            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
-        ]);
-        $adminkeuanganRole = Role::findByName('AdminKeuangan');
-        $user->assignRole($adminkeuanganRole);
+        $user->assignRole($employeRole);
         $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
-            'name' => 'ManagerUser',
+            'name' => 'Tomi Manager',
             'username' => 'manager',
             'email' => 'manager@example.com',
             'phone' => '085669920908',
@@ -91,17 +83,58 @@ class UserSeeder extends Seeder
         $managerRole = Role::findByName('Manager');
         $user->assignRole($managerRole);
         $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
 
         $user = User::create([
             'uuid' => Uuid::uuid4()->getHex(),
-            'name' => 'AdminSDMUser',
-            'username' => 'adminsdm',
-            'email' => 'adminsdm@example.com',
+            'name' => 'Tomi AsistenManager',
+            'username' => 'asistenmager',
+            'email' => 'asistenmanager@example.com',
             'phone' => '085669920907',
             'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
         ]);
-        $adminsdmRole = Role::findByName('AdminSDM');
+        $asistenmanagerRole = Role::findByName('AsistenManager');
         $user->employee->update(['status' => true]);
-        $user->assignRole($adminsdmRole);
+        $user->update(['status' => true]);
+        $user->assignRole($asistenmanagerRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'Tomi GeneralManager',
+            'username' => 'generalmanager',
+            'email' => 'generalmanager@example.com',
+            'phone' => '085869920907',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $generalmanagerRole = Role::findByName('GeneralManager');
+        $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
+        $user->assignRole($generalmanagerRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'Tomi Supervisor',
+            'username' => 'supervisor',
+            'email' => 'supervisor@example.com',
+            'phone' => '085839920907',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $supervisorRole = Role::findByName('Supervisor');
+        $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
+        $user->assignRole($supervisorRole);
+
+        $user = User::create([
+            'uuid' => Uuid::uuid4()->getHex(),
+            'name' => 'Tomi DirekturUtama',
+            'username' => 'direkturutama',
+            'email' => 'dirut@example.com',
+            'phone' => '085889920907',
+            'password' => '$2y$10$RjPA6GkNgGKTc1kAa1th1OcajKZQ7Y1gBshqL.B0zPnOMjZ3IMJpe', //PBP2023@Us
+        ]);
+        $dirutRole = Role::findByName('DirekturUtama');
+        $user->employee->update(['status' => true]);
+        $user->update(['status' => true]);
+        $user->assignRole($dirutRole);
     }
 }

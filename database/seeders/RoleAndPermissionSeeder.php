@@ -45,8 +45,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'GajiManagement.view']);
         Permission::create(['name' => 'GajiManagement.update']);
 
-        Permission::create(['name' => 'AprovalGajiLv1']);
-        Permission::create(['name' => 'AprovalGajiLv2']);
+        Permission::create(['name' => 'AprovalGajiSU']);
+        Permission::create(['name' => 'AprovalGajiSpv']);
+        Permission::create(['name' => 'AprovalGajiAsmen']);
+        Permission::create(['name' => 'AprovalGajiGm']);
+        Permission::create(['name' => 'AprovalGajiDirut']);
 
 
 
@@ -65,15 +68,15 @@ class RoleAndPermissionSeeder extends Seeder
 
         // Permission::create(['name' => 'assign-role-su']);
         // Permission::create(['name' => 'remove-role-su']);
-
         //ROLE USERS
         $superuserRole = Role::create(['name' => 'SuperUser']);
         $adminRole = Role::create(['name' => 'Admin']);
         $employeRole = Role::create(['name' => 'Employe']);
-        $guestRole = Role::create(['name' => 'Guest']);
-        $AdminKeuanganRole = Role::create(['name' => 'AdminKeuangan']);
-        $ManagerRole = Role::create(['name' => 'Manager']);
-        $AdminSDMRole = Role::create(['name' => 'AdminSDM']);
+        $managerRole = Role::create(['name' => 'Manager']);
+        $asistenmanagerRole = Role::create(['name' => 'AsistenManager']);
+        $generalmanagerRole = Role::create(['name' => 'GeneralManager']);
+        $supervisorRole = Role::create(['name' => 'Supervisor']);
+        $dirutRole = Role::create(['name' => 'DirekturUtama']);
 
         $superuserRole->givePermissionTo([
             'UserManagement',
@@ -85,27 +88,19 @@ class RoleAndPermissionSeeder extends Seeder
             'PositionManagement',
             'GolonganManagement',
             'GajiManagement',
-            'AprovalGajiLv1',
-            'AprovalGajiLv2',
-            // 'assign-role-su',
-            // 'remove-role-su',
-
-            // 'assign-role',
-            // 'remove-role',
-
-            // 'store-users',
-            // 'update-users',
-            // 'delete-users',
-            // 'getall-users',
-            // 'search-users',
-            // 'show-users',
-
-            // 'store-employe',
-            // 'update-employe',
-            // 'delete-employe',
-            // 'getall-employe',
-            // 'search-employe',
-            // 'show-employe',
+            'AprovalGajiSU',
+        ]);
+        $generalmanagerRole->givePermissionTo([
+            'AprovalGajiGm',
+        ]);
+        $supervisorRole->givePermissionTo([
+            'AprovalGajiSpv',
+        ]);
+        $asistenmanagerRole->givePermissionTo([
+            'AprovalGajiAsmen',
+        ]);
+        $dirutRole->givePermissionTo([
+            'AprovalGajiDirut',
         ]);
         $adminRole->givePermissionTo([
             'UserManagement',
@@ -116,24 +111,20 @@ class RoleAndPermissionSeeder extends Seeder
             'PositionManagement',
             'GolonganManagement',
             'GajiManagement',
-            'AprovalGajiLv1',
-            'AprovalGajiLv2',
         ]);
-        $AdminSDMRole->givePermissionTo([
-            'UserManagement',
-            'RoleManagement.create',
-            'SatkerManagement',
-            'ContractManagement',
-            'SalaryManagement',
-            'PositionManagement',
-            'GolonganManagement',
-            'AprovalGajiLv1',
-
-        ]);
-        $ManagerRole->givePermissionTo([
-            'UserManagement.view',
-            'AprovalGajiLv2',
-        ]);
+        // $AdminSDMRole->givePermissionTo([
+        //     'UserManagement',
+        //     'RoleManagement.create',
+        //     'SatkerManagement',
+        //     'ContractManagement',
+        //     'SalaryManagement',
+        //     'PositionManagement',
+        //     'GolonganManagement',
+        // ]);
+        // $managerRole->givePermissionTo([
+        //     'UserManagement.view',
+        //     'AprovalGajiLv2',
+        // ]);
 
 
         // $adminRole->givePermissionTo([]);

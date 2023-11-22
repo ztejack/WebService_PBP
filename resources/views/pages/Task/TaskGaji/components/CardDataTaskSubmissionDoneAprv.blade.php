@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($payrolls_aprv_1 as $payrol)
+                        @foreach ($payrolls_done as $payrol)
                             <tr class="text-nowrap border-bottom">
                                 <td class="">{{ $loop->iteration }}</td>
                                 <td class="">{{ $payrol->payroll }}</td>
@@ -57,6 +57,10 @@
                                             {{ $payrol->aprv_1 ? 'checked' : '' }} disabled>
                                         <input class="form-check-input opacity-100" type="checkbox"
                                             {{ $payrol->aprv_2 ? 'checked' : '' }} disabled>
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_3 ? 'checked' : '' }} disabled>
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_4 ? 'checked' : '' }} disabled>
                                     </div>
                                 </td>
                                 <td>

@@ -57,6 +57,10 @@
                                             {{ $payrol->aprv_1 ? 'checked' : '' }} disabled>
                                         <input class="form-check-input opacity-100" type="checkbox"
                                             {{ $payrol->aprv_2 ? 'checked' : '' }} disabled>
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_3 ? 'checked' : '' }} disabled>
+                                        <input class="form-check-input opacity-100" type="checkbox"
+                                            {{ $payrol->aprv_4 ? 'checked' : '' }} disabled>
                                     </div>
                                 </td>
                                 <td>

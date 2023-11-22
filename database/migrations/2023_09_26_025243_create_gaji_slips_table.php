@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("aprv_1")->default(false);
             $table->string("aprv_2")->default(false);
             $table->string("aprv_3")->default(false);
+            $table->string("aprv_4")->default(false);
             $table->timestamps();
         });
         Schema::create('gaji_slips', function (Blueprint $table) {

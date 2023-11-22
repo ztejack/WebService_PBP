@@ -54,13 +54,6 @@
             <div data-i18n="Account Settings">Gaji</div>
         </a>
         <ul class="menu-sub">
-            <li class="menu-item {{ Request::is('gaji/self*') ? 'active' : '' }}">
-                <a href="{{ route('salary', auth()->user()->employee->uuid) }}" class="menu-link">
-                    <div data-i18n="Without menu">Gaji</div>
-                </a>
-            </li>
-        </ul>
-        <ul class="menu-sub">
             <li class="menu-item {{ Request::is('gaji/gaji-param') ? 'active' : '' }}">
                 <a href="{{ route('page_gaji.param') }}" class="menu-link">
                     <div data-i18n="Without menu">Gaji Param</div>
@@ -76,7 +69,7 @@
         </ul>
     </li>
 @endcan
-@can(['AprovalGajiLv1', 'AprovalGajiLv2'])
+@can('AprovalGajiSU')
     <li class="menu-header small text-uppercase ">
         <span class="menu-header-text">Task</span>
     </li>
@@ -84,10 +77,78 @@
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-task"></i>
             <div data-i18n="Account Settings">Task</div>
-            {{-- badge notification --}}
-            {{-- @if (1 > 0)
-            <span class="badge badge-center rounded-pill bg-label-info ms-auto">6</span>
-        @endif --}}
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">
+                <a href="{{ route('page_task') }}" class="menu-link">
+                    <div data-i18n="Without menu">Pengajuan</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
+@can('AprovalGajiSpv')
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Task</span>
+    </li>
+    <li class="menu-item  {{ Request::is('task') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-task"></i>
+            <div data-i18n="Account Settings">Task</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">
+                <a href="{{ route('page_task') }}" class="menu-link">
+                    <div data-i18n="Without menu">Pengajuan</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
+@can('AprovalGajiAsmen')
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Task</span>
+    </li>
+    <li class="menu-item  {{ Request::is('task') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-task"></i>
+            <div data-i18n="Account Settings">Task</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">
+                <a href="{{ route('page_task') }}" class="menu-link">
+                    <div data-i18n="Without menu">Pengajuan</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
+@can('AprovalGajiGm')
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Task</span>
+    </li>
+    <li class="menu-item  {{ Request::is('task') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-task"></i>
+            <div data-i18n="Account Settings">Task</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">
+                <a href="{{ route('page_task') }}" class="menu-link">
+                    <div data-i18n="Without menu">Pengajuan</div>
+                </a>
+            </li>
+        </ul>
+    </li>
+@endcan
+@can('AprovalGajiDirut')
+    <li class="menu-header small text-uppercase ">
+        <span class="menu-header-text">Task</span>
+    </li>
+    <li class="menu-item  {{ Request::is('task') ? 'active open' : '' }} ">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-task"></i>
+            <div data-i18n="Account Settings">Task</div>
         </a>
         <ul class="menu-sub">
             <li class="menu-item {{ Request::is('task') ? 'active' : '' }}">

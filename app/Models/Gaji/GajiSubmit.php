@@ -18,6 +18,7 @@ class GajiSubmit extends Model
         'aprv_1',
         'aprv_2',
         'aprv_3',
+        'aprv_4',
     ];
     public function gajislip()
     {
