@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -42,7 +45,7 @@ class UserController extends Controller
      * @param  \App\Http\Requests\StoreuserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreuserRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $input = $request->validated();
         $user = new User();
@@ -59,13 +62,13 @@ class UserController extends Controller
         }
         $user->save();
 
-        $expirationDate = Carbon::now()->addDays(30);
+        // $expirationDate = Carbon::now()->addDays(30);
 
-        ApiKey::create([
-            'user_id' => $user->id,
-            'api_key' => Str::random(32),
-            'expiration_date' => $expirationDate,
-        ]);
+        // ApiKey::create([
+        //     'user_id' => $user->id,
+        //     'api_key' => Str::random(32),
+        //     'expiration_date' => $expirationDate,
+        // ]);
 
         return response()->json(['status' => 'Users Berhasil Ditambahkan !'], 201);
     }
@@ -91,7 +94,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateuserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $input = $request->validated();
         $user->name = $input['name'];

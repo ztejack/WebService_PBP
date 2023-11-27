@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Experience;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,9 +19,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleAndPermissionSeeder::class,
             SatkerSeeder::class,
+            PositionSeeder::class,
+            GajiParamSeeder::class,
             UserSeeder::class,
+            ParamBPJSSeeder::class
         ]);
-        // \App\Models\User::factory(10)->create();
+        Experience::factory(12)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

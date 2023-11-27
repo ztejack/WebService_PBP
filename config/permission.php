@@ -130,13 +130,13 @@ return [
      * the default setting is false here for optimum safety.
      */
 
-    'display_role_in_exception' => false,
+    'display_role_in_exception' => true,
 
     /*
      * By default wildcard permission lookups are disabled.
      */
 
-    'enable_wildcard_permission' => false,
+    'enable_wildcard_permission' => true,
 
     'cache' => [
 

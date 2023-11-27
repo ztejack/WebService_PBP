@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('password');
+            $table->string('slug')->unique();
+            $table->boolean('status')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

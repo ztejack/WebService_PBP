@@ -10,11 +10,13 @@ use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable implements JWTSubject
 {
     // use HasUuids;
-    use  HasFactory, Notifiable, HasRoles, HasApiTokens;
+    use  HasFactory, Notifiable, HasRoles, HasApiTokens, HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -22,11 +24,13 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'uuid',
         'username',
         'name',
         'phone',
         'email',
         'password',
+        'status',
     ];
 
     /**
@@ -72,6 +76,62 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        // return SlugOptions::create()
+        //     ->generateSlugsFrom('name')
+        //     ->saveSlugsTo('slug');
+        return SlugOptions::create()
+            ->generateSlugsFrom('uuid')
+            ->saveSlugsTo('slug');
+    }
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+    public function getSatkerAttribute()
+    {
+        return $this->employee->satker;
+    }
+    public function getGolonganAttribute()
+    {
+        return $this->employee->golongan;
+    }
+    public function getPositionAttribute()
+    {
+        return $this->employee->position;
+    }
+    public function getGajiAttribute()
+    {
+        return $this->employee->gaji;
+    }
+    public function getContrackAttribute()
+    {
+        return $this->employee->contract->contract;
+    }
+    public function getAbsensiAttribute()
+    {
+        return $this->employee->absensi;
+    }
+
+    public function hasRole($roleName)
+    {
+        return $this->role == $roleName; // sample implementation only
+    }
+
+    public function isSuperUser()
+    {
+        return $this->hasRole('SuperUser');
+    }
+
 
     /**
      * Return a model value array, containing any relation model.
@@ -80,15 +140,27 @@ class User extends Authenticatable implements JWTSubject
      */
     public function employee()
     {
-        return $this->hasOne(Employe::class);
+        return $this->hasone(Employe::class, 'user_id');
+    }
+    public function getcurrentabsensi()
+    {
+        return $this->employee->getcurrentabsensi();
+    }
+    public function getcurrentlembur()
+    {
+        return $this->employee->getcurrentlembur();
     }
     public function subsatker()
     {
-        return $this->belongsTo(Subsatker::class, 'id_subsatker');
+        return $this->belongsToMany(Subsatker::class);
     }
     public function satker()
     {
         return $this->belongsTo(Satker::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 
     public static function boot()
@@ -98,7 +170,12 @@ class User extends Authenticatable implements JWTSubject
             // $user = static::create($model->attributes);
             // dd($user);
             // dd($model->Id());
-            $model->employee()->create();
+            $model->employee()->create([
+                'contract_id' => mt_rand(1, 2),
+                'satker_id' => mt_rand(1, 3),
+                'position_id' => mt_rand(1, 3),
+                'golongan_id' => mt_rand(1, 3)
+            ]);
         });
     }
 }

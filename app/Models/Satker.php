@@ -28,6 +28,20 @@ class Satker extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
+    public function employee()
+    {
+        return $this->hasMany(Employe::class);
+    }
+    // public static function boot()
+    // {
+    //     parent::boot();
+    //     self::created(function ($model) {
+    //         // $user = static::create($model->attributes);
+    //         // dd($user);
+    //         // dd($model->Id());
+    //         $model->subsatker()->create(['subsatker' => 'Guest']);
+    //     });
+    // }
 }

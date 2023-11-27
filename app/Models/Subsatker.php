@@ -29,6 +29,10 @@ class Subsatker extends Model
     }
     public function user()
     {
-        return $this->hasMany(User::class, 'id_user');
+        return $this->hasMany(User::class);
+    }
+    public function employee()
+    {
+        return $this->hasMany(Employee::class);
     }
 }
