@@ -11,25 +11,28 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col mb-3">
-                            <label for="terlambat" class="form-label">Terlambat</label>
+                        <div class="col-6 mb-3">
+                            <label for="terlambat" class="form-label">Terlambat
+                            </label>
                             <input type="number" id="terlambat" name="terlambat" class="form-control form-control-sm"
-                                value="0" placeholder="Enter Amount">
+                                value="{{ $user->employee->getcurrentabsensi()->terlambat }}"
+                                placeholder="Enter Amount">
                         </div>
-                        <div class="col mb-3">
+                        <div class="col-6 mb-3">
                             <label for="sakit" class="form-label">Sakit</label>
                             <input type="number" id="sakit" name="sakit" class="form-control form-control-sm"
-                                value="0" placeholder="Enter Amount">
+                                value="{{ $user->employee->getcurrentabsensi()->sakit }}" placeholder="Enter Amount">
                         </div>
-                        <div class="col mb-3">
+                        <div class="col-6 mb-3">
                             <label for="kosong" class="form-label">Absen</label>
                             <input type="number" id="kosong"name="kosong" class="form-control form-control-sm"
-                                value="0" placeholder="Enter Amount">
+                                value="{{ $user->employee->getcurrentabsensi()->kosong }}" placeholder="Enter Amount">
                         </div>
-                        <div class="col mb-3">
+                        <div class="col-6 mb-3">
                             <label class="form-label" for="perjalanan">Dinas</label>
                             <input type="number" class="form-control form-control-sm" id="perjalanan" name="perjalanan"
-                                value="0" placeholder="Enter Amount">
+                                value="{{ $user->employee->getcurrentabsensi()->perjalanan }}"
+                                placeholder="Enter Amount">
                         </div>
 
                     </div>

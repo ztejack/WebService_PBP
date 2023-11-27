@@ -44,11 +44,12 @@
                                                 placeholder="Enter Amount">
                                             <span class="mx-2 bx bx-x text-info"></span>
                                             <span class="d-inline-flex">Rp <span class="numbers">
-                                                    {{ $tnj_makan }}</span></span>
+                                                    {{ $tnj_makan + $tnj_transport }}</span></span>
                                         </div>
                                         <div class="col-4 d-inline-flex ps-0"><span
                                                 class="mx-2 fw-bold text-info">=</span> Rp <span
-                                                class="numbers">{{ $item->sakit * $tnj_makan }}</span> </div>
+                                                class="numbers">{{ $item->sakit * ($tnj_makan + $tnj_transport) }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@
                         <div class="col->12 mb-3">
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="kosong" class="form-label">Kosong</label>
+                                    <label for="kosong" class="form-label">Absen</label>
                                     <div class="row align-items-center">
                                         <div class="col d-inline-flex align-items-center pe-0">
                                             <input type="number" id="kosong"name="kosong"
@@ -66,13 +67,14 @@
                                                 placeholder="Enter Amount">
                                             <span class="mx-2 bx bx-x text-info"></span>
                                             <span class="d-inline-flex">Rp <span class="numbers">
-                                                    {{ $tnj_makan }}</span></span>
+                                                    {{ $tnj_makan + $tnj_transport }}</span></span>
 
                                         </div>
 
                                         <div class="col-4 d-inline-flex ps-0"><span
                                                 class="mx-2 fw-bold text-info">=</span> Rp
-                                            <span class="numbers">{{ $item->kosong * $tnj_makan }}</span></span>
+                                            <span
+                                                class="numbers">{{ $item->kosong * ($tnj_makan + $tnj_transport) }}</span></span>
                                         </div>
                                     </div>
                                 </div>

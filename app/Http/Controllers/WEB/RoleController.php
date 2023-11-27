@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 // use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -18,18 +19,27 @@ class RoleController extends Controller
     public function index()
     {
         // Retrieve all permissions
-        $permissions = Permission::all();
+
 
         // Check if the authenticated user is a super user
-        // $isSuperUser = Auth::user()->isSuperUser(); // Adjust this based on your user model and logic
-        // $array = 'SuperUserManagement';
-        // // Exclude the "delete" permission if the user is not a super user
-        // if (!$isSuperUser) {
-        //     $permissions = $permissions->reject(function ($permission)
-        //     use ($array) {
-        //         return $permission->name === $array;
-        //     });
-        // }
+        
+        // Exclude the "delete" permission if the user is not a super user
+        if (!Gate::allows('SuperUserManagement')) {
+            $permissions = Permission::where(function ($query) {
+                $query->where('name', '!=', 'SuperUserManagement')
+                    ->where('name', '!=', 'AprovalGajiSU');
+            })->get();
+            // $permissions = $permissions->reject(function ($permission)
+            // use ($array) {
+            //     return $permission->name === $array;
+            // });
+            // dd($permissions);
+            return view('pages.Roles.PageDataRole', [
+                'roles' => Role::all(),
+                'permissions' => $permissions,
+            ]);
+        }
+        $permissions = Permission::all();
         return view('pages.Roles.PageDataRole', [
             'roles' => Role::all(),
             'permissions' => $permissions,

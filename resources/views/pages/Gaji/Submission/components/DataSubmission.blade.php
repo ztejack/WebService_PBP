@@ -34,7 +34,7 @@
                         @foreach ($payrolls as $payrol)
                             <tr class="text-nowrap border-bottom">
                                 <td class="">{{ $loop->iteration }}</td>
-                                <td class="">{{ $payrol->payroll }}</td>
+                                <td class="">{{ $payrol->payroll->format('d-m-Y') }}</td>
                                 <td>{{ $payrol->name }}</td>
                                 <td><span class="badge bg-label-info">{{ $payrol->jumlah }}</span></td>
                                 <td> Rp <span class="numberin">{{ $payrol->total }}</span></td>

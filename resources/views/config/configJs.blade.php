@@ -73,7 +73,8 @@
         Request::is('gaji/submission/store') ||
         Request::is('gaji/submission/*/update') ||
         Request::is('gaji/submission/detail/*') ||
-        Request::is('slip*' || Request::is('task*')))
+        Request::is('slip*') ||
+        Request::is('task*'))
     <script type="module" src="{{ asset('js/comacurency.js') }}"></script>
 @endif
 @if (Request::is('gaji/slip*'))

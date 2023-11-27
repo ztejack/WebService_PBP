@@ -40,7 +40,7 @@
                         <tbody>
                             <tr>
                                 <td class="pe-3">Tanggal</td>
-                                <td>: {{ $slip->date }}</td>
+                                <td>: {{ $slip->date->format('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <td class="pe-3">Karyawan</td>

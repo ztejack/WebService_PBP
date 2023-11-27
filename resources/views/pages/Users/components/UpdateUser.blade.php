@@ -412,7 +412,7 @@
                                     kembali </p>
                             </div>
                         </div>
-                        <form id="formAccountDeactivation" method="POST" action="{{ route('archive_user') }}">
+                        <form id="formAccountDeactivation" method="POST" action="{{ route('activate_user') }}">
                             @method('post')
                             @csrf
                             <div class="form-check mb-3">

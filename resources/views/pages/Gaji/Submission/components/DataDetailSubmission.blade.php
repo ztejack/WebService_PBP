@@ -1,5 +1,5 @@
 <div class="card mb-4">
-    <h5 class="card-header">Pengajuan Gaji <span class="text-info">{{ $payrol->payroll }}</span></h5>
+    <h5 class="card-header">Pengajuan Gaji <span class="text-info">{{ $payrol->payroll->format('d-m-Y') }}</span></h5>
 
     <div class="card-body">
         <div>
@@ -44,9 +44,10 @@
 
         </table>
         <div class="align-self-end d-flex justify-content-end">
-            <button class="btn btn-primary">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalcommingsoon">
                 <i class="bx bx-printer me-2"></i> Cetak
             </button>
+            @include('components.global.modalcommingsoon')
         </div>
     </div>
 </div>

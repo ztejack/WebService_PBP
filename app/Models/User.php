@@ -142,6 +142,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasone(Employe::class, 'user_id');
     }
+    public function getcurrentabsensi()
+    {
+        return $this->employee->getcurrentabsensi();
+    }
+    public function getcurrentlembur()
+    {
+        return $this->employee->getcurrentlembur();
+    }
     public function subsatker()
     {
         return $this->belongsToMany(Subsatker::class);

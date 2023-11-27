@@ -30,10 +30,11 @@ class GajiController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('username', '!=', 'superuser')->get();
         $collectionuser = $users->map(function ($user) {
             return $this->user_resource($user);
         });
+        // dd(GajiSubmit::orderBy('created_at', 'desc')->get());
         // dd($collectionuser);
         return view(
             'pages.Gaji.PageDataGaji',
@@ -140,7 +141,7 @@ class GajiController extends Controller
     //         $dataPerBulan[$yearMonth]['date'] = $absensi->date->format('M Y');
     //     }
     //     // dd((object)$dataPerBulan);
-    //     $data_absensi = array_map(function ($item) {
+    //     $data_absensi = array_map(function ($absensis) {
     //         return (object)$item;
     //     }, $dataPerBulan);
     //     // dd($data_absensi);
@@ -149,10 +150,15 @@ class GajiController extends Controller
     // }
     function total_absensi($absensis, $tnj_makan, $tnj_transport)
     {
-        foreach ($absensis as $item) {
-            $item->total_sum = ($item->sakit * $tnj_makan) + ($item->kosong * $tnj_makan) + ($item->terlambat * $tnj_makan) + ($item->perjalanan * ($tnj_makan + $tnj_transport));
-        }
         // dd($absensis);
+        foreach ($absensis as $item) {
+            // dd($item->sakit);
+            // dd($absensis->kosong);
+            // dd($item->terlambat);
+            // dd($item->perjalanan);
+            $item->total_sum = ($item->sakit * ($tnj_makan + $tnj_transport)) + ($item->kosong * ($tnj_makan + $tnj_transport)) + ($item->terlambat * $tnj_makan) + ($item->perjalanan * ($tnj_makan + $tnj_transport));
+        }
+        // dd((object)$absensis);
         return $absensis;
     }
     const nanan = 123;
@@ -195,21 +201,22 @@ class GajiController extends Controller
 
         $bpjs_count = $this->bpjs_cout($gaji_pokok, $total1, $param_tnj);
 
-        $lemburs = $user->employee->lembur->first();
+        $lemburs = $user->employee->getcurrentlembur();
         // dd($user->employee->lembur);
         $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
 
+        $lemburcount = $user->employee->lembur;
         $total2 = array_sum([$sum_tnj_makan, $sum_tnj_perumahan, $sum_tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tunjangan_lapangan, $lembur]);
 
         $absens = $user->absensi->where('date', '>=', now()->format('m Y'));
         $absensis = $user->absensi->sortByDesc('created_at');
 
 
-        // dd($lembur);
+        // dd($user->employee);
         // $absensiscount = $this->absensi_grouping($absensis);
         $absensiscount = $this->total_absensi($user->employee->absensi, $tnj_makan, $tnj_transport);
 
-        $potongan_lainnya = $this->absensi_count($absens, $tnj_makan, $tnj_transport);
+        $potongan_lainnya = $this->absensi_count($user->employee->absensi, $tnj_makan, $tnj_transport);
 
         $total_potongan_lainnya = array_sum([
             $potongan_lainnya->pot_sakit,
@@ -257,7 +264,8 @@ class GajiController extends Controller
             'potongan_lainnya' => $potongan_lainnya,
             'total_potongan_lainnya' => $total_potongan_lainnya,
             'data_absensi' => $absensiscount,
-            'slips' => $user->employee->slip,
+            'data_lembur' => $lemburcount,
+            'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
 
             // 'potongan_lainnya'
             'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
@@ -305,7 +313,6 @@ class GajiController extends Controller
     public function user_resource($user)
     {
         $absensi = $user->employee->absensiForCurrentMonth();
-
         $data = [
             'slug' => $user->slug,
             'employe' => $user->employee,
@@ -313,7 +320,7 @@ class GajiController extends Controller
             'position' => $user->employee->position != null ? $user->employee->position->position : null,
             'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
             'employe_uuid' => $user->employee->uuid,
-            'gaji' => $user->employee->gaji->total_gaji,
+            'gaji' => $user->employee->gajicount()->total,
             'absensi' => $absensi,
         ];
         return (object)$data;
@@ -399,10 +406,8 @@ class GajiController extends Controller
             'potongan_lainnya' => $potongan_lainnya,
             'total_potongan_lainnya' => $total_potongan_lainnya,
             'total3' => $total3,
-            'data_absensi' => $absensiscount,
+            'data_absensi' => $absensis,
             'slips' => $employe->slip,
-
-
             'total' => $total,
 
         ]);

@@ -13,8 +13,8 @@
                     </div>
                     <div class="d-flex w-100 flex-wrap align-items-center justify-content-between">
                         <div class="me-2">
-                            <h6 class="mb-1 fw-normal">Priode <span class="text-primary fw-semibold">Juli
-                                    2023</span></h6>
+                            <h6 class="mb-1 fw-normal">Priode <span class="text-primary fw-semibold">
+                                {{$slip->date->format('M Y')}}</span></h6>
                             <small
                                 class=" {{ $slip->status == 'rejected' ? 'text-danger' : ($slip->status == 'disetujui' ? 'text-success' : 'text-warning') }} fw-normal">
                                 @if ($slip->status == 'rejected')

@@ -26,7 +26,7 @@
         {{-- footer --}}
         @include('components.global.footer')
 
-        <div class="content-backdrop fade"></div>
+        {{-- <div class="content-backdrop fade"></div> --}}
     </div>
 
     <!-- Content wrapper -->

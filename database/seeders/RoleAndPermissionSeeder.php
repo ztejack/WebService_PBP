@@ -25,25 +25,25 @@ class RoleAndPermissionSeeder extends Seeder
         // Permission::create(['name' => 'show-users']);
         Permission::create(['name' => 'SuperUserManagement']);
         Permission::create(['name' => 'UserManagement']);
-        Permission::create(['name' => 'UserManagement.create']);
-        Permission::create(['name' => 'UserManagement.view']);
-        Permission::create(['name' => 'UserManagement.update']);
+        // Permission::create(['name' => 'UserManagement.create']);
+        // Permission::create(['name' => 'UserManagement.view']);
+        // Permission::create(['name' => 'UserManagement.update']);
         Permission::create(['name' => 'RoleManagement']);
-        Permission::create(['name' => 'RoleManagement.create']);
-        Permission::create(['name' => 'RoleManagement.view']);
-        Permission::create(['name' => 'RoleManagement.update']);
+        // Permission::create(['name' => 'RoleManagement.create']);
+        // Permission::create(['name' => 'RoleManagement.view']);
+        // Permission::create(['name' => 'RoleManagement.update']);
         Permission::create(['name' => 'SatkerManagement']);
-        Permission::create(['name' => 'SatkerManagement.create']);
-        Permission::create(['name' => 'SatkerManagement.view']);
-        Permission::create(['name' => 'SatkerManagement.update']);
+        // Permission::create(['name' => 'SatkerManagement.create']);
+        // Permission::create(['name' => 'SatkerManagement.view']);
+        // Permission::create(['name' => 'SatkerManagement.update']);
         Permission::create(['name' => 'ContractManagement']);
         Permission::create(['name' => 'SalaryManagement']);
         Permission::create(['name' => 'PositionManagement']);
         Permission::create(['name' => 'GolonganManagement']);
         Permission::create(['name' => 'GajiManagement']);
-        Permission::create(['name' => 'GajiManagement.create']);
-        Permission::create(['name' => 'GajiManagement.view']);
-        Permission::create(['name' => 'GajiManagement.update']);
+        // Permission::create(['name' => 'GajiManagement.create']);
+        // Permission::create(['name' => 'GajiManagement.view']);
+        // Permission::create(['name' => 'GajiManagement.update']);
 
         Permission::create(['name' => 'AprovalGajiSU']);
         Permission::create(['name' => 'AprovalGajiSpv']);
@@ -104,7 +104,7 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
         $adminRole->givePermissionTo([
             'UserManagement',
-            'RoleManagement.create',
+            'RoleManagement',
             'SatkerManagement',
             'ContractManagement',
             'SalaryManagement',

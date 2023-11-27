@@ -41,16 +41,15 @@
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalpermission{{ $permission->name }}Title">Modal
-                                            title</h5>
+                                        <h5 class="modal-title" id="modalpermission{{ $permission->name }}Title">
+                                            {{ $permission->name }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                                            facilisis in, egestas
-                                            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus sequi rem cumque sunt beatae, ipsa suscipit impedit nulla blanditiis, nobis distinctio corporis eveniet fugiat excepturi culpa quas, natus accusantium magnam.</p>
+                                        <img class="w-100"
+                                            src="{{ asset('img/illustrations/website-launching-coming-soon.webp') }}"
+                                            alt="">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-label-secondary"

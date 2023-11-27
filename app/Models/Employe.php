@@ -31,7 +31,6 @@ class Employe extends Model
         'ktp_address',
         'gender',
         'religion',
-        // 'golongan',
         'status',
         'status_keluarga',
         'date_start',
@@ -96,18 +95,59 @@ class Employe extends Model
     {
         return $this->hasMany(GajiLembur::class);
     }
+
     public function slip()
     {
         return $this->hasMany(GajiSlip::class, 'employe_id');
     }
     public function gajisubmit()
     {
-        return $this->hasMany(GajiSubmit::class, 'gaji_slips');
+        return $this->belongsToMany(GajiSubmit::class, 'gaji_slips');
     }
+    // public function gajisubmit()
+    // {
+    //     return $this->hasMany(GajiSubmit::class, 'gaji_slips');
+    // }
+    public function getcurrentlembur()
+    {
+        $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
 
+        if ($lemburs === null) {
+            $lemburs = ['jumlah' => 0];
+            return (object)$lemburs;
+        }
+        // $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
+        return (object)$lemburs;
+    }
+    public function getcurrentabsensi()
+    {
+        $firstDayOfMonth = now()->startOfMonth();
+        $lastDayOfMonth = now()->endOfMonth();
+
+        $absensi =  $this->absensi()
+            ->whereBetween('date', [$firstDayOfMonth, $lastDayOfMonth])
+            ->get();
+        // return $absensi->isNotEmpty() ? $absensi : null;
+        // Check if absensi is null or empty, and return a default value
+        if ($absensi === null) {
+            $absensi = ['kosong' => 0, 'perjalanan' => 0, 'sakit' => 0, 'terlambat' => 0];
+            return (object)$absensi; // Default value when absensi is null or empty
+        }
+
+        // Calculate the sum of the 'sakit' field
+        $totalSakit = $absensi->sum('sakit');
+        $totalKosong = $absensi->sum('kosong');
+        $totalTerlambat = $absensi->sum('terlambat');
+        $totalPerjalanan = $absensi->sum('perjalanan');
+        $absensi = ['kosong' => $totalKosong, 'perjalanan' => $totalPerjalanan, 'sakit' => $totalSakit, 'terlambat' => $totalTerlambat];
+
+        return (object)$absensi;
+    }
+    // error 27/11/2023
     public function gajisubmitcheck($gajiSubmitid)
     {
-        if ($this->gajisubmit()->exists()) {
+        if ($this->gajisubmit()) {
+            // dd($this->gajisubmit);
             if ($this->gajisubmit()->where('gaji_submits.id', $gajiSubmitid)->exists()) {
                 return true;
             };

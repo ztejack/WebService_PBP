@@ -27,7 +27,7 @@
                     {{-- Card Gaji Pokok & Jabatan --}}
                     @include('pages.Gaji.components.CardGajiPokok')
 
-                    
+
                     {{-- Card Tunjangan --}}
                     @include('pages.Gaji.components.CardTunjangan')
                     {{-- Card BPJS --}}
@@ -49,6 +49,7 @@
                 </div>
                 <div class="col-md-4">
                     @include('pages.Gaji.components.CardAbsensi')
+                    @include('pages.Gaji.components.CardLembur')
                     @include('pages.Gaji.components.CardSlipGaji')
                 </div>
             </div>

@@ -41,6 +41,9 @@ class GajiSlip extends Model
         'employe_id',
         'gaji_submit_id'
     ];
+    protected $casts = [
+        'date' => 'date:Y-m-d',
+    ];
     public function gajisubmit()
     {
         return $this->belongsTo(GajiSubmit::class, 'gaji_submit_id');

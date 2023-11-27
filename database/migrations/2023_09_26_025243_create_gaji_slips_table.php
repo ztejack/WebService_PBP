@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('gaji_submits', function (Blueprint $table) {
             $table->id();
-            $table->string("payroll")->nullable();
+            $table->date("payroll")->nullable();
             $table->string("name")->nullable();
             $table->string("jumlah")->default(false);
             $table->string("total")->default(false);

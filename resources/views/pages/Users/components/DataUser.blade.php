@@ -59,7 +59,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <span
-                                        class="badge {{ $user->employee->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->employee->status == true ? 'Active' : 'Innactive' }}</span>
+                                        class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
                                 </td>
                                 <td>
                                     @if ($user->getRoleNames()->first() == 'SuperUser')
@@ -82,48 +82,50 @@
                                             class="btn btn-sm btn-primary">
                                             Detail User
                                         </a>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="/users/{{ $user->slug }}/update">
-                                                    <i class='bx bx-edit'></i>
-                                                    Edit
-                                                </a>
-                                                <div class="dropdown-divider"></div>
-                                                @if ($user->employee->status == true)
-                                                    <form id="userArchive-form" action="{{ route('archive_user') }}"
-                                                        method="POST">
-                                                        <input class="d-none" name="slug" hidden
-                                                            value="{{ $user->slug }}">
-                                                        <input type="checkbox" name="accountArchive" id="accountArchive"
-                                                            checked hidden>
-                                                        @method('post')
-                                                        @csrf
-                                                        <button class="dropdown-item text-danger"
-                                                            onclick="return confirm('Apa anda yakin?')">
-                                                            <i class="bx bx-x-circle"></i> Nonaktifkan
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                    <form id="userActive-form" action="{{ route('unarchive_user') }}"
-                                                        method="POST">
-                                                        <input class="d-none" name="slug" hidden
-                                                            value="{{ $user->slug }}">
-                                                        <input type="checkbox" name="accountArchive" id="accountArchive"
-                                                            checked hidden>
-                                                        @method('post')
-                                                        @csrf
-                                                        <button class="dropdown-item text-info"
-                                                            onclick="return confirm('Apa anda yakin?')">
-                                                            <i class="bx bx-check-square"></i> Aktifkan
-                                                        </button>
-                                                    </form>
-                                                @endif
+                                        @can('UserManagement')
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="/users/{{ $user->slug }}/update">
+                                                        <i class='bx bx-edit'></i>
+                                                        Edit
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    @if ($user->employee->status == true)
+                                                        <form id="userArchive-form" action="{{ route('activate_user') }}"
+                                                            method="POST">
+                                                            <input class="d-none" name="slug" hidden
+                                                                value="{{ $user->slug }}">
+                                                            <input type="checkbox" name="accountArchive" id="accountArchive"
+                                                                checked hidden>
+                                                            @method('post')
+                                                            @csrf
+                                                            <button class="dropdown-item text-danger"
+                                                                onclick="return confirm('Apa anda yakin?')">
+                                                                <i class="bx bx-x-circle"></i> Nonaktifkan
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form id="userActive-form" action="{{ route('activate_user') }}"
+                                                            method="POST">
+                                                            <input class="d-none" name="slug" hidden
+                                                                value="{{ $user->slug }}">
+                                                            <input type="checkbox" name="accountArchive" id="accountArchive"
+                                                                checked hidden>
+                                                            @method('post')
+                                                            @csrf
+                                                            <button class="dropdown-item text-info"
+                                                                onclick="return confirm('Apa anda yakin?')">
+                                                                <i class="bx bx-check-square"></i> Aktifkan
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

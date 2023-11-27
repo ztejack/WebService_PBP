@@ -4,7 +4,7 @@
     <!-- Content wrapper -->
     <div class="content-wrapper ">
         <!-- Content -->
-        
+
         <div class="container-xxl flex-grow-1 container-p-y">
             @include('pages.Gaji.components.DataGaji')
             <div class="divider">
@@ -12,7 +12,9 @@
                     <i class="bx bx-spreadsheet"></i>
                 </div>
             </div>
-            @include('pages.Gaji.Submission.components.DataSubmission')
+            @can('GajiManagement')
+                @include('pages.Gaji.Submission.components.DataSubmission')
+            @endcan
         </div>
         {{-- footer --}}
         @include('components.global.footer')

@@ -8,13 +8,13 @@
                 <label class="form-label" for="bs-datepicker-autoclose">Date</label>
                 <div class="input-group">
                     <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose"
-                        data-date-format="mm-yyyy" aria-describedby="bs-datepicker-autoclose"
-                        value="{{ $data->payroll }}" name="date">
+                        data-date-format="dd-mm-yyyy" aria-describedby="bs-datepicker-autoclose"
+                        value="{{ $data->payroll->format('d-m-Y') }}" name="date">
                     <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                 </div>
             </div>
 
-            <div class="divider divider-info">
+            <div class="divider divider-primary">
                 <div class="divider-text">
                     Gaji Karyawan
                 </div>
@@ -82,6 +82,14 @@
                                             class="btn btn-primary btn-sm">
                                             Detail
                                         </a>
+                                        <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
+                                            data-bs-target="#addLemburModal{{ $user->slug }}">
+                                            Lembur
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#addkehadiranModal{{ $user->slug }}">
+                                            Absensi
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -92,7 +100,10 @@
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
-
+        @foreach ($users as $user)
+            @include('pages.Gaji.components.ModalAddLembur')
+            @include('pages.Gaji.components.ModalAddAbsensi')
+        @endforeach
     </div>
 
 

@@ -45,14 +45,14 @@
 //                 }));
 // })(),
 $("#bs-datepicker-autoclose").datepicker({
-    format: "d-m-yyyy",
+    // format: "dd-mm-yyyy",
     // startView: "date",
     // minViewMode: "date",
     opens: "right",
     orientation: "auto bottom",
-    autoclose: !0,
-    todayHighlight: !0,
-    immediateUpdates: !0,
+    autoclose: true,
+    todayHighlight: true,
+    immediateUpdates: true,
     // });
     // $(function () {
     //     var e = $("#bs-datepicker-basic"),

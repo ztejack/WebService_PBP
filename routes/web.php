@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WEB\TunjanganController;
 use App\Http\Controllers\WEB\AuthController;
+use App\Http\Controllers\WEB\EmployeController;
 use App\Http\Controllers\WEB\ExperienceController;
 use App\Http\Controllers\WEB\GajiController;
 use App\Http\Controllers\WEB\GajiLemburController;
@@ -97,17 +98,17 @@ Route::prefix('admin')->middleware(['auth'])->group(
         );
     }
 );
-Route::prefix('users')->middleware(['auth', 'can:UserManagement'])->group(
+Route::prefix('users')->middleware(['auth'])->group(
     function () {
         Route::get('/', [UserController::class, 'index'])->name('page_user');
         Route::get('{user}/detail', [UserController::class, 'show'])->name('detail_view_user');
         // Route::get('/store', [UserController::class, 'store_view_user'])->name('store_view_user');
-        Route::post('/store', [UserController::class, 'store'])->name('store_user');
-        Route::get('{user}/update', [UserController::class, 'update_view_user'])->name('update_view_user');
-        Route::put('update/{user}', [UserController::class, 'update'])->name('update_user');
+        Route::post('/store', [UserController::class, 'store'])->name('store_user')->middleware('can:UserManagement');
+        Route::get('{user}/update', [UserController::class, 'update_view_user'])->name('update_view_user')->middleware('can:UserManagement');
+        Route::put('update/{user}', [UserController::class, 'update'])->name('update_user')->middleware('can:UserManagement');
 
-        Route::post('/activate', [UserController::class, 'activate'])->name('activate_user');
-        Route::post('/attemp-role', [UserController::class, 'attemp_role_user'])->name('attemp_role');
+        Route::post('/activate', [UserController::class, 'activate'])->name('activate_user')->middleware('can:UserManagement');
+        Route::post('/attemp-role', [UserController::class, 'attemp_role_user'])->name('attemp_role')->middleware('can:UserManagement');
         Route::post('/attemp-permission', [UserController::class, 'attemp_permission_user'])->name('attemp_permission');
 
         Route::post('experience/store', [ExperienceController::class, 'store'])->name('store_experience_user');
@@ -122,7 +123,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
         Route::get('{user}/view/', [GajiController::class, 'view_gaji_employe'])->name('page_gaji_employe');
 
         // need ref
-        Route::post('/store/gaji_employee/{gaji}', [GajiController::class, 'update_gaji_employe'])->name('update_gaji_employe');
+        Route::post('/store/gaji_employee/{gaji}', [GajiController::class, 'update_gaji_employe'])->name('update_gaji_employe')->middleware('can:GajiManagement');
         Route::prefix('slip')->middleware(['auth'])->group(
             function () {
                 Route::get('detail/{slip}', [GajiSlipController::class, 'detail_slip_gaji'])->name('page_detail_slip_gaji');
@@ -133,7 +134,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
 
         // need ref
 
-        Route::prefix('gaji-param')->middleware(['auth'])->group(function () {
+        Route::prefix('gaji-param')->middleware(['auth', 'can:GajiManagement'])->group(function () {
             Route::get('/', [GajiParamController::class, 'index'])->name('page_gaji.param');
             Route::post('/store', [GajiParamController::class, 'store'])->name('gaji_param.store');
             Route::put('/update/{gajiparam}', [GajiParamController::class, 'update'])->name('gaji_param.update');
@@ -157,17 +158,12 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                 }
             );
         });
-        // Route::prefix('tunjangan')->middleware(['auth'])->group(
-        //     function () {
-        //         Route::post('/store/{gaji}', [TunjanganController::class, 'store'])->name('tunjangan.store');
-        //     }
-        // );
         Route::prefix('submission')->middleware(['auth'])->group(
             function () {
                 Route::get('/store', [GajiSubmissionController::class, 'view_store'])->name('submission.view_store');
                 Route::post('/store', [GajiSubmissionController::class, 'store'])->name('submission.store');
                 Route::get('/{submission}/update', [GajiSubmissionController::class, 'view_update'])->name('submission.view_update');
-                Route::put('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
+                Route::PUT('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
                 Route::post('/delete/{submission}', [GajiSubmissionController::class, 'destroy'])->name('submission.delete');
                 Route::get('/detail/{submission}', [GajiSubmissionController::class, 'show'])->name('submission.show');
             }
@@ -175,6 +171,12 @@ Route::prefix('gaji')->middleware(['auth'])->group(
     }
 );
 
+Route::prefix('employe')->middleware(['auth'])->group(
+    function () {
+        Route::get('/', [EmployeController::class, 'index'])->name('page_employe');
+        Route::get('detail/{employe}', [EmployeController::class, 'view_employe'])->name('employe.view');
+    }
+);
 Route::prefix('absensi')->middleware(['auth'])->group(
     function () {
         Route::post('/store/{employe}', [AbsensiController::class, 'store'])->name('absensi.store');

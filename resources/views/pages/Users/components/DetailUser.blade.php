@@ -48,15 +48,18 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div>
-                                <a href="/users/{{ $user->slug }}/update" class="btn btn-primary text-nowrap me-2">
-                                    <i class="bx bx-edit me-1"></i>Edit
-                                </a>
-                                <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
-                                    data-bs-target="#modalexperience">
-                                    <i class="bx bx-plus-circle me-1"></i>Add Experience
-                                </button>
-                            </div>
+                            @can('UserManagement')
+                                <div>
+                                    <a href="/users/{{ $user->slug }}/update" class="btn btn-primary text-nowrap me-2">
+                                        <i class="bx bx-edit me-1"></i>Edit
+                                    </a>
+                                    <button type="button" class="btn btn-primary text-nowrap ms-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalexperience">
+                                        <i class="bx bx-plus-circle me-1"></i>Add Experience
+                                    </button>
+                                </div>
+                            @endcan
+
                         </div>
                     </div>
 
@@ -229,22 +232,25 @@
                                         <p class="mb-2">{{ $experience->location }}</p>
 
                                     </div>
-                                    <div class="col-md-1">
-                                        <button type="button"
-                                            class="btn btn-icon btn-label-primary rounded-pill dropdown-toggle hide-arrow m-auto"
-                                            data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                class="bx bx-dots-vertical-rounded"></i></button>
-                                        <ul class="dropdown-menu dropdown-menu-end " style="">
-                                            <li>
-                                                <form action="{{ route('destroy_experience_user', $experience->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('post')
-                                                    <button class="dropdown-item" type="submit">Hapus</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    @can('UserManagement.view')
+                                        <div class="col-md-1">
+                                            <button type="button"
+                                                class="btn btn-icon btn-label-primary rounded-pill dropdown-toggle hide-arrow m-auto"
+                                                data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                    class="bx bx-dots-vertical-rounded"></i></button>
+                                            <ul class="dropdown-menu dropdown-menu-end " style="">
+                                                <li>
+                                                    <form action="{{ route('destroy_experience_user', $experience->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('post')
+                                                        <button class="dropdown-item" type="submit">Hapus</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endcan
+
                                 </div>
                             </li>
                         @endforeach

@@ -37,13 +37,13 @@
                                         </span>
                                     @else
                                         <span
-                                            class="badge {{ $payrol->aprv_2 == true ? 'bg-label-success' : 'bg-label-warning' }}"
+                                            class="badge {{ $payrol->aprv_4 == true ? 'bg-label-success' : 'bg-label-warning' }}"
                                             style="display: inline-flex">
-                                            @if ($payrol->aprv_2 == true)
+                                            @if ($payrol->aprv_4 == true)
                                                 <span class="bx bx-check-double"></span>
                                             @else
                                                 <span
-                                                    class="spinner-border spinner-border-sm me-1 {{ $payrol->aprv_2 == true ? 'text-success' : 'text-warning' }}"
+                                                    class="spinner-border spinner-border-sm me-1 {{ $payrol->aprv_4 == true ? 'text-success' : 'text-warning' }}"
                                                     role="status">
                                                 </span>
                                             @endif

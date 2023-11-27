@@ -44,8 +44,10 @@
                             <th>Jabatan</th>
                             <th>Golongan</th>
                             <th>Gaji</th>
-                            <th>Kehadiran</th>
-                            <th>Action</th>
+                            @can('GajiManagement')
+                                <th>Action</th>
+                            @endcan
+
                         </tr>
                     </thead>
                     <tbody>
@@ -59,27 +61,18 @@
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
                                 {{-- <td>{{ $user->gaji }}</td> --}}
                                 <td>Rp <span class="numberin">{{ $user->gaji }}</span></td>
-                                <td><span class="badge badge-pill bg-success fw-bold">{{ 24 - $user->absensi }}</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-baseline justify-between">
-                                        <!-- Button trigger modal -->
-                                        <a href="{{ route('page_gaji_employe', $user->slug) }}"
-                                            class="btn btn-sm btn-primary me-2">
-                                            Detail
-                                        </a>
-                                        <button class="btn btn-sm btn-dribbble me-2" data-bs-toggle="modal"
-                                            data-bs-target="#addLemburModal{{ $user->employe->uuid }}">
-                                            Lembur
-                                        </button>
-                                        @include('pages.Gaji.components.ModalAddLembur')
-                                        <button class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
-                                            data-bs-target="#addkehadiranModal{{ $user->slug }}">
-                                            Absensi
-                                        </button>
-                                        @include('pages.Gaji.components.ModalAddAbsensi')
-                                    </div>
-                                </td>
+                                @can('GajiManagement')
+                                    <td>
+                                        <div class="d-flex align-items-baseline justify-between">
+                                            <!-- Button trigger modal -->
+                                            <a href="{{ route('page_gaji_employe', $user->slug) }}"
+                                                class="btn btn-sm btn-primary me-2">
+                                                Detail
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>
@@ -90,8 +83,9 @@
                             <th>Jabatan</th>
                             <th>Golongan</th>
                             <th>Gaji</th>
-                            <th>Kehadiran</th>
-                            <th>Action</th>
+                            @can('GajiManagement')
+                                <th>Action</th>
+                            @endcan
                         </tr>
                     </tfoot>
                 </table>

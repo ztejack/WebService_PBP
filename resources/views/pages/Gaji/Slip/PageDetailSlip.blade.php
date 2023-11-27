@@ -36,7 +36,7 @@
                                         <tbody>
                                             <tr>
                                                 <td class="pe-3">Tanggal</td>
-                                                <td>: {{ $slip->date }}</td>
+                                                <td>: {{ $slip->date->format('d-m-Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="pe-3">Karyawan</td>
@@ -303,13 +303,13 @@
                                 <div class="card-body pt-0">
                                     @if ($slip->status == 'rejected')
                                         <span class="bx-flashing uppercase">
-                                            <span class="bx bx-check-double"></span>
+                                            <span class="bx bx-x-circle"></span>
                                             {{ $slip->status }}
                                         </span>
                                     @else
-                                        @if ($slip->gajisubmit->aprv_2 == true)
+                                        @if ($slip->gajisubmit->aprv_4 == true)
                                             <span class="bx-flashing uppercase">
-                                                <span class="bx bx-check-double"></span>
+                                                <span class="bx bx-check-circle"></span>
                                                 {{ $slip->status }}
                                             </span>
                                         @else
@@ -328,12 +328,20 @@
                                         @else
                                             @if ($slip->gajisubmit->aprv_1 == true)
                                                 @if ($slip->gajisubmit->aprv_2 == true)
-                                                    Telah Disetujui
+                                                    @if ($slip->gajisubmit->aprv_3 == true)
+                                                        @if ($slip->gajisubmit->aprv_4 == true)
+                                                            Disetujui
+                                                        @else
+                                                            Menunggu Persetujuan Direktur Utama
+                                                        @endif
+                                                    @else
+                                                        Menunggu Persetujuan General Manager
+                                                    @endif
                                                 @else
-                                                    Menunggu persetujuan Manager
+                                                    Menunggu persetujuan Asistem Manager
                                                 @endif
                                             @else
-                                                Menunggu persetujuan Admin
+                                                Menunggu persetujuan Supervisor
                                             @endif
                                         @endif
 

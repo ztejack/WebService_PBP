@@ -21,29 +21,11 @@
                     </button>
                 </div>
             @endif
-            {{-- @can('AprovalGajiSU') --}}
             @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval')
             <div class="divider">
                 <hr>
             </div>
             @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv')
-            {{-- @endcan --}}
-            {{-- @can('AprovalGajiAsmen')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
-            @endcan
-            @can('AprovalGajiGm')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
-            @endcan
-            @can('AprovalGajiDirut')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
-            @endcan
-            @can('AprovalGajiSpv')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionAproval2')
-                @include('pages.Task.TaskGaji.components.CardDataTaskSubmissionDoneAprv2')
-            @endcan --}}
 
 
 
