@@ -60,7 +60,7 @@
                                 <td>{{ $user->position }}</td>
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
                                 {{-- <td>{{ $user->gaji }}</td> --}}
-                                <td>Rp <span class="numberin">{{ $user->gaji }}</span></td>
+                                <td>Rp <span class="numberin">{{ round($user->gaji) }}</span></td>
                                 @can('GajiManagement')
                                     <td>
                                         <div class="d-flex align-items-baseline justify-between">

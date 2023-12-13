@@ -199,17 +199,17 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bx bx-file"></i></span>
                                     <select id="contract" name='contract' class="form-select">
-                                        @if (old('contract', $user->contract) == 'Tetap')
-                                            <option value="{{ $user->contract }}" selected>{{ $user->contract }}
-                                            </option>
-                                            {{-- <option value="Type_one">Type-one</option> --}}
-                                        @else
+                                        @if (!old('contract', $user->contract))
                                             <option value="" selected>
                                                 Select One
                                             </option>
                                         @endif
                                         @foreach ($contracts as $contract)
-                                            @if (old('contract', $user->contract) != $contract->contract)
+                                            @if (old('contract', $user->contract) == $contract->contract)
+                                                <option value="{{ $contract->contract }} "selected>
+                                                    {{ $contract->contract }}
+                                                </option>
+                                            @else
                                                 <option value="{{ $contract->contract }}">
                                                     {{ $contract->contract }}
                                                 </option>
@@ -436,7 +436,7 @@
                                     kembali </p>
                             </div>
                         </div>
-                        <form id="formAccountActivation" method="POST" action="{{ route('unarchive_user') }}">
+                        <form id="formAccountActivation" method="POST" action="{{ route('activate_user') }}">
                             @method('post')
                             @csrf
                             <input class="d-none" name="slug" hide value="{{ $user->slug }}">

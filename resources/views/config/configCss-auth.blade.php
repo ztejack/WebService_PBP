@@ -16,30 +16,30 @@
 
 
 
-<link rel="stylesheet" href="/vendor/css/datatables-bootsrap5.css">
-<link rel="stylesheet" href="/vendor/css/tweetbootstrap.css">
-<link rel="stylesheet" href="/vendor/css/animate.css">
-<link rel="stylesheet" href="/vendor/fonts/boxicons.css">
-{{-- <link rel="stylesheet" href="/vendor/css/boxicon.css"> --}}
+<link rel="stylesheet" href="{{ asset('/vendor/css/datatables-bootsrap5.css') }}">
+<link rel="stylesheet" href="{{ asset('/vendor/css/tweetbootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('/vendor/css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('/vendor/css/boxicon.css')}}"> --}}
 
 <!-- Core CSS -->
-<link rel="stylesheet" href="/vendor/css/core.css" class="template-customizer-core-css" />
-<link rel="stylesheet" href="/vendor/css/datatable.css" class="template-customizer-core-css" />
-<link rel="stylesheet" href="/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('/vendor/css/datatable.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
 <link rel="stylesheet" href="/css/demo.css" />
 
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet" href="/vendor/libs/apex-charts/apex-charts.css" />
+<link rel="stylesheet" href="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+<link rel="stylesheet" href="{{ asset('/vendor/libs/apex-charts/apex-charts.css') }}" />
 
 
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
 <!-- Page CSS -->
 <!-- Page -->
-<link rel="stylesheet" href="/vendor/css/pages/page-auth.css" />
+<link rel="stylesheet" href="{{ asset('/vendor/css/pages/page-auth.css') }}" />
 <!-- Helpers -->
-<script src="/vendor/js/helpers.js"></script>
+<script src="{{ asset('/vendor/js/helpers.js') }}"></script>
 
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-<script src="/js/config.js"></script>
+<script src="{{ asset('/js/config.js') }}"></script>

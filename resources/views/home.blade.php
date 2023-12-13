@@ -6,8 +6,8 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             {{-- @dd() --}}
-            {{-- @include('components.global.comp1') --}}
-            {{-- @include('components.global.comp2') --}}
+            {{-- @include('components.global.comp1')
+            @include('components.global.comp2') --}}
         </div>
 
         <div class="container-xxl flex-grow-1 container-p-y">

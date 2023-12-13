@@ -99,11 +99,15 @@ class AuthController extends Controller
         ]);
         // dd($user);
         if ($validatedData->fails()) {
-            redirect()->back()->withInput();
+            redirect()->back()->withErrors($validatedData)->withInput();
         };
         try {
-            $user->email = $request['email'];
-            $user->phone = $request['phone'];
+            $user->update([
+                "email" => $request['email'],
+                "phone" => $request['phone'],
+            ]);
+            // $user->email = $request['email'];
+            // $user->phone = $request['phone'];
             return redirect()->back()->with('success', 'profile created successfully')->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('err', 'profile update failed')->withInput();

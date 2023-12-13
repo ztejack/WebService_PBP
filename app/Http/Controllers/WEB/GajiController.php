@@ -75,12 +75,12 @@ class GajiController extends Controller
             $total2 = $param_BPJS->kes_min;
         }
         $tnj_bpjs_kes_P = ($total2 * $param_BPJS->kes_P) / 100;
-        $tnj_bpjs_kes_E = ($total2 * $param_BPJS->kes_E) / 100;
+        $pot_bpjs_kes_E = ($total2 * $param_BPJS->kes_E) / 100;
         $bpjs_count = (object)[
-            'tnj_bpjs_tk_P' => $tnj_bpjs_TK,
-            'pot_bpjs_tk_E' => $pot_bpjs_TK,
-            'tnj_bpjs_kes_P' => $tnj_bpjs_kes_P,
-            'pot_bpjs_kes_E' => $tnj_bpjs_kes_E,
+            'tnj_bpjs_tk_P' => round($tnj_bpjs_TK),
+            'pot_bpjs_tk_E' => round($pot_bpjs_TK + $tnj_bpjs_TK),
+            'tnj_bpjs_kes_P' => round($tnj_bpjs_kes_P),
+            'pot_bpjs_kes_E' => round($pot_bpjs_kes_E + $tnj_bpjs_kes_P),
         ];
         return $bpjs_count;
         // $tnj_bpjs_jp =
@@ -161,7 +161,7 @@ class GajiController extends Controller
         // dd((object)$absensis);
         return $absensis;
     }
-    const nanan = 123;
+    // const nanan = 123;
     public function view_gaji_employe(User $user)
     {
         $gaji = $user->employee->gaji;
@@ -226,6 +226,8 @@ class GajiController extends Controller
         ]);
 
         $total3 = array_sum([
+            $bpjs_count->tnj_bpjs_tk_P,
+            $bpjs_count->tnj_bpjs_kes_P,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
             $potongan_lainnya->pot_sakit,
@@ -258,8 +260,8 @@ class GajiController extends Controller
             'tunjangan_lapangan' => $tunjangan_lapangan,
             'lembur' => $lembur,
             'tunjangan_shift' => $sum_tnj_shift,
-            'tunjangan_BPJS_tk' => $bpjs_count->tnj_bpjs_tk_P,
-            'tunjangan_BPJS_kes' => $bpjs_count->tnj_bpjs_kes_P,
+            'tunjangan_BPJS_tk' => round($bpjs_count->tnj_bpjs_tk_P),
+            'tunjangan_BPJS_kes' => round($bpjs_count->tnj_bpjs_kes_P),
 
             'potongan_lainnya' => $potongan_lainnya,
             'total_potongan_lainnya' => $total_potongan_lainnya,
@@ -268,13 +270,13 @@ class GajiController extends Controller
             'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
 
             // 'potongan_lainnya'
-            'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
-            'potongan_BPJS_kes' => $bpjs_count->pot_bpjs_kes_E,
+            'potongan_BPJS_tk' => round($bpjs_count->pot_bpjs_tk_E + $bpjs_count->tnj_bpjs_tk_P),
+            'potongan_BPJS_kes' => round($bpjs_count->pot_bpjs_kes_E + $bpjs_count->tnj_bpjs_kes_P),
 
-            'total' => $total,
+            'total' => round($total),
 
-            'total2' => $total2,
-            'total3' => $total3
+            'total2' => round($total2),
+            'total3' => round($total3)
         ]);
     }
     public function update_gaji_employe(Request $request, Gaji $gaji)
@@ -370,6 +372,8 @@ class GajiController extends Controller
         ]);
 
         $total3 = array_sum([
+            $bpjs_count->tnj_bpjs_tk_P,
+            $bpjs_count->tnj_bpjs_kes_P,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
             $potongan_lainnya->pot_sakit,
@@ -408,7 +412,7 @@ class GajiController extends Controller
             'total3' => $total3,
             'data_absensi' => $absensis,
             'slips' => $employe->slip,
-            'total' => $total,
+            'total' => round($total),
 
         ]);
     }

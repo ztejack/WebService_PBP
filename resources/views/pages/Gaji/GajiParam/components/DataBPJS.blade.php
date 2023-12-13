@@ -29,6 +29,7 @@
                             <th>BPJS Kesehatan <span class="text-info">(Karyawan)</span></th>
                             <th>BPJS Kesehatan <span class="text-primary">(Perusahaan)</span></th>
                             <th>Create</th>
+                            <th>Update</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -42,6 +43,7 @@
                                 <td class="fw-bold">{{ $gajiparam->kes_E }} %</td>
                                 <td class="fw-bold">{{ $gajiparam->kes_P }} %</td>
                                 <td class="fw-bold">{{ $gajiparam->created_at->format('d M Y') }}</td>
+                                <td class="fw-bold">{{ $gajiparam->updated_at->format('d M Y') }}</td>
                                 <td class="fw-bold">
                                     @if ($gajiparam->status == true)
                                         <span class="badge bg-success">Active</span>
@@ -93,6 +95,7 @@
                             <th>BPJS Kesehatan <span class="text-info">(Karyawan)</span></th>
                             <th>BPJS Kesehatan <span class="text-primary">(Perusahaan)</span></th>
                             <th>Create</th>
+                            <th>Update</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

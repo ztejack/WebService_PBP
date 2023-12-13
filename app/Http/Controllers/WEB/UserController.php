@@ -51,7 +51,7 @@ class UserController extends Controller
             'phone' => $input['phonenumber'],
             'password' => '$2y$10$FtYYIEupFOAr8vMAWkMu5uVmEjGRh5VEXF80UMKsIcrV.m7k7grNi',
         ]);
-        $Role = Role::findByName('Guest');
+        $Role = Role::findByName('Employe');
         $user->assignRole($Role);
         return redirect()->back()->with('success', '')->withInput();
     }

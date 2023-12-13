@@ -9,7 +9,7 @@
                 <form action="{{ route('position.store') }}" method="post">
                     @method('POST')
                     @csrf
-                    <h6 class="mb-0">Add Satuan Kerja</h6>
+                    <h6 class="mb-0">Add Position</h6>
                     <label for="position" class="form-label"></label>
                     <input id="position" type="text" value="" name="position" class="form-control ">
                     @error('position')

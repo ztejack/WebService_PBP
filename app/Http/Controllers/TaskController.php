@@ -17,7 +17,7 @@ class TaskController extends Controller
         if (Gate::allows('AprovalGajiSU')) {
             $task = GajiSubmit::where('aprv_4', false)->Where('status', '!=', 'rejected')
                 ->orderBy('updated_at', 'desc')->get();
-            $task_history = GajiSubmit::where('status', 'aproved')->orWhere('status', 'rejected')
+            $task_history = GajiSubmit::where('status', 'aproved')
                 ->orderBy('updated_at', 'desc')->get();
             return view('pages.Task.PageDataTask', [
                 'payrolls' => $task,
@@ -92,6 +92,7 @@ class TaskController extends Controller
                 } else if (!$task->aprv_4) {
                     $task->update([
                         'aprv_4' => true,
+                        'status'=> 'aproved'
                     ]);
                     foreach ($task->gajislip as $slip) {
                         $slip->update(['status' => 'aproved']);

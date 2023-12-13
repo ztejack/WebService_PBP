@@ -58,6 +58,13 @@ return new class extends Migration
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
             $table->timestamps();
         });
+        Schema::create('gaji_rapels', function (Blueprint $table) {
+            $table->id();
+            $table->date('date')->default(now());
+            $table->integer('jumlah');
+            $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -70,6 +77,7 @@ return new class extends Migration
         // Schema::dropIfExists('pivot_tnj_gaji');
         // Schema::dropIfExists('tunjangans');
         Schema::dropIfExists('gaji_lemburs');
+        Schema::dropIfExists('gaji_rapels');
         Schema::dropIfExists('gajis');
     }
 };

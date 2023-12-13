@@ -70,7 +70,7 @@
                         <label class="form-label" for="multicol-gaji-max-jp-P">Parameter Gaji Maksimum Perhitungan
                             JP</label>
                         <div class="input-group input-group-merge">
-                            <input type="number" step="1000" id="multicol-gaji-max-jp-P" class="form-control"
+                            <input type="number" id="multicol-gaji-max-jp-P" class="form-control"
                                 value="{{ $gajiparam->gaji_max_jp }}" name="gaji-max_jp">
 
                         </div>
@@ -102,7 +102,7 @@
                         <label class="form-label" for="multicol-gajimax">Parameter Gaji Maksimum <span
                                 class="text-warning">(Kesehatan)</span></label>
                         <div class="input-group input-group-merge">
-                            <input type="number" step="1000" id="multicol-gajimax" class="form-control"
+                            <input type="number" id="multicol-gajimax" class="form-control"
                                 value="{{ $gajiparam->kes_max }}" name="gaji-max_kesehatan">
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         <label class="form-label" for="multicol-gajimin">Parameter Gaji Minimum <span
                                 class="text-warning">(Kesehatan)</span></label>
                         <div class="input-group input-group-merge">
-                            <input type="number" step="1000" id="multicol-gajimin" class="form-control"
+                            <input type="number" id="multicol-gajimin" class="form-control"
                                 value="{{ $gajiparam->kes_min }}" name="gaji-min_kesehatan">
                         </div>
                     </div>

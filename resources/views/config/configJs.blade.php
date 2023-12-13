@@ -9,16 +9,16 @@
 {{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
 </script> --}}
-<script src="/vendor/libs/popper/popper.js"></script>
+<script src="{{ asset('/vendor/libs/popper/popper.js') }}"></script>
 
-<script src="/vendor/libs/jquery/jquery.masknumber.js"></script>
+<script src="{{ asset('/vendor/libs/jquery/jquery.masknumber.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/vendor/js/bootstrap.js"></script>
-<script src="/vendor/js/jquery.PrintArea.js"></script>
-<script src="/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="{{ asset('/vendor/js/bootstrap.js') }}"></script>
+<script src="{{ asset('/vendor/js/jquery.PrintArea.js') }}"></script>
+<script src="{{ asset('/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
 
-<script src="/vendor/js/menu.js"></script>
+<script src="{{ asset('/vendor/js/menu.js') }}"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
@@ -29,7 +29,7 @@
 {{-- @if (Request::is(!'auth')) --}}
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="/js/main-dashboard.js"></script>
+<script src="{{ asset('/js/main-dashboard.js') }}"></script>
 
 
 {{-- @endif --}}

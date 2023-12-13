@@ -42,14 +42,6 @@ class Employe extends Model
         'golongan_id'
     ];
 
-    // /**
-    //  * The attributes that should be hidden for serialization.
-    //  *
-    //  * @var array<int, string>
-    //  */
-    // protected $hidden = [
-    //     // 'user_id'
-    // ];
 
     public function user()
     {
@@ -94,6 +86,10 @@ class Employe extends Model
     public function lembur()
     {
         return $this->hasMany(GajiLembur::class);
+    }
+    public function rapel()
+    {
+        return $this->hasMany(GajiRapel::class);
     }
 
     public function slip()
@@ -237,7 +233,7 @@ class Employe extends Model
         if ($total1 != 0) {
             $total = array_sum([$total1, $total2]) - $total3;
             $return = (object)[
-                'total' => $total,
+                'total' => round($total),
                 'tnj_makan' => $sum_tnj_makan,
                 'tnj_perumahan' => $sum_tnj_perumahan,
                 'tnj_transport' => $sum_tnj_transport,

@@ -100,7 +100,7 @@ class GajiSubmissionController extends Controller
                     'pot_terlambat' => $gajicount->potongan_lainnya->pot_terlambat,
                     'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
 
-                    'total' => $gajicount->total,
+                    'total' => round($gajicount->total),
                     'status' => 'Pending',
                     'employe_id' => $employe->id,
                     'gaji_submit_id' => $GajiSubmit->id,

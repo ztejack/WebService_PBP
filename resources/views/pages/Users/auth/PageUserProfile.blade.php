@@ -12,7 +12,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            @include('pages.Users.Auth.components.ProfileUser')
+            @include('pages.Users.auth.Components.ProfileUser')
         </div>
         {{-- footer --}}
         @include('components.global.footer')

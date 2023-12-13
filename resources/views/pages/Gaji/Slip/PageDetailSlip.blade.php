@@ -92,7 +92,7 @@
                                             <span class="fw-semibold ">JUMLAH I</span>
                                             <span class="me-3 fw-semibold">Rp
                                                 <span
-                                                    class="numberin">{{ array_sum([$slip->gapok, $slip->tnj_ahli, $slip->tnj_jabatan]) }}</span></span>
+                                                    class="numberin">{{ round(array_sum([$slip->gapok, $slip->tnj_ahli, $slip->tnj_jabatan])) }}</span></span>
                                         </div>
                                     </li>
 
@@ -170,7 +170,7 @@
                                             <span class="fw-semibold ">JUMLAH II</span>
                                             <span class="me-3 fw-semibold"><span>
                                                     Rp <span class="numberin">
-                                                        {{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_perumahan, $slip->total_tnj_makan]) }}</span>
+                                                        {{ round(array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_perumahan, $slip->total_tnj_makan])) }}</span>
                                                 </span>
                                             </span>
                                         </div>

@@ -104,7 +104,16 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i> Save</button>
+            <div class="mb-4">
+                <label class="form-label" for="tnj_lapangan">Tunjangan Lain</label>
+                <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"
+                    value="">
+                @error('tnj_lain')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i>
+                Save</button>
         </form>
     </div>
 </div>
