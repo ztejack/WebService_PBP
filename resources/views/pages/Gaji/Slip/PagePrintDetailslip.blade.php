@@ -151,10 +151,25 @@
                                 </div>
                             </li>
                         @endif
+                        @if ($slip->tnj_lain)
+                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                <div class="d-flex justify-content-between">
+                                    <span>Tunjangan Lain</span> <span><span
+                                            class="numberin">{{ $slip->tnj_lain }}</span></span>
+                                </div>
+                            </li>
+                        @endif
                         @if ($slip->lembur)
                             <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                 <div class="d-flex justify-content-between">
                                     <span>Uang Lembur</span> <span><span class="numberin">{{ $slip->lembur }}</span></span>
+                                </div>
+                            </li>
+                        @endif
+                        @if ($slip->rapel)
+                            <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                                <div class="d-flex justify-content-between">
+                                    <span>Uang Rapel</span> <span><span class="numberin">{{ $slip->rapel }}</span></span>
                                 </div>
                             </li>
                         @endif

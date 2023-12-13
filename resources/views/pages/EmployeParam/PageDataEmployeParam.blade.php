@@ -61,27 +61,33 @@
                 <h4 class="py-3 mb-4">
                     <span class="text-muted fw-light">Admin /</span> Satuan Kerja
                 </h4>
-                @can('SatkerManagement')
-                    @include('pages.EmployeParam.components.CardSatker')
-                @endcan
-                @can('PositionManagement')
-                    @include('pages.EmployeParam.components.CardPosition')
-                @endcan
-                @can('ContractManagement')
-                    @include('pages.EmployeParam.components.CardContract')
-                @endcan
-                @can('GolonganManagement')
-                    @include('pages.EmployeParam.components.CardGolongan')
-                @endcan
+                <div class="col-md-6">
+                    @can('SatkerManagement')
+                        @include('pages.EmployeParam.components.CardSatker')
+                    @endcan
+                    @can('PositionManagement')
+                        @include('pages.EmployeParam.components.CardPosition')
+                    @endcan
+                    @include('pages.EmployeParam.components.CardWorkLocation')
+                </div>
+                <div class="col-md-6">
+                    @can('ContractManagement')
+                        @include('pages.EmployeParam.components.CardContract')
+                    @endcan
+                    @can('GolonganManagement')
+                        @include('pages.EmployeParam.components.CardGolongan')
+                    @endcan
+                </div>
+
+
 
             </div>
+            {{-- footer --}}
+            @include('components.global.footer')
+
+            <div class="content-backdrop fade"></div>
         </div>
-        {{-- footer --}}
-        @include('components.global.footer')
-
-        <div class="content-backdrop fade"></div>
-    </div>
 
 
-    <!-- Content wrapper -->
-@endsection
+        <!-- Content wrapper -->
+    @endsection

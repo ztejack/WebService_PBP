@@ -90,6 +90,9 @@ class GajiSubmissionController extends Controller
                     'total_tnj_shift' => $gajicount->tnj_shift,
                     'total_tnj_transport' => $gajicount->tnj_transport,
                     'tnj_lapangan' => $gajicount->tnj_lapangan,
+                    'tnj_lain' => $gajicount->tnj_lain,
+                    'rapel' => $gajicount->rapel,
+                    'lembur' => $gajicount->lembur,
 
                     'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
                     'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,
@@ -164,6 +167,8 @@ class GajiSubmissionController extends Controller
                 'tnj_shift' => $gajicount->tnj_shift,
                 'total_tnj_transport' => $gajicount->tnj_transport,
                 'tnj_lapangan' => $gajicount->tnj_lapangan,
+                'tnj_lain' => $gajicount->tnj_lain,
+                'rapel' => $gajicount->rapel,
                 'lembur' => $gajicount->lembur,
                 'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
                 'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,

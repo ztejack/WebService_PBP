@@ -15,6 +15,7 @@ use App\Models\Role;
 use App\Models\Satker;
 use App\Models\Subsatker;
 use App\Models\User;
+use App\Models\WorkLocation;
 use App\Services\UserDataFormatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -140,6 +141,7 @@ class UserController extends Controller
         $satkers = Satker::all();
         $positions = Position::all();
         $contracts = Contract::all();
+        $work_locations = WorkLocation::all();
         $roles = ModelsRole::all();
         $permisions = Permission::all();
         $golongans = Golongan::all();
@@ -150,6 +152,7 @@ class UserController extends Controller
             'satkers' => $satkers,
             'positions' => $positions,
             'contracts' => $contracts,
+            'work_locations' => $work_locations,
             'optiongolongans' => $golongans,
             'optionreligions' => $optionReligion,
             'userPermisions' => $userpermission->pluck('name')->toArray(),
@@ -205,7 +208,7 @@ class UserController extends Controller
 
     public function user_resource($user)
     {
-        // dd($user);
+        // dd($user->employee->worklocation);
 
         if ($user->employee->tenure != null) {
             $inputString = $user->employee->tenure;
@@ -241,13 +244,15 @@ class UserController extends Controller
             'religion' => $user->employee->religion,
             'position' => $user->employee->position != null ? $user->employee->position->position : null,
             'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
-            'status' => $user->employee->status,
+            'status' => $user->status,
+            'status_employe' => $user->employee->status,
             'date_start' => $formattedDate,
             'tenure' => $user->employee->tenure != null ? $formattedString : $user->employee->tenure,
             'employe_uuid' => $user->employee->uuid,
             'satker' => $user->satker->satker,
             'experiences' => $user->employee->experience,
             'contract' => $user->employee->contract != null ? $user->employee->contract->contract : null,
+            'work_location' => $user->employee->worklocation != null ? $user->employee->worklocation->location : null,
         ];
         // $datax = (object)$data;
         return (object)$data;

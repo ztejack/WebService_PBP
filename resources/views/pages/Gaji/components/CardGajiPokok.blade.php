@@ -105,9 +105,9 @@
                 @enderror
             </div>
             <div class="mb-4">
-                <label class="form-label" for="tnj_lapangan">Tunjangan Lain</label>
+                <label class="form-label" for="tnj_lain">Tunjangan Lain</label>
                 <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"
-                    value="">
+                    value="{{ $tunjangan_lain }}">
                 @error('tnj_lain')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

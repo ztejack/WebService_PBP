@@ -24,10 +24,10 @@ class AbsensiController extends Controller
                 if ($absen->date->format('M Y') == now()->format('M Y')) {
                     // $absen->sakit += ;
                     $absen->update([
-                        'sakit' => $absen->sakit + $request['sakit'],
-                        'terlambat' => $absen->terlambat + $request['terlambat'],
-                        'kosong' => $absen->kosong + $request['kosong'],
-                        'perjalanan' => $absen->perjalanan + $request['perjalanan'],
+                        'sakit' => $request['sakit'],
+                        'terlambat' => $request['terlambat'],
+                        'kosong' => $request['kosong'],
+                        'perjalanan' =>  $request['perjalanan'],
                     ]);
                     return Redirect::back()->with('succ', 'Success Update Absen')->withInput();
                 }

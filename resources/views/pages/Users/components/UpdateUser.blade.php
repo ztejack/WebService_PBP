@@ -195,7 +195,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="contract" class="form-label">Contract Type {{ $user->contract }}</label>
+                                <label for="contract" class="form-label">Contract Type</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bx bx-file"></i></span>
                                     <select id="contract" name='contract' class="form-select">
@@ -245,13 +245,52 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="work_location" class="form-label">Work Location</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bx bx-building"></i></span>
+                                    <select id="work_location" name='work_location' class="form-select">
+                                        @if (!old('work_location', $user->work_location))
+                                            <option value="" selected>
+                                                Select One
+                                            </option>
+                                        @endif
+                                        @foreach ($work_locations as $work_location)
+                                            @if (old('work_location', $user->work_location) == $work_location->location)
+                                                <option value="{{ $work_location->location }} "selected>
+                                                    {{ $work_location->location }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $work_location->location }}">
+                                                    {{ $work_location->location }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                @error('work_location')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            {{-- <div class="mb-3 col-md-6">
+                                <label for="tenure" class="form-label">Tenure</label>
+
+                                @error('tenure')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div> --}}
                             {{-- Line --}}
                             <hr class="my-0 mb-2">
                             {{-- Line --}}
                             <div class="mb-3 col-md-6">
                                 <label for="nip" class="form-label">NIP</label>
                                 <input class="form-control" type="text" name="nip" id="nip"
-                                    placeholder="00000000-000000-0-000" value="{{ old('nip', $user->nip) }}">
+                                    placeholder="xxxxxxxx-xxxxxx-x-xxx" value="{{ old('nip', $user->nip) }}">
                                 @error('nip')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}

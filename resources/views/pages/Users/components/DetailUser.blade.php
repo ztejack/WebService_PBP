@@ -139,10 +139,15 @@
                 <div class="card-body">
                     <small class="text-muted text-uppercase">About</small>
                     <ul class="list-unstyled mb-4 mt-3">
-                        <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
-                                class="fw-bold  mx-2">Status:</span>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-user-check"></i><span
+                                class="fw-bold  mx-2">Status Akun:</span>
                             <span
-                                class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Innactive' }}</span>
+                                class="badge {{ $user->status == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status == true ? 'Active' : 'Inactive' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-check"></i><span
+                                class="fw-bold  mx-2">Status Employe:</span>
+                            <span
+                                class="badge {{ $user->status_employe == true ? 'bg-label-primary' : 'bg-label-warning' }}">{{ $user->status_employe == true ? 'Active' : 'Retired' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span
                                 class="fw-bold mx-2">Full Name:</span> <span>{{ $user->name ?: '-' }}</span>

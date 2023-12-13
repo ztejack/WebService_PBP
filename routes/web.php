@@ -12,6 +12,7 @@ use App\Http\Controllers\WEB\EmployeController;
 use App\Http\Controllers\WEB\ExperienceController;
 use App\Http\Controllers\WEB\GajiController;
 use App\Http\Controllers\WEB\GajiLemburController;
+use App\Http\Controllers\WEB\GajiRapelController;
 use App\Http\Controllers\WEB\GajiSubmissionController;
 use App\Http\Controllers\WEB\ParamController;
 use App\Http\Controllers\WEB\RoleController;
@@ -62,6 +63,13 @@ Route::prefix('admin')->middleware(['auth'])->group(
                         Route::post('/store', [ParamController::class, 'satker_store'])->name('satker.store');
                         Route::post('/update/{satker}', [ParamController::class, 'satker_update'])->name('satker.update');
                         Route::post('/destroy/{satker}', [ParamController::class, 'satker_destroy'])->name('satker.destroy');
+                    }
+                );
+                Route::prefix('worklocation')->middleware(['auth'])->group(
+                    function () {
+                        Route::post('/store', [ParamController::class, 'worklocation_store'])->name('worklocation.store');
+                        Route::post('/update/{worklocation}', [ParamController::class, 'worklocation_update'])->name('worklocation.update');
+                        Route::post('/destroy/{worklocation}', [ParamController::class, 'worklocation_destroy'])->name('worklocation.destroy');
                     }
                 );
                 Route::prefix('position')->middleware(['auth', 'can:PositionManagement'])->group(
@@ -189,6 +197,12 @@ Route::prefix('lembur')->middleware(['auth'])->group(
         Route::post('/store/{employe}', [GajiLemburController::class, 'store'])->name('lembur.store');
         Route::put('/update/{lembur}', [GajiLemburController::class, 'update'])->name('lembur.update');
         Route::post('/delete/{lembur}', [GajiLemburController::class, 'destroy'])->name('lembur.delete');
+    }
+);
+Route::prefix('rapel')->middleware(['auth'])->group(
+    function () {
+        Route::post('/store/{employe}', [GajiRapelController::class, 'store'])->name('rapel.store');
+        Route::post('/delete/{rapel}', [GajiRapelController::class, 'destroy'])->name('rapel.delete');
     }
 );
 Route::prefix('task')->middleware(['auth'])->group(

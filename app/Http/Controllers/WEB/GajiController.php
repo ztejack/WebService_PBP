@@ -112,42 +112,6 @@ class GajiController extends Controller
         ];
         return $potongan;
     }
-    // function absensi_grouping($absensis)
-    // {
-    //     // dd($absensis);
-    //     // Buat array untuk mengelompokkan data per bulan
-    //     $dataPerBulan = [];
-
-    //     foreach ($absensis as $absensi) {
-    //         // Ambil tahun dan bulan dari tanggal
-    //         $yearMonth = $absensi->date->format('M Y');
-
-    //         // Buat array untuk setiap tahun-bulan
-    //         if (!isset($dataPerBulan[$yearMonth])) {
-    //             $dataPerBulan[$yearMonth] = ([
-    //                 'sakit' => 0,
-    //                 'terlambat' => 0,
-    //                 'kosong' => 0,
-    //                 'perjalanan' => 0,
-    //                 'date' => now()->format('M Y'),
-    //             ]);
-    //         }
-
-    //         // Tambahkan nilai 'sakit', 'terlambat', dan 'perjalanan' ke tahun-bulan yang sesuai
-    //         $dataPerBulan[$yearMonth]['sakit'] += $absensi->sakit;
-    //         $dataPerBulan[$yearMonth]['terlambat'] += $absensi->terlambat;
-    //         $dataPerBulan[$yearMonth]['kosong'] += $absensi->kosong;
-    //         $dataPerBulan[$yearMonth]['perjalanan'] += $absensi->perjalanan;
-    //         $dataPerBulan[$yearMonth]['date'] = $absensi->date->format('M Y');
-    //     }
-    //     // dd((object)$dataPerBulan);
-    //     $data_absensi = array_map(function ($absensis) {
-    //         return (object)$item;
-    //     }, $dataPerBulan);
-    //     // dd($data_absensi);
-
-    //     return (object)$data_absensi;
-    // }
     function total_absensi($absensis, $tnj_makan, $tnj_transport)
     {
         // dd($absensis);
@@ -184,6 +148,7 @@ class GajiController extends Controller
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
         $tunjangan_lapangan = $gaji->tnj_lapangan;
+        $tunjangan_lain = $gaji->tnj_lain;
         $type_tunjangan_jabatan = $gaji->type_tunjab;
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
 
@@ -205,8 +170,24 @@ class GajiController extends Controller
         // dd($user->employee->lembur);
         $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
 
+        $rapels = $user->employee->getcurrentrapel();
+        // dd($user->employee->rapel);
+        $rapel = $rapels == null ? 0 : $rapels->jumlah;
+
         $lemburcount = $user->employee->lembur;
-        $total2 = array_sum([$sum_tnj_makan, $sum_tnj_perumahan, $sum_tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tunjangan_lapangan, $lembur]);
+        $rapelcount = $user->employee->rapel;
+        $total2 = array_sum([
+            $sum_tnj_makan,
+            $sum_tnj_perumahan,
+            $sum_tnj_shift,
+            $sum_tnj_transport,
+            $bpjs_count->tnj_bpjs_tk_P,
+            $bpjs_count->tnj_bpjs_kes_P,
+            $tunjangan_lapangan,
+            $tunjangan_lain,
+            $lembur,
+            $rapel
+        ]);
 
         $absens = $user->absensi->where('date', '>=', now()->format('m Y'));
         $absensis = $user->absensi->sortByDesc('created_at');
@@ -214,9 +195,10 @@ class GajiController extends Controller
 
         // dd($user->employee);
         // $absensiscount = $this->absensi_grouping($absensis);
-        $absensiscount = $this->total_absensi($user->employee->absensi, $tnj_makan, $tnj_transport);
+        // dd([$user->employee->absensi()->orderBy('created_at', 'desc')->get(), $user->employee->absensi]);
+        $absensiscount = $this->total_absensi($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
 
-        $potongan_lainnya = $this->absensi_count($user->employee->absensi, $tnj_makan, $tnj_transport);
+        $potongan_lainnya = $this->absensi_count($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
 
         $total_potongan_lainnya = array_sum([
             $potongan_lainnya->pot_sakit,
@@ -226,8 +208,8 @@ class GajiController extends Controller
         ]);
 
         $total3 = array_sum([
-            $bpjs_count->tnj_bpjs_tk_P,
-            $bpjs_count->tnj_bpjs_kes_P,
+            // $bpjs_count->tnj_bpjs_tk_P,
+            // $bpjs_count->tnj_bpjs_kes_P,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
             $potongan_lainnya->pot_sakit,
@@ -258,7 +240,10 @@ class GajiController extends Controller
             'tunjangan_perumahan' => $sum_tnj_perumahan,
             'tunjangan_transport' => $sum_tnj_transport,
             'tunjangan_lapangan' => $tunjangan_lapangan,
+            'tunjangan_lain' => $tunjangan_lain,
+
             'lembur' => $lembur,
+            'rapel' => $rapel,
             'tunjangan_shift' => $sum_tnj_shift,
             'tunjangan_BPJS_tk' => round($bpjs_count->tnj_bpjs_tk_P),
             'tunjangan_BPJS_kes' => round($bpjs_count->tnj_bpjs_kes_P),
@@ -267,11 +252,12 @@ class GajiController extends Controller
             'total_potongan_lainnya' => $total_potongan_lainnya,
             'data_absensi' => $absensiscount,
             'data_lembur' => $lemburcount,
+            'data_rapel' => $rapelcount,
             'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
 
             // 'potongan_lainnya'
-            'potongan_BPJS_tk' => round($bpjs_count->pot_bpjs_tk_E + $bpjs_count->tnj_bpjs_tk_P),
-            'potongan_BPJS_kes' => round($bpjs_count->pot_bpjs_kes_E + $bpjs_count->tnj_bpjs_kes_P),
+            'potongan_BPJS_tk' => round($bpjs_count->pot_bpjs_tk_E),
+            'potongan_BPJS_kes' => round($bpjs_count->pot_bpjs_kes_E),
 
             'total' => round($total),
 
@@ -298,6 +284,7 @@ class GajiController extends Controller
                     'tnj_ahli' => $request['tnj_ahli'],
                     'tnj_jabatan' => $request['tnj_jabatan'],
                     'tnj_lapangan' => $request['tnj_lapangan'],
+                    'tnj_lain' => $request['tnj_lain'],
                     'type_tunjab' => $request['tunjab-type'] != null ? $request['tunjab-type'] : '',
                     'total_gaji' => $total,
                 ]
@@ -348,11 +335,12 @@ class GajiController extends Controller
         $sum_tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
         $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
         $tnj_lapangan = $gaji->tnj_lapangan;
+        $tnj_lain = $gaji->tnj_lain;
 
         $lemburs = $employe->lembur->first();
         $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
 
-        $total2 = array_sum([$sum_tnj_makan, $tnj_perumahan, $tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tnj_lapangan, $lembur]);
+        $total2 = array_sum([$sum_tnj_makan, $tnj_perumahan, $tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tnj_lapangan, $tnj_lain, $lembur]);
 
         $absens = $employe->absensi->where('date', '>=', now()->format('m Y'));
         $absensis = $employe->absensi->sortByDesc('created_at');

@@ -150,6 +150,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->employee->getcurrentlembur();
     }
+    public function getcurrentrapel()
+    {
+        return $this->employee->getcurrentrapel();
+    }
     public function subsatker()
     {
         return $this->belongsToMany(Subsatker::class);

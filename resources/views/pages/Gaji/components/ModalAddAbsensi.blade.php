@@ -11,6 +11,15 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date</label>
+                            <div class="input-group">
+                                <input type="text" class="add-on form-control form-control-sm"
+                                    value="{{ now()->format('M Y') }}" readonly>
+                                <input type="hidden" name="date" value="{{ now() }}">
+                                <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                            </div>
+                        </div>
                         <div class="col-6 mb-3">
                             <label for="terlambat" class="form-label">Terlambat
                             </label>

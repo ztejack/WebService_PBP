@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Satker;
 use App\Models\Subsatker;
+use App\Models\WorkLocation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -37,6 +38,17 @@ class SatkerSeeder extends Seeder
         Subsatker::create([
             'subsatker' => 'Guest',
             'id_satker' => 1,
+        ]);
+
+        // WorkLocation
+        WorkLocation::create([
+            'location' => 'Tarahan'
+        ]);
+        WorkLocation::create([
+            'location' => 'Kuala Tanjung'
+        ]);
+        WorkLocation::create([
+            'location' => 'Direksi'
         ]);
     }
 }

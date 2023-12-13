@@ -15,12 +15,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                     </button>
                 </div>
+                <script>
+                    setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 5000);
+                </script>
             @elseif (session()->has('err'))
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     {{ session('err') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                     </button>
                 </div>
+                <script>
+                    setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 5000);
+                </script>
             @endif
             <div class="row">
                 <div class="col-md-8">
@@ -50,6 +60,7 @@
                 <div class="col-md-4">
                     @include('pages.Gaji.components.CardAbsensi')
                     @include('pages.Gaji.components.CardLembur')
+                    @include('pages.Gaji.components.CardRapel')
                     @include('pages.Gaji.components.CardSlipGaji')
                 </div>
             </div>

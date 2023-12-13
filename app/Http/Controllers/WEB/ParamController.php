@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Golongan;
 use App\Models\Position;
 use App\Models\Satker;
+use App\Models\WorkLocation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -21,13 +22,14 @@ class ParamController extends Controller
         $positions = Position::all();
         $contracs = Contract::all();
         $golongans = Golongan::all();
-        $golongans = Golongan::all();
+        $worklocations = WorkLocation::all();
 
         return view('pages.EmployeParam.PageDataEmployeParam', [
             'satkers' => $satkers,
             'positions' => $positions,
             'contracs' => $contracs,
             'golongans' => $golongans,
+            'worklocations' => $worklocations,
         ]);
     }
 
@@ -82,7 +84,7 @@ class ParamController extends Controller
     }
     public function satker_destroy(Request $request, Satker $satker)
     {
-        if (in_array($satker->name, ['Guest'])) {
+        if (in_array($satker->satker, ['Guest'])) {
             return Redirect::back()->with('err', 'Satker ini tidak dapat di hapus')->withInput();
         };
         try {
@@ -267,6 +269,66 @@ class ParamController extends Controller
             return redirect()->back()->with('succ', 'Succes  Golongan')->withInput();
         } catch (\Exception $e) {
             return Redirect::back()->with('err', 'Deleting Golongan Failed')->withInput();
+        }
+    }
+    /**
+     * WorkLocation
+     *
+     * @return void
+     */
+    public function worklocation_store(Request $request)
+    {
+        $validatedData = Validator::make($request->all(), [
+            'location' => 'required|unique:work_locations|max:255',
+        ]);
+        if ($validatedData->fails()) {
+            return Redirect::back()->withErrors($validatedData)->withInput();
+        }
+        $WorkLocation = WorkLocation::create(['location' => $request->location]);
+        if ($WorkLocation) {
+            return redirect()->back()->with('success', 'Location created successfully');
+        } else {
+            return redirect()->back()->with('err', 'Location creation failed')->withInput();
+        }
+    }
+
+    public function worklocation_update(Request $request, WorkLocation $worklocation)
+    {
+        if (in_array($worklocation->location, ['Tarahan', 'Kuala Tanjung', 'Direksi'])) {
+            return Redirect::back()->with('err', 'Nama Lokasi ini tidak dapat diganti')->withInput();
+        };
+        $worklocationname = $request['locationname'];
+        $validationRules = [
+            $worklocationname => [
+                'required',
+                'string',
+                Rule::unique('work_locations', 'location')->ignore($worklocation->id),
+            ],
+        ];
+
+        $validator = Validator::make($request->all(), $validationRules);
+
+        if ($validator->fails()) {
+            // return Redirect::back()->with('errors', 0)->withInput();
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+        try {
+            $worklocation->update(['location' => $request[$worklocationname]]);
+            return redirect()->back()->with('success', '')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Location creation failed')->withInput();
+        }
+    }
+    public function worklocation_destroy(Request $request, WorkLocation $worklocation)
+    {
+        if (in_array($worklocation->location, ['Tarahan', 'Kuala Tanjung', 'Direksi'])) {
+            return Redirect::back()->with('err', 'Lokasi ini tidak dapat dihapus')->withInput();
+        };
+        try {
+            $worklocation->delete();
+            return redirect()->back()->with('succ', 'Berhasil Menghapus Lokasi')->withInput();
+        } catch (\Exception $e) {
+            return Redirect::back()->with('err', 'Gagal Menghapus Lokasi')->withInput();
         }
     }
 }

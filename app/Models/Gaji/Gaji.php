@@ -2,6 +2,7 @@
 
 namespace App\Models\Gaji;
 
+use App\Models\Employe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +32,6 @@ class Gaji extends Model
     }
     public function tunjangan()
     {
-        return $this->belongsTo(Tunjangan::class);
+        return $this->belongsTo(Tunjangan_lain::class);
     }
 }

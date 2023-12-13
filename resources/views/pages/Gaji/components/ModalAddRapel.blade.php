@@ -1,12 +1,13 @@
-<div class="modal fade" id="addLemburModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="addrapelModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Lembur</h5>
+                <h5 class="modal-title" id="exampleModalLabel2">Rapel
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{ route('lembur.store', $user->slug) }}" method="post">
+            <form action="{{ route('rapel.store', $user->slug) }}" method="post">
                 @method('POST')
                 @csrf
                 <div class="modal-body">
@@ -22,10 +23,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="jumlah_lembur">Nominal Lembur</label>
-                            <input type="number" min="0" class="form-control form-control-sm" id="jumlah_lembur"
-                                name="jumlah_lembur" value="{{ $user->employee->getcurrentlembur()->jumlah }}"
-                                placeholder="Enter Amount">
+                            <label class="form-label" for="jumlah_rapel">Nominal Rapel</label>
+                            <input type="number" min="0" class="form-control form-control-sm" id="jumlah_rapel"
+                                name="jumlah_rapel" value="" placeholder="Enter Amount">
                         </div>
 
                     </div>

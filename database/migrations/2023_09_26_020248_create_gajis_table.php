@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('total_gaji')->default(0);
             $table->string('tnj_jabatan')->default(0);
             $table->string('tnj_lapangan')->default(0);
-            $table->string('type_tunjab')->nullable();
-            // $table->string('tnj_mkn')->nullable();
+            $table->string('type_tunjab')->nullable()->default(0);
+            $table->string('tnj_lain')->nullable()->default(0);
             // $table->string('tnj_perumahan')->nullable();
             // $table->string('tnj_transport')->nullable();
             // $table->string('tnj_shift')->nullable();

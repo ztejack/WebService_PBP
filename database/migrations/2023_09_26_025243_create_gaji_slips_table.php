@@ -37,6 +37,8 @@ return new class extends Migration
             $table->string('total_tnj_shift')->nullable()->default(0);
             $table->string('total_tnj_transport')->nullable()->default(0);
             $table->string('tnj_lapangan')->nullable()->default(0);
+            $table->string('tnj_lain')->nullable()->default(0);
+
             $table->string('tnj_bpjs_tk')->nullable()->default(0);
             $table->string('tnj_bpjs_kes')->nullable()->default(0);
             $table->string('pot_bpjs_tk')->nullable()->default(0);
@@ -45,7 +47,9 @@ return new class extends Migration
             $table->string('pot_kosong')->nullable()->default(0);
             $table->string('pot_terlambat')->nullable()->default(0);
             $table->string('pot_perjalanan')->nullable()->default(0);
+
             $table->string('lembur')->nullable()->default(0);
+            $table->string('rapel')->nullable()->default(0);
             $table->string('total')->nullable()->default(0);
             $table->string('status')->nullable();
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes');

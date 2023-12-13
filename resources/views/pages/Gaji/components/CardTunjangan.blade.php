@@ -8,32 +8,55 @@
             <div class="card-body">
                 <table class="w-100">
                     <tbody class="text-end">
-                        <tr>
-                            <td class="pe-3">Uang Bantuan Perumahan:</td>
-                            <td><span class="numbers">{{ $tunjangan_perumahan }}</span></td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Uang Makan:</td>
-                            <td><span class="numbers">{{ $tunjangan_makan }}</span></td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Uang Transport:</td>
-                            <td><span class="numbers">{{ $tunjangan_transport }}</span></td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Uang Shift:</td>
-                            <td><span class="numbers">{{ $tunjangan_shift }}</span></td>
-                        </tr>
+                        @if ($tunjangan_perumahan)
+                            <tr>
+                                <td class="pe-3">Uang Bantuan Perumahan:</td>
+                                <td><span class="numbers">{{ $tunjangan_perumahan }}</span></td>
+                            </tr>
+                        @endif
+
+                        @if ($tunjangan_makan)
+                            <tr>
+                                <td class="pe-3">Uang Makan:</td>
+                                <td><span class="numbers">{{ $tunjangan_makan }}</span></td>
+                            </tr>
+                        @endif
+
+                        @if ($tunjangan_transport)
+                            <tr>
+                                <td class="pe-3">Uang Transport:</td>
+                                <td><span class="numbers">{{ $tunjangan_transport }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tunjangan_shift)
+                            <tr>
+                                <td class="pe-3">Uang Shift:</td>
+                                <td><span class="numbers">{{ $tunjangan_shift }}</span></td>
+                            </tr>
+                        @endif
+
                         @if ($tunjangan_lapangan != false)
                             <tr>
                                 <td class="pe-3">Uang Lapangan:</td>
                                 <td><span class="numbers">{{ $tunjangan_lapangan }}</span></td>
                             </tr>
                         @endif
+                        @if ($tunjangan_lain)
+                            <tr>
+                                <td class="pe-3">Uang Tunjangan Lain:</td>
+                                <td><span class="numbers">{{ $tunjangan_lain }}</span></td>
+                            </tr>
+                        @endif
                         @if ($lembur != false)
                             <tr>
                                 <td class="pe-3">Uang Lembur:</td>
                                 <td><span class="numbers">{{ $lembur }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($rapel != false)
+                            <tr>
+                                <td class="pe-3">Uang Rapel:</td>
+                                <td><span class="numbers">{{ $rapel }}</span></td>
                             </tr>
                         @endif
 

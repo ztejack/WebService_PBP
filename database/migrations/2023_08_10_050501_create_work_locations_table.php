@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gaji_rapels', function (Blueprint $table) {
+        Schema::create('work_locations', function (Blueprint $table) {
             $table->id();
+            $table->string('location');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gaji_rapels');
+        Schema::dropIfExists('work_locations');
     }
 };

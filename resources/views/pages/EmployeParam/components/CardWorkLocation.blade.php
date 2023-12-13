@@ -1,16 +1,16 @@
 <div class="card mb-4">
     <div class="card-header">
-        <h5 class="card-text">Satuan Kerja</h5>
+        <h5 class="card-text">Lokasi Kerja</h5>
     </div>
     <div class="card-body">
         <div class="row">
-            <form action="{{ route('satker.store') }}" method="post">
+            <form action="{{ route('worklocation.store') }}" method="post">
                 @method('POST')
                 @csrf
-                <h6 class="mb-0">Add Satuan Kerja</h6>
-                <label for="satker" class="form-label"></label>
-                <input id="satker" type="text" value="" name="satker" class="form-control">
-                @error('satker')
+                <h6 class="mb-0">Add Lokasi Kerja</h6>
+                <label for="location" class="form-label"></label>
+                <input id="location" type="text" value="" name="location" class="form-control">
+                @error('location')
                     <div class="invalid-feedback d-block">
                         {{ $message }}
                     </div>
@@ -32,37 +32,37 @@
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @foreach ($satkers as $satker)
+                        @foreach ($worklocations as $worklocation)
                             <tr>
-                                <td><span class="fw-medium">{{ $satker->satker }}</span></td>
+                                <td><span class="fw-medium">{{ $worklocation->location }}</span></td>
                                 <td><span class="badge bg-label-success"><i class="bx bx-user"></i>
-                                        {{ $satker->employee->count() }}</span></td>
+                                        {{ $worklocation->employee->count() }}</span></td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-label-warning btn-sm"
-                                            id="BtnDropdownFormSatker{{ $satker->id }}" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false"><i
+                                            id="BtnDropdownFormWorkLocation{{ $worklocation->id }}"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                                 class="bx bx-edit-alt me-1"></i> Edit</button>
-                                        {{-- Form Edit Satker --}}
+                                        {{-- Form Edit Work Location --}}
                                         <div class="dropdown-menu dropdown-menu-end w-px-300" style="">
                                             <form class="p-4" method="post"
-                                                action="{{ route('satker.update', $satker->id) }}">
+                                                action="{{ route('worklocation.update', $worklocation->id) }}">
                                                 @method('POST')
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="DropdownFormSatker" class="form-label">Satker
+                                                    <label for="DropdownFormWorkLocation" class="form-label">Location
                                                         Name</label>
-                                                    <input type="name" name="satkername"
-                                                        value="satker{{ $satker->id }}" hidden>
-                                                    <input type="name" name="satker{{ $satker->id }}"
-                                                        class="form-control" id="DropdownFormSatker"
-                                                        placeholder="Enter Satker Name"
-                                                        value="{{ old('satker' . $satker->id . '') }}">
-                                                    @error('satker' . $satker->id . '')
+                                                    <input type="name" name="locationname"
+                                                        value="location{{ $worklocation->id }}" hidden>
+                                                    <input type="name" name="location{{ $worklocation->id }}"
+                                                        class="form-control" id="DropdownFormWorkLocation"
+                                                        placeholder="Enter Location Name"
+                                                        value="{{ old('location' . $worklocation->id . '') }}">
+                                                    @error('location' . $worklocation->id . '')
                                                         <script>
                                                             $(document).ready(function() {
                                                                 // Trigger a click event on the button when the document is ready
-                                                                $('#BtnDropdownFormSatker{{ $satker->id }}').click();
+                                                                $('#BtnDropdownFormWorkLocation{{ $worklocation->id }}').click();
                                                             });
                                                         </script>
 
@@ -76,11 +76,11 @@
                                             <div class="dropdown-divider"></div>
                                         </div>
                                         <form class="d-inline" method="post"
-                                            action="{{ route('satker.destroy', $satker->id) }}">
+                                            action="{{ route('worklocation.destroy', $worklocation->id) }}">
                                             @method('POST')
                                             @csrf
                                             <button type="submit" class="btn btn-label-danger btn-sm"
-                                                onclick="return confirm('Are you sure you want to delete this Contract?')"><i
+                                                onclick="return confirm('Are you sure you want to delete this Locationt?')"><i
                                                     class="bx  bx-trash me-1"></i> Delete</button>
                                         </form>
                                     </div>

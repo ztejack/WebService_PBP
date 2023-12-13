@@ -6,12 +6,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
+    <script>
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
 @elseif (session()->has('errors'))
     <div class="alert alert-danger alert-dismissible" role="alert">
         Gagal menambahkan data
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
+    <script>
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
 @endif
 @if (session()->has('succ'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -19,12 +29,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
+    <script>
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
 @elseif (session()->has('err'))
     <div class="alert alert-danger alert-dismissible" role="alert">
         {{ session('err') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
+    <script>
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
 @endif
 <div class="card">
     <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">

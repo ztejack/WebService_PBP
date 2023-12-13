@@ -7,6 +7,7 @@ use App\Http\Controllers\WEB\GajiController;
 use App\Models\Gaji\Absensi;
 use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiLembur;
+use App\Models\Gaji\GajiRapel;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiSlip;
 use App\Models\Gaji\GajiSubmit;
@@ -38,6 +39,7 @@ class Employe extends Model
         'user_id',
         'contract_id',
         'satker_id',
+        'worklocation_id',
         'position_id',
         'golongan_id'
     ];
@@ -58,6 +60,10 @@ class Employe extends Model
     public function satker()
     {
         return $this->belongsTo(Satker::class);
+    }
+    public function worklocation()
+    {
+        return $this->belongsTo(WorkLocation::class);
     }
     public function position()
     {
@@ -114,6 +120,17 @@ class Employe extends Model
         }
         // $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
         return (object)$lemburs;
+    }
+    public function getcurrentrapel()
+    {
+        $rapels = $this->rapel()->where('date', '>=', now()->format('m Y'))->first();
+
+        if ($rapels === null) {
+            $rapels = ['jumlah' => 0];
+            return (object)$rapels;
+        }
+        // $lembur = $rapels == null ? 0 : $rapels->jumlah;
+        return (object)$rapels;
     }
     public function getcurrentabsensi()
     {
@@ -196,6 +213,7 @@ class Employe extends Model
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
         $tunjangan_lapangan = $gaji->tnj_lapangan;
+        $tunjangan_lain = $gaji->tnj_lain;
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
 
 
@@ -213,15 +231,35 @@ class Employe extends Model
         $GajiController = new GajiController();
         $bpjs_count = $GajiController->bpjs_cout($gaji_pokok, $total1, $param_tnj);
 
-        $lemburs = $this->lembur->where('date', '>=', now()->format('m Y'))->first();
-        // dd($user->employee->lembur);
+        $lemburs = $this->getcurrentlembur();
+        // dd($this->lembur);
         $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
-        $total2 = array_sum([$sum_tnj_makan, $sum_tnj_perumahan, $sum_tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tunjangan_lapangan, $lembur]);
+
+        $rapels = $this->getcurrentrapel();
+        // dd($this->rapel);
+        $rapel = $rapels == null ? 0 : $rapels->jumlah;
+
+        $lemburcount = $this->lembur;
+        $rapelcount = $this->rapel;
+        $total2 = array_sum([
+            $sum_tnj_makan,
+            $sum_tnj_perumahan,
+            $sum_tnj_shift,
+            $sum_tnj_transport,
+            $bpjs_count->tnj_bpjs_tk_P,
+            $bpjs_count->tnj_bpjs_kes_P,
+            $tunjangan_lapangan,
+            $tunjangan_lain,
+            $lembur,
+            $rapel
+        ]);
 
         $absens = $this->absensi->where('date', '>=', now()->format('m Y'));
         $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
 
         $total3 = array_sum([
+            // $bpjs_count->tnj_bpjs_tk_P,
+            // $bpjs_count->tnj_bpjs_kes_P,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
             $potongan_lainnya->pot_sakit,
@@ -238,7 +276,9 @@ class Employe extends Model
                 'tnj_perumahan' => $sum_tnj_perumahan,
                 'tnj_transport' => $sum_tnj_transport,
                 'tnj_lapangan' => $tunjangan_lapangan,
+                'tnj_lain' => $tunjangan_lain,
                 'lembur' => $lembur,
+                'rapel' => $rapel,
                 'tnj_shift' => $sum_tnj_shift,
                 'bpjs_var' => $bpjs_count,
                 'potongan_lainnya' => $potongan_lainnya,
@@ -252,8 +292,10 @@ class Employe extends Model
             'tnj_perumahan' => 0,
             'tnj_transport' => 0,
             'tnj_lapangan' => 0,
+            'tnj_lain' => 0,
             'tnj_shift' => 0,
             'lembur' => 0,
+            'rapel' => 0,
             'bpjs_var' => $bpjs_count,
             'potongan_lainnya' => $potongan_lainnya,
         ];
