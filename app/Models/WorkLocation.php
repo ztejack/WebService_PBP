@@ -28,6 +28,6 @@ class WorkLocation extends Model
     }
     public function employee()
     {
-        return $this->hasMany(Employe::class);
+        return $this->hasMany(Employe::class, 'worklocation_id');
     }
 }

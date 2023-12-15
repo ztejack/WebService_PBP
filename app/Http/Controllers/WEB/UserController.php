@@ -69,13 +69,14 @@ class UserController extends Controller
     }
     public function update(UpdateUserRequest $request, User $user)
     {
+        // dd($request);
         $input = $request->validated();
         // $user = User::where('slug', $input['slug'])->first();
         $positions = Position::all();
         $satkers = Satker::all();
         $golongans = Golongan::all();
         $contracts = Contract::all();
-        // dd($user);
+        $work_locations = WorkLocation::all();
 
         $user->name = $input['name'];
         $user->username = $input['username'];
@@ -91,10 +92,9 @@ class UserController extends Controller
         $employee->ktp_address = $input['addressid'];
         $employee->date_start = $input['date_start'];
         $employee->status_keluarga = $input['status_keluarga'];
+        $employee->status = $input['status_employe'];
         $employee->tenure = $input['val_tenure'];
-        // $employee->contract_type = $input['contract'];s
         $employee->religion = $input['religion'];
-        // $employee->golongan = $input['golongan'];
         $employee->gender = $input['gender'];
         foreach ($contracts as $contract) {
             if ($contract->contract == $input['contract']) {
@@ -114,6 +114,11 @@ class UserController extends Controller
         foreach ($satkers as $satker) {
             if ($satker->satker == $input['satker']) {
                 $employee->satker_id = $satker->id;
+            }
+        }
+        foreach ($work_locations as $work_location) {
+            if ($work_location->location == $input['work_location']) {
+                $employee->worklocation_id = $work_location->id;
             }
         }
 
@@ -162,7 +167,63 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
-        $user = $this->user_resource($user);
+        $tunjangan_pph = 1;
+        $pphbulan = 0;
+        $bruto = 15000000;
+        $pph21 = 0;
+        while ($tunjangan_pph != 0) {
+            if (($bruto * 5 / 100) > 500000) {
+                $pehitung = 500000;
+                $pehitung = $pehitung * 12;
+                $ptkp = 6300000;
+                $pkp = $pehitung - $ptkp;
+                dd($pkp);
+                $pembulat = round($pkp, 0);
+                dd($pembulat);
+                if ($pembulat < 60000000) {
+                    $pph21 = $pembulat * 5 / 100;
+                    $pphbulan = $pph21 / 12;
+                    if ($tunjangan_pph == $pphbulan) {
+                        dd([$pph21, $pphbulan, $tunjangan_pph]);
+                    }
+                    $tunjangan_pph = $pphbulan;
+                } elseif ($pembulat < 250000000) {
+                    $pph21 = $pembulat * 15 / 100;
+                    $pphbulan = $pph21 / 12;
+                    if ($tunjangan_pph == $pphbulan) {
+                        dd([$pph21, $pphbulan]);
+                    }
+                    $tunjangan_pph = $pphbulan;
+                }
+            } else {
+                $pehitung = $bruto * 5 / 100;
+                $pehitung = $pehitung * 12;
+                $ptkp = 63000000;
+                $pkp = $pehitung - $ptkp;
+                $pembulat = round($pkp, 0);
+                if ($pembulat < 60000000) {
+                    $pph21 = $pembulat * 5 / 100;
+                    $pphbulan = $pph21 / 12;
+                    if ($tunjangan_pph == $pphbulan) {
+                        dd([$pph21, $pphbulan, $tunjangan_pph]);
+                    }
+                    $tunjangan_pph = $pphbulan;
+                } elseif ($pembulat < 250000000) {
+                    $pph21 = $pembulat * 15 / 100;
+                    $pphbulan = $pph21 / 12;
+                    if ($tunjangan_pph == $pphbulan) {
+                        dd([$pph21, $pphbulan]);
+                    }
+                    $tunjangan_pph = $pphbulan;
+                }
+            }
+        }
+        $bruto = 0;
+        $bi_jabatan =
+
+
+            // IF(HV9*5%>6000000;6000000;HV9*5%)
+            $user = $this->user_resource($user);
         // dd($user);
         return view("pages.Users.PageUserDetail", [
             'user' => $user,
@@ -208,7 +269,7 @@ class UserController extends Controller
 
     public function user_resource($user)
     {
-        // dd($user->employee->worklocation);
+        // dd($user->employee->worklocation());
 
         if ($user->employee->tenure != null) {
             $inputString = $user->employee->tenure;

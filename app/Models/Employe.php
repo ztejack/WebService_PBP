@@ -63,7 +63,7 @@ class Employe extends Model
     }
     public function worklocation()
     {
-        return $this->belongsTo(WorkLocation::class);
+        return $this->belongsTo(WorkLocation::class, 'worklocation_id');
     }
     public function position()
     {

@@ -54,30 +54,17 @@ class UpdateUserRequest extends FormRequest
                 'string',
             ],
             'phonenumber' => 'required',
-            'nip' =>
-            [
-                'required',
-                Rule::unique('employes', 'nip')->ignore($employe),
-                'string',
-            ],
-            'nik' =>
-            [
-                'required',
-                Rule::unique('employes', 'nik')->ignore($employe),
-                'string',
-            ],
-            'npwp' =>
-            [
-                'required',
-                Rule::unique('employes', 'npwp')->ignore($employe),
-                'string',
-            ],
+            'nip' => '',
+            'nik' => '',
+            'npwp' => '',
             'tempat' => '',
             'tanggal' => '',
             'address' => '',
             'addressid' => '',
             'status_keluarga' => '',
             'gender' => '',
+            'status_employe' => '',
+            'work_location' => '',
             'religion' => '',
             'position' => '',
             'satker' => '',

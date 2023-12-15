@@ -174,6 +174,10 @@
                                 class="fw-bold mx-2">Contract:</span>
                             <span>{{ $user->contract ?: '-' }}</span>
                         </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-building"></i><span
+                                class="fw-bold mx-2">Work Location:</span>
+                            <span>{{ $user->work_location ?: '-' }}</span>
+                        </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-timer"></i><span
                                 class="fw-bold mx-2">Start Work:</span>
                             <span>{{ $user->date_start ?: '-' }}</span>
@@ -181,7 +185,7 @@
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
                                 class="fw-bold mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
                         </li>
-                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-child"></i><span
                                 class="fw-bold mx-2">Status Keluarga:</span>
                             <span>K/{{ $user->status_keluarga }}</span>
                         </li>
@@ -192,8 +196,9 @@
                                 class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span
                                 class="fw-bold mx-2">Gender:</span> <span>{{ $user->gender ?: '-' }}</span>
                         </li>
-                        <li class="d-flex align-items-center mb-3"><i class="bx bx-droplet"></i><span
-                                class="fw-bold mx-2">Religion:</span>
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="bx bx-droplet"></i>
+                            <span class="fw-bold mx-2">Religion:</span>
                             <span>{{ $user->religion ?: '-' }}</span>
                         </li>
 
@@ -204,8 +209,15 @@
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-phone"></i><span
                                 class="fw-bold mx-2">Contact:</span> <span>{{ $user->phone ?: '-' }}</span>
                         </li>
-                        <li class="d-flex align-items-center mb-3"><i class="bx bx-envelope"></i><span
-                                class="fw-bold mx-2">Email:</span> <span>{{ $user->email ?: '-' }}</span>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="row">
+                                <span>
+                                    <i class="col bx bx-envelope"></i>
+                                    <span class="col fw-bold mx-2">Email:</span>
+                                </span>
+                                <span>{{ $user->email ?: '-' }}</span>
+                            </div>
+
                         </li>
                     </ul>
 

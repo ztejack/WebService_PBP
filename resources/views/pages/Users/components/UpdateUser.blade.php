@@ -275,15 +275,34 @@
                                     </div>
                                 @enderror
                             </div>
-                            {{-- <div class="mb-3 col-md-6">
-                                <label for="tenure" class="form-label">Tenure</label>
-
-                                @error('tenure')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $message }}
+                            <div class="mb-3 col-md-6">
+                                <label for="status_employe" class="form-label">Status Employe</label>
+                                <div class="w-100 m-auto">
+                                    <div class="form-check form-check-inline">
+                                        <input name="status_employe"
+                                            class="form-check-input @error('status_employe') is-invalid @enderror"
+                                            type="radio" value="1"
+                                            data-custom-attr="{{ $user->status_employe }} "
+                                            id="status_employe-active" required
+                                            {{ $user->status_employe ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status_employe-active">Active</label>
                                     </div>
+                                    <div class="form-check form-check-inline form-check-danger">
+                                        <input name="status_employe"
+                                            class="form-check-input @error('status_employe') is-invalid @enderror"
+                                            type="radio" value="0"
+                                            data-custom-attr=" {{ $user->status_employe }} "
+                                            id="status_employe-retired" required
+                                            {{ !$user->status_employe ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status_employe-retired">Retired
+                                        </label>
+                                    </div>
+                                </div>
+
+                                @error('status_employe')
+                                    <div class="invalid-feedback"> $message </div>
                                 @enderror
-                            </div> --}}
+                            </div>
                             {{-- Line --}}
                             <hr class="my-0 mb-2">
                             {{-- Line --}}

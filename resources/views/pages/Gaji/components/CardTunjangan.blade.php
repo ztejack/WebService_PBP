@@ -2,8 +2,8 @@
     <div class="col-md-6">
         <div class="card mb-4 ">
             <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
-                <h5 class="">Tunjangan</h5>
-                <small class="text-muted float-end">Tunjangan</small>
+                <h5 class=""><span class="badge badge-center bg-primary">II</span> Fasilitas</h5>
+                <small class="text-muted float-end">II Fasilitas</small>
             </div>
             <div class="card-body">
                 <table class="w-100">
@@ -90,8 +90,8 @@
     <div class="col-md-6 pb-4" style="height: inherit">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
-                <h5 class="">Potongan</h5>
-                <small class="text-muted float-end">Potongan</small>
+                <h5 class=""><span class="badge badge-center bg-primary">III</span> Potongan</h5>
+                <small class="text-muted float-end">III Potongan</small>
             </div>
             <div class="card-body">
                 <table class="w-100">
