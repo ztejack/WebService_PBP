@@ -39,18 +39,20 @@ class GajiSubmissionController extends Controller
         }
         // dd((object)$months);
         $users = User::all()->where('username', '!=', 'superuser');
-        $gajis = Gaji::all();
         $collectionuser = $users->map(function ($user) {
             return $this->user_resource($user);
         });
-        // dd($gajis);
-        // dd($collectionuser);
-        // foreach ($users as $user) {
-        //     dd($user->employee->gajicount());
-        // };
-        return view('pages.Gaji.Submission.PageAddSubmission', [
+        $users = User::whereHas('employee', function ($query) {
+            $query->whereHas('worklocation', function ($query) {
+                $query->where('location', 'direksi');
+            });
+        })->get();
+        $collectionuserdireksi = $users->map(function ($user) {
+            return $this->user_resource($user);
+        });
+        return view('pages.Gaji.Submission.PageAddSubmission',  [
             'users' => $collectionuser,
-            'gaji' => $gajis,
+            'userdireksis' => $collectionuserdireksi,
             'months' => (object) $selectedMonths
         ]);
     }

@@ -194,13 +194,13 @@ $(document).ready(function () {
         scrollX: true,
     });
 
-    $("table.display").DataTable({
-        paging: false,
-        ordering: false,
-        info: false,
-        searching: false,
-        scrollY: true,
-        scrollX: true,
+    $("table.table-display").DataTable({
+        // paging: false,
+        // ordering: false,
+        // info: false,
+        // searching: false,
+        // scrollY: true,
+        // scrollX: true,
     });
 
     // });

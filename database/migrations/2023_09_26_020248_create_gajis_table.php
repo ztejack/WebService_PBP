@@ -22,9 +22,25 @@ return new class extends Migration
             $table->string('tnj_lapangan')->default(0);
             $table->string('type_tunjab')->nullable()->default(0);
             $table->string('tnj_lain')->nullable()->default(0);
-            // $table->string('tnj_perumahan')->nullable();
-            // $table->string('tnj_transport')->nullable();
-            // $table->string('tnj_shift')->nullable();
+            $table->string('tnj_perumahan')->nullable()->default(0);
+            $table->string('tnj_bantuan_perumahan')->nullable()->default(0);
+            $table->string('tnj_taspen')->nullable()->default(0);
+            $table->string('tnj_pensiun_perusahaan')->nullable()->default(0);
+            $table->string('tnj_hari_tua_p')->nullable()->default(0);
+            $table->string('jmn_hari_tua_p')->nullable()->default(0);
+            $table->string('tnj_pph21')->nullable()->default(0);
+            $table->string('tnj_simponi')->nullable()->default(0);
+
+            $table->string('pot_serikat_pegawai_ba')->nullable()->default(0);
+            $table->string('pot_koperasi')->nullable()->default(0);
+            $table->string('pot_lazis')->nullable()->default(0);
+            $table->string('pot_dana_pensiun')->nullable()->default(0);
+            $table->string('pot_premi_jht')->nullable()->default(0);
+            $table->string('pot_tht')->nullable()->default(0);
+            $table->string('pot_taspen')->nullable()->default(0);
+            $table->string('pot_pph21')->nullable()->default(0);
+            $table->string('pot_simponi')->nullable()->default(0);
+            $table->string('pot_lain')->nullable()->default(0);
             // $table->string('fasilitas_lain')->nullable();
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
             $table->timestamps();

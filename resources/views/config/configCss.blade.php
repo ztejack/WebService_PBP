@@ -18,6 +18,7 @@
 
 
 <link rel="stylesheet" href="{{ asset('/vendor/css/datatables-bootsrap5.css') }}">
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" /> --}}
 <link rel="stylesheet" href="{{ asset('/vendor/css/tweetbootstrap.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('/vendor/css/animate.css')}}"> --}}
 <link rel="stylesheet" href="{{ asset('/vendor/fonts/boxicons.css') }}">
@@ -25,6 +26,7 @@
 
 <!-- Core CSS -->
 <link rel="stylesheet" href="{{ asset('/vendor/css/core.css') }}" class="template-customizer-core-css" />
+
 <link rel="stylesheet" href="{{ asset('/vendor/css/datatable.css') }}" class="template-customizer-core-css" />
 <link rel="stylesheet" href="{{ asset('/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
 <link rel="stylesheet" href="{{ asset('/css/demo.css') }}" />

@@ -331,4 +331,64 @@ class ParamController extends Controller
             return Redirect::back()->with('err', 'Gagal Menghapus Lokasi')->withInput();
         }
     }
+    /**
+     * FamilyStatus
+     *
+     * @return void
+     */
+    public function familystatus_store(Request $request)
+    {
+        $validatedData = Validator::make($request->all(), [
+            'location' => 'required|unique:work_locations|max:255',
+        ]);
+        if ($validatedData->fails()) {
+            return Redirect::back()->withErrors($validatedData)->withInput();
+        }
+        $WorkLocation = WorkLocation::create(['location' => $request->location]);
+        if ($WorkLocation) {
+            return redirect()->back()->with('success', 'Location created successfully');
+        } else {
+            return redirect()->back()->with('err', 'Location creation failed')->withInput();
+        }
+    }
+
+    // public function worklocation_update(Request $request, WorkLocation $worklocation)
+    // {
+    //     if (in_array($worklocation->location, ['Tarahan', 'Kuala Tanjung', 'Direksi'])) {
+    //         return Redirect::back()->with('err', 'Nama Lokasi ini tidak dapat diganti')->withInput();
+    //     };
+    //     $worklocationname = $request['locationname'];
+    //     $validationRules = [
+    //         $worklocationname => [
+    //             'required',
+    //             'string',
+    //             Rule::unique('work_locations', 'location')->ignore($worklocation->id),
+    //         ],
+    //     ];
+
+    //     $validator = Validator::make($request->all(), $validationRules);
+
+    //     if ($validator->fails()) {
+    //         // return Redirect::back()->with('errors', 0)->withInput();
+    //         return Redirect::back()->withErrors($validator)->withInput();
+    //     }
+    //     try {
+    //         $worklocation->update(['location' => $request[$worklocationname]]);
+    //         return redirect()->back()->with('success', '')->withInput();
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('err', 'Location creation failed')->withInput();
+    //     }
+    // }
+    // public function worklocation_destroy(Request $request, WorkLocation $worklocation)
+    // {
+    //     if (in_array($worklocation->location, ['Tarahan', 'Kuala Tanjung', 'Direksi'])) {
+    //         return Redirect::back()->with('err', 'Lokasi ini tidak dapat dihapus')->withInput();
+    //     };
+    //     try {
+    //         $worklocation->delete();
+    //         return redirect()->back()->with('succ', 'Berhasil Menghapus Lokasi')->withInput();
+    //     } catch (\Exception $e) {
+    //         return Redirect::back()->with('err', 'Gagal Menghapus Lokasi')->withInput();
+    //     }
+    // }
 }

@@ -35,11 +35,18 @@
             <div class="row">
                 <div class="col-md-8">
                     {{-- Card Gaji Pokok & Jabatan --}}
-                    @include('pages.Gaji.components.CardGajiPokok')
+                    @if ($gaji->employee->worklocation->location == 'Direksi')
+                        @include('pages.Gaji.components.CardGajiDireksi')
+                    @else
+                        @include('pages.Gaji.components.CardGajiPokok')
+                    @endif
 
 
+                    @if (!$gaji->employee->worklocation->location == 'Direksi')
+                        @include('pages.Gaji.components.CardTunjangan')
+                    @endif
                     {{-- Card Tunjangan --}}
-                    @include('pages.Gaji.components.CardTunjangan')
+
                     {{-- Card BPJS --}}
                     {{-- <div class="card">
                         <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">

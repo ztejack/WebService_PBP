@@ -61,7 +61,7 @@
                         @endif
 
                         <tr>
-                            <td class="pe-3">BPJS Tenaga Kerja:</td>
+                            <td class="pe-3">BPJS Ketenaga Kerjaan:</td>
                             <td><span class="numbers">{{ $tunjangan_BPJS_tk }}</span></td>
                         </tr>
                         <tr>

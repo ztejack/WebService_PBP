@@ -167,63 +167,63 @@ class UserController extends Controller
     }
     public function show(User $user)
     {
-        $tunjangan_pph = 1;
-        $pphbulan = 0;
-        $bruto = 15000000;
-        $pph21 = 0;
-        while ($tunjangan_pph != 0) {
-            if (($bruto * 5 / 100) > 500000) {
-                $pehitung = 500000;
-                $pehitung = $pehitung * 12;
-                $ptkp = 6300000;
-                $pkp = $pehitung - $ptkp;
-                dd($pkp);
-                $pembulat = round($pkp, 0);
-                dd($pembulat);
-                if ($pembulat < 60000000) {
-                    $pph21 = $pembulat * 5 / 100;
-                    $pphbulan = $pph21 / 12;
-                    if ($tunjangan_pph == $pphbulan) {
-                        dd([$pph21, $pphbulan, $tunjangan_pph]);
-                    }
-                    $tunjangan_pph = $pphbulan;
-                } elseif ($pembulat < 250000000) {
-                    $pph21 = $pembulat * 15 / 100;
-                    $pphbulan = $pph21 / 12;
-                    if ($tunjangan_pph == $pphbulan) {
-                        dd([$pph21, $pphbulan]);
-                    }
-                    $tunjangan_pph = $pphbulan;
-                }
-            } else {
-                $pehitung = $bruto * 5 / 100;
-                $pehitung = $pehitung * 12;
-                $ptkp = 63000000;
-                $pkp = $pehitung - $ptkp;
-                $pembulat = round($pkp, 0);
-                if ($pembulat < 60000000) {
-                    $pph21 = $pembulat * 5 / 100;
-                    $pphbulan = $pph21 / 12;
-                    if ($tunjangan_pph == $pphbulan) {
-                        dd([$pph21, $pphbulan, $tunjangan_pph]);
-                    }
-                    $tunjangan_pph = $pphbulan;
-                } elseif ($pembulat < 250000000) {
-                    $pph21 = $pembulat * 15 / 100;
-                    $pphbulan = $pph21 / 12;
-                    if ($tunjangan_pph == $pphbulan) {
-                        dd([$pph21, $pphbulan]);
-                    }
-                    $tunjangan_pph = $pphbulan;
-                }
-            }
-        }
-        $bruto = 0;
-        $bi_jabatan =
+        // $tunjangan_pph = 1;
+        // $pphbulan = 0;
+        // $bruto = 15000000;
+        // $pph21 = 0;
+        // while ($tunjangan_pph != 0) {
+        //     if (($bruto * 5 / 100) > 500000) {
+        //         $pehitung = 500000;
+        //         $pehitung = $pehitung * 12;
+        //         $ptkp = 6300000;
+        //         $pkp = $pehitung - $ptkp;
+        //         dd($pkp);
+        //         $pembulat = round($pkp, 0);
+        //         dd($pembulat);
+        //         if ($pembulat < 60000000) {
+        //             $pph21 = $pembulat * 5 / 100;
+        //             $pphbulan = $pph21 / 12;
+        //             if ($tunjangan_pph == $pphbulan) {
+        //                 dd([$pph21, $pphbulan, $tunjangan_pph]);
+        //             }
+        //             $tunjangan_pph = $pphbulan;
+        //         } elseif ($pembulat < 250000000) {
+        //             $pph21 = $pembulat * 15 / 100;
+        //             $pphbulan = $pph21 / 12;
+        //             if ($tunjangan_pph == $pphbulan) {
+        //                 dd([$pph21, $pphbulan]);
+        //             }
+        //             $tunjangan_pph = $pphbulan;
+        //         }
+        //     } else {
+        //         $pehitung = $bruto * 5 / 100;
+        //         $pehitung = $pehitung * 12;
+        //         $ptkp = 63000000;
+        //         $pkp = $pehitung - $ptkp;
+        //         $pembulat = round($pkp, 0);
+        //         if ($pembulat < 60000000) {
+        //             $pph21 = $pembulat * 5 / 100;
+        //             $pphbulan = $pph21 / 12;
+        //             if ($tunjangan_pph == $pphbulan) {
+        //                 dd([$pph21, $pphbulan, $tunjangan_pph]);
+        //             }
+        //             $tunjangan_pph = $pphbulan;
+        //         } elseif ($pembulat < 250000000) {
+        //             $pph21 = $pembulat * 15 / 100;
+        //             $pphbulan = $pph21 / 12;
+        //             if ($tunjangan_pph == $pphbulan) {
+        //                 dd([$pph21, $pphbulan]);
+        //             }
+        //             $tunjangan_pph = $pphbulan;
+        //         }
+        //     }
+        // }
+        // $bruto = 0;
+        // $bi_jabatan =
 
 
-            // IF(HV9*5%>6000000;6000000;HV9*5%)
-            $user = $this->user_resource($user);
+        // IF(HV9*5%>6000000;6000000;HV9*5%)
+        $user = $this->user_resource($user);
         // dd($user);
         return view("pages.Users.PageUserDetail", [
             'user' => $user,
