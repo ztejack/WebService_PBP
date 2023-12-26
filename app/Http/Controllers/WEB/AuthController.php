@@ -8,6 +8,7 @@ use App\Models\Contract;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\Satker;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 use Illuminate\Validation\Rule;
@@ -41,11 +42,10 @@ class AuthController extends Controller
         $user->update();
         return redirect()->back()->with('success', '');
     }
-    public function reset_password(Request $request)
+    public function reset_password(Request $request, User $user)
     {
-        $auth = Auth::user();
-        $auth->password = bcrypt('PBP2023@USER');
-        $x = $auth->update();
+        $user->update(['password' => bcrypt('PBP2023@USER')]);
+        // dd($user);
         return response(true, 200)->header('Content-Type', 'text/plain');
     }
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
         $UserC = new UserController;
         $user = Auth::user();
         $user = $UserC->user_resource($user);
-        return view('pages.Users.Auth.PageUserProfile', [
+        return view('pages.Users.auth.PageUserProfile', [
             'user_profile' => $user,
             'auth' => $user
         ]);
@@ -67,7 +67,7 @@ class AuthController extends Controller
         $UserC = new UserController;
         $user = Auth::user();
         $user = $UserC->user_resource($user);
-        return view('pages.Users.Auth.PageUserProfile', [
+        return view('pages.Users.auth.PageUserProfile', [
             'user_profile' => $user,
             'auth' => $user
         ]);

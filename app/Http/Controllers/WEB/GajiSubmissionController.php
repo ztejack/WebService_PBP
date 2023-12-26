@@ -43,8 +43,8 @@ class GajiSubmissionController extends Controller
             return $this->user_resource($user);
         });
         $users = User::whereHas('employee', function ($query) {
-            $query->whereHas('worklocation', function ($query) {
-                $query->where('location', 'direksi');
+            $query->whereHas('contract', function ($query) {
+                $query->where('contract', 'direksi');
             });
         })->get();
         $collectionuserdireksi = $users->map(function ($user) {

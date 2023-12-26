@@ -27,8 +27,10 @@ return new class extends Migration
             $table->string('tnj_taspen')->nullable()->default(0);
             $table->string('tnj_pensiun_perusahaan')->nullable()->default(0);
             $table->string('tnj_hari_tua_p')->nullable()->default(0);
-            $table->string('jmn_hari_tua_p')->nullable()->default(0);
+            $table->string('tnj_jmn_hari_tua_p')->nullable()->default(0);
             $table->string('tnj_pph21')->nullable()->default(0);
+            $table->string('tnj_bpjs_tk')->nullable()->default(0);
+            $table->string('tnj_bpjs_kes')->nullable()->default(0);
             $table->string('tnj_simponi')->nullable()->default(0);
 
             $table->string('pot_serikat_pegawai_ba')->nullable()->default(0);

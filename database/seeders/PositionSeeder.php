@@ -65,10 +65,16 @@ class PositionSeeder extends Seeder
 
         // Contract
         Contract::create([
-            'contract' => "Tetap"
+            'contract' => "TETAP"
         ]);
         Contract::create([
             'contract' => "PKWT"
+        ]);
+        Contract::create([
+            'contract' => "PKWTT"
+        ]);
+        Contract::create([
+            'contract' => "DIREKSI"
         ]);
 
         // Golongan

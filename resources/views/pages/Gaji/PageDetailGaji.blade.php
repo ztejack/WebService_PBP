@@ -35,14 +35,14 @@
             <div class="row">
                 <div class="col-md-8">
                     {{-- Card Gaji Pokok & Jabatan --}}
-                    @if ($gaji->employee->worklocation->location == 'Direksi')
+                    @if ($gaji->employee->contract->contract = 'direksi')
                         @include('pages.Gaji.components.CardGajiDireksi')
                     @else
                         @include('pages.Gaji.components.CardGajiPokok')
                     @endif
 
 
-                    @if (!$gaji->employee->worklocation->location == 'Direksi')
+                    @if (!($gaji->employee->contract->contract = 'direksi'))
                         @include('pages.Gaji.components.CardTunjangan')
                     @endif
                     {{-- Card Tunjangan --}}

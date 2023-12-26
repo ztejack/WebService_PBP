@@ -29,14 +29,40 @@ class GajiSlip extends Model
         'lembur',
         'rapel',
 
+        'tnj_cuti', //gaji1
+        'ikp',
+        'bsc',
+        'thr',
+        'ireq',
+
+        'tnj_perumahan',
+        'tnj_taspen',
+        'tnj_dana_pensiun',
+        'tnj_hari_tua_p',
+        'tnj_jmn_hari_tua_p',
+        'tnj_pph21',
+        'tnj_simponi',
+
         'tnj_bpjs_tk',
         'tnj_bpjs_kes',
         'pot_bpjs_tk',
         'pot_bpjs_kes',
+
+        'pot_serikat_pegawai_ba',
+        'pot_koperasi',
+        'pot_lazis',
+        'pot_dana_pensiun',
+        'pot_premi_jht',
+        'pot_tht',
+        'pot_taspen',
+        'pot_pph21',
+        'pot_simponi',
+        'pot_lain',
         'pot_sakit',
         'pot_kosong',
         'pot_terlambat',
         'pot_perjalanan',
+
         'total',
 
         'status',

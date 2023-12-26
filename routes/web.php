@@ -50,7 +50,7 @@ Route::prefix('auth')->middleware(['auth'])->group(
                 Route::post('change_password', [AuthController::class, 'change_password'])->name('change_password');
             }
         );
-        Route::post('/reset-password', [AuthController::class, 'reset_password'])->name('reset_password');
+        Route::post('/reset-password/{user}', [AuthController::class, 'reset_password'])->name('reset_password');
     }
 );
 Route::prefix('admin')->middleware(['auth'])->group(

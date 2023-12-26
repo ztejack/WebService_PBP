@@ -66,20 +66,18 @@ class LoginController extends Controller
         $user = User::where('email', $email)->first();
         $login_type = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        if($user->employee->status){
+        if ($user->status) {
             if (Auth::attempt([$login_type => $email, 'password' => $password], $remember_me)) {
                 //Auth successful here
                 return redirect()->intended($this->redirectPath());
-            }
-            else{
+            } else {
                 return redirect()->back()
-                ->withInput()
-                ->withErrors([
-                    'login_error' => 'These credentials do not match our records.',
-                ]);
+                    ->withInput()
+                    ->withErrors([
+                        'login_error' => 'These credentials do not match our records.',
+                    ]);
             }
-        }
-        else{
+        } else {
             return redirect()->back()
                 ->withInput()
                 ->withErrors([

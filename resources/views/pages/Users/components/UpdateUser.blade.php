@@ -451,8 +451,6 @@
                             <button type="reset" class="btn btn-outline-secondary">Batal</button>
                         </div>
                     </form>
-                    {{-- @include('pages.users.components.modalResetPassword') --}}
-
                 </div>
                 <!-- /Account -->
             </div>

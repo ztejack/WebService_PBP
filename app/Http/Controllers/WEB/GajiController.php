@@ -129,6 +129,65 @@ class GajiController extends Controller
     public function view_gaji_employe(User $user)
     {
         $gaji = $user->employee->gaji;
+        if ($user->employee->contract->contrac = 'direksi') {
+            $gapok = $gaji->gapok;
+            $tnj_perumahan = $gaji->tnj_perumahan;
+            $tnj_ubp = $gaji->tnj_bantuan_perumahan;
+            $tnj_taspen = $gaji->tnj_taspen;
+            $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
+            $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
+            $tnj_tht = $gaji->tnj_hari_tua_p;
+            $tnj_jht = $gaji->tnj_jmn_hari_tua_p;
+            $tnj_pajak = $gaji->tnj_pph21;
+            $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
+            $tnj_simponi = $gaji->tnj_simponi;
+            $tnj_lain = $gaji->tnj_lain;
+
+            // potongan
+            $pot_spba = $gaji->pot_serikat_pegawai_ba;
+            $pot_koperasi = $gaji->pot_koperasi;
+            $pot_lazis = $gaji->pot_lazis;
+            $pot_dana_pensiun = $gaji->pot_dana_pensiun;
+            $pot_jht = $gaji->pot_premi_jht;
+            $pot_tht = $gaji->pot_tht;
+            $pot_bpjs_tk = $gaji->pot_bpjs_tk;
+            $pot_bpjs_kes = $gaji->pot_bpjs_kes;
+            $pot_pajak = $gaji->pot_pph21;
+            $pot_taspen = $gaji->pot_taspen;
+            $pot_simponi = $gaji->pot_simponi;
+            $pot_lain = $gaji->pot_lain;
+
+            return view('pages.Gaji.PageDetailGaji', [
+                'user' => $user,
+                'gaji' => $gaji,
+                'gapok' => $gapok,
+                'tunjangan_perumahan' => $tnj_perumahan,
+                'tunjangan_ubp' => $tnj_ubp,
+                'tunjangan_taspen' => $tnj_taspen,
+                'tunjangan_bpjs_tk' => $tnj_bpjs_tk,
+                'tunjangan_dana_pensiun' => $tnj_dana_pensiun,
+                'tunjangan_tht' => $tnj_tht,
+                'tunjangan_jht' => $tnj_jht,
+                'tunjangan_pajak' => $tnj_pajak,
+                'tunjangan_bpjs_kes' => $tnj_bpjs_kes,
+                'tunjangan_simponi' => $tnj_simponi,
+                'tunjangan_lain' => $tnj_lain,
+
+                'pot_spba' => $pot_spba,
+                'pot_koperasi' => $pot_koperasi,
+                'pot_lazis' => $pot_lazis,
+                'pot_i_dana_pensiun' => $pot_dana_pensiun,
+                'pot_jht' => $pot_jht,
+                'pot_tht' => $pot_tht,
+                'pot_bpjs_tk' => $pot_bpjs_tk,
+                'pot_bpjs_kes' => $pot_bpjs_kes,
+                'pot_taspen' => $pot_taspen,
+                'pot_pajak' => $pot_pajak,
+                'pot_simponi' => $pot_simponi,
+                'pot_lain' => $pot_lain,
+            ]);
+        } else {
+        }
         if ($user->golongan == null || $user->position == null) {
             return view('pages.Gaji.PageDetailGaji', [
                 'user' => $user,
