@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Gaji\GajiParam;
+use App\Models\Gaji\GajiParamTunJab;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

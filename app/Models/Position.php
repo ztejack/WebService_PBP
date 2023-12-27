@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Gaji\GajiParamTunJab;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +45,6 @@ class Position extends Model
     }
     public function gajiparamTnjb()
     {
-        return $this->belongsTo(GajiParamTunJab::class);
+        return $this->hasMany(GajiParamTunJab::class);
     }
 }

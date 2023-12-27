@@ -165,11 +165,19 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                     Route::put('/update/status/{bpjs}', [GajiParamController::class, 'param_bpjs_update_status'])->name('param.bpjs.update.status');
                 }
             );
+            Route::prefix('ptkp')->middleware(['auth'])->group(
+                function () {
+                    Route::post('/store', [GajiParamController::class, 'param_ptkp_store'])->name('param.ptkp.store');
+                    Route::put('/update/{ptkp}', [GajiParamController::class, 'param_ptkp_update'])->name('param.ptkp.update');
+                    Route::post('/delete/{ptkp}', [GajiParamController::class, 'param_ptkp_destroy'])->name('param.ptkp.delete');
+                }
+            );
         });
         Route::prefix('submission')->middleware(['auth'])->group(
             function () {
                 Route::get('/store', [GajiSubmissionController::class, 'view_store'])->name('submission.view_store');
                 Route::post('/store', [GajiSubmissionController::class, 'store'])->name('submission.store');
+                Route::post('/store_direksi', [GajiSubmissionController::class, 'store_direksi'])->name('submission.store_direksi');
                 Route::get('/{submission}/update', [GajiSubmissionController::class, 'view_update'])->name('submission.view_update');
                 Route::PUT('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
                 Route::post('/delete/{submission}', [GajiSubmissionController::class, 'destroy'])->name('submission.delete');

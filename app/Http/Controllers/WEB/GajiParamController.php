@@ -5,7 +5,9 @@ namespace App\Http\Controllers\WEB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGajiParamRequest;
 use App\Http\Requests\UpdateGajiParamRequest;
+use App\Models\FamilyStatus;
 use App\Models\Gaji\Gaji;
+use App\Models\Gaji\GajiParamFamily;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
 use App\Models\Gaji\ParamBPSJ;
@@ -34,6 +36,8 @@ class GajiParamController extends Controller
             'positions' => Position::all(),
             'gajiparam_bpjs' => ParamBPSJ::orderBy('created_at', 'desc')->get(),
             'tunjangan_lain' => Tunjangan_lain::orderBy('created_at', 'desc')->get(),
+            'gajiparam_family' => GajiParamFamily::orderBy('created_at', 'desc')->get(),
+            'family_status' => FamilyStatus::all(),
         ]);
     }
 
@@ -259,6 +263,45 @@ class GajiParamController extends Controller
             return redirect()->back()->with('succ', 'Success update status Parameter')->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('err', 'Parameter update status failed')->withInput();
+        }
+    }
+    public function param_ptkp_store(Request $request)
+    {
+        try {
+            $paramrecord = GajiParamFamily::where('familystatus_id', $request['familystatus_id'])->first();
+            if ($paramrecord) {
+                return redirect()->back()->with('err', 'Parameter creation failed, Parameter PTKP ' . $paramrecord->familystatus->familystatus . ' sudah ada')->withInput();
+            } else {
+                $Paramptkp = GajiParamFamily::create([
+                    'tnj_familystatus' => $request['tnj_ptkp'],
+                    'familystatus_id' => $request['familystatus_id']
+                ]); // dd($Paramptkp);
+                return Redirect::back()->with('success', '')->withInput();
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter creation failed')->withInput();
+        }
+    }
+    public function param_ptkp_update(Request $request, GajiParamFamily $ptkp)
+    {
+        try {
+
+            $ptkp->update([
+                'tnj_familystatus' => $request['tnj_ptkp'],
+                'familystatus_id' => $request['familystatus_id']
+            ]); // dd($Paramptkp);
+            return Redirect::back()->with('succ', 'Success update Parameter')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter Update failed')->withInput();
+        }
+    }
+    public function param_ptkp_destroy(Request $request, GajiParamFamily $ptkp)
+    {
+        try {
+            $ptkp->delete();
+            return redirect()->back()->with('succ', 'Success Deleting Parameter')->withInput();
+        } catch (\Exception $e) {
+            return Redirect::back()->with('err', 'Deleting Parameter Failed')->withInput();
         }
     }
 }

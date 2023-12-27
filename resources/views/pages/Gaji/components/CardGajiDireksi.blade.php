@@ -9,6 +9,11 @@
             @method('POST')
             <div class="row mb-3">
                 <div class="col-md-6">
+                    <div class="divider">
+                        <div class="divider-text">
+                            Penghasilan
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" for="input-gaji-pokok">
                             Gaji Pokok
@@ -20,13 +25,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <div class="divider">
-                        <div class="divider-text">
-                            Tunjangan
-                        </div>
-                    </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_perumahan">Tunjangan Perumahan</label>
                         <input type="number" class="form-control " id="tnj_perumahan" name="tnj_perumahan"
                             min="0" value="{{ $tunjangan_perumahan }}">
@@ -34,7 +33,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_ubp">Uang Bantuan Perumahan</label>
                         <input type="number" class="form-control " id="tnj_ubp" name="tnj_ubp" min="0"
                             value="{{ $tunjangan_ubp }}">
@@ -42,7 +41,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_taspen">Tunjangan Tabungan Pensiun</label>
                         <input type="number" class="form-control " id="tnj_taspen" name="tnj_taspen" min="0"
                             value="{{ $tunjangan_taspen }}">
@@ -50,7 +49,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_bpjs_tk">Tunjangan BPJS Ketenaga Kerjaan</label>
                         <input type="number" class="form-control " id="tnj_bpjs_tk" name="tnj_bpjs_tk" min="0"
                             value="{{ $tunjangan_bpjs_tk }}">
@@ -58,7 +57,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_dana_pensiun">Tunjangan Dana Pensiun</label>
                         <input type="number" class="form-control " id="tnj_dana_pensiun" name="tnj_dana_pensiun"
                             min="0" value="{{ $tunjangan_dana_pensiun }}">
@@ -66,7 +65,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_tht">Tunjangan Hari Tua</label>
                         <input type="number" class="form-control " id="tnj_tht" name="tnj_tht" min="0"
                             value="{{ $tunjangan_tht }}">
@@ -74,7 +73,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_jht">Tunjangan Jaminan Hari Tua</label>
                         <input type="number" class="form-control " id="tnj_jht" name="tnj_jht" min="0"
                             value="{{ $tunjangan_jht }}">
@@ -82,7 +81,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_pajak">Tunjangan Pajak</label>
                         <input type="number" class="form-control " id="tnj_pajak" name="tnj_pajak" min="0"
                             value="{{ $tunjangan_pajak }}">
@@ -90,7 +89,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_bpjs_kes">Tunjangan BPJS Kesehatan</label>
                         <input type="number" class="form-control " id="tnj_bpjs_kes" name="tnj_bpjs_kes"
                             min="0" value="{{ $tunjangan_bpjs_kes }}">
@@ -98,7 +97,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_simponi">Tunjangan Simponi</label>
                         <input type="number" class="form-control " id="tnj_simponi" name="tnj_simponi"
                             min="0" value="{{ $tunjangan_simponi }}">
@@ -106,7 +105,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="tnj_lain">Tunjangan Lain</label>
                         <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"
                             value="{{ $tunjangan_lain }}">
@@ -114,10 +113,16 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    {{-- <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i>
-                        Save</button> --}}
+                    <button type="" class="btn btn-primary d-sm-none" onclick="setTotal()"><i
+                            class="bx bx-save"></i>
+                        Save</button>
                 </div>
                 <div class="col-md-6">
+                    <div class="divider">
+                        <div class="divider-text">
+                            Potongan
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" for="input-spba">
                             Iuran Serikat Pegawai Bukit Asam
@@ -157,7 +162,8 @@
                         </label>
                         <input type="number" class="form-control @error('pot_i_dana_pensiun') is-invalid @enderror"
                             id="input-iuran-dana-pensiun" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_i_dana_pensiun = null ? 0 : $pot_i_dana_pensiun }}" name="pot_i_dana_pensiun">
+                            value="{{ $pot_i_dana_pensiun = null ? 0 : $pot_i_dana_pensiun }}"
+                            name="pot_i_dana_pensiun">
                         @error('pot_i_dana_pensiun')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -239,10 +245,11 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <button type="" class="btn btn-primary" onclick="setTotal()"><i class="bx bx-save"></i>
-                        Save</button>
+                    <button type="" class="btn btn-primary d-md-none" onclick="setTotal()"><i
+                            class="bx bx-save"></i> Save</button>
+                    <input type="hidden" name="direksi" value="{{ true }}">
                 </div>
+
             </div>
         </form>
     </div>

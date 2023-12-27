@@ -1,5 +1,5 @@
  <div class="card-body demo-vertical-spacing demo-only-element">
-     <form action="{{ route('submission.store') }}" method="POST">
+     <form action="{{ route('submission.store_direksi') }}" method="POST">
          @method('POST')
          @csrf
          <div class="col mb-4">
@@ -45,9 +45,6 @@
                              <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
                                  status
                              </th>
-                             <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
-                                 attendance
-                             </th>
                              <th class="" rowspan="1" colspan="1" aria-label="Actions">
                                  Actions</th>
                          </tr>
@@ -76,7 +73,6 @@
                                          to
                                          Payroll</span>
                                  </td>
-                                 <td><span class="badge badge-pill bg-success fw-bold">{{ 24 - $user->absensi }}</span>
                                  </td>
                                  <td>
                                      <div class="text-nowrap">
@@ -89,16 +85,6 @@
                                              Rapel
                                          </button>
                                          @include('pages.Gaji.components.ModalAddRapel')
-                                         <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
-                                             data-bs-target="#addLemburModal{{ $user->slug }}">
-                                             Lembur
-                                         </button>
-                                         @include('pages.Gaji.components.ModalAddLembur')
-                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                             data-bs-target="#addkehadiranModal{{ $user->slug }}">
-                                             Absensi
-                                         </button>
-                                         @include('pages.Gaji.components.ModalAddAbsensi')
                                      </div>
                                  </td>
                          @endforeach

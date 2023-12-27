@@ -35,14 +35,15 @@
             <div class="row">
                 <div class="col-md-8">
                     {{-- Card Gaji Pokok & Jabatan --}}
-                    @if ($gaji->employee->contract->contract = 'direksi')
+                    @if ($gaji->employee->contract->contract == 'DIREKSI')
                         @include('pages.Gaji.components.CardGajiDireksi')
-                    @else
+                        @include('pages.Gaji.components.CardRekap')
+                    @elseif($gaji->employee->contract->contract != 'DIREKSI')
                         @include('pages.Gaji.components.CardGajiPokok')
                     @endif
 
 
-                    @if (!($gaji->employee->contract->contract = 'direksi'))
+                    @if ($gaji->employee->contract->contract != 'DIREKSI')
                         @include('pages.Gaji.components.CardTunjangan')
                     @endif
                     {{-- Card Tunjangan --}}
@@ -65,8 +66,10 @@
                     </div> --}}
                 </div>
                 <div class="col-md-4">
-                    @include('pages.Gaji.components.CardAbsensi')
-                    @include('pages.Gaji.components.CardLembur')
+                    @if (!($gaji->employee->contract->contract == 'DIREKSI'))
+                        @include('pages.Gaji.components.CardAbsensi')
+                        @include('pages.Gaji.components.CardLembur')
+                    @endif
                     @include('pages.Gaji.components.CardRapel')
                     @include('pages.Gaji.components.CardSlipGaji')
                 </div>

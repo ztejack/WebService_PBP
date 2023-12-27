@@ -187,7 +187,7 @@
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-child"></i><span
                                 class="fw-bold mx-2">Status Keluarga:</span>
-                            <span>K/{{ $user->status_keluarga }}</span>
+                            <span>{{ $user->family_status }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
                                 class="fw-bold mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>

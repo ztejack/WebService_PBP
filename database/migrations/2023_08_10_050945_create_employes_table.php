@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('religion')->nullable();
             // $table->string('golongan')->nullable();
             $table->boolean('status')->nullable()->default(false);
-            $table->boolean('status_keluarga')->default(false);
+            // $table->boolean('status_keluarga')->default(false);
             $table->string('date_start')->nullable();
             $table->string('tenure')->nullable();
             // $table->string('contract_type')->nullable();
@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->references('id')->on('users');
             $table->foreignId('position_id')->nullable()->constrained('positions')->references('id')->on('positions');
             $table->foreignId('golongan_id')->nullable()->constrained('golongans')->references('id')->on('golongans');
+            $table->foreignId('family_status_id')->nullable()->constrained('family_statuses')->references('id')->on('family_statuses')->default(5);
             $table->timestamps();
         });
     }

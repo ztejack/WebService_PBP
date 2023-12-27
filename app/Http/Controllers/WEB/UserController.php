@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Contract;
 use App\Models\Employe;
 use App\Models\Experience;
+use App\Models\FamilyStatus;
 use App\Models\Golongan;
 use App\Models\Position;
 use App\Models\Role;
@@ -77,6 +78,8 @@ class UserController extends Controller
         $golongans = Golongan::all();
         $contracts = Contract::all();
         $work_locations = WorkLocation::all();
+        $family_statuses = FamilyStatus::all();
+
 
         $user->name = $input['name'];
         $user->username = $input['username'];
@@ -91,7 +94,7 @@ class UserController extends Controller
         $employee->address = $input['address'];
         $employee->ktp_address = $input['addressid'];
         $employee->date_start = $input['date_start'];
-        $employee->status_keluarga = $input['status_keluarga'];
+        // $employee->status_keluarga = $input['family_status'];
         $employee->status = $input['status_employe'];
         $employee->tenure = $input['val_tenure'];
         $employee->religion = $input['religion'];
@@ -119,6 +122,11 @@ class UserController extends Controller
         foreach ($work_locations as $work_location) {
             if ($work_location->location == $input['work_location']) {
                 $employee->worklocation_id = $work_location->id;
+            }
+        }
+        foreach ($family_statuses as $family_status) {
+            if ($family_status->familystatus == $input['family_status']) {
+                $employee->family_status_id = $family_status->id;
             }
         }
 
@@ -150,6 +158,7 @@ class UserController extends Controller
         $roles = ModelsRole::all();
         $permisions = Permission::all();
         $golongans = Golongan::all();
+        $familystatuses = FamilyStatus::all();
         return view('pages.Users.PageUserUpdate', [
             'user' => $user,
             'roles' => $roles,
@@ -158,6 +167,7 @@ class UserController extends Controller
             'positions' => $positions,
             'contracts' => $contracts,
             'work_locations' => $work_locations,
+            'family_statuses' => $familystatuses,
             'optiongolongans' => $golongans,
             'optionreligions' => $optionReligion,
             'userPermisions' => $userpermission->pluck('name')->toArray(),
@@ -269,7 +279,7 @@ class UserController extends Controller
 
     public function user_resource($user)
     {
-        // dd($user->employee->worklocation());
+        // dd($user->employee->familystatus);
 
         if ($user->employee->tenure != null) {
             $inputString = $user->employee->tenure;
@@ -314,6 +324,7 @@ class UserController extends Controller
             'experiences' => $user->employee->experience,
             'contract' => $user->employee->contract != null ? $user->employee->contract->contract : null,
             'work_location' => $user->employee->worklocation != null ? $user->employee->worklocation->location : null,
+            'family_status' => $user->employee->familystatus != null ? $user->employee->familystatus->familystatus : null,
         ];
         // $datax = (object)$data;
         return (object)$data;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\FamilyStatus;
 use App\Models\Golongan;
 use App\Models\Position;
 use App\Models\Satker;
@@ -23,6 +24,7 @@ class ParamController extends Controller
         $contracs = Contract::all();
         $golongans = Golongan::all();
         $worklocations = WorkLocation::all();
+        $familystatuses = FamilyStatus::all();
 
         return view('pages.EmployeParam.PageDataEmployeParam', [
             'satkers' => $satkers,
@@ -30,6 +32,7 @@ class ParamController extends Controller
             'contracs' => $contracs,
             'golongans' => $golongans,
             'worklocations' => $worklocations,
+            'familystatuses' => $familystatuses,
         ]);
     }
 

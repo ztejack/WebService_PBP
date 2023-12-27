@@ -46,8 +46,10 @@
                                 <td>
                                     @if ($user->contract == 'PKWT')
                                         <span class="badge bg-label-warning">{{ $user->contract }}</span>
-                                    @elseif($user->contract == 'Tetap')
+                                    @elseif($user->contract == 'TETAP')
                                         <span class="badge bg-label-info">{{ $user->contract }}</span>
+                                    @else
+                                        <span class="badge bg-label-dark">{{ $user->contract }}</span>
                                     @endif
                                 </td>
                                 <td>

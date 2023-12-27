@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Gaji\GajiParamFamily;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -492,7 +493,7 @@ class GajiParamSeeder extends Seeder
         GajiParamTnjng::create([
             'tnj_transport' => 35000,
             'tnj_perumahan' => 800000,
-            'tnj_makan' =>35000,
+            'tnj_makan' => 35000,
             'tnj_shift' => 0,
             'position_id' => 11,
             'golongan_id' => 16,
@@ -514,6 +515,40 @@ class GajiParamSeeder extends Seeder
             'tnj_shift' => 0,
             'position_id' => 11,
             'golongan_id' => 18,
+        ]);
+
+        /* Gaji Param Family*/
+        GajiParamFamily::create([
+            'tnj_familystatus' => 58500000,
+            'familystatus_id' => 1,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 63000000,
+            'familystatus_id' => 2,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 67500000,
+            'familystatus_id' => 3,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 72000000,
+            'familystatus_id' => 4,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 54000000,
+            'familystatus_id' => 5,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 58500000,
+            'familystatus_id' => 6,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 53000000,
+            'familystatus_id' => 7,
+        ]);
+        GajiParamFamily::create([
+            'tnj_familystatus' => 67500000,
+            'familystatus_id' => 8,
         ]);
     }
 }

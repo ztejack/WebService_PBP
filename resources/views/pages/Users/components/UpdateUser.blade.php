@@ -159,16 +159,6 @@
                                     <span class="input-group-text"><i
                                             class="bx bx-objects-vertical-bottom"></i></span>
                                     <select id="golongan" name='golongan' class="form-select">
-
-                                        {{-- @foreach ($optiongolongans as $option)
-                                        @if (old('golongan', $user->golongan) == $option->val)
-                                            <option value="{{ $user->golongan }}" selected>{{ $user->golongan }}
-                                            </option>
-                                        @else
-                                            <option value="{{ $option->val }}">{{ $option->name }}
-                                        @endif
-                                    @endforeach --}}
-
                                         @if (old('golongan', $user->golongan))
                                             <option value="{{ $user->golongan }}" selected>
                                                 {{ $user->golongan }}
@@ -419,13 +409,31 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="status_keluarga" class="form-label">Status Keluarga</label>
+                                <label for="family_status" class="form-label">Family Status
+                                    {{ $user->family_status }}</label>
                                 <div class="input-group">
-                                    <span class="input-group-text">K /</span>
-                                    <input type="number" id="status_keluarga" name='status_keluarga'
-                                        class="form-control" value="{{ $user->status_keluarga }}" min="0">
+                                    <span class="input-group-text"><i class="bx bx-child"></i></span>
+                                    <select id="family_status" name='family_status' class="form-select">
+                                        @if (!old('family_status', $user->family_status))
+                                            <option value="" selected>
+                                                Select One
+                                            </option>
+                                        @endif
+                                        @foreach ($family_statuses as $family_status)
+                                            @if (old('family_status', $user->family_status) == $family_status->familystatus)
+                                                <option value="{{ $family_status->familystatus }} "selected>
+                                                    {{ $family_status->familystatus }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $family_status->familystatus }}">
+                                                    {{ $family_status->familystatus }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+
+                                    </select>
                                 </div>
-                                @error('status_keluarga')
+                                @error('family_status')
                                     <div class="invalid-feedback d-block">
                                         {{ $message }}
                                     </div>

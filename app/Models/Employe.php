@@ -41,7 +41,8 @@ class Employe extends Model
         'satker_id',
         'worklocation_id',
         'position_id',
-        'golongan_id'
+        'golongan_id',
+        'family_status_id'
     ];
 
 
@@ -80,6 +81,10 @@ class Employe extends Model
     public function golongan()
     {
         return $this->belongsTo(Golongan::class);
+    }
+    public function familystatus()
+    {
+        return $this->belongsTo(FamilyStatus::class, 'family_status_id');
     }
     public function gaji()
     {
@@ -170,16 +175,24 @@ class Employe extends Model
     }
     public function payrolcheck()
     {
-        $gaji = $this->gaji()->get()->first();
-        $gaji_pokok = $gaji->gapok;
-        $tunjangan_jabatan = $gaji->tnj_jabatan;
-        if ($gaji_pokok > 0) {
-            if ($tunjangan_jabatan > 0) {
+        if ($this->contract->contract == 'DIREKSI') {
+            $gaji = $this->gaji()->get()->first();
+            $gaji_pokok = $gaji->gapok;
+            if ($gaji_pokok > 0) {
                 return true;
+            }
+        } elseif ($this->contract->contract != 'DIREKSI') {
+            $gaji = $this->gaji()->get()->first();
+            $gaji_pokok = $gaji->gapok;
+            $tunjangan_jabatan = $gaji->tnj_jabatan;
+            if ($gaji_pokok > 0) {
+                if ($tunjangan_jabatan > 0) {
+                    return true;
+                }
+                return false;
             }
             return false;
         }
-        return false;
     }
 
 

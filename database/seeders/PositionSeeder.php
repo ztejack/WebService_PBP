@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Contract;
+use App\Models\FamilyStatus;
 use App\Models\Golongan;
 use App\Models\Position;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -136,5 +137,31 @@ class PositionSeeder extends Seeder
             'golongan' => "VIC"
         ]);
         // ^18
+
+        // Family Status
+        FamilyStatus::create([
+            'familystatus'=>"K/0"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"K/1"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"K/2"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"K/3"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"TK/0"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"TK/1"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"TK/2"
+        ]);
+        FamilyStatus::create([
+            'familystatus'=>"TK/3"
+        ]);
     }
 }

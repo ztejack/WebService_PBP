@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Gaji;
 
-use App\Models\Gaji\GajiParamFamily;
+use App\Models\Employe;
+use App\Models\FamilyStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FamilyStatus extends Model
+class GajiParamFamily extends Model
 {
     use HasFactory;
     /**
@@ -15,14 +16,15 @@ class FamilyStatus extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'familystatus',
+        'tnj_familystatus',
+        'familystatus_id',
     ];
     public function employee()
     {
-        return $this->hasMany(Employe::class);
+        return $this->belongsTo(Employe::class);
     }
-    public function gajiparamfamily()
+    public function familystatus()
     {
-        return $this->hasMany(GajiParamFamily::class);
+        return $this->belongsTo(FamilyStatus::class);
     }
 }

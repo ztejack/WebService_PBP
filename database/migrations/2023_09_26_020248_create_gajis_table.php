@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('gajis', function (Blueprint $table) {
             $table->id();
-            $table->string('gapok')->default(0);
-            $table->string('tnj_ahli')->default(0);
-            $table->string('total_gaji')->default(0);
-            $table->string('tnj_jabatan')->default(0);
-            $table->string('tnj_lapangan')->default(0);
+            $table->string('gapok')->nullable()->default(0);
+            $table->string('tnj_ahli')->nullable()->default(0);
+            $table->string('total_gaji')->nullable()->default(0);
+            $table->string('tnj_jabatan')->nullable()->default(0);
+            $table->string('tnj_lapangan')->nullable()->default(0);
             $table->string('type_tunjab')->nullable()->default(0);
             $table->string('tnj_lain')->nullable()->default(0);
             $table->string('tnj_perumahan')->nullable()->default(0);
             $table->string('tnj_bantuan_perumahan')->nullable()->default(0);
             $table->string('tnj_taspen')->nullable()->default(0);
-            $table->string('tnj_pensiun_perusahaan')->nullable()->default(0);
+            $table->string('tnj_dana_pensiun')->nullable()->default(0);
             $table->string('tnj_hari_tua_p')->nullable()->default(0);
             $table->string('tnj_jmn_hari_tua_p')->nullable()->default(0);
             $table->string('tnj_pph21')->nullable()->default(0);
@@ -41,6 +41,8 @@ return new class extends Migration
             $table->string('pot_tht')->nullable()->default(0);
             $table->string('pot_taspen')->nullable()->default(0);
             $table->string('pot_pph21')->nullable()->default(0);
+            $table->string('pot_bpjs_tk')->nullable()->default(0);
+            $table->string('pot_bpjs_kes')->nullable()->default(0);
             $table->string('pot_simponi')->nullable()->default(0);
             $table->string('pot_lain')->nullable()->default(0);
             // $table->string('fasilitas_lain')->nullable();

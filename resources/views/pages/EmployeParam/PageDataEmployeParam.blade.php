@@ -77,6 +77,7 @@
                     @can('GolonganManagement')
                         @include('pages.EmployeParam.components.CardGolongan')
                     @endcan
+                        @include('pages.EmployeParam.components.CardFamily')
                 </div>
 
 

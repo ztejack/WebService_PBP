@@ -61,7 +61,7 @@ class UpdateUserRequest extends FormRequest
             'tanggal' => '',
             'address' => '',
             'addressid' => '',
-            'status_keluarga' => '',
+            'family_status' => '',
             'gender' => '',
             'status_employe' => '',
             'work_location' => '',

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Gaji extends Model
 {
     use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
