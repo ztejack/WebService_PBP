@@ -248,7 +248,7 @@
                             @if ($slip->pot_perjalanan)
                                 <li class="list-group-item list-group-timeline-primary py-0 my-0">
                                     <div class="d-flex justify-content-between">
-                                        <span>Dnias</span> <span><span
+                                        <span>Dinas</span> <span><span
                                                 class="numberin">{{ $slip->pot_perjalanan }}</span></span>
                                     </div>
                                 </li>

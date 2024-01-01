@@ -111,13 +111,13 @@
                                                 data-bs-target="#addLemburModal{{ $user->employe_uuid }}">
                                                 Lembur
                                             </button>
-                                            @include('pages.Gaji.components.ModalAddLembur')
+
                                             <button type="button" class="btn btn-sm btn-warning"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#addkehadiranModal{{ $user->slug }}">
                                                 Absensi
                                             </button>
-                                            @include('pages.Gaji.components.ModalAddAbsensi')
+
                                         </td>
                                     </tr>
                                 @endforeach

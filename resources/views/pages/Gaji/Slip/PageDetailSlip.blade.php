@@ -52,7 +52,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="pe-3">Status Keluarga</td>
-                                                <td>: K / {{ $employe->status_keluarga }}</td>
+                                                <td>: {{ $employe->familystatus->familystatus }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -62,7 +62,7 @@
                         <hr class="m-2">
                         @if ($employe->contract->contract == 'DIREKSI')
                             @include('pages.Gaji.Slip.components.BodyDireksi')
-                        @elseif(!$employe->contract->contract == 'DIREKSI')
+                        @elseif($employe->contract->contract != 'DIREKSI')
                             @include('pages.Gaji.Slip.components.BodyEmploye')
                         @endif
 

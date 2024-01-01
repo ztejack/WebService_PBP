@@ -1,4 +1,4 @@
- <div class="card-body demo-vertical-spacing demo-only-element">
+ <div class="card-body">
      <form action="{{ route('submission.store_direksi') }}" method="POST">
          @method('POST')
          @csrf
@@ -84,8 +84,9 @@
                                              data-bs-target="#addRapelModal{{ $user->slug }}">
                                              Rapel
                                          </button>
-                                         @include('pages.Gaji.components.ModalAddRapel')
                                      </div>
+                                     @include('pages.Gaji.components.ModalAddRapel')
+
                                  </td>
                          @endforeach
                      </tbody>

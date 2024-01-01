@@ -1,8 +1,9 @@
-<div class="modal fade" id="addLemburModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="addLemburModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true"
+    aria-labelledby="modalToggleLabellembur" tabindex="-1">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Lembur</h5>
+                <h5 class="modal-title" id="modalToggleLabellembur">Lembur</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 

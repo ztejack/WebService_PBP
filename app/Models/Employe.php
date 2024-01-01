@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
+use function PHPUnit\Framework\isNull;
+
 class Employe extends Model
 {
     use HasFactory;
@@ -221,7 +223,38 @@ class Employe extends Model
     }
     public function gajicount()
     {
+        if(isNull())
         $gaji = $this->gaji()->get()->first();
+        if ($this->contract->contract == 'DIREKSI') {
+            $return = (object)[
+                'total' => $gaji->total_gaji,
+                'tnj_lain' => $gaji->tnj_lain,
+                'tnj_perumahan' => $gaji->tnj_perumahan,
+                'tnj_taspen' => $gaji->tnj_taspen,
+                'tnj_dana_pensiun' => $gaji->tnj_dana_pensiun,
+                'tnj_hari_tua_p' => $gaji->tnj_hari_tua_p,
+                'tnj_jmn_hari_tua_p' => $gaji->tnj_jmn_hari_tua_p,
+                'tnj_pph21' => $gaji->tnj_pph21,
+                'tnj_bpjs_tk' => $gaji->tnj_bpjs_tk,
+                'tnj_bpjs_kes' => $gaji->tnj_bpjs_kes,
+                'tnj_simponi' => $gaji->tnj_simponi,
+                'pot_serikat_pegawai_ba' => $gaji->pot_serikat_pegawai_ba,
+                'pot_koperasi' => $gaji->pot_koperasi,
+                'pot_lazis' => $gaji->pot_lazis,
+                'pot_dana_pensiun' => $gaji->pot_dana_pensiun,
+                'pot_premi_jht' => $gaji->pot_premi_jht,
+                'pot_tht' => $gaji->pot_koperasi,
+                'pot_taspen' => $gaji->pot_taspen,
+                'pot_pph21' => $gaji->pot_pph21,
+                'pot_bpjs_kes' => $gaji->pot_bpjs_kes,
+                'pot_simponi' => $gaji->pot_simponi,
+                'pot_lain' => $gaji->pot_lain,
+                // 'pot_pph21' => $gaji->pot_pph21,
+                // 'pot_pph21' => $gaji->pot_pph21,
+            ];
+            return $return;
+        }
+
         $gaji_pokok = $gaji->gapok;
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;

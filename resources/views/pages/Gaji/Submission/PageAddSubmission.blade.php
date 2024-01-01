@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content wrapper -->
+    <!-- Content wrapper -->
     <div class="content-wrapper ">
         <!-- Content -->
 
@@ -22,7 +22,18 @@
                 </div>
             @endif
             @include('pages.Gaji.Submission.components.CardAddSubmission')
+            {{-- @include('pages.Gaji.Submission.components.TabContentDireksi') --}}
         </div>
+        @foreach ($users as $user)
+            @include('pages.Gaji.components.ModalAddRapel')
+            @include('pages.Gaji.components.ModalAddLembur')
+            @include('pages.Gaji.components.ModalAddAbsensi')
+        @endforeach
+        @foreach ($userdireksis as $user)
+            @include('pages.Gaji.components.ModalAddLembur')
+            @include('pages.Gaji.components.ModalAddAbsensi')
+        @endforeach
+
         {{-- footer --}}
         @include('components.global.footer')
 

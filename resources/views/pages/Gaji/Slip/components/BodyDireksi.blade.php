@@ -246,8 +246,8 @@
                                 $slip->pot_pph21,
                                 $slip->pot_simponi,
                                 $slip->pot_lain,
-                                ]) }}
-                                </span></span>
+                            ]) }}
+                        </span></span>
                 </div>
             </li>
         </div>
@@ -259,20 +259,43 @@
             <ul class="list-group list-group-timeline">
                 <li class="list-group-item list-group-timeline-primary py-0 my-0">
                     <div class="d-flex justify-content-between">
-                        <span>JUMLAH GAJI I</span> <span> <span
-                                class="numberin">{{ array_sum([$slip->gapok, $slip->tnj_ahli, $slip->tnj_jabatan]) }}</span></span>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                    <div class="d-flex justify-content-between">
-                        <span>JUMLAH GAJI II</span> <span> <span
-                                class="numberin">{{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_perumahan, $slip->total_tnj_makan]) }}</span></span>
+                        <span>JUMLAH PENDAPATAN</span> <span>
+                            <span class="numberin">
+                                {{ array_sum([
+                                    $slip->gapok,
+                                    $slip->tnj_perumahan,
+                                    $slip->tnj_bantuan_perumahan,
+                                    $slip->tnj_taspen,
+                                    $slip->tnj_dana_pensiun,
+                                    $slip->tnj_hari_tua_p,
+                                    $slip->tnj_pph21,
+                                    $slip->tnj_jmn_hari_tua_p,
+                                    $slip->tnj_simponi,
+                                    $slip->tnj_bpjs_tk,
+                                    $slip->tnj_bpjs_kes,
+                                    $slip->tnj_lain,
+                                ]) }}
+                            </span>
+                        </span>
                     </div>
                 </li>
                 <li class="list-group-item list-group-timeline-primary py-0 my-0">
                     <div class="d-flex justify-content-between">
                         <span>JUMLAH POTONGAN</span> <span> <span
-                                class="numberin">{{ array_sum([$slip->pot_bpjs_kes, $slip->pot_bpjs_tk]) }}</span></span>
+                                class="numberin">{{ array_sum([
+                                    $slip->pot_bpjs_kes,
+                                    $slip->pot_bpjs_tk,
+                                    $slip->pot_serikat_pegawai_ba,
+                                    $slip->pot_koperasi,
+                                    $slip->pot_lazis,
+                                    $slip->pot_dana_pensiun,
+                                    $slip->pot_premi_jht,
+                                    $slip->pot_tht,
+                                    $slip->pot_taspen,
+                                    $slip->pot_pph21,
+                                    $slip->pot_simponi,
+                                    $slip->pot_lain,
+                                ]) }}</span></span>
                     </div>
                 </li>
             </ul>

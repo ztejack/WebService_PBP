@@ -113,7 +113,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="" class="btn btn-primary d-sm-none" onclick="setTotal()"><i
+                    <button type="" class="btn btn-primary d-sm-none d-md-block" onclick="setTotal()"><i
                             class="bx bx-save"></i>
                         Save</button>
                 </div>
@@ -245,7 +245,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="" class="btn btn-primary d-md-none" onclick="setTotal()"><i
+                    <button type="" class="btn btn-primary d-md-none d-sm-block" onclick="setTotal()"><i
                             class="bx bx-save"></i> Save</button>
                     <input type="hidden" name="direksi" value="{{ true }}">
                 </div>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalAbsensi{{ $item->id }}" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="ModalAbsensi{{ $item->id }}" style="display: none;" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">

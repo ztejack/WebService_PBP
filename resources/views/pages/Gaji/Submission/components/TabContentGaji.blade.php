@@ -95,18 +95,20 @@
                                          data-bs-target="#addRapelModal{{ $user->slug }}">
                                          Rapel
                                      </button>
-                                     @include('pages.Gaji.components.ModalAddRapel')
                                      <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
                                          data-bs-target="#addLemburModal{{ $user->slug }}">
                                          Lembur
                                      </button>
-                                     @include('pages.Gaji.components.ModalAddLembur')
                                      <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                          data-bs-target="#addkehadiranModal{{ $user->slug }}">
                                          Absensi
                                      </button>
-                                     @include('pages.Gaji.components.ModalAddAbsensi')
                                  </td>
+                                 {{-- @include('pages.Gaji.components.ModalAddRapel')
+                                 @include('pages.Gaji.components.ModalAddLembur')
+                                 @include('pages.Gaji.components.ModalAddAbsensi') --}}
+
+
                              </tr>
                          @endforeach
                      </tbody>

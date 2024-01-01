@@ -1,8 +1,9 @@
-<div class="modal fade" id="addrapelModal{{ $user->slug }}" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="addRapelModal{{ $user->slug }}" style="display: none; " aria-hidden="true"
+    aria-labelledby="modalToggleLabelrapel" tabindex="-1">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Rapel
+                <h5 class="modal-title" id="modalToggleLabelrapel">Rapel
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
