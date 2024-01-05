@@ -130,7 +130,7 @@
                         @endif
                         @if ($potongan_lainnya->pot_kosong > 0)
                             <tr>
-                                <td class="pe-3">Kosong :</td>
+                                <td class="pe-3">Kehadiran :</td>
                                 <td><span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
                                 </td>
                             </tr>

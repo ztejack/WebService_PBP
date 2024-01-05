@@ -8,12 +8,14 @@
                         <span>Gaji Pokok</span> <span><span class="numberin">{{ $slip->gapok }}</span></span>
                     </div>
                 </li>
-                <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                    <div class="d-flex justify-content-between">
-                        <span>Tunjangan Jabatan</span> <span><span
-                                class="numberin">{{ $slip->tnj_jabatan }}</span></span>
-                    </div>
-                </li>
+                @if ($slip->tnj_jabatan)
+                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                        <div class="d-flex justify-content-between">
+                            <span>Tunjangan Jabatan</span> <span><span
+                                    class="numberin">{{ $slip->tnj_jabatan }}</span></span>
+                        </div>
+                    </li>
+                @endif
                 @if ($slip->tnj_ahli)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
@@ -155,7 +157,8 @@
                     @if ($slip->pot_kosong)
                         <li class="list-group-item list-group-timeline-primary py-0 my-0">
                             <div class="d-flex justify-content-between">
-                                <span>Absen</span> <span><span class="numberin">{{ $slip->pot_kosong }}</span></span>
+                                <span>Kehadiran</span> <span><span
+                                        class="numberin">{{ $slip->pot_kosong }}</span></span>
                             </div>
                         </li>
                     @endif

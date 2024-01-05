@@ -45,7 +45,7 @@
 //                 }));
 // })(),
 $("#bs-datepicker-autoclose").datepicker({
-    // format: "dd-mm-yyyy",
+    format: "yyyy-mm-dd",
     // startView: "date",
     // minViewMode: "date",
     opens: "right",
@@ -53,23 +53,26 @@ $("#bs-datepicker-autoclose").datepicker({
     autoclose: true,
     todayHighlight: true,
     immediateUpdates: true,
-    // });
-    // $(function () {
-    //     var e = $("#bs-datepicker-basic"),
-    //         o = $("#bs-datepicker-autoclose"),
-    //         e =
-    //             (e.length &&
-    //                 e.datepicker({
-    //                     todayHighlight: !0,
-    //                     orientation: "auto right",
-    //                 }),
-    //             o.length &&
-    //                 o.datepicker({
-    //                     todayHighlight: !0,
-    //                     autoclose: !0,
-    //                     orientation: "auto right",
-    //                 }),
-    //             $("#bs-rangepicker-basic"));
+});
+$("#bs-datepicker-autoclose-direksi").datepicker({
+    format: "yyyy-mm-dd",
+    // startView: "date",
+    // minViewMode: "date",
+    opens: "right",
+    orientation: "auto bottom",
+    autoclose: true,
+    todayHighlight: true,
+    immediateUpdates: true,
+});
+$("#bs-datepicker-autoclose-thr").datepicker({
+    format: "yyyy-mm-dd",
+    // startView: "date",
+    // minViewMode: "date",
+    opens: "right",
+    orientation: "auto bottom",
+    autoclose: true,
+    todayHighlight: true,
+    immediateUpdates: true,
 });
 $("#bs-datepicker-autoclose-mont").datepicker({
     format: "mm-yyyy",

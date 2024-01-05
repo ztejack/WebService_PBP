@@ -3,11 +3,11 @@
          @method('POST')
          @csrf
          <div class="col mb-4">
-             <label class="form-label" for="bs-datepicker-autoclose">Date</label>
+             <label class="form-label" for="bs-datepicker-autoclose-direksi">Date</label>
              <div class="input-group">
-                 <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose"
-                     data-date-format="dd-mm-yyyy" aria-describedby="bs-datepicker-autoclose"
-                     value="{{ now()->format('d-m-Y') }}" name="date">
+                 <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose-direksi"
+                     data-date-format="dd-mm-yyyy" aria-describedby="bs-datepicker-autoclose-direksi"
+                     value="{{ now()->format('Y-m-d') }}" name="date">
                  <span class="input-group-text"><i class="bx bx-calendar"></i></span>
              </div>
          </div>
@@ -20,7 +20,8 @@
          <div class="card-datatable ">
              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                  <table
-                     class="datatables-order table-sm table border-top dataTable no-footer dtr-column collapsed table-display"
+                     class="dt-scrollableTable datatables-order table-sm table border-top dataTable
+                 no-footer dtr-column collapsed table-display"
                      aria-describedby="DataTables_Table_0_info" data-page-length='25'>
                      <thead>
                          <tr>
@@ -85,7 +86,7 @@
                                              Rapel
                                          </button>
                                      </div>
-                                     @include('pages.Gaji.components.ModalAddRapel')
+                                     {{-- @include('pages.Gaji.components.ModalAddRapel') --}}
 
                                  </td>
                          @endforeach

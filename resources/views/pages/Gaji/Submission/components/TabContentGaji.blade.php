@@ -1,4 +1,4 @@
- <div class="card-body demo-vertical-spacing demo-only-element">
+ <div class="card-body">
      <form action="{{ route('submission.store') }}" method="POST">
          @method('POST')
          @csrf
@@ -6,8 +6,8 @@
              <label class="form-label" for="bs-datepicker-autoclose">Date</label>
              <div class="input-group">
                  <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose"
-                     data-date-format="dd-mm-yyyy" aria-describedby="bs-datepicker-autoclose"
-                     value="{{ now()->format('d-m-Y') }}" name="date">
+                     data-date-format="yyyy-mm-dd" aria-describedby="bs-datepicker-autoclose"
+                     value="{{ now()->format('Y-m-d') }}" name="date">
                  <span class="input-group-text"><i class="bx bx-calendar"></i></span>
              </div>
          </div>
@@ -24,10 +24,11 @@
              </div>
          </div>
          <div class="card-datatable ">
-             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                 <table
-                     class="datatables-order table-sm table border-top dataTable no-footer dtr-column collapsed table-display"
-                     aria-describedby="DataTables_Table_0_info" data-page-length='25'>
+             <div class="dataTables_scroll">
+
+                 {{-- <table class="table table-responsive table-sm  border-top  table-display" data-page-length='25'> --}}
+                 <table class="datatables-basic table border-top border-bottom table-borderless table-sm  table-display"
+                     data-page-length='25'>
                      <thead>
                          <tr>
                              <th class="" rowspan="1" colspan="1" style="width: 2px" aria-label="">
@@ -69,7 +70,8 @@
                                          class="dt-checkboxes form-check-input row-checkbox {{ $user->employee->payrolcheck() ? 'enable' : 'disabled' }}"
                                          value="{{ $user->employee->id }}"{{ $user->employee->payrolcheck() ? 'enable' : 'disabled' }}>
                                  </td>
-                                 <td class="sorting_1"><span class="fw-medium">{{ $user->name }}</span></td>
+                                 <td class="sorting_1"><span class="text-nowrap fw-medium">{{ $user->name }}</span>
+                                 </td>
                                  <td class=""><span class="text-nowrap">{{ now()->format('M Y') }}</span>
                                  </td>
 
@@ -112,6 +114,38 @@
                              </tr>
                          @endforeach
                      </tbody>
+                     <tfoot>
+                         <tr>
+                             <th class="" rowspan="1" colspan="1" style="width: 2px" aria-label="">
+                                 No</th>
+                             {{-- <th class="select-checkbox">
+                                <input type="checkbox" class="select-all form-check-input">
+                            </th> --}}
+                             <th class="select-checkbox">
+                                 <input type="checkbox" id="select-all" class="select-all form-check-input">
+                             </th>
+                             {{-- <th class="select-checkbox">
+                                <input type="checkbox" class="select-all form-check-input">
+                            </th> --}}
+                             <th class=" " aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                 Name
+                             </th>
+                             <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                 date
+                             </th>
+                             <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                 payment
+                             </th>
+                             <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                 status
+                             </th>
+                             <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                 attendance
+                             </th>
+                             <th class="" rowspan="1" colspan="1" aria-label="Actions">
+                                 Actions</th>
+                         </tr>
+                     </tfoot>
                  </table>
              </div>
          </div>

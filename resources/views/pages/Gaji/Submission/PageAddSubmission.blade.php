@@ -30,8 +30,7 @@
             @include('pages.Gaji.components.ModalAddAbsensi')
         @endforeach
         @foreach ($userdireksis as $user)
-            @include('pages.Gaji.components.ModalAddLembur')
-            @include('pages.Gaji.components.ModalAddAbsensi')
+            @include('pages.Gaji.components.ModalAddRapel')
         @endforeach
 
         {{-- footer --}}

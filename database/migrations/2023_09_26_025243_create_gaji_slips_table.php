@@ -42,12 +42,13 @@ return new class extends Migration
             // direksi
 
             $table->string('tnj_perumahan')->nullable()->default(0);
-            $table->string('tnj_taspen')->nullable()->default(0);
             $table->string('tnj_dana_pensiun')->nullable()->default(0);
-            $table->string('tnj_hari_tua_p')->nullable()->default(0);
-            $table->string('tnj_jmn_hari_tua_p')->nullable()->default(0);
-            $table->string('tnj_pph21')->nullable()->default(0);
-            $table->string('tnj_simponi')->nullable()->default(0);
+            $table->string('tnj_simmode')->nullable()->default(0);
+            $table->string('tnj_pajak')->nullable()->default(0);
+
+            $table->string('tnj_bpjs_jkm')->nullable()->default(0);
+            $table->string('tnj_bpjs_jht')->nullable()->default(0);
+            $table->string('tnj_bpjs_jp')->nullable()->default(0);
 
             $table->string('tnj_bpjs_tk')->nullable()->default(0);
             $table->string('tnj_bpjs_kes')->nullable()->default(0);
@@ -58,11 +59,11 @@ return new class extends Migration
             $table->string('pot_koperasi')->nullable()->default(0);
             $table->string('pot_lazis')->nullable()->default(0);
             $table->string('pot_dana_pensiun')->nullable()->default(0);
-            $table->string('pot_premi_jht')->nullable()->default(0);
-            $table->string('pot_tht')->nullable()->default(0);
-            $table->string('pot_taspen')->nullable()->default(0);
-            $table->string('pot_pph21')->nullable()->default(0);
-            $table->string('pot_simponi')->nullable()->default(0);
+            $table->string('pot_simmode')->nullable()->default(0);
+            $table->string('pot_bpjs_jkm')->nullable()->default(0);
+            $table->string('pot_bpjs_jht')->nullable()->default(0);
+            $table->string('pot_bpjs_jp')->nullable()->default(0);
+            $table->string('pot_pajak')->nullable()->default(0);
             $table->string('pot_lain')->nullable()->default(0);
 
             $table->string('pot_sakit')->nullable()->default(0);
