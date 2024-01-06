@@ -36,7 +36,7 @@ class GajiSlip extends Model
         'thr',
         'ireq',
 
-        // 'tnj_perumahan',
+        'tnj_perumahan',
         'tnj_bantuan_perumahan',
         'tnj_dana_pensiun',
         'tnj_simmode',

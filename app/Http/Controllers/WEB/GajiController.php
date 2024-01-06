@@ -139,6 +139,33 @@ class GajiController extends Controller
     {
         $gaji = $user->employee->gaji;
         if ($user->employee->contract->contract == 'DIREKSI') {
+            $gapok = $gaji->gapok;
+            $tunjab = $gaji->tnj_jabatan;
+            $tnj_perumahan = $gaji->tnj_perumahan;
+            $tnj_ubp = $gaji->tnj_bantuan_perumahan;
+            $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
+            $tnj_simmode = $gaji->tnj_simmode;
+            $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
+            $tnj_bpjs_jkm = $gaji->tnj_bpjs_jkm;
+            $tnj_bpjs_jht = $gaji->tnj_bpjs_jht;
+            $tnj_bpjs_jp = $gaji->tnj_bpjs_jp;
+            $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
+            $tnj_pajak = $gaji->tnj_pajak;
+            $tnj_lain = $gaji->tnj_lain;
+            // potongan
+            $pot_spba = $gaji->pot_serikat_pegawai_ba;
+            $pot_lazis = $gaji->pot_lazis;
+            $pot_dana_pensiun = $gaji->pot_dana_pensiun;
+            $pot_simmode = $gaji->pot_simmode;
+            $pot_koperasi = $gaji->pot_koperasi;
+            $pot_bpjs_tk = $gaji->pot_bpjs_tk;
+            $pot_bpjs_jkm = $gaji->pot_bpjs_jkm;
+            $pot_bpjs_jht = $gaji->pot_bpjs_jht;
+            $pot_bpjs_jp = $gaji->pot_bpjs_jp;
+            $pot_bpjs_kes = $gaji->pot_bpjs_kes;
+            $pot_pajak = $gaji->pot_pajak;
+            $pot_lain = $gaji->pot_lain;
+
             $rapels = $user->employee->getcurrentrapel();
             $rapel = $rapels == null ? 0 : $rapels->jumlah;
             $rapelcount = $user->employee->rapel;
@@ -441,6 +468,9 @@ class GajiController extends Controller
         } catch (\Exception $e) {
             return Redirect::back()->with('err', 'Failed Update Gaji')->withInput();
         }
+        // } catch (\Exception $e) {
+        //     return Redirect::back()->with('err', 'Failed Update Gaji')->withInput();
+        // }
     }
     public function user_resource($user)
     {
