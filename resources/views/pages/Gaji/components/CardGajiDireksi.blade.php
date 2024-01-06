@@ -15,100 +15,114 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-gaji-pokok">
-                            Gaji Pokok
-                        </label>
+                        <label class="form-label" for="input-gaji-pokok"> Gaji Pokok</label>
                         <input type="number" class="form-control @error('gapok') is-invalid @enderror"
                             id="input-gaji-pokok" min="0" placeholder="Input Gaji Pokok..."
-                            value="{{ $gapok = null ? 0 : $gapok }}" name="gapok" required>
+                            value="{{ $gapok == null ? 0 : $gapok }}" name="gapok" required>
                         @error('gapok')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="input-tunjangan-jabatan"> Tunjangan Jabatan</label>
+                        <input type="number" class="form-control @error('tunjab') is-invalid @enderror"
+                            id="input-tunjangan-jabatan" min="0" placeholder="Input Tunjangan Jabatan..."
+                            value="{{ $tunjab == null ? 0 : $tunjab }}" name="tunjab" required>
+                        @error('tunjab')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="tnj_perumahan">Tunjangan Perumahan</label>
                         <input type="number" class="form-control " id="tnj_perumahan" name="tnj_perumahan"
-                            min="0" value="{{ $tunjangan_perumahan }}">
+                            min="0" value="{{ $tunjangan_perumahan == null ? 0 : $tunjangan_perumahan }}">
                         @error('tnj_perumahan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="tnj_ubp">Uang Bantuan Perumahan</label>
+                        <label class="form-label" for="tnj_ubp">Uang Bantuan Perumahan <span
+                                class="text-primary">(UBP)</span></label>
                         <input type="number" class="form-control " id="tnj_ubp" name="tnj_ubp" min="0"
-                            value="{{ $tunjangan_ubp }}">
+                            value="{{ $tunjangan_ubp == null ? 0 : $tunjangan_ubp }}">
                         @error('tnj_ubp')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="tnj_taspen">Tunjangan Tabungan Pensiun</label>
-                        <input type="number" class="form-control " id="tnj_taspen" name="tnj_taspen" min="0"
-                            value="{{ $tunjangan_taspen }}">
-                        @error('tnj_taspen')
+                        <label class="form-label" for="tnj_simmode">Tunjangan SIMMODE 1</label>
+                        <input type="number" class="form-control " id="tnj_simmode" name="tnj_simmode" min="0"
+                            value="{{ $tunjangan_simmode == null ? 0 : $tunjangan_simmode }}">
+                        @error('tnj_simmode')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="tnj_bpjs_tk">Tunjangan BPJS Ketenaga Kerjaan</label>
-                        <input type="number" class="form-control " id="tnj_bpjs_tk" name="tnj_bpjs_tk" min="0"
-                            value="{{ $tunjangan_bpjs_tk }}">
-                        @error('tnj_bpjs_tk')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="tnj_dana_pensiun">Tunjangan Dana Pensiun</label>
+                        <label class="form-label" for="tnj_dana_pensiun">Tunjangan Dana Pensiun <span
+                                class="text-info">(DPBA) </span></label>
                         <input type="number" class="form-control " id="tnj_dana_pensiun" name="tnj_dana_pensiun"
-                            min="0" value="{{ $tunjangan_dana_pensiun }}">
+                            min="0" value="{{ $tunjangan_dana_pensiun == null ? 0 : $tunjangan_dana_pensiun }}">
                         @error('tnj_dana_pensiun')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="tnj_tht">Tunjangan Hari Tua</label>
-                        <input type="number" class="form-control " id="tnj_tht" name="tnj_tht" min="0"
-                            value="{{ $tunjangan_tht }}">
-                        @error('tnj_tht')
+                        <label class="form-label" for="tnj_bpjs_tk">Tunjangan BPJS Ketenaga Kerjaan <span
+                                class="text-primary">(BPJS TK)</span></label>
+                        <input type="number" class="form-control " id="tnj_bpjs_tk" name="tnj_bpjs_tk" min="0"
+                            value="{{ $tunjangan_bpjs_tk == null ? 0 : $tunjangan_bpjs_tk }}">
+                        @error('tnj_bpjs_tk')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="tnj_jht">Tunjangan Jaminan Hari Tua</label>
-                        <input type="number" class="form-control " id="tnj_jht" name="tnj_jht" min="0"
-                            value="{{ $tunjangan_jht }}">
-                        @error('tnj_jht')
+                        <label class="form-label" for="tnj_bpjs_jkm">Tunjangan Jaminan Kematian <span
+                                class="text-primary">(BPJS JKM)</span></label>
+                        <input type="number" class="form-control " id="tnj_bpjs_jkm" name="tnj_bpjs_jkm" min="0"
+                            value="{{ $tunjangan_bpjs_jkm == null ? 0 : $tunjangan_bpjs_jkm }}">
+                        @error('tnj_bpjs_jkm')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="tnj_bpjs_jht">Tunjangan Jaminan Hari Tua <span
+                                class="text-primary">(BPJS JHT)</span></label>
+                        <input type="number" class="form-control " id="tnj_bpjs_jht" name="tnj_bpjs_jht"
+                            min="0" value="{{ $tunjangan_bpjs_jht == null ? 0 : $tunjangan_bpjs_jht }}">
+                        @error('tnj_bpjs_jht')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="tnj_bpjs_jp">Tunjangan Jaminan Pensiun <span
+                                class="text-primary">(BPJS JP)</span></label>
+                        <input type="number" class="form-control " id="tnj_bpjs_jp" name="tnj_bpjs_jp"
+                            min="0" value="{{ $tunjangan_bpjs_jp == null ? 0 : $tunjangan_bpjs_jp }}">
+                        @error('tnj_bpjs_jp')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="tnj_bpjs_kes">Tunjangan BPJS Kesehatan <span
+                                class="text-primary">(BPJS KES)</span></label>
+                        <input type="number" class="form-control " id="tnj_bpjs_kes" name="tnj_bpjs_kes"
+                            min="0" value="{{ $tunjangan_bpjs_kes == null ? 0 : $tunjangan_bpjs_kes }}">
+                        @error('tnj_bpjs_kes')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="tnj_pajak">Tunjangan Pajak</label>
                         <input type="number" class="form-control " id="tnj_pajak" name="tnj_pajak" min="0"
-                            value="{{ $tunjangan_pajak }}">
+                            value="{{ $tunjangan_pajak == null ? 0 : $tunjangan_pajak }}">
                         @error('tnj_pajak')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="tnj_bpjs_kes">Tunjangan BPJS Kesehatan</label>
-                        <input type="number" class="form-control " id="tnj_bpjs_kes" name="tnj_bpjs_kes"
-                            min="0" value="{{ $tunjangan_bpjs_kes }}">
-                        @error('tnj_bpjs_kes')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="tnj_simponi">Tunjangan Simponi</label>
-                        <input type="number" class="form-control " id="tnj_simponi" name="tnj_simponi"
-                            min="0" value="{{ $tunjangan_simponi }}">
-                        @error('tnj_simponi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="tnj_lain">Tunjangan Lain</label>
                         <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"
-                            value="{{ $tunjangan_lain }}">
+                            value="{{ $tunjangan_lain == null ? 0 : $tunjangan_lain }}">
                         @error('tnj_lain')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -125,23 +139,12 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="input-spba">
-                            Iuran Serikat Pegawai Bukit Asam
+                            Iuran Serikat Pegawai Bukit Asam <span class="text-info">(SPBA)</span>
                         </label>
                         <input type="number" class="form-control @error('pot_spba') is-invalid @enderror"
                             id="input-spba" min="0" placeholder="Input spba..."
-                            value="{{ $pot_spba = null ? 0 : $pot_spba }}" name="pot_spba" required>
+                            value="{{ $pot_spba == null ? 0 : $pot_spba }}" name="pot_spba" required>
                         @error('pot_spba')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="input-potongan-koperasi">
-                            Potongan Koperasi
-                        </label>
-                        <input type="number" class="form-control @error('pot_koperasi') is-invalid @enderror"
-                            id="input-potongan-koperasi" placeholder="Input Potongan Koperasi..." min="0"
-                            value="{{ $pot_koperasi = null ? 0 : $pot_koperasi }}" name="pot_koperasi">
-                        @error('pot_koperasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -151,75 +154,99 @@
                         </label>
                         <input type="number" class="form-control @error('pot_lazis') is-invalid @enderror"
                             id="input-potongan-lazis" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_lazis = null ? 0 : $pot_lazis }}" name="pot_lazis">
+                            value="{{ $pot_lazis == null ? 0 : $pot_lazis }}" name="pot_lazis">
                         @error('pot_lazis')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="input-iuran-dana-pensiun">
-                            Iuran Dana Pensiun
+                            Iuran Dana Pensiun <span class="text-info">(DPBA)</span>
                         </label>
                         <input type="number" class="form-control @error('pot_i_dana_pensiun') is-invalid @enderror"
-                            id="input-iuran-dana-pensiun" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_i_dana_pensiun = null ? 0 : $pot_i_dana_pensiun }}"
+                            id="input-iuran-dana-pensiun" placeholder="Input Potongan Iuran Dana Pensiun..."
+                            min="0" value="{{ $pot_i_dana_pensiun == null ? 0 : $pot_i_dana_pensiun }}"
                             name="pot_i_dana_pensiun">
                         @error('pot_i_dana_pensiun')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-premi-jht">
-                            Premi Jaminan Hari Tua
+                        <label class="form-label" for="input-pot-simmode">
+                            Potongan SIMMODE 1
                         </label>
-                        <input type="number" class="form-control @error('pot_jht') is-invalid @enderror"
-                            id="input-premi-jht" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_jht = null ? 0 : $pot_jht }}" name="pot_jht">
-                        @error('pot_jht')
+                        <input type="number" class="form-control @error('pot_simmode') is-invalid @enderror"
+                            id="input-pot-simmode" placeholder="Input Potongan SIMMODE 1..." min="0"
+                            value="{{ $pot_simmode == null ? 0 : $pot_simmode }}" name="pot_simmode">
+                        @error('pot_simmode')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-tht">
-                            Iuran Tunjangan Hari Tua
+                        <label class="form-label" for="input-potongan-koperasi">
+                            Potongan Koperasi
                         </label>
-                        <input type="number" class="form-control @error('pot_tht') is-invalid @enderror"
-                            id="input-tht" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_tht = null ? 0 : $pot_tht }}" name="pot_tht">
-                        @error('pot_tht')
+                        <input type="number" class="form-control @error('pot_koperasi') is-invalid @enderror"
+                            id="input-potongan-koperasi" placeholder="Input Potongan Koperasi..." min="0"
+                            value="{{ $pot_koperasi == null ? 0 : $pot_koperasi }}" name="pot_koperasi">
+                        @error('pot_koperasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="input-bpjs-tk">
-                            Iuran BPJS Ketenaga Kerjaan
+                            Iuran BPJS Ketenaga Kerjaan <span class="text-primary">(BPJS TK)</span>
                         </label>
                         <input type="number" class="form-control @error('pot_bpjs_tk') is-invalid @enderror"
-                            id="input-bpjs-tk" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_bpjs_tk = null ? 0 : $pot_bpjs_tk }}" name="pot_bpjs_tk">
+                            id="input-bpjs-tk" placeholder="Input Iuran Bpjs Ketenaga Kerjaan..." min="0"
+                            value="{{ $pot_bpjs_tk == null ? 0 : $pot_bpjs_tk }}" name="pot_bpjs_tk">
                         @error('pot_bpjs_tk')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-bpjs-kes">
-                            Iuran BPJS Kesehatan
+                        <label class="form-label" for="input-bpjs-jkm">
+                            Iuran Jaminan Kematian <span class="text-primary">(BPJS JKM)</span>
                         </label>
-                        <input type="number" class="form-control @error('pot_bpjs_kes') is-invalid @enderror"
-                            id="input-bpjs-kes" placeholder="Input Iuran BPJS Kesehatan..." min="0"
-                            value="{{ $pot_bpjs_kes = null ? 0 : $pot_bpjs_kes }}" name="pot_bpjs_kes">
-                        @error('pot_bpjs_kes')
+                        <input type="number" class="form-control @error('pot_bpjs_jkm') is-invalid @enderror"
+                            id="input-bpjs-jkm" placeholder="Input Potongan Jaminan Hari Tua..." min="0"
+                            value="{{ $pot_bpjs_jkm == null ? 0 : $pot_bpjs_jkm }}" name="pot_bpjs_jkm">
+                        @error('pot_bpjs_jkm')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-pot-taspen">
-                            Potongan Tabungan Pensiun
+                        <label class="form-label" for="input-bpjs-jht">
+                            Iuran BPJS Jaminan Hari Tua <span class="text-primary">(BPJS JHT)</span>
                         </label>
-                        <input type="number" class="form-control @error('pot_pajak') is-invalid @enderror"
-                            id="input-pot-taspen" placeholder="Input Potongan Taspen..." min="0"
-                            value="{{ $pot_taspen = null ? 0 : $pot_taspen }}" name="pot_taspen">
-                        @error('pot_taspen')
+                        <input type="number" class="form-control @error('pot_bpjs_jht') is-invalid @enderror"
+                            id="input-bpjs-jht" placeholder="Input Potongan Jaminan Hari Tua..." min="0"
+                            value="{{ $pot_bpjs_jht == null ? 0 : $pot_bpjs_jht }}" name="pot_bpjs_jht">
+                        @error('pot_bpjs_jht')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="input-bpjs-jp">
+                            Iuran BPJS Jaminan Pensiun <span class="text-primary">(BPJS JP)</span>
+                        </label>
+                        <input type="number" class="form-control @error('pot_bpjs_jp') is-invalid @enderror"
+                            id="input-bpjs-jp" placeholder="Input Potongan Jaminan pensiun..." min="0"
+                            value="{{ $pot_bpjs_jp == null ? 0 : $pot_bpjs_jp }}" name="pot_bpjs_jp">
+                        @error('pot_bpjs_jp')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-label" for="input-bpjs-kes">
+                            Iuran BPJS Kesehatan <span class="text-primary">(BPJS KES)</span>
+                        </label>
+                        <input type="number" class="form-control @error('pot_bpjs_kes') is-invalid @enderror"
+                            id="input-bpjs-kes" placeholder="Input Iuran BPJS Kesehatan..." min="0"
+                            value="{{ $pot_bpjs_kes == null ? 0 : $pot_bpjs_kes }}" name="pot_bpjs_kes">
+                        @error('pot_bpjs_kes')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -228,20 +255,20 @@
                             Potongan Pajak
                         </label>
                         <input type="number" class="form-control @error('pot_pajak') is-invalid @enderror"
-                            id="input-pot-pajak" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_pajak = null ? 0 : $pot_pajak }}" name="pot_pajak">
+                            id="input-pot-pajak" placeholder="Input Potongan Lain..." min="0"
+                            value="{{ $pot_pajak == null ? 0 : $pot_pajak }}" name="pot_pajak">
                         @error('pot_pajak')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="input-pot-simponi">
-                            Potongan SIMPONI
+                        <label class="form-label" for="input-pot-lain">
+                            Potongan Lain
                         </label>
-                        <input type="number" class="form-control @error('pot_simponi') is-invalid @enderror"
-                            id="input-pot-simponi" placeholder="Input Potongan lazis..." min="0"
-                            value="{{ $pot_simponi = null ? 0 : $pot_simponi }}" name="pot_simponi">
-                        @error('pot_simponi')
+                        <input type="number" class="form-control @error('pot_lain') is-invalid @enderror"
+                            id="input-pot-lain" placeholder="Input Potongan Lain..." min="0"
+                            value="{{ $pot_lain == null ? 0 : $pot_lain }}" name="pot_lain">
+                        @error('pot_lain')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

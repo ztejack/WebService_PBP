@@ -288,6 +288,13 @@ class UserController extends Controller
             $formattedString = "Year: $parts[0], Month: $parts[1], Week: $parts[2], Days: $parts[3]";
         }
         $parts = explode(" ", $user->employee->ttl);
+
+        // The date is in the last part
+        $date = array_pop($parts); // "2001-07-1"
+
+        // The city is everything before the date
+        $city = implode(' ', $parts); // "Kota Bandar Lampung"
+
         $formattedDate = date('Y-m-d', strtotime($user->employee->date_start));
         if ($user->employee->gender = true) {
             $gender = 'Male';
@@ -305,8 +312,8 @@ class UserController extends Controller
             'nip' => $user->employee->nip,
             'nik' => $user->employee->nik,
             'npwp' => $user->employee->npwp,
-            'tempat' => $user->employee->ttl != null ? $parts[0] : null,
-            'tanggal' => $user->employee->ttl != null ? $parts[1] : null,
+            'tempat' => $user->employee->ttl != null ? $city : null,
+            'tanggal' => $user->employee->ttl != null ? $date : null,
             'address' => $user->employee->address,
             'ktp_address' => $user->employee->ktp_address,
             'gender' => $gender,

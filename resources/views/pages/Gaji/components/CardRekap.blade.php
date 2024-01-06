@@ -2,7 +2,7 @@
     <div class="col-md-6">
         <div class="card mb-4 ">
             <div class="card-header d-flex justify-content-between  flex-md-row flex-column pb-0">
-                <h5 class=""><span class="badge badge-center bg-primary">I</span>Penghasilan</h5>
+                <h5 class=""><span class="badge badge-center bg-primary">I</span> Penghasilan</h5>
                 <small class="text-muted float-end">I Penghasilan</small>
             </div>
             <div class="card-body">
@@ -14,22 +14,16 @@
                                 <td><span class="numbers">{{ $gapok }}</span></td>
                             </tr>
                         @endif
+                        @if ($tunjab)
+                            <tr>
+                                <td class="pe-3">Tunjangan Jabatan:</td>
+                                <td><span class="numbers">{{ $tunjab }}</span></td>
+                            </tr>
+                        @endif
                         @if ($tunjangan_perumahan)
                             <tr>
                                 <td class="pe-3">Tunjangan Perumahan:</td>
                                 <td><span class="numbers">{{ $tunjangan_perumahan }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($tunjangan_ubp)
-                            <tr>
-                                <td class="pe-3">Uang Bantuan Perumahan:</td>
-                                <td><span class="numbers">{{ $tunjangan_ubp }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($tunjangan_taspen)
-                            <tr>
-                                <td class="pe-3">Uang Tabungan Pensiun:</td>
-                                <td><span class="numbers">{{ $tunjangan_taspen }}</span></td>
                             </tr>
                         @endif
                         @if ($tunjangan_dana_pensiun)
@@ -38,28 +32,16 @@
                                 <td><span class="numbers">{{ $tunjangan_dana_pensiun }}</span></td>
                             </tr>
                         @endif
-                        @if ($tunjangan_tht)
+                        @if ($tunjangan_ubp)
                             <tr>
-                                <td class="pe-3">Tunjangan Hari Tua:</td>
-                                <td><span class="numbers">{{ $tunjangan_tht }}</span></td>
+                                <td class="pe-3">Uang Bantuan Perumahan:</td>
+                                <td><span class="numbers">{{ $tunjangan_ubp }}</span></td>
                             </tr>
                         @endif
-                        @if ($tunjangan_jht)
+                        @if ($tunjangan_simmode)
                             <tr>
-                                <td class="pe-3">Uang Jaminan Hari Tua:</td>
-                                <td><span class="numbers">{{ $tunjangan_jht }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($tunjangan_pajak)
-                            <tr>
-                                <td class="pe-3">Tunjangan Pajak:</td>
-                                <td><span class="numbers">{{ $tunjangan_pajak }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($tunjangan_simponi)
-                            <tr>
-                                <td class="pe-3">Tunjangan Simponi:</td>
-                                <td><span class="numbers">{{ $tunjangan_simponi }}</span></td>
+                                <td class="pe-3">Tunjangan SIMMODE 1:</td>
+                                <td><span class="numbers">{{ $tunjangan_simmode }}</span></td>
                             </tr>
                         @endif
                         @if ($tunjangan_bpjs_tk)
@@ -68,10 +50,34 @@
                                 <td><span class="numbers">{{ $tunjangan_bpjs_tk }}</span></td>
                             </tr>
                         @endif
+                        @if ($tunjangan_bpjs_jkm)
+                            <tr>
+                                <td class="pe-3">Tunjangan BPJS Jaminan Kematian (JKM):</td>
+                                <td><span class="numbers">{{ $tunjangan_bpjs_jkm }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tunjangan_bpjs_jht)
+                            <tr>
+                                <td class="pe-3">Tunjangan BPJS Jaminan Hari Tua (JHT):</td>
+                                <td><span class="numbers">{{ $tunjangan_bpjs_jht }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tunjangan_bpjs_jp)
+                            <tr>
+                                <td class="pe-3">Tunjangan BPJS Jaminan Pensiun (JP):</td>
+                                <td><span class="numbers">{{ $tunjangan_bpjs_jp }}</span></td>
+                            </tr>
+                        @endif
                         @if ($tunjangan_bpjs_kes)
                             <tr>
                                 <td class="pe-3">Tunjangan BPJS Ketenaga Kesehatan:</td>
                                 <td><span class="numbers">{{ $tunjangan_bpjs_kes }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tunjangan_pajak)
+                            <tr>
+                                <td class="pe-3">Tunjangan Pajak:</td>
+                                <td><span class="numbers">{{ $tunjangan_pajak }}</span></td>
                             </tr>
                         @endif
                         @if ($tunjangan_lain)
@@ -120,12 +126,6 @@
                                 <td><span class="numbers">{{ $pot_spba }}</span></td>
                             </tr>
                         @endif
-                        @if ($pot_koperasi)
-                            <tr>
-                                <td class="pe-3">Potongan Koperasi:</td>
-                                <td><span class="numbers">{{ $pot_koperasi }}</span></td>
-                            </tr>
-                        @endif
                         @if ($pot_lazis)
                             <tr>
                                 <td class="pe-3">Potongan Lazis:</td>
@@ -138,40 +138,16 @@
                                 <td><span class="numbers">{{ $pot_i_dana_pensiun }}</span></td>
                             </tr>
                         @endif
-                        @if ($pot_tht)
+                        @if ($pot_koperasi)
                             <tr>
-                                <td class="pe-3">Potongan Tunjangan Hari Tua:</td>
-                                <td><span class="numbers">{{ $pot_tht }}</span></td>
+                                <td class="pe-3">Potongan Koperasi:</td>
+                                <td><span class="numbers">{{ $pot_koperasi }}</span></td>
                             </tr>
                         @endif
-                        @if ($pot_jht)
+                        @if ($pot_simmode)
                             <tr>
-                                <td class="pe-3">Potongan Jaminan Hari Tua:</td>
-                                <td><span class="numbers">{{ $pot_jht }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($pot_taspen)
-                            <tr>
-                                <td class="pe-3">Potongan Tabungan Pensiun:</td>
-                                <td><span class="numbers">{{ $pot_taspen }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($pot_pajak)
-                            <tr>
-                                <td class="pe-3">Potongan Pajak:</td>
-                                <td><span class="numbers">{{ $pot_pajak }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($pot_simponi)
-                            <tr>
-                                <td class="pe-3">Potongan Simponi:</td>
-                                <td><span class="numbers">{{ $pot_simponi }}</span></td>
-                            </tr>
-                        @endif
-                        @if ($pot_lain)
-                            <tr>
-                                <td class="pe-3">Potongan Lain:</td>
-                                <td><span class="numbers">{{ $pot_lain }}</span></td>
+                                <td class="pe-3">Potongan SIMMODE 1:</td>
+                                <td><span class="numbers">{{ $pot_simmode }}</span></td>
                             </tr>
                         @endif
                         @if ($pot_bpjs_tk)
@@ -180,12 +156,44 @@
                                 <td><span class="numbers">{{ $pot_bpjs_tk }}</span></td>
                             </tr>
                         @endif
+                        @if ($pot_bpjs_jkm)
+                            <tr>
+                                <td class="pe-3">Iuran BPJS Jaminan Hari Tua (JKM):</td>
+                                <td><span class="numbers">{{ $pot_bpjs_jkm }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($pot_bpjs_jht)
+                            <tr>
+                                <td class="pe-3">Iuran BPJS Jaminan Hari Tua (JHT):</td>
+                                <td><span class="numbers">{{ $pot_bpjs_jht }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($pot_bpjs_jp)
+                            <tr>
+                                <td class="pe-3">Iuran BPJS Jaminan Pensium (JP):</td>
+                                <td><span class="numbers">{{ $pot_bpjs_jp }}</span></td>
+                            </tr>
+                        @endif
                         @if ($pot_bpjs_kes)
                             <tr>
                                 <td class="pe-3">Iuran BPJS Kesehatan:</td>
                                 <td><span class="numbers">{{ $pot_bpjs_kes }}</span></td>
                             </tr>
                         @endif
+                        @if ($pot_pajak)
+                            <tr>
+                                <td class="pe-3">Potongan Pajak:</td>
+                                <td><span class="numbers">{{ $pot_pajak }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($pot_lain)
+                            <tr>
+                                <td class="pe-3">Potongan Lain:</td>
+                                <td><span class="numbers">{{ $pot_lain }}</span></td>
+                            </tr>
+                        @endif
+
+
 
                         <tr>
                             <td>
@@ -212,9 +220,6 @@
                 <small class="text-muted float-end">Total Gaji Diterima</small>
             </div>
             <div class="card-body">
-                {{-- <label class="form-label" for="input-gaji-pokok">
-                    Total Gaji
-                </label> --}}
                 <input type="text" class="form-control readonly numberin" id="input-gaji-pokok"
                     placeholder="Input Gaji Pokok..." readonly disabled value="{{ $total }}">
             </div>

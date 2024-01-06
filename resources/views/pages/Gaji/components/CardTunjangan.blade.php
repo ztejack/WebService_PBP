@@ -59,15 +59,19 @@
                                 <td><span class="numbers">{{ $rapel }}</span></td>
                             </tr>
                         @endif
+                        @if ($tunjangan_BPJS_tk)
+                            <tr>
+                                <td class="pe-3">BPJS Ketenaga Kerjaan:</td>
+                                <td><span class="numbers">{{ $tunjangan_BPJS_tk }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tunjangan_BPJS_kes)
+                            <tr>
+                                <td class="pe-3">BPJS Kesehatan:</td>
+                                <td><span class="numbers">{{ $tunjangan_BPJS_kes }}</span></td>
+                            </tr>
+                        @endif
 
-                        <tr>
-                            <td class="pe-3">BPJS Ketenaga Kerjaan:</td>
-                            <td><span class="numbers">{{ $tunjangan_BPJS_tk }}</span></td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">BPJS Kesehatan:</td>
-                            <td><span class="numbers">{{ $tunjangan_BPJS_kes }}</span></td>
-                        </tr>
                         <tr>
                             <td>
                                 <hr>
@@ -96,14 +100,18 @@
             <div class="card-body">
                 <table class="w-100">
                     <tbody class="text-end">
-                        <tr>
-                            <td class="pe-3">Iuran BPJS Tenaga Kerja:</td>
-                            <td><span class="numbers">{{ $potongan_BPJS_tk }}</span></td>
-                        </tr>
-                        <tr>
-                            <td class="pe-3">Iuran BPJS Kesehatan:</td>
-                            <td><span class="numbers">{{ $potongan_BPJS_kes }}</span></td>
-                        </tr>
+                        @if ($potongan_BPJS_tk)
+                            <tr>
+                                <td class="pe-3">Iuran BPJS Tenaga Kerja:</td>
+                                <td><span class="numbers">{{ $potongan_BPJS_tk }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($potongan_BPJS_kes)
+                            <tr>
+                                <td class="pe-3">Iuran BPJS Kesehatan:</td>
+                                <td><span class="numbers">{{ $potongan_BPJS_kes }}</span></td>
+                            </tr>
+                        @endif
                         @if (
                             $potongan_lainnya->pot_sakit > 0 ||
                                 $potongan_lainnya->pot_terlambat > 0 ||
@@ -130,7 +138,7 @@
                         @endif
                         @if ($potongan_lainnya->pot_kosong > 0)
                             <tr>
-                                <td class="pe-3">Kosong :</td>
+                                <td class="pe-3">Kehadiran :</td>
                                 <td><span class="numbers">{{ $potongan_lainnya->pot_kosong }} </span>
                                 </td>
                             </tr>

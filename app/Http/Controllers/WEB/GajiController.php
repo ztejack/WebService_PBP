@@ -44,8 +44,17 @@ class GajiController extends Controller
             ]
         );
     }
-    function bpjs_cout($gajipokok, $total1, $param_tnj)
+    function bpjs_cout($gajipokok, $total1, $status)
     {
+        if ($gajipokok <= 0 || $status == false) {
+            $bpjs_count = (object)[
+                'tnj_bpjs_tk_P' => false,
+                'pot_bpjs_tk_E' => false,
+                'tnj_bpjs_kes_P' => false,
+                'pot_bpjs_kes_E' => false,
+            ];
+            return $bpjs_count;
+        }
         $param_BPJS = ParamBPSJ::where('status', true)->get()->first();
         $tnj_bpjs_jp_P = ($total1 * $param_BPJS->jp_P) / 100;
         $pot_bpjs_jp_E = ($total1 * $param_BPJS->jp_E) / 100;
@@ -130,101 +139,50 @@ class GajiController extends Controller
     {
         $gaji = $user->employee->gaji;
         if ($user->employee->contract->contract == 'DIREKSI') {
-            $gapok = $gaji->gapok;
-            $tnj_perumahan = $gaji->tnj_perumahan;
-            $tnj_ubp = $gaji->tnj_bantuan_perumahan;
-            $tnj_taspen = $gaji->tnj_taspen;
-            $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
-            $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
-            $tnj_tht = $gaji->tnj_hari_tua_p;
-            $tnj_jht = $gaji->tnj_jmn_hari_tua_p;
-            $tnj_pajak = $gaji->tnj_pph21;
-            $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
-            $tnj_simponi = $gaji->tnj_simponi;
-            $tnj_lain = $gaji->tnj_lain;
-            // potongan
-            $pot_spba = $gaji->pot_serikat_pegawai_ba;
-            $pot_koperasi = $gaji->pot_koperasi;
-            $pot_lazis = $gaji->pot_lazis;
-            $pot_dana_pensiun = $gaji->pot_dana_pensiun;
-            $pot_jht = $gaji->pot_premi_jht;
-            $pot_tht = $gaji->pot_tht;
-            $pot_bpjs_tk = $gaji->pot_bpjs_tk;
-            $pot_bpjs_kes = $gaji->pot_bpjs_kes;
-            $pot_pajak = $gaji->pot_pph21;
-            $pot_taspen = $gaji->pot_taspen;
-            $pot_simponi = $gaji->pot_simponi;
-            $pot_lain = $gaji->pot_lain;
-
             $rapels = $user->employee->getcurrentrapel();
             $rapel = $rapels == null ? 0 : $rapels->jumlah;
             $rapelcount = $user->employee->rapel;
 
+            $gaji_count = $user->employee->gajicount();
+
             return view('pages.Gaji.PageDetailGaji', [
                 'user' => $user,
                 'gaji' => $gaji,
-                'gapok' => $gapok,
-                'tunjangan_perumahan' => $tnj_perumahan,
-                'tunjangan_ubp' => $tnj_ubp,
-                'tunjangan_taspen' => $tnj_taspen,
-                'tunjangan_bpjs_tk' => $tnj_bpjs_tk,
-                'tunjangan_dana_pensiun' => $tnj_dana_pensiun,
-                'tunjangan_tht' => $tnj_tht,
-                'tunjangan_jht' => $tnj_jht,
-                'tunjangan_pajak' => $tnj_pajak,
-                'tunjangan_bpjs_kes' => $tnj_bpjs_kes,
-                'tunjangan_simponi' => $tnj_simponi,
-                'tunjangan_lain' => $tnj_lain,
+                'gapok' => $gaji_count->gapok,
+                'tunjab' => $gaji_count->tunjab,
+                'tunjangan_perumahan' => $gaji_count->tnj_perumahan,
+                'tunjangan_ubp' => $gaji_count->tnj_ubp,
+                'tunjangan_dana_pensiun' => $gaji_count->tnj_dana_pensiun,
+                'tunjangan_simmode' => $gaji_count->tnj_simmode,
+                'tunjangan_bpjs_tk' => $gaji_count->tnj_bpjs_tk,
+                'tunjangan_bpjs_jkm' => $gaji_count->tnj_bpjs_jkm,
+                'tunjangan_bpjs_jht' => $gaji_count->tnj_bpjs_jht,
+                'tunjangan_bpjs_jp' => $gaji_count->tnj_bpjs_jp,
+                'tunjangan_bpjs_kes' => $gaji_count->tnj_bpjs_kes,
+                'tunjangan_pajak' => $gaji_count->tnj_pajak,
+                'tunjangan_lain' => $gaji_count->tnj_lain,
 
-                'pot_spba' => $pot_spba,
-                'pot_koperasi' => $pot_koperasi,
-                'pot_lazis' => $pot_lazis,
-                'pot_i_dana_pensiun' => $pot_dana_pensiun,
-                'pot_jht' => $pot_jht,
-                'pot_tht' => $pot_tht,
-                'pot_bpjs_tk' => $pot_bpjs_tk,
-                'pot_bpjs_kes' => $pot_bpjs_kes,
-                'pot_taspen' => $pot_taspen,
-                'pot_pajak' => $pot_pajak,
-                'pot_simponi' => $pot_simponi,
-                'pot_lain' => $pot_lain,
+                'pot_spba' => $gaji_count->pot_spba,
+                'pot_lazis' => $gaji_count->pot_lazis,
+                'pot_i_dana_pensiun' => $gaji_count->pot_dana_pensiun,
+                'pot_simmode' => $gaji_count->pot_simmode,
+                'pot_koperasi' => $gaji_count->pot_koperasi,
+                'pot_bpjs_tk' => $gaji_count->pot_bpjs_tk,
+                'pot_bpjs_jkm' => $gaji_count->pot_bpjs_jkm,
+                'pot_bpjs_jht' => $gaji_count->pot_bpjs_jht,
+                'pot_bpjs_jp' => $gaji_count->pot_bpjs_jp,
+                'pot_bpjs_kes' => $gaji_count->pot_bpjs_kes,
+                'pot_pajak' => $gaji_count->pot_pajak,
+                'pot_lain' => $gaji_count->pot_lain,
                 'data_rapel' => $rapelcount,
                 'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
 
                 //recap
-
                 'rapel' => $rapel,
                 'total' => $gaji->total_gaji,
-                'penghasilan' => array_sum([
-                    $gapok,
-                    $tnj_perumahan,
-                    $tnj_ubp,
-                    $tnj_taspen,
-                    $tnj_bpjs_tk,
-                    $tnj_dana_pensiun,
-                    $tnj_tht,
-                    $tnj_jht,
-                    $tnj_pajak,
-                    $tnj_bpjs_kes,
-                    $tnj_simponi,
-                    $tnj_lain,
-                ]),
-                'potongan' => array_sum([
-                    $pot_spba,
-                    $pot_koperasi,
-                    $pot_lazis,
-                    $pot_dana_pensiun,
-                    $pot_jht,
-                    $pot_tht,
-                    $pot_bpjs_tk,
-                    $pot_bpjs_kes,
-                    $pot_pajak,
-                    $pot_taspen,
-                    $pot_simponi,
-                    $pot_lain
-                ])
+                'penghasilan' => $gaji_count->penghasilan,
+                'potongan' => $gaji_count->potongan
             ]);
-        } else {
         }
         if ($user->golongan == null || $user->position == null) {
             return view('pages.Gaji.PageDetailGaji', [
@@ -246,7 +204,9 @@ class GajiController extends Controller
         $tunjangan_jabatan = $gaji->tnj_jabatan;
         $tunjangan_lapangan = $gaji->tnj_lapangan;
         $tunjangan_lain = $gaji->tnj_lain;
+        $tunjangan_pajak = $gaji->tnj_pajak;
         $type_tunjangan_jabatan = $gaji->type_tunjab;
+        $bpjs_status = $gaji->bpjs_status;
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
 
         $tnj_makan = $param_tnj == null ? 0 : $param_tnj->tnj_makan;
@@ -261,7 +221,7 @@ class GajiController extends Controller
         $sum_tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
         $sum_tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
 
-        $bpjs_count = $this->bpjs_cout($gaji_pokok, $total1, $param_tnj);
+        $bpjs_count = $this->bpjs_cout($gaji_pokok, $total1, $bpjs_status);
 
         $lemburs = $user->employee->getcurrentlembur();
         // dd($user->employee->lembur);
@@ -282,17 +242,17 @@ class GajiController extends Controller
             $bpjs_count->tnj_bpjs_kes_P,
             $tunjangan_lapangan,
             $tunjangan_lain,
+            $tunjangan_pajak,
             $lembur,
             $rapel
         ]);
+        // Potongan
+        $potongan_pajak = $gaji->pot_pajak;
+        $potongan_lain = $gaji->pot_lain;
 
         $absens = $user->absensi->where('date', '>=', now()->format('m Y'));
         $absensis = $user->absensi->sortByDesc('created_at');
 
-
-        // dd($user->employee);
-        // $absensiscount = $this->absensi_grouping($absensis);
-        // dd([$user->employee->absensi()->orderBy('created_at', 'desc')->get(), $user->employee->absensi]);
         $absensiscount = $this->total_absensi($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
 
         $potongan_lainnya = $this->absensi_count($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
@@ -305,8 +265,8 @@ class GajiController extends Controller
         ]);
 
         $total3 = array_sum([
-            // $bpjs_count->tnj_bpjs_tk_P,
-            // $bpjs_count->tnj_bpjs_kes_P,
+            $potongan_lain,
+            $potongan_pajak,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
             $potongan_lainnya->pot_sakit,
@@ -316,6 +276,8 @@ class GajiController extends Controller
         ]);
 
         $total = $total1 + $total2 - $total3;
+
+
 
         return view('pages.Gaji.PageDetailGaji', [
             'user' => $user,
@@ -338,32 +300,40 @@ class GajiController extends Controller
             'tunjangan_transport' => $sum_tnj_transport,
             'tunjangan_lapangan' => $tunjangan_lapangan,
             'tunjangan_lain' => $tunjangan_lain,
+            'tunjangan_pajak' => $tunjangan_pajak,
 
             'lembur' => $lembur,
             'rapel' => $rapel,
             'tunjangan_shift' => $sum_tnj_shift,
+
+            'bpjs_status' => $bpjs_status,
             'tunjangan_BPJS_tk' => round($bpjs_count->tnj_bpjs_tk_P),
             'tunjangan_BPJS_kes' => round($bpjs_count->tnj_bpjs_kes_P),
 
             'potongan_lainnya' => $potongan_lainnya,
             'total_potongan_lainnya' => $total_potongan_lainnya,
-            'data_absensi' => $absensiscount,
-            'data_lembur' => $lemburcount,
-            'data_rapel' => $rapelcount,
-            'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
+
 
             // 'potongan_lainnya'
+            'potongan_pajak' => $potongan_pajak,
+            'potongan_lain' => $potongan_lain,
             'potongan_BPJS_tk' => round($bpjs_count->pot_bpjs_tk_E),
             'potongan_BPJS_kes' => round($bpjs_count->pot_bpjs_kes_E),
 
             'total' => round($total),
 
             'total2' => round($total2),
-            'total3' => round($total3)
+            'total3' => round($total3),
+
+            'data_absensi' => $absensiscount,
+            'data_lembur' => $lemburcount,
+            'data_rapel' => $rapelcount,
+            'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
         ]);
     }
     public function update_gaji_employe(Request $request, Gaji $gaji)
     {
+        // dd($request);
         $validationRule = Validator::make($request->all(), [
             'gapok' => 'required',
             'tnj_jabatan' => '',
@@ -374,91 +344,103 @@ class GajiController extends Controller
             // return Redirect::back()->with('succ', 'Failed Update')->withInput();
         }
         try {
-            if ($request->has('direksi')) {
-                $penghasilan =
-                    array_sum([
-                        $request['gapok'],
-                        $request['tnj_perumahan'],
-                        $request['tnj_ubp'],
-                        $request['tnj_taspen'],
-                        $request['tnj_bpjs_tk'],
-                        $request['tnj_dana_pensiun'],
-                        $request['tnj_tht'],
-                        $request['tnj_jht'],
-                        $request['tnj_pajak'],
-                        $request['tnj_bpjs_kes'],
-                        $request['tnj_simponi'],
-                        $request['tnj_lain'],
-                    ]);
-                $potongan =
-                    array_sum([
-                        $request['pot_spba'],
-                        $request['pot_koperasi'],
-                        $request['pot_lazis'],
-                        $request['pot_i_dana_pensiun'],
-                        $request['pot_jht'],
-                        $request['pot_tht'],
-                        $request['pot_bpjs_tk'],
-                        $request['pot_bpjs_kes'],
-                        $request['pot_taspen'],
-                        $request['pot_pajak'],
-                        $request['pot_simponi'],
-                    ]);
-                $total = $penghasilan - $potongan;
+        // if ($request->has('direksi')) {
+        if ($gaji->employee->contract->contract == "DIREKSI") {
+            $penghasilan =
+                array_sum([
+                    $request['gapok'],
+                    $request['tunjab'],
+                    $request['tnj_perumahan'],
+                    $request['tnj_ubp'],
+                    $request['tnj_dana_pensiun'],
+                    $request['tnj_simmode'],
+                    $request['tnj_bpjs_tk'],
+                    $request['tnj_bpjs_jkm'],
+                    $request['tnj_bpjs_jht'],
+                    $request['tnj_bpjs_jp'],
+                    $request['tnj_bpjs_kes'],
+                    $request['tnj_pajak'],
+                    $request['tnj_lain'],
+                ]);
+            $potongan = array_sum([
+                $request['pot_spba'],
+                $request['pot_lazis'],
+                $request['pot_i_dana_pensiun'],
+                $request['pot_simmode'],
+                $request['pot_koperasi'],
+                $request['pot_bpjs_tk'],
+                $request['pot_bpjs_jkm'],
+                $request['pot_bpjs_jht'],
+                $request['pot_bpjs_jp'],
+                $request['pot_bpjs_kes'],
+                $request['pot_pajak'],
+                $request['pot_lain'],
+            ]);
+            $total = $penghasilan - $potongan;
+            $gaji->update(
+                [
+                    'gapok' => $request['gapok'],
+                    'tnj_jabatan' => $request['tunjab'],
+                    'tnj_perumahan' => $request['tnj_perumahan'],
+                    'tnj_bantuan_perumahan' => $request['tnj_ubp'],
+                    'tnj_dana_pensiun' => $request['tnj_dana_pensiun'],
+                    'tnj_simmode' => $request['tnj_simmode'],
+                    'tnj_bpjs_tk' => $request['tnj_bpjs_tk'],
+                    'tnj_bpjs_jkm' => $request['tnj_bpjs_jkm'],
+                    'tnj_bpjs_jht' => $request['tnj_bpjs_jht'],
+                    'tnj_bpjs_jp' => $request['tnj_bpjs_jp'],
+                    'tnj_bpjs_kes' => $request['tnj_bpjs_kes'],
+                    'tnj_pajak' => $request['tnj_pajak'],
+                    'tnj_lain' => $request['tnj_lain'],
 
-                $gaji->update(
-                    [
-                        'gapok' => $request['gapok'],
-                        'tnj_perumahan' => $request['tnj_perumahan'],
-                        'tnj_bantuan_perumahan' => $request['tnj_ubp'],
-                        'tnj_taspen' => $request['tnj_taspen'],
-                        'tnj_dana_pensiun' => $request['tnj_dana_pensiun'],
-                        'tnj_hari_tua_p' => $request['tnj_tht'],
-                        'tnj_jmn_hari_tua_p' => $request['tnj_jht'],
-                        'tnj_pph21' => $request['tnj_pajak'],
-                        'tnj_bpjs_tk' => $request['tnj_bpjs_tk'],
-                        'tnj_bpjs_kes' => $request['tnj_bpjs_kes'],
-                        'tnj_simponi' => $request['tnj_simponi'],
-                        'tnj_lain' => $request['tnj_lain'],
+                    'pot_serikat_pegawai_ba' => $request['pot_spba'],
+                    'pot_koperasi' => $request['pot_koperasi'],
+                    'pot_lazis' => $request['pot_lazis'],
+                    'pot_dana_pensiun' => $request['pot_i_dana_pensiun'],
+                    'pot_simmode' => $request['pot_simmode'],
+                    'pot_bpjs_tk' => $request['pot_bpjs_tk'],
+                    'pot_bpjs_jkm' => $request['pot_bpjs_jkm'],
+                    'pot_bpjs_jht' => $request['pot_bpjs_jht'],
+                    'pot_bpjs_jp' => $request['pot_bpjs_jp'],
+                    'pot_bpjs_kes' => $request['pot_bpjs_kes'],
+                    'pot_pajak' => $request['pot_pajak'],
+                    'pot_lain' => $request['pot_lain'],
+                    'total_gaji' => $total,
+                ]
+            );
+            return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
+        } elseif (!$request->has('direksi')) {
+            $total = array_sum([$request['gapok'], $request['tnj_ahli'], $request['tnj_jabatan']]);
 
-                        'pot_serikat_pegawai_ba' => $request['pot_spba'],
-                        'pot_koperasi' => $request['pot_koperasi'],
-                        'pot_lazis' => $request['pot_lazis'],
-                        'pot_dana_pensiun' => $request['pot_i_dana_pensiun'],
-                        'pot_premi_jht' => $request['pot_jht'],
-                        'pot_tht' => $request['pot_tht'],
-                        'pot_taspen' => $request['pot_taspen'],
-                        'pot_pph21' => $request['pot_pajak'],
-                        'pot_bpjs_tk' => $request['pot_bpjs_tk'],
-                        'pot_bpjs_kes' => $request['pot_bpjs_kes'],
-                        'pot_simponi' => $request['pot_simponi'],
-                        'total_gaji' => $total,
-                    ]
-                );
-                return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
-            } elseif (!$request->has('direksi')) {
-                $total = array_sum([$request['gapok'], $request['tnj_ahli'], $request['tnj_jabatan']]);
-                $gaji->update(
-                    [
-                        'gapok' => $request['gapok'],
-                        'tnj_ahli' => $request['tnj_ahli'],
-                        'tnj_jabatan' => $request['tnj_jabatan'],
-                        'tnj_lapangan' => $request['tnj_lapangan'],
-                        'tnj_lain' => $request['tnj_lain'],
-                        'type_tunjab' => $request['tunjab-type'] != null ? $request['tunjab-type'] : '',
-                        'total_gaji' => $total,
-                    ]
-                );
-                // dd($request->session());
-                return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
-            }
+            $bpjscount = $this->bpjs_cout(
+                $request['gapok'],
+                array_sum([$request['gapok'], $request['tnj_jabatan'], $request['tnj_ahli']]),
+                $request['bpjs_status']
+            );
+            $gaji->update(
+                [
+                    'gapok' => $request['gapok'],
+                    'tnj_ahli' => $request['tnj_ahli'],
+                    'tnj_jabatan' => $request['tnj_jabatan'],
+                    'tnj_lapangan' => $request['tnj_lapangan'],
+                    'tnj_pajak' => $request['tnj_pajak'],
+                    'tnj_lain' => $request['tnj_lain'],
+                    'type_tunjab' => $request['tunjab-type'] != null ? $request['tunjab-type'] : '',
+                    'bpjs_status' => $request['bpjs_status'],
+                    'pot_lain' => $request['pot_lain'],
+                    'total_gaji' => $total,
+                    'tnj_bpjs_tk' => $bpjscount->tnj_bpjs_tk_P,
+                    'tnj_bpjs_kes' => $bpjscount->tnj_bpjs_kes_P,
+                    'pot_bpjs_tk' => $bpjscount->pot_bpjs_tk_E,
+                    'pot_bpjs_kes' => $bpjscount->pot_bpjs_kes_E
+                ]
+            );
+            // dd($request->session());
+            return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
+        }
         } catch (\Exception $e) {
             return Redirect::back()->with('err', 'Failed Update Gaji')->withInput();
         }
-    }
-
-    function sum_absensi($absensi)
-    {
     }
     public function user_resource($user)
     {
@@ -477,93 +459,93 @@ class GajiController extends Controller
     }
     public function salary(Employe $employe)
     {
-        $gaji = $employe->gaji;
+        // $gaji = $employe->gaji;
 
-        $param_tnj = GajiParamTnjng::where('position_id', $employe->position->id)->where('golongan_id', $employe->golongan->id)->first();
-        $param_tnj_jabatan = GajiParamTunJab::where('position_id', $employe->position->id)->where('golongan_id', $employe->golongan->id)->first();
+        // $param_tnj = GajiParamTnjng::where('position_id', $employe->position->id)->where('golongan_id', $employe->golongan->id)->first();
+        // $param_tnj_jabatan = GajiParamTunJab::where('position_id', $employe->position->id)->where('golongan_id', $employe->golongan->id)->first();
 
-        $gapok = $gaji->gapok;
-        $tnj_ahli = $gaji->tnj_ahli;
-        $tnj_jabatan = $gaji->tnj_jabatan;
-        $total1 = $gaji->total_gaji;
+        // $gapok = $gaji->gapok;
+        // $tnj_ahli = $gaji->tnj_ahli;
+        // $tnj_jabatan = $gaji->tnj_jabatan;
+        // $total1 = $gaji->total_gaji;
 
-        $bpjs_count = $this->bpjs_cout($gapok, $total1, $param_tnj);
+        // $bpjs_count = $this->bpjs_cout($gapok, $total1, $param_tnj, $param_tnj);
 
-        $tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
-        $sum_tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
-        $tnj_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
-        $tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
-        $sum_tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
-        $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
-        $tnj_lapangan = $gaji->tnj_lapangan;
-        $tnj_lain = $gaji->tnj_lain;
+        // $tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
+        // $sum_tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
+        // $tnj_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
+        // $tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
+        // $sum_tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
+        // $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
+        // $tnj_lapangan = $gaji->tnj_lapangan;
+        // $tnj_lain = $gaji->tnj_lain;
 
-        $lemburs = $employe->lembur->first();
-        $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
+        // $lemburs = $employe->lembur->first();
+        // $lembur = $lemburs == null ? 0 : $lemburs->jumlah;
 
-        $total2 = array_sum([$sum_tnj_makan, $tnj_perumahan, $tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tnj_lapangan, $tnj_lain, $lembur]);
+        // $total2 = array_sum([$sum_tnj_makan, $tnj_perumahan, $tnj_shift, $sum_tnj_transport, $bpjs_count->tnj_bpjs_tk_P, $bpjs_count->tnj_bpjs_kes_P, $tnj_lapangan, $tnj_lain, $lembur]);
 
-        $absens = $employe->absensi->where('date', '>=', now()->format('m Y'));
-        $absensis = $employe->absensi->sortByDesc('created_at');
+        // $absens = $employe->absensi->where('date', '>=', now()->format('m Y'));
+        // $absensis = $employe->absensi->sortByDesc('created_at');
 
 
-        // dd($lembur);
-        // $absensiscount = $this->absensi_grouping($absensis);
-        $absensiscount = $this->total_absensi($employe->absensi, $tnj_makan, $tnj_transport);
+        // // dd($lembur);
+        // // $absensiscount = $this->absensi_grouping($absensis);
+        // $absensiscount = $this->total_absensi($employe->absensi, $tnj_makan, $tnj_transport);
 
-        $potongan_lainnya = $this->absensi_count($absens, $tnj_makan, $tnj_transport);
+        // $potongan_lainnya = $this->absensi_count($absens, $tnj_makan, $tnj_transport);
 
-        $total_potongan_lainnya = array_sum([
-            $potongan_lainnya->pot_sakit,
-            $potongan_lainnya->pot_kosong,
-            $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan
-        ]);
+        // $total_potongan_lainnya = array_sum([
+        //     $potongan_lainnya->pot_sakit,
+        //     $potongan_lainnya->pot_kosong,
+        //     $potongan_lainnya->pot_terlambat,
+        //     $potongan_lainnya->pot_perjalanan
+        // ]);
 
-        $total3 = array_sum([
-            $bpjs_count->tnj_bpjs_tk_P,
-            $bpjs_count->tnj_bpjs_kes_P,
-            $bpjs_count->pot_bpjs_tk_E,
-            $bpjs_count->pot_bpjs_kes_E,
-            $potongan_lainnya->pot_sakit,
-            $potongan_lainnya->pot_kosong,
-            $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan
-        ]);
+        // $total3 = array_sum([
+        //     $bpjs_count->tnj_bpjs_tk_P,
+        //     $bpjs_count->tnj_bpjs_kes_P,
+        //     $bpjs_count->pot_bpjs_tk_E,
+        //     $bpjs_count->pot_bpjs_kes_E,
+        //     $potongan_lainnya->pot_sakit,
+        //     $potongan_lainnya->pot_kosong,
+        //     $potongan_lainnya->pot_terlambat,
+        //     $potongan_lainnya->pot_perjalanan
+        // ]);
 
-        $total = $total1 + $total2 - $total3;
+        // $total = $total1 + $total2 - $total3;
 
-        return view('pages.Users.Self.Gaji.PageGaji', [
-            'gaji' => $gaji,
-            'employe' => $employe,
-            'gapok' => $gapok,
-            'tnj_ahli' => $tnj_ahli,
-            'tnj_jabatan' => $tnj_jabatan,
+        // return view('pages.Users.Self.Gaji.PageGaji', [
+        //     'gaji' => $gaji,
+        //     'employe' => $employe,
+        //     'gapok' => $gapok,
+        //     'tnj_ahli' => $tnj_ahli,
+        //     'tnj_jabatan' => $tnj_jabatan,
 
-            'total1' => $total1,
+        //     'total1' => $total1,
 
-            'tunjangan_makan' => $tnj_makan,
-            'tunjangan_transport' => $tnj_transport,
-            'tunjangan_perumahan' => $tnj_perumahan,
-            'tunjangan_lapangan' => $tnj_lapangan,
-            'tunjangan_shift' => $tnj_shift,
+        //     'tunjangan_makan' => $tnj_makan,
+        //     'tunjangan_transport' => $tnj_transport,
+        //     'tunjangan_perumahan' => $tnj_perumahan,
+        //     'tunjangan_lapangan' => $tnj_lapangan,
+        //     'tunjangan_shift' => $tnj_shift,
 
-            'tunjangan_BPJS_tk' => $bpjs_count->tnj_bpjs_tk_P,
-            'tunjangan_BPJS_kes' => $bpjs_count->tnj_bpjs_kes_P,
+        //     'tunjangan_BPJS_tk' => $bpjs_count->tnj_bpjs_tk_P,
+        //     'tunjangan_BPJS_kes' => $bpjs_count->tnj_bpjs_kes_P,
 
-            'total2' => $total2,
+        //     'total2' => $total2,
 
-            'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
-            'potongan_BPJS_kes' => $bpjs_count->pot_bpjs_kes_E,
+        //     'potongan_BPJS_tk' => $bpjs_count->pot_bpjs_tk_E,
+        //     'potongan_BPJS_kes' => $bpjs_count->pot_bpjs_kes_E,
 
-            'potongan_lainnya' => $potongan_lainnya,
-            'total_potongan_lainnya' => $total_potongan_lainnya,
-            'total3' => $total3,
-            'data_absensi' => $absensis,
-            'slips' => $employe->slip,
-            'total' => round($total),
+        //     'potongan_lainnya' => $potongan_lainnya,
+        //     'total_potongan_lainnya' => $total_potongan_lainnya,
+        //     'total3' => $total3,
+        //     'data_absensi' => $absensis,
+        //     'slips' => $employe->slip,
+        //     'total' => round($total),
 
-        ]);
+        // ]);
     }
 
     /**

@@ -96,6 +96,27 @@
                     Tunjangan
                 </div>
             </div>
+            <div class="mb-4 col-md-6">
+                <label for="bpjs_status" class="form-label">Tunjangan BPJS</label>
+                <div class="w-100 m-auto">
+                    <div class="form-check form-check-inline">
+                        <input name="bpjs_status" class="form-check-input @error('bpjs_status') is-invalid @enderror"
+                            type="radio" value="1" data-custom-attr="{{ $bpjs_status }} "
+                            id="bpjs_status-dapat" required {{ $bpjs_status ? 'checked' : '' }}>
+                        <label class="form-check-label" for="bpjs_status-dapat">Dapat</label>
+                    </div>
+                    <div class="form-check form-check-inline form-check-danger">
+                        <input name="bpjs_status" class="form-check-input @error('bpjs_status') is-invalid @enderror"
+                            type="radio" value="0" data-custom-attr=" {{ $bpjs_status }} "
+                            id="bpjs_status-tidak-dapat" required {{ !$bpjs_status ? 'checked' : '' }}>
+                        <label class="form-check-label" for="bpjs_status-tidak-dapat">Tidak Dapat</label>
+                    </div>
+                </div>
+
+                @error('bpjs_status')
+                    <div class="invalid-feedback"> $message </div>
+                @enderror
+            </div>
             <div class="mb-4">
                 <label class="form-label" for="tnj_lapangan">Tunjangan Lapangan</label>
                 <input type="number" class="form-control " id="tnj_lapangan" name="tnj_lapangan" min="0"
@@ -105,10 +126,31 @@
                 @enderror
             </div>
             <div class="mb-4">
+                <label class="form-label" for="tnj_pajak">Tunjangan Pajak</label>
+                <input type="number" class="form-control " id="tnj_pajak" name="tnj_pajak" min="0"
+                    value="{{ $tunjangan_pajak }}">
+                @error('tnj_pajak')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
                 <label class="form-label" for="tnj_lain">Tunjangan Lain</label>
                 <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"
                     value="{{ $tunjangan_lain }}">
                 @error('tnj_lain')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="divider">
+                <div class="divider-text">
+                    Potongan
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="pot_lain">Potongan Lain</label>
+                <input type="number" class="form-control " id="pot_lain" name="pot_lain" min="0"
+                    value="{{ $potongan_lain }}">
+                @error('pot_lain')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

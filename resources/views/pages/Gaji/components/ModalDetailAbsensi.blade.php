@@ -58,7 +58,7 @@
                         <div class="col->12 mb-3">
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="kosong" class="form-label">Absen</label>
+                                    <label for="kosong" class="form-label">Kehadiran</label>
                                     <div class="row align-items-center">
                                         <div class="col d-inline-flex align-items-center pe-0">
                                             <input type="number" id="kosong"name="kosong"
