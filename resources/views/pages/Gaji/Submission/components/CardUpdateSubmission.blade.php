@@ -8,8 +8,8 @@
                 <label class="form-label" for="bs-datepicker-autoclose">Date</label>
                 <div class="input-group">
                     <input type="text" class="add-on form-control form-control-sm" id="bs-datepicker-autoclose"
-                        data-date-format="dd-mm-yyyy" aria-describedby="bs-datepicker-autoclose"
-                        value="{{ $data->payroll->format('d-m-Y') }}" name="date">
+                        data-date-format="yyyy-mm-dd" aria-describedby="bs-datepicker-autoclose"
+                        value="{{ $data->payroll->format('Y-m-d') }}" name="date">
                     <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                 </div>
             </div>
@@ -46,6 +46,9 @@
                                 <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
                                     status
                                 </th>
+                                <th class="" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                    attendance
+                                </th>
                                 <th class="" rowspan="1" colspan="1" aria-label="Actions">
                                     Actions</th>
                             </tr>
@@ -77,17 +80,26 @@
                                             to
                                             Payroll</span>
                                     </td>
+                                    <td><span
+                                            class="badge badge-pill bg-success fw-bold">{{ 24 - $user->absensi }}</span>
+                                    </td>
                                     <td class="">
                                         <a href="{{ route('page_gaji_employe', $user->slug) }}"
                                             class="btn btn-primary btn-sm">
                                             Detail
                                         </a>
                                         <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
-                                            data-bs-target="#addLemburModal{{ $user->slug }}">
+                                            data-bs-target="#addRapelModal{{ $user->slug }}">
+                                            Rapel
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
+                                            data-bs-target="#addLemburModal{{ $user->slug }}"
+                                            {{ $user->contract === 'DIREKSI' ? 'disabled' : ($user->contract === 'KOMISARIS' ? 'disabled' : '') }}>
                                             Lembur
                                         </button>
                                         <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#addkehadiranModal{{ $user->slug }}">
+                                            data-bs-target="#addkehadiranModal{{ $user->slug }}"
+                                            {{ $user->contract === 'DIREKSI' ? 'disabled' : ($user->contract === 'KOMISARIS' ? 'disabled' : '') }}>
                                             Absensi
                                         </button>
                                     </td>

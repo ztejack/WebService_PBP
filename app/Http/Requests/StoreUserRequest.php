@@ -44,7 +44,10 @@ class StoreUserRequest extends FormRequest
                 Rule::unique('users', 'username'),
                 'string',
             ],
-            'phonenumber' => 'required',
+            'phonenumber' => [
+                'required', Rule::unique('users', 'phone'),
+                'string',
+            ]
             // 'id_subsatker' => 'required',
         ];
 

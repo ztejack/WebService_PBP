@@ -21,10 +21,10 @@ class GajiSlip extends Model
         'tnj_lapangan',
         'tnj_ahli',
 
-        'total_tnj_makan',
-        'tnj_perumahan',
-        'total_tnj_shift',
-        'total_tnj_transport',
+        'tnj_makan',
+        'tnj_bantuan_perumahan',
+        'tnj_shift',
+        'tnj_transport',
 
         'tnj_lain',
         'lembur',
@@ -37,7 +37,6 @@ class GajiSlip extends Model
         'ireq',
 
         'tnj_perumahan',
-        'tnj_bantuan_perumahan',
         'tnj_dana_pensiun',
         'tnj_simmode',
         'tnj_pajak',

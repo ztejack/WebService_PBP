@@ -17,6 +17,22 @@ class GajiParamSeeder extends Seeder
      */
     public function run()
     {
+        // default
+        GajiParamTunJab::create([
+            'gaji_fungsional' => 0,
+            'gaji_struktural' => 0,
+            'position_id' => 12,
+            'golongan_id' => 19,
+        ]);
+        GajiParamTnjng::create([
+            'tnj_transport' => 0,
+            'tnj_perumahan' => 0,
+            'tnj_makan' => 0,
+            'tnj_shift' => 0,
+            'position_id' => 12,
+            'golongan_id' => 19,
+        ]);
+
         //1A
         GajiParamTunJab::create([
             'gaji_fungsional' => 7500000,

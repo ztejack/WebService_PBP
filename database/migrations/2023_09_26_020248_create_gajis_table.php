@@ -27,19 +27,13 @@ return new class extends Migration
             $table->string('tnj_perumahan')->nullable()->default(0);
             $table->string('tnj_bantuan_perumahan')->nullable()->default(0);
 
-
             $table->string('tnj_dana_pensiun')->nullable()->default(0);
-            $table->string('tnj_simmode')->nullable()->default(0);
             $table->string('tnj_simmode')->nullable()->default(0);
             $table->string('tnj_bpjs_tk')->nullable()->default(0);
             $table->string('tnj_bpjs_jkm')->nullable()->default(0);
             $table->string('tnj_bpjs_jht')->nullable()->default(0);
             $table->string('tnj_bpjs_jp')->nullable()->default(0);
-            $table->string('tnj_bpjs_jkm')->nullable()->default(0);
-            $table->string('tnj_bpjs_jht')->nullable()->default(0);
-            $table->string('tnj_bpjs_jp')->nullable()->default(0);
             $table->string('tnj_bpjs_kes')->nullable()->default(0);
-            $table->string('tnj_pajak')->nullable()->default(0);
             $table->string('tnj_pajak')->nullable()->default(0);
 
             $table->string('pot_serikat_pegawai_ba')->nullable()->default(0);
@@ -47,19 +41,20 @@ return new class extends Migration
             $table->string('pot_dana_pensiun')->nullable()->default(0);
             $table->string('pot_simmode')->nullable()->default(0);
             $table->string('pot_koperasi')->nullable()->default(0);
-            $table->string('pot_simmode')->nullable()->default(0);
-            $table->string('pot_koperasi')->nullable()->default(0);
             $table->string('pot_bpjs_tk')->nullable()->default(0);
-            $table->string('pot_bpjs_jkm')->nullable()->default(0);
-            $table->string('pot_bpjs_jht')->nullable()->default(0);
-            $table->string('pot_bpjs_jp')->nullable()->default(0);
             $table->string('pot_bpjs_jkm')->nullable()->default(0);
             $table->string('pot_bpjs_jht')->nullable()->default(0);
             $table->string('pot_bpjs_jp')->nullable()->default(0);
             $table->string('pot_bpjs_kes')->nullable()->default(0);
             $table->string('pot_pajak')->nullable()->default(0);
-            $table->string('pot_pajak')->nullable()->default(0);
             $table->string('pot_lain')->nullable()->default(0);
+
+            // penambahan
+            $table->string('tnj_makan')->nullable()->default(0);
+            $table->string('tnj_transport')->nullable()->default(0);
+            $table->string('tnj_shift')->nullable()->default(0);
+            // penambahan
+
             $table->boolean('bpjs_status')->nullable()->default(true);
             $table->foreignId('employe_id')->constrained('employes')->references('id')->on('employes')->onDelete('cascade');
             $table->timestamps();

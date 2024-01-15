@@ -8,6 +8,18 @@
             <div class="card-body">
                 <table class="w-100">
                     <tbody class="text-end">
+                        {{-- @if ($gapok)
+                            <tr>
+                                <td class="pe-3">Gaji Pokok:</td>
+                                <td><span class="numbers">{{ $gapok }}</span></td>
+                            </tr>
+                        @endif
+                        @if ($tnj_jabatan)
+                            <tr>
+                                <td class="pe-3">Tunjangan Jabatan:</td>
+                                <td><span class="numbers">{{ $tnj_jabatan }}</span></td>
+                            </tr>
+                        @endif --}}
                         @if ($tunjangan_perumahan)
                             <tr>
                                 <td class="pe-3">Uang Bantuan Perumahan:</td>

@@ -15,6 +15,7 @@ class GajiSubmit extends Model
         'jumlah',
         'total',
         'status',
+        'type',
         'aprv_1',
         'aprv_2',
         'aprv_3',
@@ -27,10 +28,6 @@ class GajiSubmit extends Model
     {
         return $this->hasMany(GajiSlip::class, 'gaji_submit_id');
     }
-    // public function employe()
-    // {
-    //     return $this->belongsToMany(Employe::class)->using(GajiSlip::class);
-    // }
     public function employe()
     {
         return $this->belongsToMany(Employe::class, 'gaji_slips');

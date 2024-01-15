@@ -3,7 +3,7 @@
         <h5 class="mb-0">Rapel</h5>
         @if (!Request::is('gaji/self*'))
             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                data-bs-target="#addrapelModal{{ $user->slug }}">
+                data-bs-target="#addRapelModal{{ $user->slug }}">
                 <i class="bx bx-plus"></i> Tambah Rapel
             </button>
         @endif

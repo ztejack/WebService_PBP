@@ -152,6 +152,9 @@ class ParamController extends Controller
     public function contract_destroy(Request $request, Contract $contract)
     {
         try {
+            if ($contract->contract === 'TETAP' || $contract->contract === 'PKWT' || $contract->contract === 'DIREKSI' || $contract->contract === 'KOMISARIS') {
+                return Redirect::back()->with('err', 'Cannot Delete Default Position')->withInput();
+            }
             $contract->delete();
             return redirect()->back()->with('succ', 'Success Deleting Contract')->withInput();
         } catch (\Exception $e) {
@@ -185,6 +188,9 @@ class ParamController extends Controller
     }
     public function position_update(Request $request, Position $position)
     {
+        if ($position->position === 'Employe') {
+            return Redirect::back()->with('err', 'Cannot Edit Default Position')->withInput();
+        }
         $positionname = $request['positionname'];
         $validationRules = [
             $positionname => [
@@ -210,6 +216,9 @@ class ParamController extends Controller
     public function position_destroy(Request $request, Position $position)
     {
         try {
+            if ($position->position === 'Employe') {
+                return Redirect::back()->with('err', 'Cannot Delete Default Position')->withInput();
+            }
             $position->delete();
             return redirect()->back()->with('succ', 'Succes  Position')->withInput();
         } catch (\Exception $e) {

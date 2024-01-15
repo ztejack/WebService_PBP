@@ -46,11 +46,11 @@
 
             <span class="fw-semibold ">GAJI II</span>
             <ul class="list-group list-group-timeline ">
-                @if ($slip->tnj_perumahan)
+                @if ($slip->tnj_bantuan_perumahan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
                             <span>Tunjangan Bantuan Perumahan</span> <span><span
-                                    class="numberin">{{ $slip->tnj_perumahan }}</span></span>
+                                    class="numberin">{{ $slip->tnj_bantuan_perumahan }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -129,7 +129,7 @@
                 <div class="d-flex justify-content-between">
                     <span class="fw-semibold ">JUMLAH II</span>
                     <span class="me-3 fw-semibold"><span>Rp <span
-                                class="numberin">{{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_perumahan, $slip->total_tnj_makan]) }}</span></span></span>
+                                class="numberin">{{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_bantuan_perumahan, $slip->total_tnj_makan]) }}</span></span></span>
                 </div>
             </li>
         </div>
@@ -221,7 +221,7 @@
                         <span>JUMLAH GAJI II</span>
                         <span>
                             <span class="numberin">
-                                {{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_perumahan, $slip->total_tnj_makan]) }}
+                                {{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_bantuan_perumahan, $slip->total_tnj_makan]) }}
                             </span>
                         </span>
                     </div>

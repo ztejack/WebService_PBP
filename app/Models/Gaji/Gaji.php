@@ -25,8 +25,12 @@ class Gaji extends Model
         'type_tunjab',
 
         // direksi
-        'tnj_perumahan',
+        'tnj_shift',
+        'tnj_transport',
+        'tnj_makan',
         'tnj_bantuan_perumahan',
+        
+        'tnj_perumahan',
         'tnj_dana_pensiun',
         'tnj_simmode',
         'tnj_bpjs_tk',

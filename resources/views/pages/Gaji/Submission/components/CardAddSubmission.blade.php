@@ -7,11 +7,6 @@
         </li>
         <li class="nav-item" role="presentation">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                data-bs-target="#navs-justified-direksi" aria-controls="navs-justified-direksi" aria-selected="false"
-                tabindex="-1"><i class="tf-icons bx bx-user me-1"></i> DIREKSI</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                 data-bs-target="#navs-justified-thr" aria-controls="navs-justified-thr" aria-selected="false"
                 tabindex="-1"><i class="tf-icons bx bx-money-withdraw me-1"></i>
                 THR</button>
@@ -45,9 +40,6 @@
     <div class="tab-content">
         <div class="tab-pane fade active show" id="navs-justified-gaji" role="tabpanel">
             @include('pages.Gaji.Submission.components.TabContentGaji')
-        </div>
-        <div class="tab-pane fade" id="navs-justified-direksi" role="tabpanel">
-            @include('pages.Gaji.Submission.components.TabContentDireksi')
         </div>
         <div class="tab-pane fade" id="navs-justified-thr" role="tabpanel">
             @include('pages.Gaji.Submission.components.TabContentTHR')

@@ -171,9 +171,19 @@ class User extends Authenticatable implements JWTSubject
     {
         parent::boot();
         self::created(function ($model) {
-            // $user = static::create($model->attributes);
-            // dd($user);
-            // dd($model->Id());
+            // Develope
+
+
+            // $model->employee()->create([
+            //     'contract_id' => true,
+            //     // 'satker_id' => mt_rand(1, 3),
+            //     'position_id' => 12,
+            //     'golongan_id' => 19,
+            //     'family_status_id' => 5,
+            // ]);
+
+
+            // Test
             $model->employee()->create([
                 'contract_id' => mt_rand(1, 4),
                 'satker_id' => mt_rand(1, 3),

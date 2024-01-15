@@ -64,10 +64,10 @@
             </div>
         </div>
         <hr class="m-2">
-        @if ($employe->contract->contract == 'DIREKSI')
+        @if ($employe->contract->contract == 'DIREKSI' || $employe->contract->contract == 'KOMISARIS')
             @include('pages.Gaji.Slip.components.BodyPrintDireksi')
         @endif
-        @if ($employe->contract->contract != 'DIREKSI')
+        @if ($employe->contract->contract != 'DIREKSI' && $employe->contract->contract != 'KOMISARIS')
             @include('pages.Gaji.Slip.components.BodyPrintEmploye')
         @endif
     </div>

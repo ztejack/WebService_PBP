@@ -60,9 +60,9 @@
                             </div>
                         </div>
                         <hr class="m-2">
-                        @if ($employe->contract->contract == 'DIREKSI')
+                        @if ($employe->contract->contract == 'DIREKSI' || $employe->contract->contract == 'KOMISARIS')
                             @include('pages.Gaji.Slip.components.BodyDireksi')
-                        @elseif($employe->contract->contract != 'DIREKSI')
+                        @elseif($employe->contract->contract != 'DIREKSI' && $employe->contract->contract == 'KOMISARIS')
                             @include('pages.Gaji.Slip.components.BodyEmploye')
                         @endif
 

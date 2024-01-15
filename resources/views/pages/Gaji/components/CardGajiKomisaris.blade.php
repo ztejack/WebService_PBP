@@ -20,22 +20,11 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label class="form-label" for="input-tunjangan-ahli">
-                    Tunjangan Ahli
-                </label>
-                <input type="number" class="form-control @error('tnj_ahli') is-invalid @enderror"
-                    id="input-tunjangan-ahli" placeholder="Input Tunjangan Ahli..." min="0"
-                    value="{{ $tnj_ahli = null ? 0 : $tnj_ahli }}" name="tnj_ahli">
-                @error('tnj_ahli')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="input-tunjangan-jabatan">
                     Tunjangan Jabatan
                 </label>
 
-                @if ($user->getContrackAttribute() == 'TETAP')
+                {{-- @if ($user->getContrackAttribute() == 'TETAP')
                     <input type="number" class="form-control readonly @error('tnj_jabatan') is-invalid @enderror"
                         name="tnj_jabatan" id="input-tunjangan-jabatan" placeholder="Tunjangan Jabatan..." readonly
                         min="0" value="{{ $tnj_jabatan = null ? 0 : $tnj_jabatan }}">
@@ -64,19 +53,18 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                @else
-                    <div class="mb-3">
-                        <input type="number" class="form-control readonly @error('tnj_jabatan') is-invalid @enderror"
-                            name="tnj_jabatan" id="input-tunjangan-jabatan" placeholder="Tunjangan Jabatan..."
-                            min="0" value="{{ $tnj_jabatan = null ? 0 : $tnj_jabatan }}">
-                        @error('tnj_jabatan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                @endif
+                @else --}}
+                <div class="mb-3">
+                    <input type="number" class="form-control readonly @error('tnj_jabatan') is-invalid @enderror"
+                        name="tnj_jabatan" id="input-tunjangan-jabatan" placeholder="Tunjangan Jabatan..."
+                        min="0" value="{{ $tnj_jabatan = null ? 0 : $tnj_jabatan }}">
+                    @error('tnj_jabatan')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                {{-- @endif --}}
 
-
-                <label class="form-label" for="total-gaji1">
+                {{-- <label class="form-label" for="total-gaji1">
                     Total
                 </label>
                 <input type="text" class="form-control readonly numberin" name="total-gaji1" id="total-gaji1"
@@ -89,14 +77,14 @@
                         // Update the input field with the selected value
                         document.getElementById("input-tunjangan-jabatan").value = selectedValue;
                     }
-                </script>
+                </script> --}}
             </div>
             <div class="divider">
                 <div class="divider-text">
                     Tunjangan
                 </div>
             </div>
-            <div class="mb-4 col-md-6">
+            {{-- <div class="mb-4 col-md-6">
                 <label for="bpjs_status" class="form-label">Tunjangan BPJS</label>
                 <div class="w-100 m-auto">
                     <div class="form-check form-check-inline">
@@ -116,15 +104,40 @@
                 @error('bpjs_status')
                     <div class="invalid-feedback"> $message </div>
                 @enderror
-            </div>
+            </div> --}}
             <div class="mb-4">
-                <label class="form-label" for="tnj_lapangan">Tunjangan Lapangan</label>
-                <input type="number" class="form-control " id="tnj_lapangan" name="tnj_lapangan" min="0"
-                    value="{{ $tunjangan_lapangan }}">
-                @error('tnj_lapangan')
+                <label class="form-label" for="tnj_makan">Tunjangan Makan</label>
+                <input type="number" class="form-control " id="tnj_makan" name="tnj_makan" min="0"
+                    value="{{ $tunjangan_makan }}">
+                @error('tnj_makan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="mb-4">
+                <label class="form-label" for="tnj_bantuan_perumahan">Tunjangan Bantuan Perumahan</label>
+                <input type="number" class="form-control " id="tnj_bantuan_perumahan" name="tnj_bantuan_perumahan"
+                    min="0" value="{{ $tunjangan_bantuan_perumahan }}">
+                @error('tnj_bantuan_perumahan')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="tnj_transport">Tunjangan Transport</label>
+                <input type="number" class="form-control " id="tnj_transport" name="tnj_transport" min="0"
+                    value="{{ $tunjangan_transport }}">
+                @error('tnj_transport')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="tnj_shift">Tunjangan Shift</label>
+                <input type="number" class="form-control " id="tnj_shift" name="tnj_shift" min="0"
+                    value="{{ $tunjangan_shift }}">
+                @error('tnj_shift')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="mb-4">
                 <label class="form-label" for="tnj_pajak">Tunjangan Pajak</label>
                 <input type="number" class="form-control " id="tnj_pajak" name="tnj_pajak" min="0"

@@ -63,6 +63,10 @@ class PositionSeeder extends Seeder
         Position::create([
             'position' => 'Pelaksana'
         ]);
+        // 12
+        Position::create([
+            'position' => 'Employe'
+        ]);
 
         // Contract
         Contract::create([
@@ -76,6 +80,9 @@ class PositionSeeder extends Seeder
         ]);
         Contract::create([
             'contract' => "DIREKSI"
+        ]);
+        Contract::create([
+            'contract' => "KOMISARIS"
         ]);
 
         // Golongan
@@ -137,31 +144,36 @@ class PositionSeeder extends Seeder
             'golongan' => "VIC"
         ]);
         // ^18
+        Golongan::create([
+            'golongan' => "N/N"
+        ]);
+        // ^19
 
         // Family Status
         FamilyStatus::create([
-            'familystatus'=>"K/0"
+            'familystatus' => "K/0"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"K/1"
+            'familystatus' => "K/1"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"K/2"
+            'familystatus' => "K/2"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"K/3"
+            'familystatus' => "K/3"
+        ]);
+        // 5
+        FamilyStatus::create([
+            'familystatus' => "TK/0"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"TK/0"
+            'familystatus' => "TK/1"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"TK/1"
+            'familystatus' => "TK/2"
         ]);
         FamilyStatus::create([
-            'familystatus'=>"TK/2"
-        ]);
-        FamilyStatus::create([
-            'familystatus'=>"TK/3"
+            'familystatus' => "TK/3"
         ]);
     }
 }

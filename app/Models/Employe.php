@@ -182,8 +182,19 @@ class Employe extends Model
             $gaji_pokok = $gaji->gapok;
             if ($gaji_pokok > 0) {
                 return true;
+            } else {
+                return false;
             }
-        } elseif ($this->contract->contract != 'DIREKSI') {
+        } elseif ($this->contract->contract == 'KOMISARIS') {
+            $gaji = $this->gaji()->get()->first();
+            $gaji_pokok = $gaji->gapok;
+            $tunjangan_jabatan = $gaji->tnj_jabatan;
+            if ($gaji_pokok > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } elseif ($this->contract->contract != 'DIREKSI' || $this->contract->contract != 'KOMISARIS') {
             $gaji = $this->gaji()->get()->first();
             $gaji_pokok = $gaji->gapok;
             $tunjangan_jabatan = $gaji->tnj_jabatan;
@@ -196,7 +207,43 @@ class Employe extends Model
             return false;
         }
     }
+    public function tnj_check()
+    {
+        if ($this->contract->contract == 'DIREKSI' && $this->contract->contract == 'KOMISARIS') {
+            $param_tnj = GajiParamTnjng::where('position_id', $this->position->id)->where('golongan_id', $this->golongan->id)->first();
 
+            $tnj_makan = $param_tnj == null ? 0 : $param_tnj->tnj_makan;
+            $tnj_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
+            $tnj_transport = $param_tnj == null ? 0 : $param_tnj->tnj_transport;
+            $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
+
+            $tnj_emp_makan = $this->gaji->tnj_makan;
+            $tnj_emp_bantuan_perumahan = $this->gaji->tnj_bantuan_perumahan;
+            $tnj_emp_transport = $this->gaji->tnj_transport;
+            $tnj_emp_shift = $this->gaji->tnj_shift;
+
+            if ($tnj_makan != $tnj_emp_makan) {
+                $this->gaji->update([
+                    'tnj_makan' => $tnj_makan
+                ]);
+            }
+            if ($tnj_perumahan != $tnj_emp_bantuan_perumahan) {
+                $this->gaji->update([
+                    'tnj_bantuan_perumahan' => $tnj_perumahan
+                ]);
+            }
+            if ($tnj_transport != $tnj_emp_transport) {
+                $this->gaji->update([
+                    'tnj_transport' => $tnj_transport
+                ]);
+            }
+            if ($tnj_shift != $tnj_emp_shift) {
+                $this->gaji->update([
+                    'tnj_shift' => $tnj_shift
+                ]);
+            }
+        }
+    }
 
     public function absensiForCurrentMonth()
     {
@@ -258,10 +305,11 @@ class Employe extends Model
                 $gaji->pot_pajak,
                 $gaji->pot_lain,
             ]);
+            $total = $penghasilan - $potongan;
             $return = (object)[
                 'gapok' => $gaji->gapok,
                 'tunjab' => $gaji->tnj_jabatan,
-                'total' => $gaji->total_gaji,
+                'total' => $total,
                 'tnj_perumahan' => $gaji->tnj_perumahan,
                 'tnj_ubp' => $gaji->tnj_bantuan_perumahan,
                 'tnj_dana_pensiun' => $gaji->tnj_dana_pensiun,
@@ -291,6 +339,42 @@ class Employe extends Model
                 'potongan' => $potongan,
             ];
             return $return;
+        } elseif ($this->contract->contract == 'KOMISARIS') {
+            $rapels = $this->getcurrentrapel();
+            $rapel = $rapels == null ? 0 : $rapels->jumlah;
+
+            $penghasilan =  array_sum([
+                $gaji->gapok,
+                $gaji->tnj_jabatan,
+                $gaji->tnj_bantuan_perumahan,
+                $gaji->tnj_makan,
+                $gaji->tnj_transport,
+                $gaji->tnj_shift,
+                $gaji->tnj_pajak,
+                $gaji->tnj_lain,
+                $rapel,
+            ]);
+            $potongan =  array_sum([
+                $gaji->pot_pajak,
+                $gaji->pot_lain,
+            ]);
+            $total = $penghasilan - $potongan;
+            $return = (object)[
+                'gapok' => $gaji->gapok,
+                'tunjab' => $gaji->tnj_jabatan,
+                'tnj_makan' => $gaji->tnj_makan,
+                'tnj_bantuan_perumahan' => $gaji->tnj_bantuan_perumahan,
+                'tnj_transport' => $gaji->tnj_transport,
+                'tnj_shift' => $gaji->tnj_shift,
+                'tnj_pajak' => $gaji->tnj_pajak,
+                'tnj_lain' => $gaji->tnj_lain,
+                'rapel' => $rapel,
+
+                'pot_pajak' => $gaji->pot_pajak,
+                'pot_lain' => $gaji->pot_lain,
+                'total' => $total
+            ];
+            return $return;
         }
 
         $gaji_pokok = $gaji->gapok;
@@ -310,7 +394,7 @@ class Employe extends Model
         $tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
 
         $sum_tnj_makan = $param_tnj == null ? 0 : ($param_tnj->tnj_makan * 24);
-        $sum_tnj_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
+        $sum_tnj_bantuan_perumahan = $param_tnj == null ? 0 : $param_tnj->tnj_perumahan;
         $sum_tnj_transport = $param_tnj == null ? 0 : ($param_tnj->tnj_transport * 24);
         $sum_tnj_shift = $param_tnj == null ? 0 : $param_tnj->tnj_shift;
         $GajiController = new GajiController();
@@ -328,7 +412,7 @@ class Employe extends Model
         // $rapelcount = $this->rapel;
         $total2 = array_sum([
             $sum_tnj_makan,
-            $sum_tnj_perumahan,
+            $sum_tnj_bantuan_perumahan,
             $sum_tnj_shift,
             $sum_tnj_transport,
             $bpjs_count->tnj_bpjs_tk_P,
@@ -360,7 +444,7 @@ class Employe extends Model
             $return = (object)[
                 'total' => round($total),
                 'tnj_makan' => $sum_tnj_makan,
-                'tnj_perumahan' => $sum_tnj_perumahan,
+                'tnj_bantuan_perumahan' => $sum_tnj_bantuan_perumahan,
                 'tnj_transport' => $sum_tnj_transport,
                 'tnj_lapangan' => $tunjangan_lapangan,
                 'tnj_lain' => $tunjangan_lain,
@@ -379,7 +463,7 @@ class Employe extends Model
         $return = (object)[
             'total' => 0,
             'tnj_makan' => 0,
-            'tnj_perumahan' => 0,
+            'tnj_bantuan_perumahan' => 0,
             'tnj_transport' => 0,
             'tnj_lapangan' => 0,
             'tnj_lain' => 0,
@@ -389,8 +473,6 @@ class Employe extends Model
             'bpjs_var' => $bpjs_count,
             'potongan_lainnya' => $potongan_lainnya,
         ];
-        // dd($return);
-
         return $return;
     }
 

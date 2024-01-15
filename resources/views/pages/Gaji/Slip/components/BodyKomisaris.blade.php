@@ -8,11 +8,11 @@
                         <span>Gaji Pokok</span> <span><span class="numberin">{{ $slip->gapok }}</span></span>
                     </div>
                 </li>
-                @if (optional($slip)->tnj_jabatan)
+                @if ($slip->tnj_jabatan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
                             <span>Tunjangan Jabatan</span> <span><span
-                                    class="numberin">{{ optional($slip)->tnj_jabatan }}</span></span>
+                                    class="numberin">{{ $slip->tnj_jabatan }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -29,30 +29,6 @@
                         <div class="d-flex justify-content-between">
                             <span>Uang Bantuan Perumahan</span> <span><span
                                     class="numberin">{{ optional($slip)->tnj_bantuan_perumahan }}</span></span>
-                        </div>
-                    </li>
-                @endif
-                @if (optional($slip)->tnj_makan)
-                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                        <div class="d-flex justify-content-between">
-                            <span>Tunjangan Makan</span> <span><span
-                                    class="numberin">{{ optional($slip)->tnj_makan }}</span></span>
-                        </div>
-                    </li>
-                @endif
-                @if (optional($slip)->tnj_shift)
-                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                        <div class="d-flex justify-content-between">
-                            <span>Tunjangan Shift</span> <span><span
-                                    class="numberin">{{ optional($slip)->tnj_shift }}</span></span>
-                        </div>
-                    </li>
-                @endif
-                @if (optional($slip)->tnj_transport)
-                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
-                        <div class="d-flex justify-content-between">
-                            <span>Tunjangan Transport</span> <span><span
-                                    class="numberin">{{ optional($slip)->tnj_transport }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -131,8 +107,7 @@
                 @if (optional($slip)->rapel)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Uang Rapel</span> <span><span
-                                    class="numberin">{{ optional($slip)->rapel }}</span></span>
+                            <span>Uang Rapel</span> <span><span class="numberin">{{ $slip->rapel }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -149,9 +124,6 @@
                                         $slip->tnj_jabatan,
                                         $slip->tnj_perumahan,
                                         $slip->tnj_bantuan_perumahan,
-                                        $slip->tnj_makan,
-                                        $slip->tnj_transport,
-                                        $slip->tnj_shift,
                                         $slip->tnj_dana_pensiun,
                                         $slip->tnj_simmode,
                                         $slip->tnj_bpjs_tk,
@@ -319,9 +291,6 @@
                                     $slip->tnj_jabatan,
                                     $slip->tnj_perumahan,
                                     $slip->tnj_bantuan_perumahan,
-                                    $slip->tnj_makan,
-                                    $slip->tnj_transport,
-                                    $slip->tnj_shift,
                                     $slip->tnj_dana_pensiun,
                                     $slip->tnj_simmode,
                                     $slip->tnj_bpjs_tk,

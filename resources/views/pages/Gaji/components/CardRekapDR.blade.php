@@ -192,9 +192,6 @@
                                 <td><span class="numbers">{{ $pot_lain }}</span></td>
                             </tr>
                         @endif
-
-
-
                         <tr>
                             <td>
                                 <hr>

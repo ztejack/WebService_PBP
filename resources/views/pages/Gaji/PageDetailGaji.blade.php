@@ -37,13 +37,16 @@
                     {{-- Card Gaji Pokok & Jabatan --}}
                     @if ($gaji->employee->contract->contract == 'DIREKSI')
                         @include('pages.Gaji.components.CardGajiDireksi')
-                        @include('pages.Gaji.components.CardRekap')
+                        @include('pages.Gaji.components.CardRekapDR')
+                    @elseif($gaji->employee->contract->contract == 'KOMISARIS')
+                        @include('pages.Gaji.components.CardGajiKomisaris')
+                        @include('pages.Gaji.components.CardRekapKM')
                     @elseif($gaji->employee->contract->contract != 'DIREKSI')
                         @include('pages.Gaji.components.CardGajiPokok')
                     @endif
 
 
-                    @if ($gaji->employee->contract->contract != 'DIREKSI')
+                    @if ($gaji->employee->contract->contract != 'DIREKSI' && $gaji->employee->contract->contract != 'KOMISARIS')
                         @include('pages.Gaji.components.CardTunjangan')
                     @endif
                     {{-- Card Tunjangan --}}
@@ -66,7 +69,7 @@
                     </div> --}}
                 </div>
                 <div class="col-md-4">
-                    @if (!($gaji->employee->contract->contract == 'DIREKSI'))
+                    @if (!($gaji->employee->contract->contract == 'DIREKSI' || $gaji->employee->contract->contract == 'KOMISARIS'))
                         @include('pages.Gaji.components.CardAbsensi')
                         @include('pages.Gaji.components.CardLembur')
                     @endif

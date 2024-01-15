@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("jumlah")->default(false);
             $table->string("total")->default(false);
             $table->string("status")->nullable();
+            $table->string("type")->nullable();
             $table->string("aprv_1")->default(false);
             $table->string("aprv_2")->default(false);
             $table->string("aprv_3")->default(false);
@@ -28,14 +29,18 @@ return new class extends Migration
         });
         Schema::create('gaji_slips', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('golongan')->nullable();
+            $table->string('status_keluarga')->nullable();
             $table->string('date')->nullable();
             $table->string('gapok')->nullable()->default(0);
             $table->string('tnj_jabatan')->nullable()->default(0);
             $table->string('tnj_ahli')->nullable()->default(0);
-            $table->string('total_tnj_makan')->nullable()->default(0);
+            $table->string('tnj_makan')->nullable()->default(0);
             $table->string('tnj_bantuan_perumahan')->nullable()->default(0);
-            $table->string('total_tnj_shift')->nullable()->default(0);
-            $table->string('total_tnj_transport')->nullable()->default(0);
+            $table->string('tnj_shift')->nullable()->default(0);
+            $table->string('tnj_transport')->nullable()->default(0);
             $table->string('tnj_lapangan')->nullable()->default(0);
             $table->string('tnj_lain')->nullable()->default(0);
 

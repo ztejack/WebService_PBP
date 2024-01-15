@@ -98,19 +98,16 @@
                                          Rapel
                                      </button>
                                      <button type="button" class="btn btn-sm btn-dribbble" data-bs-toggle="modal"
-                                         data-bs-target="#addLemburModal{{ $user->slug }}">
+                                         data-bs-target="#addLemburModal{{ $user->slug }}"
+                                         {{ $user->contract === 'DIREKSI' ? 'disabled' : ($user->contract === 'KOMISARIS' ? 'disabled' : '') }}>
                                          Lembur
                                      </button>
                                      <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                         data-bs-target="#addkehadiranModal{{ $user->slug }}">
+                                         data-bs-target="#addkehadiranModal{{ $user->slug }}"
+                                         {{ $user->contract === 'DIREKSI' ? 'disabled' : ($user->contract === 'KOMISARIS' ? 'disabled' : '') }}>
                                          Absensi
                                      </button>
                                  </td>
-                                 {{-- @include('pages.Gaji.components.ModalAddRapel')
-                                 @include('pages.Gaji.components.ModalAddLembur')
-                                 @include('pages.Gaji.components.ModalAddAbsensi') --}}
-
-
                              </tr>
                          @endforeach
                      </tbody>

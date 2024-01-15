@@ -139,32 +139,32 @@ class GajiController extends Controller
     {
         $gaji = $user->employee->gaji;
         if ($user->employee->contract->contract == 'DIREKSI') {
-            $gapok = $gaji->gapok;
-            $tunjab = $gaji->tnj_jabatan;
-            $tnj_perumahan = $gaji->tnj_perumahan;
-            $tnj_ubp = $gaji->tnj_bantuan_perumahan;
-            $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
-            $tnj_simmode = $gaji->tnj_simmode;
-            $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
-            $tnj_bpjs_jkm = $gaji->tnj_bpjs_jkm;
-            $tnj_bpjs_jht = $gaji->tnj_bpjs_jht;
-            $tnj_bpjs_jp = $gaji->tnj_bpjs_jp;
-            $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
-            $tnj_pajak = $gaji->tnj_pajak;
-            $tnj_lain = $gaji->tnj_lain;
-            // potongan
-            $pot_spba = $gaji->pot_serikat_pegawai_ba;
-            $pot_lazis = $gaji->pot_lazis;
-            $pot_dana_pensiun = $gaji->pot_dana_pensiun;
-            $pot_simmode = $gaji->pot_simmode;
-            $pot_koperasi = $gaji->pot_koperasi;
-            $pot_bpjs_tk = $gaji->pot_bpjs_tk;
-            $pot_bpjs_jkm = $gaji->pot_bpjs_jkm;
-            $pot_bpjs_jht = $gaji->pot_bpjs_jht;
-            $pot_bpjs_jp = $gaji->pot_bpjs_jp;
-            $pot_bpjs_kes = $gaji->pot_bpjs_kes;
-            $pot_pajak = $gaji->pot_pajak;
-            $pot_lain = $gaji->pot_lain;
+            // $gapok = $gaji->gapok;
+            // $tunjab = $gaji->tnj_jabatan;
+            // $tnj_perumahan = $gaji->tnj_perumahan;
+            // $tnj_ubp = $gaji->tnj_bantuan_perumahan;
+            // $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
+            // $tnj_simmode = $gaji->tnj_simmode;
+            // $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
+            // $tnj_bpjs_jkm = $gaji->tnj_bpjs_jkm;
+            // $tnj_bpjs_jht = $gaji->tnj_bpjs_jht;
+            // $tnj_bpjs_jp = $gaji->tnj_bpjs_jp;
+            // $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
+            // $tnj_pajak = $gaji->tnj_pajak;
+            // $tnj_lain = $gaji->tnj_lain;
+            // // potongan
+            // $pot_spba = $gaji->pot_serikat_pegawai_ba;
+            // $pot_lazis = $gaji->pot_lazis;
+            // $pot_dana_pensiun = $gaji->pot_dana_pensiun;
+            // $pot_simmode = $gaji->pot_simmode;
+            // $pot_koperasi = $gaji->pot_koperasi;
+            // $pot_bpjs_tk = $gaji->pot_bpjs_tk;
+            // $pot_bpjs_jkm = $gaji->pot_bpjs_jkm;
+            // $pot_bpjs_jht = $gaji->pot_bpjs_jht;
+            // $pot_bpjs_jp = $gaji->pot_bpjs_jp;
+            // $pot_bpjs_kes = $gaji->pot_bpjs_kes;
+            // $pot_pajak = $gaji->pot_pajak;
+            // $pot_lain = $gaji->pot_lain;
 
             $rapels = $user->employee->getcurrentrapel();
             $rapel = $rapels == null ? 0 : $rapels->jumlah;
@@ -210,7 +210,58 @@ class GajiController extends Controller
                 'penghasilan' => $gaji_count->penghasilan,
                 'potongan' => $gaji_count->potongan
             ]);
+        } elseif ($user->employee->contract->contract == 'KOMISARIS') {
+            $rapels = $user->employee->getcurrentrapel();
+            $rapel = $rapels == null ? 0 : $rapels->jumlah;
+            $rapelcount = $user->employee->rapel;
+
+            $gaji_count = $user->employee->gajicount();
+            // dd($gaji_count);
+            $total1 = array_sum([$gaji_count->tunjab, $gaji_count->gapok]);
+            $total2 = array_sum([
+                $gaji_count->tnj_makan,
+                $gaji_count->tnj_bantuan_perumahan,
+                $gaji_count->tnj_transport,
+                $gaji_count->tnj_shift,
+                $gaji_count->tnj_lain,
+                $gaji_count->tnj_pajak,
+            ]);
+            $total3 = array_sum([
+                $gaji_count->pot_lain,
+                $gaji_count->pot_pajak,
+            ]);
+            $total = round(array_sum([
+                $total1, $total2
+            ]) - $total3);
+            return view('pages.Gaji.PageDetailGaji', [
+                'user' => $user,
+                'gaji' => $gaji,
+                'gapok' => $gaji_count->gapok,
+                'tnj_jabatan' => $gaji_count->tunjab,
+                'total1' => round($total1),
+
+                'tunjangan_makan' => $gaji_count->tnj_makan,
+                'tunjangan_bantuan_perumahan' => $gaji_count->tnj_bantuan_perumahan,
+                'tunjangan_transport' => $gaji_count->tnj_transport,
+                'tunjangan_shift' => $gaji_count->tnj_shift,
+                'tunjangan_lain' => $gaji_count->tnj_lain,
+                'tunjangan_pajak' => $gaji_count->tnj_pajak,
+
+                'rapel' => $rapel,
+
+                'potongan_lain' => $gaji_count->pot_lain,
+                'potongan_pajak' => $gaji_count->pot_pajak,
+
+                'total2' => round($total2),
+                'total3' => round($total3),
+
+                'total' => round($total),
+
+                'data_rapel' => $rapelcount,
+                'slips' => $user->employee->slip()->orderBy('created_at', 'desc')->get(),
+            ]);
         }
+
         if ($user->golongan == null || $user->position == null) {
             return view('pages.Gaji.PageDetailGaji', [
                 'user' => $user,
@@ -370,7 +421,7 @@ class GajiController extends Controller
             return Redirect::back()->withErrors($validationRule)->withInput();
             // return Redirect::back()->with('succ', 'Failed Update')->withInput();
         }
-        try {
+        // try {
         // if ($request->has('direksi')) {
         if ($gaji->employee->contract->contract == "DIREKSI") {
             $penghasilan =
@@ -436,7 +487,41 @@ class GajiController extends Controller
                 ]
             );
             return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
-        } elseif (!$request->has('direksi')) {
+        } elseif ($gaji->employee->contract->contract == "KOMISARIS") {
+            $penghasilan =
+                array_sum([
+                    $request['gapok'],
+                    $request['tnj_jabatan'],
+                    $request['tnj_makan'],
+                    $request['tnj_bantuan_perumahan'],
+                    $request['tnj_transport'],
+                    $request['tnj_shift'],
+                    $request['tnj_pajak'],
+                    $request['tnj_lain']
+                ]);
+            $potongan = array_sum([
+                $request['tnj_pajak'],
+                $request['pot_lain'],
+            ]);
+            $total = $penghasilan - $potongan;
+            $gaji->update(
+                [
+                    'gapok' => $request['gapok'],
+                    'tnj_jabatan' => $request['tnj_jabatan'],
+                    'tnj_makan' => $request['tnj_makan'],
+                    'tnj_bantuan_perumahan' => $request['tnj_bantuan_perumahan'],
+                    'tnj_transport' => $request['tnj_transport'],
+                    'tnj_shift' => $request['tnj_shift'],
+                    'tnj_pajak' => $request['tnj_pajak'],
+                    'tnj_lain' => $request['tnj_lain'],
+
+                    'pot_pajak' => $request['tnj_pajak'],
+                    'pot_lain' => $request['pot_lain'],
+                    'total_gaji' => $total,
+                ]
+            );
+            return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
+        } elseif ($gaji->employee->contract->contract != "DIREKSI" || $gaji->employee->contract->contract != "KOMISARIS") {
             $total = array_sum([$request['gapok'], $request['tnj_ahli'], $request['tnj_jabatan']]);
 
             $bpjscount = $this->bpjs_cout(
@@ -464,9 +549,6 @@ class GajiController extends Controller
             );
             // dd($request->session());
             return Redirect::back()->with('succ', 'Success Update Gaji')->withInput();
-        }
-        } catch (\Exception $e) {
-            return Redirect::back()->with('err', 'Failed Update Gaji')->withInput();
         }
         // } catch (\Exception $e) {
         //     return Redirect::back()->with('err', 'Failed Update Gaji')->withInput();

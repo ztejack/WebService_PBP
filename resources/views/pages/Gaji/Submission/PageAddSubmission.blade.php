@@ -26,12 +26,14 @@
         </div>
         @foreach ($users as $user)
             @include('pages.Gaji.components.ModalAddRapel')
-            @include('pages.Gaji.components.ModalAddLembur')
-            @include('pages.Gaji.components.ModalAddAbsensi')
+            @if ($user->contract !== 'DIREKSI' || $user->contract !== 'KOMISARIS')
+                @include('pages.Gaji.components.ModalAddLembur')
+                @include('pages.Gaji.components.ModalAddAbsensi')
+            @endif
         @endforeach
-        @foreach ($userdireksis as $user)
+        {{-- @foreach ($userdireksis as $user)
             @include('pages.Gaji.components.ModalAddRapel')
-        @endforeach
+        @endforeach --}}
 
         {{-- footer --}}
         @include('components.global.footer')
