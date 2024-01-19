@@ -17,7 +17,7 @@ class GajiParamFamily extends Model
      */
     protected $fillable = [
         'tnj_familystatus',
-        'familystatus_id',
+        'family_status_id',
     ];
     public function employee()
     {

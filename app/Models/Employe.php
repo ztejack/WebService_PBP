@@ -119,8 +119,13 @@ class Employe extends Model
     // }
     public function getcurrentlembur()
     {
-        $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
-
+        // $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
+        $lemburs = $this->lembur()->whereYear('date', '>=', now()->year)
+            ->orWhere(function ($query) {
+                $query->whereYear('date', now()->year)
+                    ->whereMonth('date', '>=', now()->month);
+            })->get()->first();
+        // dd($lemburs);
         if ($lemburs === null) {
             $lemburs = ['jumlah' => 0];
             return (object)$lemburs;
@@ -130,8 +135,11 @@ class Employe extends Model
     }
     public function getcurrentrapel()
     {
-        $rapels = $this->rapel()->where('date', '>=', now()->format('m Y'))->first();
-
+        $rapels = $this->rapel()->whereYear('date', '>=', now()->year)
+            ->orWhere(function ($query) {
+                $query->whereYear('date', now()->year)
+                    ->whereMonth('date', '>=', now()->month);
+            })->get()->first();
         if ($rapels === null) {
             $rapels = ['jumlah' => 0];
             return (object)$rapels;
@@ -162,6 +170,50 @@ class Employe extends Model
         $absensi = ['kosong' => $totalKosong, 'perjalanan' => $totalPerjalanan, 'sakit' => $totalSakit, 'terlambat' => $totalTerlambat];
 
         return (object)$absensi;
+    }
+    public function pph21count()
+    {
+        if ($this->contract->contract != 'DIREKSI' && $this->contract->contract != 'KOMISARIS') {
+            $ptkp = $this->familystatus->gajiparamfamily->tnj_familystatus;
+            $total = $this->gajicount()->total;
+            $pph21_new = 1;
+            $pph = 0;
+            $resultArray = [];
+            $i = 0;
+            while ($pph == $pph21_new) {
+                $i++;
+                $peng_bruto = $pph + $total;
+                $bi_jab = (($peng_bruto * 15) / 100) > 500000 ? 500000 : (($peng_bruto * 15) / 100);
+                $net_tahun = ($peng_bruto - $bi_jab) * 12;
+                $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
+                if ($pkp <= 60000000) {
+                    $pph21 = ($pkp * 5) / 100;
+                } elseif ($pkp <= 250000000) {
+                    $pph21 = (($pkp * 15) / 100) - 6000000;
+                } elseif ($pkp <= 500000000) {
+                    $pph21 = (($pkp * 25) / 100) - 31000000;
+                } elseif ($pkp <= 5000000000) {
+                    $pph21 = (($pkp * 30) / 100) - 56000000;
+                } elseif ($pkp > 5000000000) {
+                    $pph21 = (($pkp * 35) / 100) - 306000000;
+                }
+                $pph21_new = round(($pph21 / 12));
+                $resultArray[] = [
+                    'iteration' => $i,
+                    'pengbruto' => $peng_bruto,
+                    'bijab' => $bi_jab,
+                    'net_tahun' => $net_tahun,
+                    'ptkp' => $ptkp,
+                    'pkp' => $pkp,
+                    'pph21' => $pph21,
+                    'pph_new' => $pph21_new,
+                    'pph' => $pph
+                ];
+                $pph = $pph21_new;
+            }
+            dd($resultArray);
+            return $pph;
+        }
     }
     // error 27/11/2023
     public function gajisubmitcheck($gajiSubmitid)

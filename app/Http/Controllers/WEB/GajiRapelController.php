@@ -15,15 +15,19 @@ class GajiRapelController extends Controller
 
         try {
             $user = User::where('slug', $slug)->first();
-            $rapel = $user->employee->rapel->first();
+            $rapel = $user->employee->rapel()->whereYear('date', '>=', now()->year)
+                ->orWhere(function ($query) {
+                    $query->whereYear('date', now()->year)
+                        ->whereMonth('date', '>=', now()->month);
+                })->get()->first();
             if ($rapel != null) {
-                if ($rapel->date->format('M Y') == now()->format('M Y')) {
-                    $rapel->update([
-                        'date' => request('date'),
-                        'jumlah' => request('jumlah_rapel')
-                    ]);
-                    return Redirect::back()->with('succ', 'Success Update Rapel')->withInput();
-                }
+                // if ($rapel->date->format('M Y') == now()->format('M Y')) {
+                $rapel->update([
+                    'date' => request('date'),
+                    'jumlah' => request('jumlah_rapel')
+                ]);
+                return Redirect::back()->with('succ', 'Success Update Rapel')->withInput();
+                // }
             }
             $rapel = GajiRapel::create(
                 [

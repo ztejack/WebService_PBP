@@ -9,6 +9,7 @@
             {{-- @include('pages.Gaji.components.DataGaji') --}}
             <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gaji /</span> {{ $user->name }}
             </h4>
+            <p><span class="numberin">{{ $pph }}</span></p>
             @if (session()->has('succ'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     {{ session('succ') }}

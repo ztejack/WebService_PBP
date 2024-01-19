@@ -309,7 +309,7 @@ class GajiController extends Controller
         // dd($user->employee->rapel);
         $rapel = $rapels == null ? 0 : $rapels->jumlah;
 
-        $lemburcount = $user->employee->lembur;
+        $lemburcount = $user->employee->lembur->sortByDesc('created_at');
         $rapelcount = $user->employee->rapel;
         $total2 = array_sum([
             $sum_tnj_makan,
@@ -355,9 +355,51 @@ class GajiController extends Controller
 
         $total = $total1 + $total2 - $total3;
 
+        $user->employee->pph21count();
+        $i = 0;
+        $pph = 0;
+        $peng_bruto = 0;
+        $bi_jab = 0;
+        $net_tahun = 0;
+        $ptkp = 0;
+        $pkp = 0;
+        $pph21 = 0;
+        $pph21_new = 0;
+        $resultArray = [];
+        for ($i = 0; $i <= 9;) {
+            $i++;
+
+            $peng_bruto = $pph + $total;
+            $bi_jab = (($peng_bruto * 15) / 100) > 500000 ? 500000 : (($peng_bruto * 15) / 100);
+            $net_tahun = ($peng_bruto - $bi_jab) * 12;
+            $ptkp = 63000000;
+            $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
+            $pph21 = 0;
+            if ($pkp <= 60000000) {
+                $pph21 = ($pkp * 5) / 100;
+            } elseif ($pkp <= 250000000) {
+                $pph21 = (($pkp * 15) / 100) - 6000000;
+            }
+            $pph21_new = round(($pph21 / 12));
+            $pph = $pph21_new;
+            $resultArray[] = [
+                'iteration' => $i,
+                'pengbruto' => $peng_bruto,
+                'bijab' => $bi_jab,
+                'net_tahun' => $net_tahun,
+                'ptkp' => $ptkp,
+                'pkp' => $pkp,
+                'pph21' => $pph21,
+                'pph_new' => $pph21_new,
+                'pph' => $pph
+            ];
+        }
+
+
 
 
         return view('pages.Gaji.PageDetailGaji', [
+            'pph' => $pph,
             'user' => $user,
             'gaji' => $gaji,
             'gapok' => $gaji_pokok,
