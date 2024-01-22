@@ -26,7 +26,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $slip->employee->getUserNameAttribute() }}</td>
-                        <td>Rp <span class="numberin">{{ $slip->employee->gajicount()->total }}</span></td>
+                        <td>Rp <span class="numberin">{{ $slip->total }}</span></td>
                         <td>
                             <a class="btn btn-sm btn-primary p-1" href="{{ route('page_detail_slip_gaji', $slip->id) }}">
                                 <i class="bx bx-detail "></i> Detail
@@ -45,7 +45,7 @@
         </table>
         <div class="align-self-end d-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalcommingsoon">
-                <i class="bx bx-printer me-2"></i> Cetak
+                <i class="bx bx-printer me-2"></i> Export EXCEL
             </button>
             @include('components.global.modalcommingsoon')
         </div>

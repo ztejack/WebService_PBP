@@ -41,7 +41,7 @@
                     @elseif($gaji->employee->contract->contract == 'KOMISARIS')
                         @include('pages.Gaji.components.CardGajiKomisaris')
                         @include('pages.Gaji.components.CardRekapKM')
-                    @elseif($gaji->employee->contract->contract != 'DIREKSI')
+                    @elseif($gaji->employee->contract->contract != 'DIREKSI' && $gaji->employee->contract->contract != 'KOMISARIS')
                         @include('pages.Gaji.components.CardGajiPokok')
                     @endif
 

@@ -115,7 +115,6 @@
                 <div class="pt-4">
                     <button type="submit" class="btn btn-primary me-sm-3 me-1">
                         Create</button>
-                    <button type="reset" class="btn btn-label-secondary">Cancel</button>
                 </div>
             </form>
         </div>

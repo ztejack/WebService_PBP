@@ -23,6 +23,6 @@ class FamilyStatus extends Model
     }
     public function gajiparamfamily()
     {
-        return $this->hasMany(GajiParamFamily::class);
+        return $this->hasOne(GajiParamFamily::class);
     }
 }

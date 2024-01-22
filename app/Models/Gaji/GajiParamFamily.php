@@ -17,7 +17,7 @@ class GajiParamFamily extends Model
      */
     protected $fillable = [
         'tnj_familystatus',
-        'familystatus_id',
+        'family_status_id',
     ];
     public function employee()
     {
@@ -25,6 +25,6 @@ class GajiParamFamily extends Model
     }
     public function familystatus()
     {
-        return $this->belongsTo(FamilyStatus::class);
+        return $this->belongsTo(FamilyStatus::class, 'family_status_id');
     }
 }

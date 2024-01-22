@@ -119,8 +119,13 @@ class Employe extends Model
     // }
     public function getcurrentlembur()
     {
-        $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
-
+        // $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
+        $lemburs = $this->lembur()->whereYear('date', '>=', now()->year)
+            ->orWhere(function ($query) {
+                $query->whereYear('date', now()->year)
+                    ->whereMonth('date', '>=', now()->month);
+            })->get()->first();
+        // dd($lemburs);
         if ($lemburs === null) {
             $lemburs = ['jumlah' => 0];
             return (object)$lemburs;
@@ -130,8 +135,11 @@ class Employe extends Model
     }
     public function getcurrentrapel()
     {
-        $rapels = $this->rapel()->where('date', '>=', now()->format('m Y'))->first();
-
+        $rapels = $this->rapel()->whereYear('date', '>=', now()->year)
+            ->orWhere(function ($query) {
+                $query->whereYear('date', now()->year)
+                    ->whereMonth('date', '>=', now()->month);
+            })->get()->first();
         if ($rapels === null) {
             $rapels = ['jumlah' => 0];
             return (object)$rapels;
@@ -163,6 +171,60 @@ class Employe extends Model
 
         return (object)$absensi;
     }
+    public function pph21count()
+    {
+        if ($this->contract->contract != 'DIREKSI' && $this->contract->contract != 'KOMISARIS') {
+            $ptkp = $this->familystatus->gajiparamfamily->tnj_familystatus;
+            $total = $this->gaji->total_gaji;
+            // dd($total);
+            if ($total != false) {
+                $pph21_new = 1;
+                $pph = 0;
+                // $resultArray = [];
+                $i = 1;
+                $param = ParamPPH::first();
+                while ($i != 0) {
+                    $i++;
+                    $peng_bruto = $pph + $total;
+                    $bi_jab = (($peng_bruto * 15) / 100) > $param->biaya_jabatan ? $param->biaya_jabatan : (($peng_bruto * 15) / 100);
+                    $net_tahun = ($peng_bruto - $bi_jab) * 12;
+                    $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
+                    if ($pkp <= $param->jumlah_kategori_pertama) {
+                        $pph21 = (($pkp * $param->persentase_kategori_pertama) / 100) - $param->pengurang_kategori_pertama;
+                    } elseif ($pkp <= $param->jumlah_kategori_kedua) {
+                        $pph21 = (($pkp * $param->persentase_kategori_kedua) / 100) - $param->pengurang_kategori_kedua;
+                    } elseif ($pkp <= $param->jumlah_kategori_ketiga) {
+                        $pph21 = (($pkp * $param->persentase_kategori_ketiga) / 100) - $param->pengurang_kategori_ketiga;
+                    } elseif ($pkp <= $param->jumlah_kategori_keempat) {
+                        $pph21 = (($pkp * $param->persentase_kategori_keempat) / 100) - $param->pengurang_kategori_keempat;
+                    } elseif ($pkp > $param->jumlah_kategori_kelima) {
+                        $pph21 = (($pkp * $param->persentase_kategori_kelima) / 100) - $param->pengurang_kategori_kelima;
+                    }
+                    $pph21_new = round(($pph21 / 12));
+                    // $resultArray[] = [
+                    //     'iteration' => $i,
+                    //     'pengbruto' => $peng_bruto,
+                    //     'bijab' => $bi_jab,
+                    //     'net_tahun' => $net_tahun,
+                    //     'ptkp' => $ptkp,
+                    //     'pkp' => $pkp,
+                    //     'pph21' => $pph21,
+                    //     'pph_new' => $pph21_new,
+                    //     'pph' => $pph
+                    // ];
+                    if ($pph == $pph21_new) {
+                        break;
+                        $i = 0;
+                    }
+                    $pph = $pph21_new;
+                }
+                // dd($resultArray);
+                return $pph;
+            }
+            return false;
+        }
+    }
+
     // error 27/11/2023
     public function gajisubmitcheck($gajiSubmitid)
     {
@@ -270,7 +332,6 @@ class Employe extends Model
     }
     public function gajicount()
     {
-        // if (isNull())
         $gaji = $this->gaji()->get()->first();
         if ($this->contract->contract == 'DIREKSI') {
             $rapels = $this->getcurrentrapel();
@@ -376,13 +437,14 @@ class Employe extends Model
             ];
             return $return;
         }
-
+        $gaji->employee->tnj_check();
         $gaji_pokok = $gaji->gapok;
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
         $tunjangan_lapangan = $gaji->tnj_lapangan;
         $tunjangan_lain = $gaji->tnj_lain;
         $tunjangan_pajak = $gaji->tnj_pajak;
+        // $tunjangan_pajak = $this->pph21count();
         $bpjs_status = $gaji->bpjs_status;
         $total1 = array_sum([$gaji_pokok, $tunjangan_ahli, $tunjangan_jabatan]);
 
@@ -419,6 +481,7 @@ class Employe extends Model
             $bpjs_count->tnj_bpjs_kes_P,
             $tunjangan_lapangan,
             $tunjangan_lain,
+            $tunjangan_pajak,
             $lembur,
             $rapel
         ]);
@@ -427,6 +490,7 @@ class Employe extends Model
         $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
         $potongan_lain = $gaji->pot_lain;
         $potongan_pajak = $gaji->pot_pajak;
+        // $potongan_pajak = $tunjangan_pajak;
 
         $total3 = array_sum([
             // $bpjs_count->tnj_bpjs_tk_P,
@@ -436,13 +500,24 @@ class Employe extends Model
             $potongan_lainnya->pot_sakit,
             $potongan_lainnya->pot_kosong,
             $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan
+            $potongan_lainnya->pot_perjalanan,
+            $potongan_pajak
         ]);
         $total = 0;
+        $total_tanpa_pajak = $total1 + ($total2 - $tunjangan_pajak) - ($total3 - $potongan_pajak);
         if ($total1 != 0) {
             $total = array_sum([$total1, $total2]) - $total3;
             $return = (object)[
                 'total' => round($total),
+                'total1' => $total1,
+                'total2' => $total2,
+                'total3' => $total3,
+                'total' => round($total),
+                'gapok' => $gaji_pokok,
+                'tnj_jabatan' => $tunjangan_jabatan,
+                'tnj_ahli' => $tunjangan_ahli,
+                'tnj_lapangan' => $tunjangan_lapangan,
+                'total_tanpa_pajak' => $total_tanpa_pajak,
                 'tnj_makan' => $sum_tnj_makan,
                 'tnj_bantuan_perumahan' => $sum_tnj_bantuan_perumahan,
                 'tnj_transport' => $sum_tnj_transport,
@@ -462,6 +537,10 @@ class Employe extends Model
         }
         $return = (object)[
             'total' => 0,
+            'gapok' => 0,
+            'tnj_ahli' => 0,
+            'tnj_lapangan' => 0,
+            'tnj_jabatan' => 0,
             'tnj_makan' => 0,
             'tnj_bantuan_perumahan' => 0,
             'tnj_transport' => 0,
@@ -472,6 +551,7 @@ class Employe extends Model
             'rapel' => 0,
             'bpjs_var' => $bpjs_count,
             'potongan_lainnya' => $potongan_lainnya,
+            'total_tanpa_pajak' => 0,
         ];
         return $return;
     }

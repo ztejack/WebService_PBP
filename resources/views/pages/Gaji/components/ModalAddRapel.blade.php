@@ -26,7 +26,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="jumlah_rapel">Nominal Rapel</label>
                             <input type="number" min="0" class="form-control form-control-sm" id="jumlah_rapel"
-                                name="jumlah_rapel" value="" placeholder="Enter Amount">
+                                name="jumlah_rapel" value="{{ $user->employee->getcurrentrapel()->jumlah }}" placeholder="Enter Amount">
                         </div>
 
                     </div>

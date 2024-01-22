@@ -125,14 +125,14 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <label class="form-label" for="tnj_pajak">Tunjangan Pajak</label>
                 <input type="number" class="form-control " id="tnj_pajak" name="tnj_pajak" min="0"
                     value="{{ $tunjangan_pajak }}">
                 @error('tnj_pajak')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> --}}
             <div class="mb-4">
                 <label class="form-label" for="tnj_lain">Tunjangan Lain</label>
                 <input type="number" class="form-control " id="tnj_lain" name="tnj_lain" min="0"

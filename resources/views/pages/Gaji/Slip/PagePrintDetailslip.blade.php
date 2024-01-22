@@ -25,7 +25,7 @@
                     <img src="{{ asset('img/logo/LOGO-PAGE-2.png') }}" alt="">
                 </span>
                 <div class="d-flex flex-column align-items-center m-auto">
-                    <h3>PT.PELABUHAN BUKIT PRIMA</h3>
+                    <h3>PT. PELABUHAN BUKIT PRIMA</h3>
                     <span>Jl. Soekarno Hatta Km 15 Bandar Lampung</span>
                     <span>Gedung Terpadu Bukit Asam Coal Terminal Lt. 4</span>
                     <span>e-mail : info@pelabuhanbukitprima.co.id, Phone :(0721) 3400003</span>

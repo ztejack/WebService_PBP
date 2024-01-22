@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::create('gaji_param_families', function (Blueprint $table) {
             $table->id();
             $table->string('tnj_familystatus')->nullable()->default(false);
-            $table->foreignId('familystatus_id')->nullable()->constrained('family_statuses')->references('id')->on('family_statuses');
+            $table->foreignId('family_status_id')->nullable()->constrained('family_statuses')->references('id')->on('family_statuses');
             $table->timestamps();
         });
     }

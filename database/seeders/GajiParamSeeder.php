@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Gaji\GajiParamFamily;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiParamTunJab;
+use App\Models\ParamPPH;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -536,35 +537,59 @@ class GajiParamSeeder extends Seeder
         /* Gaji Param Family*/
         GajiParamFamily::create([
             'tnj_familystatus' => 58500000,
-            'familystatus_id' => 1,
+            'family_status_id' => 1,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 63000000,
-            'familystatus_id' => 2,
+            'family_status_id' => 2,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 67500000,
-            'familystatus_id' => 3,
+            'family_status_id' => 3,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 72000000,
-            'familystatus_id' => 4,
+            'family_status_id' => 4,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 54000000,
-            'familystatus_id' => 5,
+            'family_status_id' => 5,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 58500000,
-            'familystatus_id' => 6,
+            'family_status_id' => 6,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 53000000,
-            'familystatus_id' => 7,
+            'family_status_id' => 7,
         ]);
         GajiParamFamily::create([
             'tnj_familystatus' => 67500000,
-            'familystatus_id' => 8,
+            'family_status_id' => 8,
+        ]);
+
+        //Param PPH
+        ParamPPH::create([
+            'biaya_jabatan' => 500000,
+            'jumlah_kategori_pertama' => 60000000,
+            'persentase_kategori_pertama' => 5,
+            'pengurang_kategori_pertama' => 0,
+
+            'jumlah_kategori_kedua' => 250000000,
+            'persentase_kategori_kedua' => 15,
+            'pengurang_kategori_kedua' => 6000000,
+
+            'jumlah_kategori_ketiga' => 500000000,
+            'persentase_kategori_ketiga' => 25,
+            'pengurang_kategori_ketiga' => 31000000,
+
+            'jumlah_kategori_keempat' => 5000000000,
+            'persentase_kategori_keempat' => 30,
+            'pengurang_kategori_keempat' => 56000000,
+
+            'jumlah_kategori_kelima' => 5000000000,
+            'persentase_kategori_kelima' => 35,
+            'pengurang_kategori_kelima' => 306000000,
         ]);
     }
 }

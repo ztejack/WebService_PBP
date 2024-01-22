@@ -18,7 +18,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column align-items-center m-auto">
-                                    <h3>PT.PELABUHAN BUKIT PRIMA</h3>
+                                    <h3>PT. PELABUHAN BUKIT PRIMA</h3>
                                     <span>Jl. Soekarno Hatta Km 15 Bandar Lampung</span>
                                     <span>Gedung Terpadu Bukit Asam Coal Terminal Lt. 4</span>
                                     <span>e-mail : info@pelabuhanbukitprima.co.id, Phone :(0721) 3400003</span>
@@ -62,7 +62,7 @@
                         <hr class="m-2">
                         @if ($employe->contract->contract == 'DIREKSI' || $employe->contract->contract == 'KOMISARIS')
                             @include('pages.Gaji.Slip.components.BodyDireksi')
-                        @elseif($employe->contract->contract != 'DIREKSI' && $employe->contract->contract == 'KOMISARIS')
+                        @elseif($employe->contract->contract != 'DIREKSI' && $employe->contract->contract != 'KOMISARIS')
                             @include('pages.Gaji.Slip.components.BodyEmploye')
                         @endif
 

@@ -193,7 +193,20 @@ $(document).ready(function () {
         scrollY: true,
         scrollX: true,
     });
-
+    $("#addsubmission").DataTable({
+        stateSave: true,
+        paging: true,
+        ordering: true,
+        info: true,
+        scrollY: 200,
+        scrollX: true,
+        columnDefs: [
+            {
+                targets: 1,
+                checkboxes: true,
+            },
+        ],
+    });
     $("table.table-display").DataTable({
         // paging: false,
         // ordering: false,
@@ -202,6 +215,27 @@ $(document).ready(function () {
         // scrollY: true,
         // scrollX: true,
     });
+    // $("#example-form").DataTable({
+    //     paging: true,
+    //     pagingType: "first_last_numbers",
+    //     pageLength: 50,
+    //     ordering: false,
+    //     info: true,
+    //     scrollY: true,
+    //     scrollX: true,
+    //     columnDefs: [
+    //         {
+    //             orderable: false,
+    //             className: "select-checkbox",
+    //             checkboxes: true,
+    //             targets: 0,
+    //         },
+    //     ],
+    //     select: {
+    //         style: "os",
+    //         selector: "td:first-child", // Corrected selector for the first cell in each row
+    //     },
+    // });
 
     // });
     //password visible
@@ -251,97 +285,3 @@ $(document).ready(function () {
     //     });
     // });
 });
-let example_form = $("#example-form").DataTable({
-    paging: true,
-    pagingType: "first_last_numbers",
-    pageLength: 50,
-    ordering: false,
-    info: true,
-    scrollY: true,
-    scrollX: true,
-    columnDefs: [
-        {
-            orderable: false,
-            className: "select-checkbox",
-            targets: 1,
-        },
-    ],
-    select: {
-        style: "os",
-        selector: "td:first-child", // Corrected selector for the first cell in each row
-    },
-});
-
-let cbx_select_all = $("#select-all");
-cbx_select_all.change(function () {
-    const $selectAllCheckbox = cbx_select_all;
-    const $rowCheckboxes = $("tbody input.row-checkbox.enable");
-
-    if ($selectAllCheckbox.prop("checked")) {
-        $rowCheckboxes.prop("checked", true);
-    } else if ($selectAllCheckbox.prop("checked", false)) {
-        $rowCheckboxes.prop("checked", false);
-    }
-});
-example_form.on("change", "tbody input.row-checkbox.enable", function () {
-    const $selectAllCheckbox = cbx_select_all;
-    const $rowCheckboxes = $("tbody input.row-checkbox.enable");
-
-    const allChecked =
-        $rowCheckboxes.length === $rowCheckboxes.filter(":checked").length;
-    $selectAllCheckbox.prop("checked", allChecked);
-});
-
-//satuan kerja
-// jQuery(document).ready(function () {
-//     jQuery.ajaxSetup({
-//         headers: {
-//             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-//         },
-//     });
-//     jQuery("#perusahaan_id").change(function () {
-//         let pid = jQuery(this).val();
-//         jQuery.ajax({
-//             url: "account/action",
-//             type: "post",
-//             data: "pid=" + pid,
-//             success: function (result) {
-//                 jQuery("#satker_id").html(result);
-//             },
-//         });
-//     });
-//     jQuery("#perusahaan_idadd").change(function () {
-//         let pid = jQuery(this).val();
-//         jQuery.ajax({
-//             url: "/users/action",
-//             type: "post",
-//             data: "pid=" + pid,
-//             success: function (result) {
-//                 jQuery("#satker_idadd").html(result);
-//             },
-//         });
-//     });
-
-//     jQuery("#searchButton").click(function () {
-//         var pdate = jQuery("#inputdate").val();
-//         var status = jQuery("#metode_byr").val();
-//         jQuery.ajax({
-//             url: "/printaction",
-//             type: "post",
-//             data: "pdate=" + pdate + "&status=" + status,
-//             success: function (result) {
-//                 jQuery("#data").html(result);
-//                 jQuery("#tgl").html("Tanggal: " + pdate);
-//             },
-//         });
-//     });
-
-//     $("#printButton").click(function () {
-//         var mode = "iframe"; //popup
-//         var close = mode == "popup";
-//         var options = { mode: mode, popClose: close };
-//         $("div#printarea").printArea(options);
-//     });
-
-//     jQuery(".currency").maskNumber();
-// });

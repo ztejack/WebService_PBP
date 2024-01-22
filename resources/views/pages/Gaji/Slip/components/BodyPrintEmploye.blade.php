@@ -14,7 +14,7 @@
                 @if ($slip->tnj_jabatan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Jabatan</span>
+                            <span>Tnj. Jabatan</span>
                             <span>
                                 <span class="numberin">{{ $slip->tnj_jabatan }}</span>
                             </span>
@@ -24,7 +24,7 @@
                 @if ($slip->tnj_ahli)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Ahli</span>
+                            <span>Tnj. Ahli</span>
                             <span>
                                 <span class="numberin">{{ $slip->tnj_ahli }}</span>
                             </span>
@@ -49,7 +49,7 @@
                 @if ($slip->tnj_bantuan_perumahan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Bantuan Perumahan</span> <span><span
+                            <span>Tnj. UBP</span> <span><span
                                     class="numberin">{{ $slip->tnj_bantuan_perumahan }}</span></span>
                         </div>
                     </li>
@@ -57,7 +57,7 @@
                 @if ($slip->total_tnj_makan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Makan</span> <span><span
+                            <span>Tnj. Makan</span> <span><span
                                     class="numberin">{{ $slip->total_tnj_makan }}</span></span>
                         </div>
                     </li>
@@ -65,7 +65,7 @@
                 @if ($slip->total_tnj_transport)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Transportasi</span> <span><span
+                            <span>Tnj. Transportasi</span> <span><span
                                     class="numberin">{{ $slip->total_tnj_transport }}</span></span>
                         </div>
                     </li>
@@ -73,7 +73,7 @@
                 @if ($slip->total_tnj_shift)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan shift</span> <span><span
+                            <span>Tnj. Shift</span> <span><span
                                     class="numberin">{{ $slip->total_tnj_shift }}</span></span>
                         </div>
                     </li>
@@ -81,7 +81,7 @@
                 @if ($slip->tnj_lapangan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Lapangan</span> <span><span
+                            <span>Tnj. Lapangan</span> <span><span
                                     class="numberin">{{ $slip->tnj_lapangan }}</span></span>
                         </div>
                     </li>
@@ -89,7 +89,14 @@
                 @if ($slip->tnj_lain)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan Lain</span> <span><span class="numberin">{{ $slip->tnj_lain }}</span></span>
+                            <span>Tnj. Lain</span> <span><span class="numberin">{{ $slip->tnj_lain }}</span></span>
+                        </div>
+                    </li>
+                @endif
+                @if ($slip->tnj_pajak)
+                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                        <div class="d-flex justify-content-between">
+                            <span>Tnj. Pajak</span> <span><span class="numberin">{{ $slip->tnj_pajak }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -110,7 +117,7 @@
                 @if ($slip->tnj_bpjs_tk)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan BPJS Tenaga Kerja</span> <span><span
+                            <span>Tnj. BPJS TK</span> <span><span
                                     class="numberin">{{ $slip->tnj_bpjs_tk }}</span></span>
                         </div>
                     </li>
@@ -118,7 +125,7 @@
                 @if ($slip->tnj_bpjs_kes)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tunjangan BPJS Kesehatan</span> <span><span
+                            <span>Tnj. BPJS Kes</span> <span><span
                                     class="numberin">{{ $slip->tnj_bpjs_kes }}</span></span>
                         </div>
                     </li>
@@ -141,19 +148,27 @@
                 @if ($slip->pot_bpjs_tk)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Iuran BPJS Tenaga Kerja</span> <span><span
-                                    class="numberin">{{ $slip->pot_bpjs_tk }}</span></span>
+                            <span>I. BPJS TK</span> <span><span class="numberin">{{ $slip->pot_bpjs_tk }}</span></span>
                         </div>
                     </li>
                 @endif
                 @if ($slip->pot_bpjs_kes)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Iuran BPJS Kesehatan</span> <span><span
+                            <span>I. BPJS Kes</span> <span><span
                                     class="numberin">{{ $slip->pot_bpjs_kes }}</span></span>
                         </div>
                     </li>
                 @endif
+                @if ($slip->pot_pajak)
+                    <li class="list-group-item list-group-timeline-primary py-0 my-0">
+                        <div class="d-flex justify-content-between">
+                            <span>Potongan Pajak</span> <span><span
+                                    class="numberin">{{ $slip->pot_pajak }}</span></span>
+                        </div>
+                    </li>
+                @endif
+
             </ul>
             @if ($slip->pot_sakit || $slip->pot_kosong || $slip->pot_terlambat || $slip->pot_perjalanan)
                 <span class="fw-semibold ">LAIN-LAIN</span>
@@ -184,8 +199,12 @@
                     @if ($slip->pot_perjalanan)
                         <li class="list-group-item list-group-timeline-primary py-0 my-0">
                             <div class="d-flex justify-content-between">
-                                <span>Dinas</span> <span><span
-                                        class="numberin">{{ $slip->pot_perjalanan }}</span></span>
+                                <span>Dinas</span>
+                                <span>
+                                    <span class="numberin">
+                                        {{ $slip->pot_perjalanan }}
+                                    </span>
+                                </span>
                             </div>
                         </li>
                     @endif
@@ -228,7 +247,7 @@
                 </li>
                 <li class="list-group-item list-group-timeline-primary py-0 my-0">
                     <div class="d-flex justify-content-between">
-                        <span>JUMLAH POTONGAN</span>
+                        <span>JUMLAH POT</span>
                         <span>
                             <span class="numberin">
                                 {{ array_sum([$slip->pot_bpjs_kes, $slip->pot_bpjs_tk]) }}

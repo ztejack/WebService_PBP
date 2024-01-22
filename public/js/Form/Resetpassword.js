@@ -24,12 +24,13 @@ var passwordElement = document.createElement("h6");
 passwordElement.setAttribute("class", "alert-heading mb-1");
 passwordElement.innerText = "Password Default adalah : ";
 passwordElement.appendChild(passwordSpan);
+
 const url = "/auth/reset-password/";
 resetPasswordButton.addEventListener("click", async function () {
     try {
         // Lakukan permintaan ke server untuk mengatur ulang kata sandi
         // const response = await axios.post("/auth/reset-password", jsVariable); // Sesuaikan dengan rute yang sesuai
-        console.log(jsVariable);
+        // console.log(jsVariable);
         const response = await axios.post(url + jsVariable, jsVariable); // Sesuaikan dengan rute yang sesuai
         // Tampilkan pesan sukses jika permintaan berhasil
         if (response.status === 200) {

@@ -1,13 +1,14 @@
 <div class="row">
+
     <!-- Order Statistics -->
     <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
         <div class="card h-100">
             <div class="card-header d-flex align-items-center justify-content-between pb-0">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">Order Statistics</h5>
-                    <small class="text-muted">42.82k Total Sales</small>
+                    <h5 class="m-0 me-2">Payroll Statistics</h5>
+                    <small class="text-muted">---</small>
                 </div>
-                <div class="dropdown">
+                {{-- <div class="dropdown">
                     <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-dots-vertical-rounded"></i>
@@ -17,17 +18,17 @@
                         <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
                         <a class="dropdown-item" href="javascript:void(0);">Share</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex flex-column align-items-center gap-1">
-                        <h2 class="mb-2">8,258</h2>
-                        <span>Total Orders</span>
+                        <h3 class="mb-2 ">Rp <span class="numberin">{{ $submision_counting }}</span></h3>
+                        {{-- <span>Total Orders</span> --}}
                     </div>
                     <div id="orderStatisticsChart"></div>
                 </div>
-                <ul class="p-0 m-0">
+                {{-- <ul class="p-0 m-0">
                     <li class="d-flex mb-4 pb-1">
                         <div class="avatar flex-shrink-0 me-3">
                             <span class="avatar-initial rounded bg-label-primary"><i
@@ -86,14 +87,14 @@
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
     </div>
     <!--/ Order Statistics -->
 
     <!-- Expense Overview -->
-    <div class="col-md-6 col-lg-4 order-1 mb-4">
+    {{-- <div class="col-md-6 col-lg-4 order-1 mb-4">
         <div class="card h-100">
             <div class="card-header">
                 <ul class="nav nav-pills" role="tablist">
@@ -259,6 +260,6 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--/ Transactions -->
 </div>

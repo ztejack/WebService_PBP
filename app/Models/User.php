@@ -174,23 +174,23 @@ class User extends Authenticatable implements JWTSubject
             // Develope
 
 
-            // $model->employee()->create([
-            //     'contract_id' => true,
-            //     // 'satker_id' => mt_rand(1, 3),
-            //     'position_id' => 12,
-            //     'golongan_id' => 19,
-            //     'family_status_id' => 5,
-            // ]);
+            $model->employee()->create([
+                'contract_id' => true,
+                // 'satker_id' => mt_rand(1, 3),
+                'position_id' => 12,
+                'golongan_id' => 19,
+                'family_status_id' => 5,
+            ]);
 
 
             // Test
-            $model->employee()->create([
-                'contract_id' => mt_rand(1, 4),
-                'satker_id' => mt_rand(1, 3),
-                'position_id' => mt_rand(1, 3),
-                'golongan_id' => mt_rand(1, 3),
-                'family_status_id' => mt_rand(1, 8)
-            ]);
+            // $model->employee()->create([
+            //     'contract_id' => mt_rand(1, 4),
+            //     'satker_id' => mt_rand(1, 3),
+            //     'position_id' => mt_rand(1, 3),
+            //     'golongan_id' => mt_rand(1, 3),
+            //     'family_status_id' => mt_rand(1, 8)
+            // ]);
         });
     }
 }
