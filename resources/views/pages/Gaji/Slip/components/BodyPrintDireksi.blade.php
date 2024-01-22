@@ -95,7 +95,7 @@
                 @if (optional($slip)->tnj_bpjs_tk)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tnj. BPJS Ketenaga Kerjaan</span> <span><span
+                            <span>Tnj. BPJS (TK)</span> <span><span
                                     class="numberin">{{ optional($slip)->tnj_bpjs_tk }}</span></span>
                         </div>
                     </li>
@@ -127,7 +127,7 @@
                 @if (optional($slip)->tnj_bpjs_kes)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>Tnj. BPJS Kesehatan</span> <span><span
+                            <span>Tnj. BPJS (Kes)</span> <span><span
                                     class="numberin">{{ optional($slip)->tnj_bpjs_kes }}</span></span>
                         </div>
                     </li>
@@ -234,7 +234,7 @@
                 @if (optional($slip)->pot_bpjs_tk)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>I. BPJS Ketenaga Kerjaan</span> <span><span
+                            <span>I. BPJS (TK)</span> <span><span
                                     class="numberin">{{ optional($slip)->pot_bpjs_tk }}</span></span>
                         </div>
                     </li>
@@ -266,7 +266,7 @@
                 @if (optional($slip)->pot_bpjs_kes)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
-                            <span>I. BPJS Kesehatan</span> <span><span
+                            <span>I. BPJS (Kes)</span> <span><span
                                     class="numberin">{{ optional($slip)->pot_bpjs_kes }}</span></span>
                         </div>
                     </li>

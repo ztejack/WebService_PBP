@@ -30,7 +30,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{ asset('/js/main-dashboard.js') }}"></script>
-
+{{-- <script src="{{ asset('/vendor/libs/datatable/dataTables.checkboxes.min.js') }}"></script> --}}
+@if (Request::is('gaji/submission/store'))
+    <script type="module" src="{{ asset('js/Form/AddSubmission.js') }}"></script>
+@endif
 
 {{-- @endif --}}
 

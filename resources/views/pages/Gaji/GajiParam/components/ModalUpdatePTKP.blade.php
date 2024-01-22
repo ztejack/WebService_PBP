@@ -16,7 +16,7 @@
                             <select id="PTKPSelect" name="familystatus_id" class="form-select">
                                 <option>Select Status Keluarga</option>
                                 @foreach ($family_status as $familystatus)
-                                    @if ($familystatus->familystatus == $gajiparam->familystatus->familystatus)
+                                    @if ($familystatus->familystatus == $gajiparam->familystatus)
                                         <option value="{{ $familystatus->id }}" selected>
                                             {{ $familystatus->familystatus }}
                                         </option>

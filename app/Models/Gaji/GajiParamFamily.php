@@ -25,6 +25,6 @@ class GajiParamFamily extends Model
     }
     public function familystatus()
     {
-        return $this->belongsTo(FamilyStatus::class);
+        return $this->belongsTo(FamilyStatus::class, 'family_status_id');
     }
 }

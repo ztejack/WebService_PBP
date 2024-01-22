@@ -62,7 +62,8 @@
                             <th>NO</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>Golongan</th>
+                            <th>JJ</th>
+                            <th>Status Karyawan</th>
                             <th>Gaji</th>
                             @can('GajiManagement')
                                 <th>Action</th>
@@ -79,7 +80,9 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->position }}</td>
                                 <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
-                                {{-- <td>{{ $user->gaji }}</td> --}}
+                                <td><span
+                                        class="badge {{ $user->employe->status == true ? 'bg-label-success' : 'bg-label-warning' }}">{{ $user->employe->status == true ? 'Active' : 'Innactive' }}</span>
+                                </td>
                                 <td>Rp <span class="numberin">{{ round($user->gaji) }}</span></td>
                                 @can('GajiManagement')
                                     <td>
@@ -101,7 +104,8 @@
                             <th>NO</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>Golongan</th>
+                            <th>JJ</th>
+                            <th>Status Karyawan</th>
                             <th>Gaji</th>
                             @can('GajiManagement')
                                 <th>Action</th>

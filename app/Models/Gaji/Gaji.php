@@ -29,7 +29,7 @@ class Gaji extends Model
         'tnj_transport',
         'tnj_makan',
         'tnj_bantuan_perumahan',
-        
+
         'tnj_perumahan',
         'tnj_dana_pensiun',
         'tnj_simmode',
@@ -52,7 +52,7 @@ class Gaji extends Model
         'pot_bpjs_kes',
         'pot_pajak',
         'pot_lain',
-        // 'pot_taspen',
+
         'bpjs_status',
         'employe_id'
     ];

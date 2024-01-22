@@ -13,6 +13,7 @@ use App\Models\Gaji\GajiParamTunJab;
 use App\Models\Gaji\ParamBPSJ;
 use App\Models\Gaji\Tunjangan_lain;
 use App\Models\Golongan;
+use App\Models\ParamPPH;
 use App\Models\Position;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class GajiParamController extends Controller
             'tunjangan_lain' => Tunjangan_lain::orderBy('created_at', 'desc')->get(),
             'gajiparam_family' => GajiParamFamily::orderBy('created_at', 'desc')->get(),
             'family_status' => FamilyStatus::all(),
+            'parampph' => ParamPPH::get()->first(),
         ]);
     }
 
@@ -302,6 +304,40 @@ class GajiParamController extends Controller
             return redirect()->back()->with('succ', 'Success Deleting Parameter')->withInput();
         } catch (\Exception $e) {
             return Redirect::back()->with('err', 'Deleting Parameter Failed')->withInput();
+        }
+    }
+    public function param_pph_update(Request $request, ParamPPH $pph)
+    {
+        try {
+            // $pph = ParamPPH::get()->first();
+            // dd($pph);
+            $pph->update([
+                'biaya_jabatan' => $request['biaya_jabatan'],
+
+                'jumlah_kategori_pertama' => $request['jumlah_kategori_pertama'],
+                'persentase_kategori_pertama' => $request['persentase_kategori_pertama'],
+                'pengurang_kategori_pertama' => $request['pengurang_kategori_pertama'],
+
+                'jumlah_kategori_kedua' => $request['jumlah_kategori_kedua'],
+                'persentase_kategori_kedua' => $request['persentase_kategori_kedua'],
+                'pengurang_kategori_kedua' => $request['pengurang_kategori_kedua'],
+
+                'jumlah_kategori_ketiga' => $request['jumlah_kategori_ketiga'],
+                'persentase_kategori_ketiga' => $request['persentase_kategori_ketiga'],
+                'pengurang_kategori_ketiga' => $request['pengurang_kategori_ketiga'],
+
+                'jumlah_kategori_keempat' => $request['jumlah_kategori_keempat'],
+                'persentase_kategori_keempat' => $request['persentase_kategori_keempat'],
+                'pengurang_kategori_keempat' => $request['pengurang_kategori_keempat'],
+
+                'jumlah_kategori_kelima' => $request['jumlah_kategori_kelima'],
+                'persentase_kategori_kelima' => $request['persentase_kategori_kelima'],
+                'pengurang_kategori_kelima' => $request['pengurang_kategori_kelima'],
+
+            ]);
+            return Redirect::back()->with('succ', 'Success update Parameter')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Parameter Update failed')->withInput();
         }
     }
 }

@@ -172,6 +172,11 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                     Route::post('/delete/{ptkp}', [GajiParamController::class, 'param_ptkp_destroy'])->name('param.ptkp.delete');
                 }
             );
+            Route::prefix('pph')->middleware(['auth'])->group(
+                function () {
+                    Route::put('/update/{pph}', [GajiParamController::class, 'param_pph_update'])->name('param.pph.update');
+                }
+            );
         });
         Route::prefix('submission')->middleware(['auth'])->group(
             function () {
