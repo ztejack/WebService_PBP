@@ -25,20 +25,26 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password'),
         ];
-        $token = Auth::attempt($credentials, true);
+        $token = Auth::attempt($credentials);
         if (!$token) {
             return response()->json([
                 'status' => 'fails',
                 'message' => 'Wrong Credential',
             ], 422);
         }
+        $user = Auth::user();
         return response()->json([
             'status' => 'success',
-            'authorisation' => [
-                'accessToken' => $token,
-                'type' => 'bearer',
-            ],
+            'user' => $user->name,
+            'email' => $user->email,
         ], 200);
+        // return response()->json([
+        //     'status' => 'success',
+        //     'authorisation' => [
+        //         'accessToken' => $token,
+        //         'type' => 'bearer',
+        //     ],
+        // ], 200);
     }
 
     /**

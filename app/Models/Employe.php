@@ -98,11 +98,11 @@ class Employe extends Model
     }
     public function lembur()
     {
-        return $this->hasMany(GajiLembur::class);
+        return $this->hasMany(GajiLembur::class, 'employe_id');
     }
     public function rapel()
     {
-        return $this->hasMany(GajiRapel::class);
+        return $this->hasMany(GajiRapel::class, 'employe_id');
     }
 
     public function slip()
@@ -119,12 +119,13 @@ class Employe extends Model
     // }
     public function getcurrentlembur()
     {
+        // dd($this->lembur);
         // $lemburs = $this->lembur()->where('date', '>=', now()->format('m Y'))->first();
         $lemburs = $this->lembur()->whereYear('date', '>=', now()->year)
             ->orWhere(function ($query) {
                 $query->whereYear('date', now()->year)
                     ->whereMonth('date', '>=', now()->month);
-            })->get()->first();
+            })->where('employe_id', $this->id)->get()->first();
         // dd($lemburs);
         if ($lemburs === null) {
             $lemburs = ['jumlah' => 0];
@@ -176,6 +177,11 @@ class Employe extends Model
         if ($this->contract->contract != 'DIREKSI' && $this->contract->contract != 'KOMISARIS') {
             $ptkp = $this->familystatus->gajiparamfamily->tnj_familystatus;
             $total = $this->gaji->total_gaji;
+
+            // need revisi dari excel
+            $potongan_bpjs_tk = $this->gaji->pot_bpjs_tk;
+            $tunjangan_bpjs_tk = $this->gaji->tnj_bpjs_tk;
+
             // dd($total);
             if ($total != false) {
                 $pph21_new = 1;
@@ -186,7 +192,7 @@ class Employe extends Model
                 while ($i != 0) {
                     $i++;
                     $peng_bruto = $pph + $total;
-                    $bi_jab = (($peng_bruto * 15) / 100) > $param->biaya_jabatan ? $param->biaya_jabatan : (($peng_bruto * 15) / 100);
+                    $bi_jab = (($peng_bruto * 5) / 100) > $param->biaya_jabatan ? $param->biaya_jabatan : (($peng_bruto * 5) / 100);
                     $net_tahun = ($peng_bruto - $bi_jab) * 12;
                     $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
                     if ($pkp <= $param->jumlah_kategori_pertama) {
@@ -219,6 +225,13 @@ class Employe extends Model
                     $pph = $pph21_new;
                 }
                 // dd($resultArray);
+                $pph = $pph <= 0 ? 0 : $pph;
+                $this->gaji->update(
+                    [
+                        'tnj_pajak' => $pph,
+                        'pot_pajak' => $pph
+                    ]
+                );
                 return $pph;
             }
             return false;
@@ -438,6 +451,7 @@ class Employe extends Model
             return $return;
         }
         $gaji->employee->tnj_check();
+        $gaji->employee->pph21count();
         $gaji_pokok = $gaji->gapok;
         $tunjangan_ahli = $gaji->tnj_ahli;
         $tunjangan_jabatan = $gaji->tnj_jabatan;
@@ -507,6 +521,7 @@ class Employe extends Model
         $total_tanpa_pajak = $total1 + ($total2 - $tunjangan_pajak) - ($total3 - $potongan_pajak);
         if ($total1 != 0) {
             $total = array_sum([$total1, $total2]) - $total3;
+            $gaji->update(['total_gaji' => $total]);
             $return = (object)[
                 'total' => round($total),
                 'total1' => $total1,

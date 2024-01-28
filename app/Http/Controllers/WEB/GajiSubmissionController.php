@@ -8,8 +8,6 @@ use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiSubmit;
 use App\Models\Gaji\GajiSlip;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -193,11 +191,11 @@ class GajiSubmissionController extends Controller
                         'gapok' => $gajicount->gapok,
                         'tnj_jabatan' => $gajicount->tnj_jabatan,
                         'tnj_ahli' => $gajicount->tnj_ahli,
-                        'total_tnj_makan' => $gajicount->tnj_makan,
+                        'tnj_makan' => $gajicount->tnj_makan,
 
                         'tnj_bantuan_perumahan' => $gajicount->tnj_bantuan_perumahan,
-                        'total_tnj_shift' => $gajicount->tnj_shift,
-                        'total_tnj_transport' => $gajicount->tnj_transport,
+                        'tnj_shift' => $gajicount->tnj_shift,
+                        'tnj_transport' => $gajicount->tnj_transport,
                         'tnj_lapangan' => $gajicount->tnj_lapangan,
                         'tnj_lain' => $gajicount->tnj_lain,
                         'tnj_pajak' => $gajicount->tnj_pajak,
@@ -481,15 +479,19 @@ class GajiSubmissionController extends Controller
     }
     public function printexcelsubmission(GajiSubmit $submission)
     {
-        $data = $submission->gajislip()->get()->all();
-        // dd($data);
-        view()->share('payrol', $submission);
-        $pdf = FacadePdf::loadView(
-            'pages.Gaji.Submission.PageDetailSubmission',
-            $data
-        );
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
+        // dd($slip);
+        return view('pages.Gaji.Submission.PagePrintSubmission', [
+            'payroll' => $submission
+        ]);
+        // $data = $submission->gajislip()->get()->all();
+        // // dd($data);
+        // view()->share('payrol', $submission);
+        // $pdf = FacadePdf::loadView(
+        //     'pages.Gaji.Submission.PageDetailSubmission',
+        //     $data
+        // );
+        // // download PDF file with download method
+        // return $pdf->download('pdf_file.pdf');
     }
     public function user_resource($user)
     {

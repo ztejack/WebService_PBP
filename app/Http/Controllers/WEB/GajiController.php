@@ -86,11 +86,13 @@ class GajiController extends Controller
         $tnj_bpjs_kes_P = ($total2 * $param_BPJS->kes_P) / 100;
         $pot_bpjs_kes_E = ($total2 * $param_BPJS->kes_E) / 100;
         $bpjs_count = (object)[
+            // 'pot_jp' => ,
             'tnj_bpjs_tk_P' => round($tnj_bpjs_TK),
             'pot_bpjs_tk_E' => round($pot_bpjs_TK + $tnj_bpjs_TK),
             'tnj_bpjs_kes_P' => round($tnj_bpjs_kes_P),
             'pot_bpjs_kes_E' => round($pot_bpjs_kes_E + $tnj_bpjs_kes_P),
         ];
+        // dd($bpjs_count);
         return $bpjs_count;
         // $tnj_bpjs_jp =
     }
@@ -309,7 +311,9 @@ class GajiController extends Controller
         // dd($user->employee->rapel);
         $rapel = $rapels == null ? 0 : $rapels->jumlah;
 
-        $lemburcount = $user->employee->lembur->sortByDesc('created_at');
+        // $lemburcount = $user->employee->lembur()->sortByDesc('created_at');
+        $lemburcount = $user->employee->lembur;
+        // dd($lemburcount);
         $rapelcount = $user->employee->rapel;
         $total2 = array_sum([
             $sum_tnj_makan,

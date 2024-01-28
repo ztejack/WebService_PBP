@@ -25,6 +25,6 @@ class GajiLembur extends Model
     ];
     public function employee()
     {
-        return $this->belongsTo(Employe::class, 'employe_id');
+        return $this->belongsTo(Employe::class);
     }
 }

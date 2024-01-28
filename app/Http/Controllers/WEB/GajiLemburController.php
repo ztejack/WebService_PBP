@@ -16,11 +16,12 @@ class GajiLemburController extends Controller
 
         // try {
         $user = User::where('slug', $slug)->first();
+        // dd($user->employee->lembur()->get());
         $lembur = $user->employee->lembur()->whereYear('date', '>=', now()->year)
             ->orWhere(function ($query) {
                 $query->whereYear('date', now()->year)
                     ->whereMonth('date', '>=', now()->month);
-            })->get()->first();
+            })->where('employe_id', $user->employee->id)->get()->first();
         // dd(request());
         // $this->lembur()->whereYear('date', '>=', now()->year)
         // ->orWhere(function ($query) {

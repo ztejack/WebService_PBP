@@ -62,7 +62,7 @@
                             <th>NO</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>JJ</th>
+                            <th>Golongan</th>
                             <th>Status Karyawan</th>
                             <th>Gaji</th>
                             @can('GajiManagement')
@@ -79,7 +79,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->position }}</td>
-                                <td><span class="badge badge-center bg-info fw-bold"> {{ $user->golongan }}</span></td>
+                                <td><span class="badge bg-info fw-bold"> {{ $user->golongan }}</span></td>
                                 <td><span
                                         class="badge {{ $user->employe->status == true ? 'bg-label-success' : 'bg-label-warning' }}">{{ $user->employe->status == true ? 'Active' : 'Innactive' }}</span>
                                 </td>
@@ -104,7 +104,7 @@
                             <th>NO</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>JJ</th>
+                            <th>Golongan</th>
                             <th>Status Karyawan</th>
                             <th>Gaji</th>
                             @can('GajiManagement')

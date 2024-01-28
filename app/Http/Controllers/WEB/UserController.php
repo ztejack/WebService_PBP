@@ -31,7 +31,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::get()->all();
+        $users = User::whereNotIn('username', ['superuser'])->get()->all();
         // dd($users);
         return view(
             'pages.Users.PageUser',

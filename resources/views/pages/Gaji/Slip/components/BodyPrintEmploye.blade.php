@@ -54,27 +54,27 @@
                         </div>
                     </li>
                 @endif
-                @if ($slip->total_tnj_makan)
+                @if ($slip->tnj_makan)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
                             <span>Tnj. Makan</span> <span><span
-                                    class="numberin">{{ $slip->total_tnj_makan }}</span></span>
+                                    class="numberin">{{ $slip->tnj_makan }}</span></span>
                         </div>
                     </li>
                 @endif
-                @if ($slip->total_tnj_transport)
+                @if ($slip->tnj_transport)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
                             <span>Tnj. Transportasi</span> <span><span
-                                    class="numberin">{{ $slip->total_tnj_transport }}</span></span>
+                                    class="numberin">{{ $slip->tnj_transport }}</span></span>
                         </div>
                     </li>
                 @endif
-                @if ($slip->total_tnj_shift)
+                @if ($slip->tnj_shift)
                     <li class="list-group-item list-group-timeline-primary py-0 my-0">
                         <div class="d-flex justify-content-between">
                             <span>Tnj. Shift</span> <span><span
-                                    class="numberin">{{ $slip->total_tnj_shift }}</span></span>
+                                    class="numberin">{{ $slip->tnj_shift }}</span></span>
                         </div>
                     </li>
                 @endif
@@ -136,7 +136,7 @@
                 <div class="d-flex justify-content-between">
                     <span class="fw-semibold ">JUMLAH II</span>
                     <span class="me-3 fw-semibold"><span>Rp <span
-                                class="numberin">{{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_bantuan_perumahan, $slip->total_tnj_makan]) }}</span></span></span>
+                                class="numberin">{{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->tnj_transport, $slip->tnj_shift, $slip->tnj_bantuan_perumahan, $slip->tnj_makan]) }}</span></span></span>
                 </div>
             </li>
         </div>
@@ -240,7 +240,7 @@
                         <span>JUMLAH GAJI II</span>
                         <span>
                             <span class="numberin">
-                                {{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->total_tnj_transport, $slip->total_tnj_shift, $slip->tnj_bantuan_perumahan, $slip->total_tnj_makan]) }}
+                                {{ array_sum([$slip->tnj_bpjs_tk, $slip->tnj_bpjs_kes, $slip->tnj_transport, $slip->tnj_shift, $slip->tnj_bantuan_perumahan, $slip->tnj_makan]) }}
                             </span>
                         </span>
                     </div>

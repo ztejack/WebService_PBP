@@ -39,8 +39,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="fw-bold text-nowrap">{{ $gajiparam->position->position }} </td>
                                 <td>
-                                    <span
-                                        class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
+                                    <span class="badge bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
                                 </td>
                                 <td class="currency">{{ $gajiparam->tnj_makan }}</td>
                                 <td class="currency">{{ $gajiparam->tnj_transport }} </td>

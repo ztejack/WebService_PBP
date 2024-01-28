@@ -65,8 +65,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="fw-bold">{{ $gajiparam->position->position }} </td>
                                 <td>
-                                    <span
-                                        class="badge badge-center bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
+                                    <span class="badge bg-info fw-bold">{{ $gajiparam->golongan->golongan }}</span>
                                 </td>
                                 <td class="currency">{{ $gajiparam->gaji_struktural }} </td>
                                 <td class="currency">{{ $gajiparam->gaji_fungsional }}</td>

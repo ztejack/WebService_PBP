@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = UserResource::collection(
-            User::orderBy(
+            User::whereNotIn('username', ['superuser'])->orderBy(
                 request('column') ? request('column') : 'updated_at',
                 request('direction') ? request('direction') : 'desc'
             )->paginate(50)
