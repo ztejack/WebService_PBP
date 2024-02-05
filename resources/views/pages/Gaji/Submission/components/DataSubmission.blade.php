@@ -68,14 +68,30 @@
                                             href="{{ route('submission.show', $payrol->id) }}">
                                             Detail
                                         </a>
-                                        <a class="btn
+                                        {{-- <a class="btn
                                             btn-info btn-sm me-2"
                                             href="{{ route('submission.view_update', $payrol->id) }}">
                                             <i class='bx bx-edit'></i>
-                                        </a>
+                                        </a> --}}
+                                        @if ($payrol->status == 'aproved')
+                                            <a href="{{ route('submission.print', $payrol->id) }}" type="button"
+                                                class="me-2 btn btn-sm btn-primary ">
+                                                <i class="bx bxs-file-export me-2"></i> Export
+                                            </a>
+                                        @else
+                                            <button type="button" class="me-2 btn btn-sm btn-secondary"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                                data-bs-html="true"
+                                                data-bs-original-title="<span>Menunggu Persetujuan</span>">
+                                                <i class="bx bxs-file-export me-2"></i> Export
+                                            </button>
+                                        @endif
+
                                         <form action="{{ route('submission.delete', $payrol->id) }}" method="post">
                                             @csrf
-                                            <button class="btn btn-danger btn-sm" type="submit">
+                                            <button
+                                                class="btn btn-danger btn-sm {{ $payrol->status != 'aproved' ? '' : 'disabled' }}"
+                                                type="submit"{{ $payrol->status != 'aproved' ? '' : 'disabled' }}>
                                                 <i class='bx bx-trash'></i>
                                             </button>
                                         </form>

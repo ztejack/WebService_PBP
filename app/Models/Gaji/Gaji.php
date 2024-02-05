@@ -50,6 +50,8 @@ class Gaji extends Model
         'pot_bpjs_jht',
         'pot_bpjs_jp',
         'pot_bpjs_kes',
+        'pot_bpjs_tk_R', //Real Potongan dari karyawan
+        'pot_bpjs_kes_R', //Real Potongan dari karyawan
         'pot_pajak',
         'pot_lain',
 

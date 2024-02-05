@@ -53,6 +53,8 @@ return new class extends Migration
             $table->string('tnj_makan')->nullable()->default(0);
             $table->string('tnj_transport')->nullable()->default(0);
             $table->string('tnj_shift')->nullable()->default(0);
+            $table->string('pot_bpjs_tk_R')->nullable()->default(0);
+            $table->string('pot_bpjs_kes_R')->nullable()->default(0);
             // penambahan
 
             $table->boolean('bpjs_status')->nullable()->default(true);

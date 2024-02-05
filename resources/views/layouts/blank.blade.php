@@ -21,6 +21,7 @@
 
 <body style="background: white; size: A4 landscape;">
     @yield('content')
-    {{-- @include('config.configJs') --}}
+    @include('config.configJs')
 </body>
+
 </html>

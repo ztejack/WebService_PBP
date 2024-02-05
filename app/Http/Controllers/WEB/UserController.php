@@ -94,6 +94,7 @@ class UserController extends Controller
         $employee->address = $input['address'];
         $employee->ktp_address = $input['addressid'];
         $employee->date_start = $input['date_start'];
+
         // $employee->status_keluarga = $input['family_status'];
         $employee->status = $input['status_employe'];
         $employee->tenure = $input['val_tenure'];
@@ -104,6 +105,17 @@ class UserController extends Controller
                 $employee->contract_id = $contract->id;
             }
         }
+        if ($employee->contract->contract == 'TETAP') {
+            $parts = explode(" ", $user->employee->ttl);
+
+            // The date is in the last part
+            $date = array_pop($parts); // "2001-07-1"
+            // dd($employee->calculateRetirementDate($employee->date_start));
+            $employee->date_end_contract = $employee->calculateRetirementDate($date);
+        } else {
+            $employee->date_end_contract = $input['date_end_contract'];
+        }
+
         foreach ($golongans as $golongan) {
             if ($golongan->golongan == $input['golongan']) {
                 $employee->golongan_id = $golongan->id;
@@ -295,7 +307,8 @@ class UserController extends Controller
         // The city is everything before the date
         $city = implode(' ', $parts); // "Kota Bandar Lampung"
 
-        $formattedDate = date('Y-m-d', strtotime($user->employee->date_start));
+        $formatted_startDate = date('Y-m-d', strtotime($user->employee->date_start));
+        $formatted_endDate = date('Y-m-d', strtotime($user->employee->date_end_contract));
         if ($user->employee->gender = true) {
             $gender = 'Male';
         } else {
@@ -324,7 +337,8 @@ class UserController extends Controller
             'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
             'status' => $user->status,
             'status_employe' => $user->employee->status,
-            'date_start' => $formattedDate,
+            'date_start' => $formatted_startDate,
+            'date_end_contract' => $formatted_endDate,
             'tenure' => $user->employee->tenure != null ? $formattedString : $user->employee->tenure,
             'employe_uuid' => $user->employee->uuid,
             'satker' => $user->satker->satker,

@@ -29,7 +29,8 @@ return new class extends Migration
             $table->boolean('status')->nullable()->default(false);
             // $table->boolean('status_keluarga')->default(false);
             $table->string('date_start')->nullable();
-            $table->string('tenure')->nullable();
+            $table->string('tenure')->nullable()->default('0,0,0,0');
+            $table->string('date_end_contract')->nullable()->default(false);
             // $table->string('contract_type')->nullable();
             $table->foreignId('contract_id')->nullable()->constrained('contracts')->references('id')->on('contracts');
             $table->foreignId('satker_id')->default('1')->constrained('satkers')->references('id')->on('satkers');

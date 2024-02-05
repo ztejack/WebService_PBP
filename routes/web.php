@@ -185,7 +185,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                 Route::PUT('/update/{submission}', [GajiSubmissionController::class, 'update'])->name('submission.update');
                 Route::post('/delete/{submission}', [GajiSubmissionController::class, 'destroy'])->name('submission.delete');
                 Route::get('/detail/{submission}', [GajiSubmissionController::class, 'show'])->name('submission.show');
-                Route::get('/{submission}/print', [GajiSubmissionController::class, 'printexcelsubmission'])->name('submission.show');
+                Route::get('/{submission}/print', [GajiSubmissionController::class, 'printexcelsubmission'])->name('submission.print');
             }
         );
     }
@@ -225,9 +225,12 @@ Route::prefix('task')->middleware(['auth'])->group(
         Route::post('/aprove/{task}', [TaskController::class, 'aproval'])->name('task.aprov');
     }
 );
-Route::get('test/test', function () {
-    return view('layouts.test');
+// Route::get('test/test', function () {
+//     return view('layouts.test');
+// });
+// Route::post('test/form', function () {
+//     return view('layouts.testform');
+// })->name('test.form');
+Route::get('/phpinfo', function () {
+    phpinfo();
 });
-Route::post('test/form', function () {
-    return view('layouts.testform');
-})->name('test.form');

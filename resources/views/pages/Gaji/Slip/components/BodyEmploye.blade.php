@@ -163,7 +163,7 @@
                     </li>
                 @endif
             </ul>
-            @if ($slip->pot_sakit || $slip->pot_kosong || $slip->pot_terlambat || $slip->pot_perjalanan)
+            {{-- @if ($slip->pot_sakit || $slip->pot_kosong || $slip->pot_terlambat || $slip->pot_perjalanan)
                 <span class="fw-semibold ">LAIN-LAIN</span>
                 <ul class="list-group list-group-timeline">
                     @if ($slip->pot_sakit)
@@ -198,7 +198,7 @@
                         </li>
                     @endif
                 </ul>
-            @endif
+            @endif --}}
 
 
             <hr class="my-1">
@@ -240,8 +240,7 @@
                 <div class="d-flex justify-content-between">
                     <span class="fw-semibold ">TOTAL DITERIMA KARYAWAN</span>
                     <span id="ttlterima" class="d-none hidden" hidden>{{ $slip->total }}</span>
-                    <span class="me-3 fw-semibold numbers">Rp <span
-                            class="numberin">{{ $slip->total }}</span></span>
+                    <span class="me-3 fw-semibold numbers">Rp <span class="numberin">{{ $slip->total }}</span></span>
                 </div>
             </span>
         </div>

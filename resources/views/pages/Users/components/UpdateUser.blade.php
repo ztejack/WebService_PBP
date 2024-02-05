@@ -225,6 +225,19 @@
                                 @enderror
                             </div>
                             <div class="mb-3 col-md-6">
+                                <label for="date_end_contract" class="form-label">
+                                    Date End Contract
+                                </label>
+                                <input class="form-control" type="date" name="date_end_contract"
+                                    id="date_end_contract" {{ $user->contract == 'TETAP' ? 'disabled' : '' }}
+                                    value="{{ old('date_end_contract', date('Y-m-d', strtotime($user->date_end_contract))) }}">
+                                @error('date_end_contract')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-md-6">
                                 <label for="tenure" class="form-label">Tenure</label>
                                 <input class="form-control" type="text" name="tenure" id="tenure"
                                     value='{{ old('tenure', $user->tenure) }}' readonly>

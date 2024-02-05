@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\Exports\GajiExport;
 use App\Http\Controllers\Controller;
 use App\Models\Employe;
 use App\Models\Gaji\Gaji;
 use App\Models\Gaji\GajiSubmit;
 use App\Models\Gaji\GajiSlip;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Util\Json;
 
 class GajiSubmissionController extends Controller
@@ -53,17 +57,17 @@ class GajiSubmissionController extends Controller
         // $collectionuser = $users->map(function ($user) {
         //     return $this->user_resource($user);
         // });
-        $users = User::whereHas('employee', function ($query) {
-            $query->whereHas('contract', function ($query) {
-                $query->where('contract', 'direksi');
-            });
-        })->where('username', '!=', 'superuser')->get();
-        $collectionuserdireksi = $users->map(function ($user) {
-            return $this->user_resource($user);
-        });
+        // $users = User::whereHas('employee', function ($query) {
+        //     $query->whereHas('contract', function ($query) {
+        //         $query->where('contract', 'direksi');
+        //     });
+        // })->where('username', '!=', 'superuser')->get();
+        // $collectionuserdireksi = $users->map(function ($user) {
+        //     return $this->user_resource($user);
+        // });
         return view('pages.Gaji.Submission.PageAddSubmission',  [
             'users' => $collectionuser,
-            'userdireksis' => $collectionuserdireksi,
+            // 'userdireksis' => $collectionuserdireksi,
             'months' => (object) $selectedMonths
         ]);
     }
@@ -97,6 +101,7 @@ class GajiSubmissionController extends Controller
 
             foreach ($employes as $item) {
                 $employe = Employe::where('id', $item)->get()->first();
+                $masa_kerja = $employe->getTenureMonthValue();
                 if ($employe->contract->contract == "DIREKSI") {
                     $jml += 1;
                     $gajicount = $employe->gaji()->first();
@@ -107,6 +112,12 @@ class GajiSubmissionController extends Controller
                     $total = $total += ($gajicount->total_gaji + $rapel);
 
                     GajiSlip::create([
+                        'name' => $employe->getUserNameAttribute(),
+                        'jabatan' => $employe->position->position,
+                        'golongan' => $employe->golongan->golongan,
+                        'masa_kerja' => $masa_kerja,
+                        'status_keluarga' => $employe->familystatus->familystatus,
+                        'type' => $employe->contract->contract,
                         'date' => $request['date'],
                         'gapok' => $employe->gaji->gapok,
                         'tnj_jabatan' => $employe->gaji->tnj_jabatan,
@@ -158,6 +169,12 @@ class GajiSubmissionController extends Controller
                     // dd($gajicount->tnj_makan);
                     $total = $total += ($gajicount->total + $rapel);
                     GajiSlip::create([
+                        'name' => $employe->getUserNameAttribute(),
+                        'jabatan' => $employe->position->position,
+                        'golongan' => $employe->golongan->golongan,
+                        'masa_kerja' => $masa_kerja,
+                        'status_keluarga' => $employe->familystatus->familystatus,
+                        'type' => $employe->contract->contract,
                         'date' => $request['date'],
                         'gapok' => $employe->gaji->gapok,
                         'tnj_jabatan' => $employe->gaji->tnj_jabatan,
@@ -187,6 +204,12 @@ class GajiSubmissionController extends Controller
                     $total = $total += $gajicount->total;
 
                     GajiSlip::create([
+                        'name' => $employe->getUserNameAttribute(),
+                        'jabatan' => $employe->position->position,
+                        'golongan' => $employe->golongan->golongan,
+                        'masa_kerja' => $masa_kerja,
+                        'status_keluarga' => $employe->familystatus->familystatus,
+                        'type' => $employe->contract->contract,
                         'date' => $request['date'],
                         'gapok' => $gajicount->gapok,
                         'tnj_jabatan' => $gajicount->tnj_jabatan,
@@ -207,10 +230,10 @@ class GajiSubmissionController extends Controller
                         'pot_bpjs_tk' => $gajicount->bpjs_var->pot_bpjs_tk_E,
                         'pot_bpjs_kes' => $gajicount->bpjs_var->pot_bpjs_kes_E,
                         'pot_pajak' => $gajicount->pot_pajak,
-                        'pot_sakit' => $gajicount->potongan_lainnya->pot_sakit,
-                        'pot_kosong' => $gajicount->potongan_lainnya->pot_kosong,
-                        'pot_terlambat' => $gajicount->potongan_lainnya->pot_terlambat,
-                        'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
+                        // 'pot_sakit' => $gajicount->potongan_lainnya->pot_sakit,
+                        // 'pot_kosong' => $gajicount->potongan_lainnya->pot_kosong,
+                        // 'pot_terlambat' => $gajicount->potongan_lainnya->pot_terlambat,
+                        // 'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
 
                         'total' => round($gajicount->total),
                         'status' => 'Pending',
@@ -232,6 +255,215 @@ class GajiSubmissionController extends Controller
             // return redirect()->back()->with(['err' => $e])->withInput();
             return response()->json(['success' => false, 'error' => $errorMessage]);
         }
+    }
+    public function view_update(GajiSubmit $submission, Request $request)
+    {
+        // dd($submission->gajislip);
+        $users = User::whereHas('employee', function ($query) {
+            $query->where('status', true);
+        })->where('username', '!=', 'superuser')->get();
+        $collectionuser = $users->map(function ($user) {
+            return $this->user_resource($user);
+        });
+        $users = User::whereHas('employee', function ($query) {
+            $query->whereHas('contract', function ($query) {
+                $query->where('contract', 'direksi');
+            });
+        })->where('username', '!=', 'superuser')->get();
+        $collectionuserdireksi = $users->map(function ($user) {
+            return $this->user_resource($user);
+        });
+        $gajis = Gaji::all();
+        return view('pages.Gaji.Submission.PageUpdateSubmission', [
+            'users' => $collectionuser,
+            'userdireksis' => $collectionuserdireksi,
+            'gaji' => $gajis,
+            'data' => $submission,
+        ]);
+        // return redirect()->route('page_gaji')->with('succ', 'Success Sumbit')->withInput();
+    }
+    public function update(GajiSubmit $submission, Request $request)
+    {
+        // dd($submission);
+        // try {
+        $employes = $request['submisiions'];
+
+        $submitemploye = $submission->employe;
+        foreach ($submitemploye as $item) {
+            $submission->employe()->detach($item);
+        }
+        $gajislips = $submission->gajislip;
+        foreach ($gajislips as $item) {
+            $item->delete();
+        }
+
+        $total = 0;
+        $jml = 0;
+        foreach ($employes as $item) {
+            $employe = Employe::where('id', $item)->get()->first();
+            $masa_kerja = $employe->getTenureMonthValue();
+
+            if ($employe->contract->contract == "DIREKSI") {
+                $jml += 1;
+                $gajicount = $employe->gaji()->first();
+                // dd($gajicount);
+                $rapels = $employe->getcurrentrapel();
+                $rapel = $rapels == null ? 0 : $rapels->jumlah;
+                // dd($gajicount->tnj_makan);
+                $total = $total += ($gajicount->total_gaji + $rapel);
+
+                GajiSlip::create([
+                    'date' => $request['date'],
+                    'gapok' => $employe->gaji->gapok,
+                    'tnj_jabatan' => $employe->gaji->tnj_jabatan,
+                    'tnj_lain' => $gajicount->tnj_lain,
+
+                    'tnj_perumahan' => $gajicount->tnj_perumahan,
+                    'tnj_bantuan_perumahan' => $gajicount->tnj_bantuan_perumahan,
+                    'tnj_dana_pensiun' => $gajicount->tnj_dana_pensiun,
+                    'tnj_simmode' => $gajicount->tnj_simmode,
+                    'tnj_pajak' => $gajicount->tnj_pajak,
+
+                    'tnj_bpjs_tk' => $gajicount->tnj_bpjs_tk,
+                    'tnj_bpjs_jkm' => $gajicount->tnj_bpjs_jkm,
+                    'tnj_bpjs_jht' => $gajicount->tnj_bpjs_jht,
+                    'tnj_bpjs_jp' => $gajicount->tnj_bpjs_jp,
+                    'tnj_bpjs_kes' => $gajicount->tnj_bpjs_kes,
+                    'pot_bpjs_tk' => $gajicount->pot_bpjs_tk,
+                    'pot_bpjs_jkm' => $gajicount->pot_bpjs_jkm,
+                    'pot_bpjs_jht' => $gajicount->pot_bpjs_jht,
+                    'pot_bpjs_jp' => $gajicount->pot_bpjs_jp,
+                    'pot_bpjs_kes' => $gajicount->pot_bpjs_kes,
+
+                    'pot_serikat_pegawai_ba' => $gajicount->pot_serikat_pegawai_ba,
+                    'pot_koperasi' => $gajicount->pot_koperasi,
+                    'pot_lazis' => $gajicount->pot_lazis,
+                    'pot_dana_pensiun' => $gajicount->pot_dana_pensiun,
+                    'pot_premi_jht' => $gajicount->pot_premi_jht,
+                    'pot_tht' => $gajicount->pot_tht,
+                    'pot_taspen' => $gajicount->pot_taspen,
+                    'pot_pajak' => $gajicount->pot_pajak,
+                    'pot_simmode' => $gajicount->pot_simmode,
+                    'pot_lain' => $gajicount->pot_lain,
+
+                    'rapel' => $rapel,
+                    'total' => $total,
+
+                    'employe_id' => $employe->id,
+                    'gaji_submit_id' => $submission->id,
+                ]);
+            }
+            if ($employe->contract->contract != "DIREKSI") {
+                $jml += 1;
+                $gajicount = $employe->gajicount();
+                // dd($employe->getUserNameAttribute());
+                $total = $total += $gajicount->total;
+
+                GajiSlip::create([
+                    'name' => $employe->getUserNameAttribute(),
+                    'jabatan' => $employe->position,
+                    'golongan' => $employe->golongan,
+                    'status_keluarga' => $employe->familystatus()->familystatus,
+                    'date' => $request['date'],
+                    'gapok' => $employe->gaji->gapok,
+                    'tnj_jabatan' => $employe->gaji->tnj_jabatan,
+                    'tnj_ahli' => $employe->gaji->tnj_ahli,
+                    'total_tnj_makan' => $gajicount->tnj_makan,
+
+                    'tnj_perumahan' => $gajicount->tnj_perumahan,
+                    'total_tnj_shift' => $gajicount->tnj_shift,
+                    'total_tnj_transport' => $gajicount->tnj_transport,
+                    'tnj_lapangan' => $gajicount->tnj_lapangan,
+                    'tnj_lain' => $gajicount->tnj_lain,
+                    'rapel' => $gajicount->rapel,
+                    'lembur' => $gajicount->lembur,
+
+                    'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
+                    'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,
+                    'pot_bpjs_tk' => $gajicount->bpjs_var->pot_bpjs_tk_E,
+                    'pot_bpjs_kes' => $gajicount->bpjs_var->pot_bpjs_kes_E,
+                    'pot_sakit' => $gajicount->potongan_lainnya->pot_sakit,
+                    'pot_kosong' => $gajicount->potongan_lainnya->pot_kosong,
+                    'pot_terlambat' => $gajicount->potongan_lainnya->pot_terlambat,
+                    'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
+
+                    'total' => round($gajicount->total),
+                    'status' => 'Pending',
+                    'employe_id' => $employe->id,
+                    'gaji_submit_id' => $submission->id,
+                ]);
+            }
+        }
+        $submission->update([
+            'total' => $total,
+            'jumlah' => $jml,
+            'type' => 'Gaji Bulanan',
+            'status' => "Pending",
+        ]);
+        return redirect()->route('page_gaji')->with('succ', 'Success Sumbit')->withInput();
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('err', 'Failed Sumbit')->withInput();
+        // }
+    }
+    public function destroy(GajiSubmit $submission)
+    {
+        try {
+            $submission->delete();
+            return redirect()->route('page_gaji')->with('succ', 'Success Delete')->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('err', 'Failed Delete')->withInput();
+        }
+    }
+    public function show(GajiSubmit $submission)
+    {
+        return view('pages.Gaji.Submission.PageDetailSubmission', [
+            'users' => User::all()->where('username', '!=', 'superuser'),
+            'payrol' => $submission,
+        ]);
+    }
+    public function printexcelsubmission(GajiSubmit $submission)
+    {
+        // $submission = (object)[
+        //     'payroll' => $submission->payroll->format('d-m-Y'),
+        //     'nama_pengaju' => $submission->name,
+        //     'jumlah' => $submission->jumlah,
+        //     'type' => $submission->type,
+        //     'total' => $submission->total,
+        // ];
+        return Excel::download(new GajiExport($submission), 'DataGaji_' . $submission->payroll->format('d-m-Y') . '.xlsx',);
+    }
+    public function printpdfsubmission(GajiSubmit $submission)
+    {
+        $payroll = $submission;
+        $data = [
+            'payroll' => $submission,
+        ];
+        // return view('pages.Gaji.Submission.PagePrintSubmission', ['payroll' => $payroll]);
+        $pdf = PDF::loadView('pages.Gaji.Submission.PagePrintSubmission', $data)->setPaper('a4', 'potrait');
+        // dd($pdf);
+        // return $pdf->download('payroll-' . $submission->id . '.pdf');
+        // $pdf->save('path/to/save/filename.pdf');
+
+        // Or return the PDF as a response
+        // return $pdf->download();
+        return $pdf->stream();
+    }
+    public function user_resource($user)
+    {
+        $absensi = $user->employee->absensiForCurrentMonth();
+
+        $data = [
+            'slug' => $user->slug,
+            'employee' => $user->employee,
+            'name' => $user->name,
+            'position' => $user->employee->position != null ? $user->employee->position->position : null,
+            'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
+            'employe_uuid' => $user->employee->uuid,
+            'absensi' => $absensi,
+            'lembur' => $user->getcurrentlembur(),
+            'contract' => $user->getContrackAttribute(),
+        ];
+        return (object)$data;
     }
     public function store_direksi(Request $request)
     {
@@ -316,198 +548,5 @@ class GajiSubmissionController extends Controller
         // } catch (\Exception $e) {
         //     return redirect()->back()->with(['err' => $e])->withInput();
         // }
-    }
-
-    public function view_update(GajiSubmit $submission, Request $request)
-    {
-        // dd($submission->gajislip);
-        $users = User::whereHas('employee', function ($query) {
-            $query->where('status', true);
-        })->where('username', '!=', 'superuser')->get();
-        $collectionuser = $users->map(function ($user) {
-            return $this->user_resource($user);
-        });
-        $users = User::whereHas('employee', function ($query) {
-            $query->whereHas('contract', function ($query) {
-                $query->where('contract', 'direksi');
-            });
-        })->where('username', '!=', 'superuser')->get();
-        $collectionuserdireksi = $users->map(function ($user) {
-            return $this->user_resource($user);
-        });
-        $gajis = Gaji::all();
-        return view('pages.Gaji.Submission.PageUpdateSubmission', [
-            'users' => $collectionuser,
-            'userdireksis' => $collectionuserdireksi,
-            'gaji' => $gajis,
-            'data' => $submission,
-        ]);
-        // return redirect()->route('page_gaji')->with('succ', 'Success Sumbit')->withInput();
-    }
-    public function update(GajiSubmit $submission, Request $request)
-    {
-        // dd($submission);
-        // try {
-        $employes = $request['submisiions'];
-
-        $submitemploye = $submission->employe;
-        foreach ($submitemploye as $item) {
-            $submission->employe()->detach($item);
-        }
-        $gajislips = $submission->gajislip;
-        foreach ($gajislips as $item) {
-            $item->delete();
-        }
-
-        $total = 0;
-        $jml = 0;
-        foreach ($employes as $item) {
-            $employe = Employe::where('id', $item)->get()->first();
-            if ($employe->contract->contract == "DIREKSI") {
-                $jml += 1;
-                $gajicount = $employe->gaji()->first();
-                // dd($gajicount);
-                $rapels = $employe->getcurrentrapel();
-                $rapel = $rapels == null ? 0 : $rapels->jumlah;
-                // dd($gajicount->tnj_makan);
-                $total = $total += ($gajicount->total_gaji + $rapel);
-
-                GajiSlip::create([
-                    'date' => $request['date'],
-                    'gapok' => $employe->gaji->gapok,
-                    'tnj_jabatan' => $employe->gaji->tnj_jabatan,
-                    'tnj_lain' => $gajicount->tnj_lain,
-
-                    'tnj_perumahan' => $gajicount->tnj_perumahan,
-                    'tnj_bantuan_perumahan' => $gajicount->tnj_bantuan_perumahan,
-                    'tnj_dana_pensiun' => $gajicount->tnj_dana_pensiun,
-                    'tnj_simmode' => $gajicount->tnj_simmode,
-                    'tnj_pajak' => $gajicount->tnj_pajak,
-
-                    'tnj_bpjs_tk' => $gajicount->tnj_bpjs_tk,
-                    'tnj_bpjs_jkm' => $gajicount->tnj_bpjs_jkm,
-                    'tnj_bpjs_jht' => $gajicount->tnj_bpjs_jht,
-                    'tnj_bpjs_jp' => $gajicount->tnj_bpjs_jp,
-                    'tnj_bpjs_kes' => $gajicount->tnj_bpjs_kes,
-                    'pot_bpjs_tk' => $gajicount->pot_bpjs_tk,
-                    'pot_bpjs_jkm' => $gajicount->pot_bpjs_jkm,
-                    'pot_bpjs_jht' => $gajicount->pot_bpjs_jht,
-                    'pot_bpjs_jp' => $gajicount->pot_bpjs_jp,
-                    'pot_bpjs_kes' => $gajicount->pot_bpjs_kes,
-
-                    'pot_serikat_pegawai_ba' => $gajicount->pot_serikat_pegawai_ba,
-                    'pot_koperasi' => $gajicount->pot_koperasi,
-                    'pot_lazis' => $gajicount->pot_lazis,
-                    'pot_dana_pensiun' => $gajicount->pot_dana_pensiun,
-                    'pot_premi_jht' => $gajicount->pot_premi_jht,
-                    'pot_tht' => $gajicount->pot_tht,
-                    'pot_taspen' => $gajicount->pot_taspen,
-                    'pot_pajak' => $gajicount->pot_pajak,
-                    'pot_simmode' => $gajicount->pot_simmode,
-                    'pot_lain' => $gajicount->pot_lain,
-
-                    'rapel' => $rapel,
-                    'total' => $total,
-
-                    'employe_id' => $employe->id,
-                    'gaji_submit_id' => $submission->id,
-                ]);
-            }
-            if ($employe->contract->contract != "DIREKSI") {
-                $jml += 1;
-                $gajicount = $employe->gajicount();
-                // dd($gajicount->tnj_makan);
-                $total = $total += $gajicount->total;
-
-                GajiSlip::create([
-                    'date' => $request['date'],
-                    'gapok' => $employe->gaji->gapok,
-                    'tnj_jabatan' => $employe->gaji->tnj_jabatan,
-                    'tnj_ahli' => $employe->gaji->tnj_ahli,
-                    'total_tnj_makan' => $gajicount->tnj_makan,
-
-                    'tnj_perumahan' => $gajicount->tnj_perumahan,
-                    'total_tnj_shift' => $gajicount->tnj_shift,
-                    'total_tnj_transport' => $gajicount->tnj_transport,
-                    'tnj_lapangan' => $gajicount->tnj_lapangan,
-                    'tnj_lain' => $gajicount->tnj_lain,
-                    'rapel' => $gajicount->rapel,
-                    'lembur' => $gajicount->lembur,
-
-                    'tnj_bpjs_tk' => $gajicount->bpjs_var->tnj_bpjs_tk_P,
-                    'tnj_bpjs_kes' => $gajicount->bpjs_var->tnj_bpjs_kes_P,
-                    'pot_bpjs_tk' => $gajicount->bpjs_var->pot_bpjs_tk_E,
-                    'pot_bpjs_kes' => $gajicount->bpjs_var->pot_bpjs_kes_E,
-                    'pot_sakit' => $gajicount->potongan_lainnya->pot_sakit,
-                    'pot_kosong' => $gajicount->potongan_lainnya->pot_kosong,
-                    'pot_terlambat' => $gajicount->potongan_lainnya->pot_terlambat,
-                    'pot_perjalanan' => $gajicount->potongan_lainnya->pot_perjalanan,
-
-                    'total' => round($gajicount->total),
-                    'status' => 'Pending',
-                    'employe_id' => $employe->id,
-                    'gaji_submit_id' => $submission->id,
-                ]);
-            }
-        }
-        $submission->update([
-            'total' => $total,
-            'jumlah' => $jml,
-            'type' => 'Gaji Bulanan',
-            'status' => "Pending",
-        ]);
-        return redirect()->route('page_gaji')->with('succ', 'Success Sumbit')->withInput();
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->with('err', 'Failed Sumbit')->withInput();
-        // }
-    }
-    public function destroy(GajiSubmit $submission)
-    {
-        try {
-            $submission->delete();
-            return redirect()->route('page_gaji')->with('succ', 'Success Delete')->withInput();
-        } catch (\Exception $e) {
-            return redirect()->back()->with('err', 'Failed Delete')->withInput();
-        }
-    }
-    public function show(GajiSubmit $submission)
-    {
-        return view('pages.Gaji.Submission.PageDetailSubmission', [
-            'users' => User::all()->where('username', '!=', 'superuser'),
-            'payrol' => $submission,
-        ]);
-    }
-    public function printexcelsubmission(GajiSubmit $submission)
-    {
-        // dd($slip);
-        return view('pages.Gaji.Submission.PagePrintSubmission', [
-            'payroll' => $submission
-        ]);
-        // $data = $submission->gajislip()->get()->all();
-        // // dd($data);
-        // view()->share('payrol', $submission);
-        // $pdf = FacadePdf::loadView(
-        //     'pages.Gaji.Submission.PageDetailSubmission',
-        //     $data
-        // );
-        // // download PDF file with download method
-        // return $pdf->download('pdf_file.pdf');
-    }
-    public function user_resource($user)
-    {
-        $absensi = $user->employee->absensiForCurrentMonth();
-
-        $data = [
-            'slug' => $user->slug,
-            'employee' => $user->employee,
-            'name' => $user->name,
-            'position' => $user->employee->position != null ? $user->employee->position->position : null,
-            'golongan' => $user->employee->golongan != null ? $user->employee->golongan->golongan : null,
-            'employe_uuid' => $user->employee->uuid,
-            'absensi' => $absensi,
-            'lembur' => $user->getcurrentlembur(),
-            'contract' => $user->getContrackAttribute(),
-        ];
-        return (object)$data;
     }
 }

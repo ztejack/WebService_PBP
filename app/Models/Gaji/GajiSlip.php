@@ -15,6 +15,12 @@ class GajiSlip extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
+        'jabatan',
+        'golongan',
+        'masa_kerja',
+        'status_keluarga',
+        'type',
         'date',
         'gapok',
         'tnj_jabatan',

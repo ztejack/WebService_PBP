@@ -182,6 +182,10 @@
                                 class="fw-bold mx-2">Start Work:</span>
                             <span>{{ $user->date_start ?: '-' }}</span>
                         </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bxs-timer"></i><span
+                                class="fw-bold mx-2">End Contract:</span>
+                            <span>{{ $user->date_end_contract ?: '-' }}</span>
+                        </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-event"></i><span
                                 class="fw-bold mx-2">Tenure:</span> <span>{{ $user->tenure ?: '-' }}</span>
                         </li>
@@ -191,6 +195,10 @@
                         </li>
                         <li class="d-flex align-items-center mb-3"><i class="bx bx-map-pin"></i><span
                                 class="fw-bold mx-2">Address:</span> <span>{{ $user->address ?: '-' }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3"><i class="bx bx-calendar-week"></i><span
+                                class="fw-bold mx-2">TTL:</span>
+                            <span>{{ $user->tempat ? $user->tempat .' '. $user->tanggal : '-' }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-3"><i
                                 class="bx {{ $user->gender ? 'bx-male-sign' : 'bx-female-sign' }}"></i><span

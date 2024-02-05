@@ -52,6 +52,8 @@ class GajiController extends Controller
                 'pot_bpjs_tk_E' => false,
                 'tnj_bpjs_kes_P' => false,
                 'pot_bpjs_kes_E' => false,
+                'pot_bpjs_tk_R' => false,
+                'pot_bpjs_kes_R' => false,
             ];
             return $bpjs_count;
         }
@@ -91,6 +93,10 @@ class GajiController extends Controller
             'pot_bpjs_tk_E' => round($pot_bpjs_TK + $tnj_bpjs_TK),
             'tnj_bpjs_kes_P' => round($tnj_bpjs_kes_P),
             'pot_bpjs_kes_E' => round($pot_bpjs_kes_E + $tnj_bpjs_kes_P),
+
+            'pot_bpjs_tk_R' => round($pot_bpjs_TK),
+            'pot_bpjs_kes_R' => round($pot_bpjs_kes_E),
+
         ];
         // dd($bpjs_count);
         return $bpjs_count;
@@ -110,16 +116,36 @@ class GajiController extends Controller
         $sumPerjalanan = $absensis->whereBetween('date', [$currentMonth, $endOfMonth])
             ->sum('perjalanan');
         // $sum_tnj_for_tnj_makan = array_sum([$sumSakit, $sumKosong, $sumTerlambat]);
-        $pot_sakit = ($tnj_makan + $tnj_transport) * $sumSakit;
-        $pot_terlambat = $tnj_makan * $sumTerlambat;
-        $pot_kosong = ($tnj_makan + $tnj_transport) * $sumKosong;
-        $pot_perjalanan = ($tnj_makan + $tnj_transport) * $sumPerjalanan;
+
+        // $pot_sakit = ($tnj_makan + $tnj_transport) * $sumSakit;
+        // $pot_terlambat = $tnj_makan * $sumTerlambat;
+        // $pot_kosong = ($tnj_makan + $tnj_transport) * $sumKosong;
+        // $pot_perjalanan = ($tnj_makan + $tnj_transport) * $sumPerjalanan;
+
         // dd($pot_perjalanan);
+        // $potongan = (object)[
+        //     'pot_sakit' => $pot_sakit,
+        //     'pot_terlambat' => $pot_terlambat,
+        //     'pot_kosong' => $pot_kosong,
+        //     'pot_perjalanan' => $pot_perjalanan,
+        // ];
+        $pot_sakit = $tnj_makan * $sumSakit;
+        $pot_terlambat = $tnj_makan * $sumTerlambat;
+        $pot_kosong = $tnj_makan * $sumKosong;
+        $pot_perjalanan = $tnj_makan * $sumPerjalanan;
+        $pot_makan = $pot_sakit + $pot_terlambat + $pot_kosong + $pot_perjalanan;
+
+        $pot_sakit = $tnj_transport * $sumSakit;
+        $pot_kosong = $tnj_transport * $sumKosong;
+        $pot_perjalanan = $tnj_transport * $sumPerjalanan;
+        $pot_transport = $pot_sakit + $pot_kosong + $pot_perjalanan;
+
+        // dd(['makan' => $pot_makan, 'transport' => $pot_transport]);
         $potongan = (object)[
-            'pot_sakit' => $pot_sakit,
-            'pot_terlambat' => $pot_terlambat,
-            'pot_kosong' => $pot_kosong,
-            'pot_perjalanan' => $pot_perjalanan,
+            'pot_tnj_makan' => $pot_makan,
+            'pot_tnj_transport' => $pot_transport,
+            // 'pot_tnj_makan' => 0,
+            // 'pot_tnj_transport' => 0,
         ];
         return $potongan;
     }
@@ -141,33 +167,6 @@ class GajiController extends Controller
     {
         $gaji = $user->employee->gaji;
         if ($user->employee->contract->contract == 'DIREKSI') {
-            // $gapok = $gaji->gapok;
-            // $tunjab = $gaji->tnj_jabatan;
-            // $tnj_perumahan = $gaji->tnj_perumahan;
-            // $tnj_ubp = $gaji->tnj_bantuan_perumahan;
-            // $tnj_dana_pensiun = $gaji->tnj_dana_pensiun;
-            // $tnj_simmode = $gaji->tnj_simmode;
-            // $tnj_bpjs_tk = $gaji->tnj_bpjs_tk;
-            // $tnj_bpjs_jkm = $gaji->tnj_bpjs_jkm;
-            // $tnj_bpjs_jht = $gaji->tnj_bpjs_jht;
-            // $tnj_bpjs_jp = $gaji->tnj_bpjs_jp;
-            // $tnj_bpjs_kes = $gaji->tnj_bpjs_kes;
-            // $tnj_pajak = $gaji->tnj_pajak;
-            // $tnj_lain = $gaji->tnj_lain;
-            // // potongan
-            // $pot_spba = $gaji->pot_serikat_pegawai_ba;
-            // $pot_lazis = $gaji->pot_lazis;
-            // $pot_dana_pensiun = $gaji->pot_dana_pensiun;
-            // $pot_simmode = $gaji->pot_simmode;
-            // $pot_koperasi = $gaji->pot_koperasi;
-            // $pot_bpjs_tk = $gaji->pot_bpjs_tk;
-            // $pot_bpjs_jkm = $gaji->pot_bpjs_jkm;
-            // $pot_bpjs_jht = $gaji->pot_bpjs_jht;
-            // $pot_bpjs_jp = $gaji->pot_bpjs_jp;
-            // $pot_bpjs_kes = $gaji->pot_bpjs_kes;
-            // $pot_pajak = $gaji->pot_pajak;
-            // $pot_lain = $gaji->pot_lain;
-
             $rapels = $user->employee->getcurrentrapel();
             $rapel = $rapels == null ? 0 : $rapels->jumlah;
             $rapelcount = $user->employee->rapel;
@@ -315,6 +314,15 @@ class GajiController extends Controller
         $lemburcount = $user->employee->lembur;
         // dd($lemburcount);
         $rapelcount = $user->employee->rapel;
+        $absens = $user->absensi->where('date', '>=', now()->format('m Y'));
+        $absensis = $user->absensi->sortByDesc('created_at');
+
+        $absensiscount = $this->total_absensi($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
+        $potongan_lainnya = $this->absensi_count($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
+        // dd($potongan_lainnya);
+        $sum_tnj_makan =  $sum_tnj_makan - $potongan_lainnya->pot_tnj_makan;
+        $sum_tnj_transport = $sum_tnj_transport - $potongan_lainnya->pot_tnj_transport;
+
         $total2 = array_sum([
             $sum_tnj_makan,
             $sum_tnj_perumahan,
@@ -332,29 +340,22 @@ class GajiController extends Controller
         $potongan_pajak = $gaji->pot_pajak;
         $potongan_lain = $gaji->pot_lain;
 
-        $absens = $user->absensi->where('date', '>=', now()->format('m Y'));
-        $absensis = $user->absensi->sortByDesc('created_at');
-
-        $absensiscount = $this->total_absensi($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
-
-        $potongan_lainnya = $this->absensi_count($user->employee->absensi()->orderBy('created_at', 'desc')->get(), $tnj_makan, $tnj_transport);
-
-        $total_potongan_lainnya = array_sum([
-            $potongan_lainnya->pot_sakit,
-            $potongan_lainnya->pot_kosong,
-            $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan
-        ]);
+        // $total_potongan_lainnya = array_sum([
+        //     $potongan_lainnya->pot_sakit,
+        //     $potongan_lainnya->pot_kosong,
+        //     $potongan_lainnya->pot_terlambat,
+        //     $potongan_lainnya->pot_perjalanan
+        // ]);
 
         $total3 = array_sum([
             $potongan_lain,
             $potongan_pajak,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
-            $potongan_lainnya->pot_sakit,
-            $potongan_lainnya->pot_kosong,
-            $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan
+            // $potongan_lainnya->pot_sakit,
+            // $potongan_lainnya->pot_kosong,
+            // $potongan_lainnya->pot_terlambat,
+            // $potongan_lainnya->pot_perjalanan
         ]);
 
         $total = $total1 + $total2 - $total3;
@@ -391,7 +392,7 @@ class GajiController extends Controller
             'tunjangan_BPJS_kes' => round($bpjs_count->tnj_bpjs_kes_P),
 
             'potongan_lainnya' => $potongan_lainnya,
-            'total_potongan_lainnya' => $total_potongan_lainnya,
+            // 'total_potongan_lainnya' => $total_potongan_lainnya,
             // 'potongan_lainnya'
             'potongan_pajak' => $potongan_pajak,
             'potongan_lain' => $potongan_lain,
@@ -543,6 +544,8 @@ class GajiController extends Controller
                         'tnj_bpjs_kes' => $bpjscount->tnj_bpjs_kes_P,
                         'pot_bpjs_tk' => $bpjscount->pot_bpjs_tk_E,
                         'pot_bpjs_kes' => $bpjscount->pot_bpjs_kes_E,
+                        'pot_bpjs_kes_R' => $bpjscount->pot_bpjs_kes_R,
+                        'pot_bpjs_tk_R' => $bpjscount->pot_bpjs_tk_R
                     ]
                 );
                 $gajicount = $gaji->employee->gajicount();

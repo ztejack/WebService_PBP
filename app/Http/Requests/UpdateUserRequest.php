@@ -70,6 +70,7 @@ class UpdateUserRequest extends FormRequest
             'satker' => '',
             'golongan' => '',
             'date_start' => '',
+            'date_end_contract' => '',
             'contract' => '',
             'val_tenure' => '',
         ];

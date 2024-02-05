@@ -89,7 +89,8 @@
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="/users/{{ $user->slug }}/update">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('update_view_user', $user->slug) }}">
                                                         <i class='bx bx-edit'></i>
                                                         Edit
                                                     </a>

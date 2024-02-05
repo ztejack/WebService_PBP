@@ -142,11 +142,7 @@
                                 <td><span class="numbers">{{ $potongan_lain }}</span></td>
                             </tr>
                         @endif
-                        @if (
-                            $potongan_lainnya->pot_sakit > 0 ||
-                                $potongan_lainnya->pot_terlambat > 0 ||
-                                $potongan_lainnya->pot_kosong > 0 ||
-                                $potongan_lainnya->pot_perjalanan > 0)
+                        {{-- @if ($potongan_lainnya->pot_sakit > 0 || $potongan_lainnya->pot_terlambat > 0 || $potongan_lainnya->pot_kosong > 0 || $potongan_lainnya->pot_perjalanan > 0)
                             <tr>
                                 <td class="pe-3 fw-bold">Potongan Lain</td>
                             </tr>
@@ -179,7 +175,7 @@
                                 <td><span class="numbers">{{ $potongan_lainnya->pot_perjalanan }} </span>
                                 </td>
                             </tr>
-                        @endif
+                        @endif --}}
 
                         <tr>
                             <td>

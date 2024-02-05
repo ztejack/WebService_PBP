@@ -26,6 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user_end_contract = User::whereHas('employee', function ($query) {
+            $twoMonthsFromNow = now()->addMonths(2);
+            $query->where('date_end_contract', '<=', $twoMonthsFromNow);
+        })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->get();
+        // $user_end_contract = User::whereHas('employee', function ($query) {
+        //     $twoMonthsFromNow = now()->addMonths(2);
+        //     $query->where('date_end_contract', '<=', $twoMonthsFromNow);
+        // })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->get();
+        // dd($user_end_contract);
         return view(
             'home',
             [
@@ -34,23 +43,25 @@ class HomeController extends Controller
                     $query->whereHas('contract', function ($query) {
                         $query->whereIn('contract', ['TETAP']);
                     });
-                })->where('username', '!=', 'superuser')->count(),
+                })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->count(),
                 'employee_pkwt_count' => User::whereHas('employee', function ($query) {
                     $query->whereHas('contract', function ($query) {
                         $query->whereNotIn('contract', ['TETAP', 'DIREKSI', 'KOMISARIS']);
                     });
-                })->where('username', '!=', 'superuser')->count(),
+                })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->count(),
                 'direksi_count' => User::whereHas('employee', function ($query) {
                     $query->whereHas('contract', function ($query) {
                         $query->whereIn('contract', ['DIREKSI']);
                     });
-                })->where('username', '!=', 'superuser')->count(),
+                })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->count(),
                 'komisaris_count' => User::whereHas('employee', function ($query) {
                     $query->whereHas('contract', function ($query) {
                         $query->whereIn('contract', ['KOMISARIS']);
                     });
-                })->where('username', '!=', 'superuser')->count(),
-                'submision_counting' => GajiSubmit::sum('total')
+                })->where('username', '!=', 'superuser')->where('username', '!=', 'adminpbp')->count(),
+                'submision_counting' => GajiSubmit::sum('total'),
+                'user_end_contract' => $user_end_contract,
+
             ]
         );
     }

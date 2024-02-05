@@ -32,7 +32,9 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('golongan')->nullable();
+            $table->string('masa_kerja')->nullable()->default(false);
             $table->string('status_keluarga')->nullable();
+            $table->string('type')->nullable();
             $table->string('date')->nullable();
             $table->string('gapok')->nullable()->default(0);
             $table->string('tnj_jabatan')->nullable()->default(0);

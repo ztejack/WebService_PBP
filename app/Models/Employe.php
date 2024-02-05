@@ -11,6 +11,8 @@ use App\Models\Gaji\GajiRapel;
 use App\Models\Gaji\GajiParamTnjng;
 use App\Models\Gaji\GajiSlip;
 use App\Models\Gaji\GajiSubmit;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -37,6 +39,7 @@ class Employe extends Model
         'status',
         'status_keluarga',
         'date_start',
+        'date_end_contract',
         'tenure',
         'user_id',
         'contract_id',
@@ -46,7 +49,9 @@ class Employe extends Model
         'golongan_id',
         'family_status_id'
     ];
-
+    protected $casts = [
+        'date_end_contract' => 'date:Y-m-d',
+    ];
 
     public function user()
     {
@@ -179,9 +184,15 @@ class Employe extends Model
             $total = $this->gaji->total_gaji;
 
             // need revisi dari excel
-            $potongan_bpjs_tk = $this->gaji->pot_bpjs_tk;
+            $potongan_bpjs_tk = $this->gaji->pot_bpjs_tk_R;
+            // $potongan_bpjs_kes = $this->gaji->pot_bpjs_kes_R;
             $tunjangan_bpjs_tk = $this->gaji->tnj_bpjs_tk;
-
+            $tunjangan_bpjs_kes = $this->gaji->tnj_bpjs_kes;
+            // $pengurang_bpjs = $potongan_bpjs_kes + $potongan_bpjs_tk;
+            $pengurang_bpjs = $potongan_bpjs_tk;
+            $total += $tunjangan_bpjs_kes + $tunjangan_bpjs_tk;
+            // $total += $potongan_bpjs_kes + $potongan_bpjs_tk;
+            $total += $potongan_bpjs_tk;
             // dd($total);
             if ($total != false) {
                 $pph21_new = 1;
@@ -193,7 +204,9 @@ class Employe extends Model
                     $i++;
                     $peng_bruto = $pph + $total;
                     $bi_jab = (($peng_bruto * 5) / 100) > $param->biaya_jabatan ? $param->biaya_jabatan : (($peng_bruto * 5) / 100);
-                    $net_tahun = ($peng_bruto - $bi_jab) * 12;
+                    $jumlah_pengurang = $bi_jab + $pengurang_bpjs;
+                    $net_tahun = ($peng_bruto - $jumlah_pengurang) * 12;
+
                     $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
                     if ($pkp <= $param->jumlah_kategori_pertama) {
                         $pph21 = (($pkp * $param->persentase_kategori_pertama) / 100) - $param->pengurang_kategori_pertama;
@@ -212,6 +225,9 @@ class Employe extends Model
                     //     'pengbruto' => $peng_bruto,
                     //     'bijab' => $bi_jab,
                     //     'net_tahun' => $net_tahun,
+                    //     'jumlah_bpjs_tk' => $potongan_bpjs_tk,
+                    //     'jumlah_bpjs_kes' => $potongan_bpjs_kes,
+                    //     'jumlah_pengurang' => $jumlah_pengurang,
                     //     'ptkp' => $ptkp,
                     //     'pkp' => $pkp,
                     //     'pph21' => $pph21,
@@ -237,6 +253,81 @@ class Employe extends Model
             return false;
         }
     }
+    // done with improf
+    // public function pph21count()
+    // {
+    //     if ($this->contract->contract != 'DIREKSI' && $this->contract->contract != 'KOMISARIS') {
+    //         $ptkp = $this->familystatus->gajiparamfamily->tnj_familystatus;
+    //         $total = $this->gaji->total_gaji;
+
+    //         // need revisi dari excel
+    //         $potongan_bpjs_tk = $this->gaji->pot_bpjs_tk_R;
+    //         $potongan_bpjs_kes = $this->gaji->pot_bpjs_kes_R;
+    //         $tunjangan_bpjs_tk = $this->gaji->tnj_bpjs_tk;
+    //         $tunjangan_bpjs_kes = $this->gaji->tnj_bpjs_kes;
+    //         $pengurang_bpjs = $potongan_bpjs_kes + $potongan_bpjs_tk;
+    //         $total += $tunjangan_bpjs_kes + $tunjangan_bpjs_tk;
+    //         $total += $potongan_bpjs_kes + $potongan_bpjs_tk;
+    //         // dd($total);
+    //         if ($total != false) {
+    //             $pph21_new = 1;
+    //             $pph = 0;
+    //             // $resultArray = [];
+    //             $i = 1;
+    //             $param = ParamPPH::first();
+    //             while ($i != 0) {
+    //                 $i++;
+    //                 $peng_bruto = $pph + $total;
+    //                 $bi_jab = (($peng_bruto * 5) / 100) > $param->biaya_jabatan ? $param->biaya_jabatan : (($peng_bruto * 5) / 100);
+    //                 $jumlah_pengurang = $bi_jab + $pengurang_bpjs;
+    //                 $net_tahun = ($peng_bruto - $jumlah_pengurang) * 12;
+
+    //                 $pkp = round($net_tahun - $ptkp, -3, PHP_ROUND_HALF_DOWN);
+    //                 if ($pkp <= $param->jumlah_kategori_pertama) {
+    //                     $pph21 = (($pkp * $param->persentase_kategori_pertama) / 100) - $param->pengurang_kategori_pertama;
+    //                 } elseif ($pkp <= $param->jumlah_kategori_kedua) {
+    //                     $pph21 = (($pkp * $param->persentase_kategori_kedua) / 100) - $param->pengurang_kategori_kedua;
+    //                 } elseif ($pkp <= $param->jumlah_kategori_ketiga) {
+    //                     $pph21 = (($pkp * $param->persentase_kategori_ketiga) / 100) - $param->pengurang_kategori_ketiga;
+    //                 } elseif ($pkp <= $param->jumlah_kategori_keempat) {
+    //                     $pph21 = (($pkp * $param->persentase_kategori_keempat) / 100) - $param->pengurang_kategori_keempat;
+    //                 } elseif ($pkp > $param->jumlah_kategori_kelima) {
+    //                     $pph21 = (($pkp * $param->persentase_kategori_kelima) / 100) - $param->pengurang_kategori_kelima;
+    //                 }
+    //                 $pph21_new = round(($pph21 / 12));
+    //                 // $resultArray[] = [
+    //                 //     'iteration' => $i,
+    //                 //     'pengbruto' => $peng_bruto,
+    //                 //     'bijab' => $bi_jab,
+    //                 //     'net_tahun' => $net_tahun,
+    //                 //     'jumlah_bpjs_tk' => $potongan_bpjs_tk,
+    //                 //     'jumlah_bpjs_kes' => $potongan_bpjs_kes,
+    //                 //     'jumlah_pengurang' => $jumlah_pengurang,
+    //                 //     'ptkp' => $ptkp,
+    //                 //     'pkp' => $pkp,
+    //                 //     'pph21' => $pph21,
+    //                 //     'pph_new' => $pph21_new,
+    //                 //     'pph' => $pph
+    //                 // ];
+    //                 if ($pph == $pph21_new) {
+    //                     break;
+    //                     $i = 0;
+    //                 }
+    //                 $pph = $pph21_new;
+    //             }
+    //             // dd($resultArray);
+    //             $pph = $pph <= 0 ? 0 : $pph;
+    //             $this->gaji->update(
+    //                 [
+    //                     'tnj_pajak' => $pph,
+    //                     'pot_pajak' => $pph
+    //                 ]
+    //             );
+    //             return $pph;
+    //         }
+    //         return false;
+    //     }
+    // }
 
     // error 27/11/2023
     public function gajisubmitcheck($gajiSubmitid)
@@ -486,6 +577,11 @@ class Employe extends Model
 
         // $lemburcount = $this->lembur;
         // $rapelcount = $this->rapel;
+        $absens = $this->absensi->where('date', '>=', now()->format('m Y'));
+        $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
+        $sum_tnj_makan =  $sum_tnj_makan - $potongan_lainnya->pot_tnj_makan;
+        $sum_tnj_transport = $sum_tnj_transport - $potongan_lainnya->pot_tnj_transport;
+
         $total2 = array_sum([
             $sum_tnj_makan,
             $sum_tnj_bantuan_perumahan,
@@ -500,8 +596,6 @@ class Employe extends Model
             $rapel
         ]);
 
-        $absens = $this->absensi->where('date', '>=', now()->format('m Y'));
-        $potongan_lainnya = $GajiController->absensi_count($absens, $tnj_makan, $tnj_transport);
         $potongan_lain = $gaji->pot_lain;
         $potongan_pajak = $gaji->pot_pajak;
         // $potongan_pajak = $tunjangan_pajak;
@@ -511,11 +605,12 @@ class Employe extends Model
             // $bpjs_count->tnj_bpjs_kes_P,
             $bpjs_count->pot_bpjs_tk_E,
             $bpjs_count->pot_bpjs_kes_E,
-            $potongan_lainnya->pot_sakit,
-            $potongan_lainnya->pot_kosong,
-            $potongan_lainnya->pot_terlambat,
-            $potongan_lainnya->pot_perjalanan,
-            $potongan_pajak
+            // $potongan_lainnya->pot_sakit,
+            // $potongan_lainnya->pot_kosong,
+            // $potongan_lainnya->pot_terlambat,
+            // $potongan_lainnya->pot_perjalanan,
+            $potongan_pajak,
+            $potongan_lain,
         ]);
         $total = 0;
         $total_tanpa_pajak = $total1 + ($total2 - $tunjangan_pajak) - ($total3 - $potongan_pajak);
@@ -545,7 +640,7 @@ class Employe extends Model
                 'rapel' => $rapel,
                 'tnj_shift' => $sum_tnj_shift,
                 'bpjs_var' => $bpjs_count,
-                'potongan_lainnya' => $potongan_lainnya,
+                // 'potongan_lainnya' => $potongan_lainnya,
             ];
             return $return;
             // dd($return);
@@ -565,11 +660,52 @@ class Employe extends Model
             'lembur' => 0,
             'rapel' => 0,
             'bpjs_var' => $bpjs_count,
-            'potongan_lainnya' => $potongan_lainnya,
+            // 'potongan_lainnya' => $potongan_lainnya,
             'total_tanpa_pajak' => 0,
         ];
         return $return;
     }
+    function calculateRetirementDate($birthdate)
+    {
+        $retirementAge = 55;
+        // Convert the birthdate to a DateTime object
+        $birthdate = new DateTime($birthdate);
+
+        // Add the specified number of years to the birthdate
+        $retirementDate = $birthdate->modify("+$retirementAge years");
+        // dd([$retirementDate->format('Y-m-d'), $birthdate->format('Y-m-d')]);
+        // Format the retirement date as a string
+        return $retirementDate->format('Y-m-d');
+    }
+    function getTenureMonthValue()
+    {
+        $data = $this->tenure;
+        $values = explode(",", $data);
+        // Use regular expression to extract the value of Month
+        return $values[1];
+        // Return 0 if Month is not found
+        // return 0;
+    }
+    // public function contractEnd($query)
+    // {
+    //     $twoMonthsFromNow = now()->addMonths(2);
+    //     $query->where('date_end_contract', '<=', $twoMonthsFromNow);
+    // }
+    function contractEnd()
+    {
+        $endDate = $this->date_end_contract;
+        $diff = Carbon::now()->diffInMonths($endDate);
+
+        if ($diff >= 1) {
+            // Jika lebih dari atau sama dengan satu bulan, tampilkan jumlah bulan
+            return ($diff . ' ' . 'Bulan');
+        } else {
+            // Jika kurang dari satu bulan, tampilkan dalam hari
+            $daysRemaining = Carbon::now()->diffInDays($endDate);
+            return ($daysRemaining . ' ' . 'Hari');
+        }
+    }
+
 
     public static function boot()
     {
