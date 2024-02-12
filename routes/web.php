@@ -134,6 +134,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
             function () {
                 Route::get('detail/{slip}', [GajiSlipController::class, 'detail_slip_gaji'])->name('page_detail_slip_gaji');
                 Route::get('print/{slip}', [GajiSlipController::class, 'print_slip_gaji'])->name('page_print_slip_gaji');
+                Route::get('printpdf/{slip}', [GajiSlipController::class, 'print_slip_gaji_pdf'])->name('page_print_slip_gaji_pdf');
             }
         );
 
@@ -186,6 +187,7 @@ Route::prefix('gaji')->middleware(['auth'])->group(
                 Route::post('/delete/{submission}', [GajiSubmissionController::class, 'destroy'])->name('submission.delete');
                 Route::get('/detail/{submission}', [GajiSubmissionController::class, 'show'])->name('submission.show');
                 Route::get('/{submission}/print', [GajiSubmissionController::class, 'printexcelsubmission'])->name('submission.print');
+                Route::get('/{submission}/printpdf', [GajiSubmissionController::class, 'printpdfsubmission'])->name('submission.printpdf');
             }
         );
     }

@@ -65,8 +65,6 @@
                         @elseif($employe->contract->contract != 'DIREKSI' && $employe->contract->contract != 'KOMISARIS')
                             @include('pages.Gaji.Slip.components.BodyEmploye')
                         @endif
-
-
                     </div>
                 </div>
                 <!-- /Invoice -->
@@ -79,6 +77,11 @@
                                 target="_blank" href="{{ route('page_print_slip_gaji', $slip->id) }}"
                                 {{ $slip->gajisubmit->aprv_2 == true ? 'enable' : 'disabled' }}>
                                 <i class="bx bx-printer"></i>Print
+                            </a>
+                            <a class="btn btn-label-secondary w-100 mb-3 {{ $slip->gajisubmit->aprv_2 == true ? '' : 'disabled' }}"
+                                target="_blank" href="{{ route('page_print_slip_gaji_pdf', $slip->id) }}"
+                                {{ $slip->gajisubmit->aprv_2 == true ? 'enable' : 'disabled' }}>
+                                <i class="bx bx-printer"></i>Print PDF
                             </a>
                             <div
                                 class="card {{ $slip->gajisubmit->aprv_2 == true ? 'bg-label-success' : 'bg-label-warning' }} mb-3">

@@ -99,7 +99,7 @@ return array(
         /**
          * @var string
          */
-        'log_output_file' => null,
+        'log_output_file' => base_path(),
 
         /**
          * Whether to enable font subsetting or not.
@@ -134,7 +134,8 @@ return array(
          * @link http://www.ros.co.nz/pdf
          * @link http://www.php.net/image
          */
-        "pdf_backend" => "CPDF",
+        // "pdf_backend" => "CPDF",
+        "pdf_backend" => "auto",
 
         /**
          * PDFlib license key
@@ -235,7 +236,7 @@ return array(
          *
          * @var bool
          */
-        "enable_php" => false,
+        "enable_php" => true,
 
         /**
          * Enable inline Javascript
